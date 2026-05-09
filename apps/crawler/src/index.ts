@@ -1,76 +1,56 @@
 import { HtmlLayerDataExtactor } from "./extractor/htmlLayerDataExtractor";
-import { linkExtractor } from "./extractor/linkExtractor";
 import { fetchWebPage } from "./fetchWebPage";
-import { HtmlLayerUrlData } from "./types/htmlData.type";
-import { CrawlNetworkResult, NetworkSummaryType } from "./types/requestData.type";
-import { analyseDomainUrls } from "./utils/analyseDomainUrls";
-import { CheckCrawability } from "./utils/checkCrawability";
-import { checkIssues } from "./utils/checkIssues";
-import { checkSEO } from "./utils/checkUrlSEO";
+import { eachUrlNetwork } from "./networkAnalyses/eachUrlNetwork";
+import { EachUrlNetworkResultTypes } from "./types/eachUrlNetwork.types";
 
 // this store only the url, it has to crawl 
 const frontierQueue = new Set<string>();
 
 
-export type CrawledUrlInfo = {
-    path: string;
-    networkResult: CrawlNetworkResult;
-    htmlLayedData: HtmlLayerUrlData;
-}
-
-export type CrawledInfo = {
-    domain: string;
-    crawledUrlInfo: CrawledUrlInfo[]
-}
-
-
-const crawledUrl = new Map<string, CrawledInfo>();
 
 const MAX_CRAWL_DEPTH = 1;
 
 
-// frontierQueue.add("https://www.hellointerview.com/learn/system-design/problem-breakdowns/web-crawler")
-// frontierQueue.add("https://beatroom.space/")
-frontierQueue.add("https://raw.githubusercontent.com/")
+frontierQueue.add("https://www.hellointerview.com/learn/system-design/problem-breakdowns/web-crawler")
+// frontierQueue.add("https://raw.githubusercontent.com/")
 // frontierQueue.add("https://github.com/search?q=react")
 
 
 
 
-
+const start = performance.now();
 async function crawlerHandler(crawlUrl: string) {
     console.log("starting crawling the url")
+    const urlNetworkAnalyses: EachUrlNetworkResultTypes[] = [];
     const mainUrl = new URL(crawlUrl);
-    const { internalLinks } = await crawler(mainUrl);
+    const { internalLinks, eachUrlNetworkAnalyses } = await crawler(mainUrl);
+    urlNetworkAnalyses.push(eachUrlNetworkAnalyses!)
     console.log(`done ${crawlUrl}`)
 
-    const urlQueue = new Set<string>(internalLinks.slice(0, 6));
+    const urlQueue = new Set<string>(internalLinks);
     console.log(`total url to crawl is ${urlQueue.size}`)
     let i = 1;
     for (const url of urlQueue) {
         console.log(`${i} ${url}`)
-        await crawler(new URL(url));
+        const { eachUrlNetworkAnalyses } = await crawler(new URL(url));
+        if (eachUrlNetworkAnalyses) {
+            urlNetworkAnalyses.push(eachUrlNetworkAnalyses);
+        }
         i++;
         console.log(`done ${i - 1} ${url}`)
     }
     console.log("url has been crawled")
-    console.log(JSON.stringify([...crawledUrl], null, 2));
-    const origin = new URL(crawlUrl).origin;
-    const pageResult = crawledUrl.get(origin);
-    if (pageResult) {
-        checkIssues(pageResult);
-        checkSEO(pageResult);
 
-    }
+    console.log(...urlNetworkAnalyses)
 
+    console.log("total crawl time", performance.now() - start)
 }
-
-
 
 
 
 async function crawler(url: URL): Promise<{
     internalLinks: string[]
+    eachUrlNetworkAnalyses?: EachUrlNetworkResultTypes
 }> {
     const { success, data } = await fetchWebPage(url);
     if (!success) {
@@ -79,34 +59,13 @@ async function crawler(url: URL): Promise<{
         };
     }
 
-    // ⚠️ check the crawability of the url and set the crawlability in requestLayedData
-    const crawlability = CheckCrawability();
+    const urlNetworkAnalyses = eachUrlNetwork(data.response);
 
+    // ⚠️ check the crawability of the url and set the crawlability in requestLayedData
     const htmlLayedData = HtmlLayerDataExtactor(data.html, url);
-    if (crawledUrl.has(url.origin)) {
-        crawledUrl.get(url.origin)?.crawledUrlInfo.push({
-            path: url.pathname,
-            networkResult: {
-                info: data.info,
-                crawlability
-            },
-            htmlLayedData
-        })
-    } else {
-        crawledUrl.set(url.origin, {
-            domain: url.origin,
-            crawledUrlInfo: [{
-                path: url.pathname,
-                networkResult: {
-                    info: data.info,
-                    crawlability
-                },
-                htmlLayedData
-            }]
-        })
-    }
     return {
-        internalLinks: htmlLayedData.links.internal
+        internalLinks: htmlLayedData.links.internal,
+        eachUrlNetworkAnalyses: urlNetworkAnalyses
     }
 }
 
