@@ -1,0 +1,28 @@
+{
+  "name": "api",
+  "version": "0.0.0",
+  "description": "exposes api ",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@repo/queue": "*",
+    "@types/cors": "^2.8.19",
+    "axios": "^1.12.0",
+    "cors": "^2.8.6",
+    "dotenv": "^16.0.3",
+    "express": "^5.2.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "*",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.2"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "@repo/queue",
+  "version": "0.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "scripts": {},
+  "devDependencies": {
+    "@repo/typescript-config": "*",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "redis": "^5.12.1"
+  }
+}
