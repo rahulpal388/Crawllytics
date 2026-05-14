@@ -11,14 +11,13 @@ type RedisConfigType = {
 export async function createRedisConnection(redisConfig: RedisConfigType
 ): Promise<ReturnType<typeof createClient>> {
 
-    console.log(redisConfig)
     const client = await createClient({
         url: redisConfig.url,
         password: redisConfig.password,
         username: redisConfig.username,
     }).on("error", (err) => {
         console.error(`Error Connecting To Redis Server : ${err.message}`)
-        process.exit();
+        process.exit(1);
     }).connect()
 
 
