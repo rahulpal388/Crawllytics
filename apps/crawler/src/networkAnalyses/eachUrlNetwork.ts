@@ -1,5 +1,5 @@
 import { HttpsResponseType } from "@/fetchWebPage.js";
-import { EachUrlNetworkResultTypes } from "@/types/eachUrlNetwork.types.js";
+import { EachUrlNetworkResultTypes } from "@/types/eachUrlNetwork.js";
 
 
 export function eachUrlNetwork(response: HttpsResponseType): EachUrlNetworkResultTypes {

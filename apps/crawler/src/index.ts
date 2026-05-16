@@ -1,5 +1,6 @@
 import { consumer } from "@/consumer.js";
 import { crawler } from "@/crawler.js";
+import { htmlHeaderExtractor } from "@/extractor/htmlHeader.js";
 import { validateEnv } from "@/utils/validateEnv.js";
 import { createRedisConnection } from "@repo/queue/queue";
 import "dotenv/config"
@@ -38,3 +39,5 @@ async function main() {
 
 
 main();
+
+

@@ -1,7 +1,6 @@
-import { HtmlLayerDataExtactor } from "@/extractor/htmlLayerDataExtractor.js";
 import { fetchWebPage } from "@/fetchWebPage.js";
 import { eachUrlNetwork } from "@/networkAnalyses/eachUrlNetwork.js";
-import { EachUrlNetworkResultTypes } from "@/types/eachUrlNetwork.types.js";
+import { EachUrlNetworkResultTypes } from "@/types/eachUrlNetwork.js";
 
 
 
@@ -22,9 +21,9 @@ export async function crawler(url: URL): Promise<{
     console.log(urlNetworkAnalyses);
 
     // ⚠️ check the crawability of the url and set the crawlability in requestLayedData
-    const htmlLayedData = HtmlLayerDataExtactor(data.html, url);
+    // const htmlLayedData = HtmlLayerDataExtactor(data.html, url);
     return {
-        internalLinks: htmlLayedData.links.internal,
+        internalLinks: [], // htmlLayedData.links.internal,
         eachUrlNetworkAnalyses: urlNetworkAnalyses
     }
 }

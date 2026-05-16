@@ -1,4 +1,4 @@
-import { ResponseHeadersType } from "./responseHeaders.types";
+import { ResponseHeadersType } from "@/types/responseHeaders.js";
 
 
 export type EachUrlNetworkResultTypes = {
