@@ -1,43 +1,50 @@
 import { consumer } from "@/consumer.js";
 import { crawler } from "@/crawler.js";
+import { htmlHeadingExtractor } from "@/extractor/htmlHeadings.js";
 import { htmlHeaderExtractor } from "@/extractor/htmlHeader.js";
 import { validateEnv } from "@/utils/validateEnv.js";
 import { createRedisConnection } from "@repo/queue/queue";
 import "dotenv/config"
+import { tempHtml } from "@/extractor/tempHtml.js";
 
 
 
 validateEnv();
 
-export const redisClient = await createRedisConnection({
-    url: process.env.REDIS_URL,
-    password: process.env.REDIS_PASSWORD,
-    username: process.env.REDIS_USERNAME
-})
+// export const redisClient = await createRedisConnection({
+//     url: process.env.REDIS_URL,
+//     password: process.env.REDIS_PASSWORD,
+//     username: process.env.REDIS_USERNAME
+// })
 
 
-async function main() {
-    let lastId = "$"
+// async function main() {
+//     let lastId = "$"
 
-    while (true) {
-        const res = await consumer({ key: "crawl:url", id: lastId });
+//     while (true) {
+//         const res = await consumer({ key: "crawl:url", id: lastId });
 
-        if (!res) {
-            continue;
-        }
+//         if (!res) {
+//             continue;
+//         }
 
-        lastId = res.messages[0]?.id || "$";
-        const url = res.messages[0]?.message.url
-        if (url) {
-            crawler(new URL(url));
-        }
+//         lastId = res.messages[0]?.id || "$";
+//         const url = res.messages[0]?.message.url
+//         if (url) {
+//             crawler(new URL(url));
+//         }
 
-    }
-}
-
-
+//     }
+// }
 
 
-main();
+
+
+// main();
+
+// const a = htmlHeaderExtractor("", "");
+// console.log(a);
+
+console.log(htmlHeadingExtractor(tempHtml));
 
 

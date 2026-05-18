@@ -2,3 +2,18 @@
 @import "tailwindcss";
 
 @source "../../../packages/ui/src/components/";
+
+
+@keyframes line {
+    from {
+        top: -8rem;
+    }
+
+    to {
+        top: 100%;
+    }
+}
+
+.animate-line {
+    animation: line 3s linear infinite;
+}

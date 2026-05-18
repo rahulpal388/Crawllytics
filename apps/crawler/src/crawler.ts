@@ -1,6 +1,6 @@
 import { fetchWebPage } from "@/fetchWebPage.js";
 import { eachUrlNetwork } from "@/networkAnalyses/eachUrlNetwork.js";
-import { EachUrlNetworkResultTypes } from "@/types/eachUrlNetwork.js";
+import { EachUrlNetworkResultTypes } from "@/types/eachUrlNetworkTypes.js";
 
 
 

@@ -1,5 +1,5 @@
 import { tempHtml } from "@/extractor/tempHtml.js";
-import { HTMLCanonicalType, HTMLHeaderType, HTMLMetaDescriptionType, HTMLMetaRobotType, HTMLMetaViewportType, HTMLTitleType } from "@/types/htmlHeaderResponse.js";
+import { HTMLCanonicalType, HTMLHeaderType, HTMLMetaDescriptionType, HTMLMetaRobotType, HTMLMetaViewportType, HTMLTitleType } from "@/types/htmlHeaderResponseTypes.js";
 import { isAbsoluteUrl } from "@/utils/isAbsoluteUrl.js";
 import * as cherrio from "cheerio";
 
@@ -7,7 +7,7 @@ import * as cherrio from "cheerio";
 export function htmlHeaderExtractor(html: string, url: string): HTMLHeaderType {
 
 
-    const $ = cherrio.load(tempHtml);
+    const $ = cherrio.load(html);
 
     // <--------------  title section   --------------->
     const titleValue: HTMLTitleType[] = [];
