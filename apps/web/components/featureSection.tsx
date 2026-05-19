@@ -7,7 +7,7 @@ const featuresItems: FeatureCardProps[] = [{
     title: "Page Speed & Core Web Vitals",
     description: "Measure loading performance, rendering stability, and responsiveness to identify speed bottlenecks affecting rankings and user experience.",
 
-    icon: <Globe />,
+    icon: <Globe size={24} />,
     about: ["LCP", "CLS", "FID", "TTFB"]
 },
 {
@@ -48,8 +48,8 @@ export function FeatureSection() {
     return <>
         <div className=" py-8 px-12 ">
             <div className=" max-w-[40rem] ">
-                <h2 className=" text-3xl font-semibold  " >Complete SEO Intelligence Platform</h2>
-                <p className=" text-sm mt-2 " >Analyze performance, monitor rankings, audit technical SEO, and optimize every page for better search visibility.</p>
+                <h2 className=" text-5xl font-semibold  " >Complete SEO Intelligence Platform</h2>
+                <p className=" text-md mt-2 pr-20 " >Analyze performance, monitor rankings, audit technical SEO, and optimize every page for better search visibility.</p>
             </div>
             <div>
 
