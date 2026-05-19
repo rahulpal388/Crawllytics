@@ -19,9 +19,6 @@ export function htmlHeaderExtractor(html: string, url: string): HTMLHeaderType {
             text,
             lengthChar,
             lengthPixel,
-            isDuplicate: false, // ⚠️ not complete
-            isEmpty: text.trim() === "",
-            exist: true
         });
     });
 
@@ -36,9 +33,6 @@ export function htmlHeaderExtractor(html: string, url: string): HTMLHeaderType {
             text,
             lengthChar,
             lengthPixel,
-            isDuplicate: false,
-            isEmpty: text.trim() === "",
-            exist: true
         })
     })
 
@@ -112,7 +106,6 @@ export function htmlHeaderExtractor(html: string, url: string): HTMLHeaderType {
         }
 
         canonical.push({
-            exists: true,
             canonicalUrl,
             isSelfReferencing,
             isCrossPage,
@@ -127,7 +120,6 @@ export function htmlHeaderExtractor(html: string, url: string): HTMLHeaderType {
     // <------------- metaViewport ------------------->
     const metaViewportContent = $(`meta[name="viewport"]`).attr("content") || "";
     let metaViewport: HTMLMetaViewportType = {
-        exits: false,
         value: metaViewportContent,
         isMobileReady: metaViewportContent.includes("width=device-width")
     }

@@ -1,10 +1,10 @@
 import { tempHtml } from "@/extractor/tempHtml.js";
-import { HTMLHeadingsType } from "@/types/htmlHeadingTypes.js";
+import { HTMLContentsType } from "@/types/htmlContentsTypes.js";
 import * as cherrio from "cheerio"
 
 
 
-export function htmlHeadingExtractor(html: string): HTMLHeadingsType {
+export function htmlHeadingExtractor(html: string): HTMLContentsType {
 
     const h1Contents: string[] = [];
     const h2Contents: string[] = [];
@@ -12,7 +12,6 @@ export function htmlHeadingExtractor(html: string): HTMLHeadingsType {
 
     const $ = cherrio.load(html);
 
-    const h1 = $("h1");
     $("h1").each((i, el) => {
         const text = $(el).text().trim();
         h1Contents.push(text);
@@ -37,7 +36,7 @@ export function htmlHeadingExtractor(html: string): HTMLHeadingsType {
         const text = $(el).text().trim();
         h3H6Contents.push(text);
     })
-
+    const words = $("body").text().trim().split(/\s+/);
 
     return {
         h1: {
@@ -51,6 +50,9 @@ export function htmlHeadingExtractor(html: string): HTMLHeadingsType {
         h3H6: {
             count: h3H6Contents.length,
             texts: h3H6Contents
+        },
+        words: {
+            count: words.length
         }
     }
 

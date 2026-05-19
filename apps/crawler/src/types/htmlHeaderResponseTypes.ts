@@ -15,19 +15,13 @@ export type HTMLHeaderType = {
 export type HTMLTitleType = {
     text: string;
     lengthChar: number;
-    lengthPixel: number  // <- google truncates at ~580px;
-    isDuplicate: boolean;
-    isEmpty: boolean;
-    exist: boolean
+    lengthPixel: number; // <- google truncates at ~600px;
 }
 
 export type HTMLMetaDescriptionType = {
     text: string;
     lengthChar: number;
     lengthPixel: number  // <- google truncates at ~960px;
-    isDuplicate: boolean;
-    isEmpty: boolean;
-    exist: boolean
 }
 
 
@@ -39,7 +33,6 @@ export type HTMLMetaRobotType = {
     videoControl: string;
 }
 export type HTMLCanonicalType = {
-    exists: boolean;
     canonicalUrl: string;
     isSelfReferencing: boolean;
     isCrossPage: boolean;
@@ -48,7 +41,6 @@ export type HTMLCanonicalType = {
 }
 
 export type HTMLMetaViewportType = {
-    exits: boolean;
     value: string; // "width=device-width, initial-scale=1"
     isMobileReady: boolean
 }
