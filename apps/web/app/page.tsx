@@ -1,18 +1,24 @@
+'use client';
 import { Button } from "@repo/ui/components/button";
-import { Logo } from "@repo/ui/components/logo";
-import { ArrowBigRight, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import { LandingNavBar } from "../components/landingNavBar";
+import { FeatureSection } from "../components/featureSection";
+import { LandingPageStats } from "../components/landingPageStats";
+import { HowItWorks } from "../components/howItWorks";
+import { SampleReportSection } from "../components/sampleReportSection";
+import { FooterSection } from "../components/footerSection";
 
 
 
 export default function Home() {
   return (
     <>
-      <div>
+      <div className=" w-full h-full ">
         <div className=" px-12 py-4 bg-[#f5f3f4] ">
-          <Logo />
+          <LandingNavBar />
         </div>
-        <div className=" w-full flex flex-col items-center   mt-24 ">
+        <div className=" w-full h-[50rem] overflow-hidden flex flex-col items-center   pt-24 ">
           <div className="max-w-[50rem]">
 
             <h1 className="  text-5xl  text-center ">Deep Crawl Analysis with Crawllytics for Better Rankings</h1>
@@ -38,6 +44,14 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <div className=" mt-12 ">
+
+          <LandingPageStats />
+        </div>
+        <FeatureSection />
+        <HowItWorks />
+        <SampleReportSection />
+        <FooterSection />
       </div>
     </>
   );
