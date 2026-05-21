@@ -15,7 +15,8 @@ export default function Home() {
   return (
     <>
       <div className=" w-full h-full ">
-        <div className=" px-12 py-4 bg-[#f5f3f4] ">
+        <div className="  w px-12 py-4 bg-[#AAEEE8]/40 border-b border-border-subtle  ">
+
           <LandingNavBar />
         </div>
         <div

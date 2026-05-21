@@ -48,7 +48,7 @@ export function FeatureSection() {
     return <>
         <div className=" py-8 px-12 ">
             <div className=" max-w-[40rem] ">
-                <h2 className=" text-5xl font-semibold  " >Complete SEO Intelligence Platform</h2>
+                <h2 className=" text-5xl font-semibold   text-[#94A3B8]  " >Complete SEO Intelligence Platform</h2>
                 <p className=" text-md mt-2 pr-20 " >Analyze performance, monitor rankings, audit technical SEO, and optimize every page for better search visibility.</p>
             </div>
             <div>

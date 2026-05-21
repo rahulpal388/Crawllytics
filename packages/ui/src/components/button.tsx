@@ -6,7 +6,7 @@ import { cn } from "../utils";
 type BtnVariants = "primary" | "secondary" | "outline" | "destructive"
 
 const variants: Record<BtnVariants, string> = {
-  primary: " bg-primary  hover:bg-primary/90 ",
+  primary: " bg-[#0D9488]  hover:bg-[#0D9488]/90 ",
   secondary: " bg-black hover:bg-black/85 ",
   outline: "  text-black  hover:opacity-90 ",
   destructive: " bg-danger hover:bg-danger/90 "

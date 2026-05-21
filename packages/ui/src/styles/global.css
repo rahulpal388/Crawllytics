@@ -11,8 +11,25 @@
 
     /* background colors */
     --color-background-dark: #FFFFFF;
-    --color-background-light: #F0F0F0;
+
+    /* background-light is done */
+    --color-background-light: #E6FAF8;
     --color-background: #ffffff;
+
+    /* card colors */
+    --color-card-background: #0D9488;
+
+
+    /*  shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.6);
+    --shadow-lg: 0 8px 28px rgba(0, 0, 0, 0.7);
+    --shadow-teal: 0 4px 20px rgba(13, 148, 136, 0.18);
+    --shadow-teal-strong: 0 0 0 1px rgba(13, 148, 136, 0.5);
+
+
+    /*  border  */
+    --color-border-subtle: rgba(13, 148, 136, 0.12);
 
     /* text colors */
     --color-light: #1a1a1a;
