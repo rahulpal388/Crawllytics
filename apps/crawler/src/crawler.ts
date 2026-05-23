@@ -24,14 +24,14 @@ export async function crawler(url: URL): Promise<{
     const mediaInfo = htmlMediaExtractor(data.html);
     const htmlHeader = htmlHeaderExtractor(data.html, url.href);
 
-    console.log(urlNetworkAnalyses);
-    console.log(htmlLinks);
-    console.log(htmlHeadings);
-    console.log(mediaInfo);
-    console.log(htmlHeader);
+    // console.log(urlNetworkAnalyses);
+    // console.log(htmlLinks);
+    // console.log(htmlHeadings);
+    // console.log(mediaInfo);
+    // console.log(htmlHeader);
 
     return {
-        internalLinks: [], // htmlLayedData.links.internal,
+        internalLinks: htmlLinks.internalLinks.map((link) => link.url), // htmlLayedData.links.internal,
     }
 }
 

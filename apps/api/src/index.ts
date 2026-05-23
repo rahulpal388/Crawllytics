@@ -4,6 +4,8 @@ import "dotenv/config";
 import { createRedisConnection } from "@repo/queue/queue";
 import { ValidateEnv } from "@/lib/validateEnv.js";
 import { produce } from "@/produce.js";
+import { addToSet, generateSetKey } from "@repo/queue/set";
+import { generateHashKey, setDomainStats } from "@repo/queue/hashes";
 
 const app = express();
 ValidateEnv();
@@ -41,11 +43,31 @@ app.get("/api/health", (req, res) => {
 let id = 1;
 app.post("/api/url", async (req, res) => {
     const { url } = req.body;
+    const urlObj = new URL(url);
+    console.log(urlObj);
+    const visitedSetKey = generateSetKey(urlObj.hostname);
+    const domainStatsKey = generateHashKey(urlObj.hostname);
+    await addToSet({
+        client: redisClient,
+        key: visitedSetKey,
+        value: url
+    });
+    await setDomainStats({
+        client: redisClient,
+        key: domainStatsKey,
+        message: {
+            totalUrls: 1,
+            totalUrlsCrawled: 0
+        }
+    })
     await produce({
         key: "crawl:url",
         message: {
             id: id.toString(),
-            url
+            url,
+            visitedSetKey,
+            domainStatsKey: domainStatsKey,
+            crawlDepth: "0"
         }
     })
     id++;
