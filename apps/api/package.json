@@ -12,7 +12,6 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@repo/queue": "*",
     "@types/cors": "^2.8.19",
     "axios": "^1.12.0",
     "cors": "^2.8.6",
@@ -22,6 +21,9 @@
   },
   "devDependencies": {
     "@repo/typescript-config": "*",
+    "@repo/queue": "*",
+    "@repo/db": "*",
+    "@repo/config": "*",
     "tsx": "^4.21.0",
     "typescript": "^5.9.2"
   }

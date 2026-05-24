@@ -6,6 +6,8 @@ import { ValidateEnv } from "@/lib/validateEnv.js";
 import { produce } from "@/produce.js";
 import { addToSet, generateSetKey } from "@repo/queue/set";
 import { generateHashKey, setDomainStats } from "@repo/queue/hashes";
+import { connectDB } from "@repo/db/index";
+import { GatherInformationModel, gatherInformationSchema } from "@repo/db/model/gatherInformation";
 
 const app = express();
 ValidateEnv();
@@ -36,6 +38,12 @@ export const redisClient = await createRedisConnection({
     username: process.env.REDIS_USERNAME,
 })
 
+const dbClient = await connectDB(process.env.DATABASE_URL);
+if (!dbClient) {
+    console.error("Failed to connect to the database");
+    process.exit(1);
+}
+
 app.get("/api/health", (req, res) => {
     res.status(200).json({ status: "ok" });
 });
@@ -47,6 +55,11 @@ app.post("/api/url", async (req, res) => {
     console.log(urlObj);
     const visitedSetKey = generateSetKey(urlObj.hostname);
     const domainStatsKey = generateHashKey(urlObj.hostname);
+    const gatherInformation = await GatherInformationModel.create({
+        userId: "647b1c8f9c1b8a0015d9c8b4",
+        url: url,
+        pages: []
+    });
     await addToSet({
         client: redisClient,
         key: visitedSetKey,
@@ -63,7 +76,7 @@ app.post("/api/url", async (req, res) => {
     await produce({
         key: "crawl:url",
         message: {
-            id: id.toString(),
+            id: gatherInformation._id.toString(),
             url,
             visitedSetKey,
             domainStatsKey: domainStatsKey,
@@ -72,6 +85,7 @@ app.post("/api/url", async (req, res) => {
     })
     id++;
     res.status(200).json({
+        id: gatherInformation._id,
         message: "added url successfully"
     })
 })

@@ -6,6 +6,9 @@ import { generateSetKey, isMemberOfSet } from "@repo/queue/set";
 import { generateHashKey, increaseDomainStatsValue, isCrawlCompleted } from "@repo/queue/hashes";
 import "dotenv/config"
 import { produce } from "@/produce.js";
+import { connectDB } from "@repo/db/index";
+import { GatherPageInformationModel } from "@repo/db/model/gatherPageInformation";
+import { GatherInformationModel } from "@repo/db/model/gatherInformation";
 
 
 
@@ -24,6 +27,12 @@ let init = true;
 async function main() {
     let lastId = "$"
 
+    const dbClient = await connectDB(process.env.DATABASE_URL);
+    if (!dbClient) {
+        console.error("Failed to connect to the database");
+        process.exit(1);
+    }
+
     while (true) {
         const res = await consumer({ key: "crawl:url", id: lastId });
 
@@ -39,9 +48,27 @@ async function main() {
         const crawlDepth = res.messages[0]?.message.crawlDepth
         if (url) {
             const urlObj = new URL(url);
-            const { internalLinks } = await crawler(urlObj);
+            const { internalLinks, success, crawledData } = await crawler(urlObj);
 
             //  ################### put the gather information from crawled url to DB ###################
+
+            if (success) {
+                const gatherPageInformation = await GatherPageInformationModel.create({
+                    gatherInformationId: id,
+                    networkInformation: crawledData.networkInformation,
+                    headerInformation: crawledData.headerInformation,
+                    contentInformation: crawledData.contentInformation,
+                    mediaInformation: crawledData.mediaInformation,
+                    linkInformation: crawledData.linkInformation
+                });
+
+                await GatherInformationModel.findByIdAndUpdate(id, {
+                    $push: { pages: gatherPageInformation._id }
+                })
+
+
+            }
+
 
             if (!domainStatsKey) {
                 domainStatsKey = generateHashKey(urlObj.hostname);

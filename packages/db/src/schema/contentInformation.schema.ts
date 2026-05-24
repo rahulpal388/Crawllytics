@@ -1,0 +1,25 @@
+import mongoose from "mongoose";
+
+
+
+export const contentInformationSchema = new mongoose.Schema({
+    h1: {
+        count: { type: Number, default: 0 },
+        texts: [{ type: String, default: "" }],
+    },
+    h2: {
+        count: { type: Number, default: 0 },
+        texts: [{ type: String, default: "" }],
+    },
+    h3H6: {
+        count: { type: Number, default: 0 },
+        texts: [{ type: String, default: "" }],
+    },
+    words: {
+        count: { type: Number, default: 0 },
+    }
+})
+
+
+
+export type ContentInformationType = mongoose.InferSchemaType<typeof contentInformationSchema>;

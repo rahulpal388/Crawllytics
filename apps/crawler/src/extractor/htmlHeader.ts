@@ -139,9 +139,9 @@ export function htmlHeaderExtractor(html: string, url: string): HTMLHeaderType {
             metaDescription: metaDescription,
             metaRobot: metaRobot,
             Canonical: canonical,
-            openGraph: openGraph
+            openGraph: openGraph,
+            metaViewport: metaViewport,
         },
-        metaViewport: metaViewport,
     }
 
 

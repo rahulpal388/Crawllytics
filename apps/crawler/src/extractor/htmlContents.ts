@@ -4,7 +4,7 @@ import * as cherrio from "cheerio"
 
 
 
-export function htmlHeadingExtractor(html: string): HTMLContentsType {
+export function htmlContentsExtractor(html: string): HTMLContentsType {
 
     const h1Contents: string[] = [];
     const h2Contents: string[] = [];

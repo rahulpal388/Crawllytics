@@ -16,8 +16,6 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@repo/queue": "*",
-    "@repo/typescript-config": "*",
     "@types/axios": "^0.9.36",
     "axios": "^1.12.0",
     "cheerio": "^1.1.0",
@@ -26,6 +24,10 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@repo/queue": "*",
+    "@repo/db": "*",
+    "@repo/typescript-config": "*",
+    "@repo/config": "*",
     "@types/express": "^5.0.6",
     "nodemon": "^3.1.14",
     "tsx": "^4.21.0",

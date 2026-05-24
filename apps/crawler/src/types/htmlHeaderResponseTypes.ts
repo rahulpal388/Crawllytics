@@ -7,8 +7,8 @@ export type HTMLHeaderType = {
         metaRobot: HTMLMetaRobotType,
         Canonical: HTMLCanonicalType[],
         openGraph: HTMLOpenGraphType
+        metaViewport: HTMLMetaViewportType,
     }
-    metaViewport: HTMLMetaViewportType,
 }
 
 
