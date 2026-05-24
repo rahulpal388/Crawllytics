@@ -59,6 +59,7 @@ async function main() {
                     headerInformation: crawledData.headerInformation,
                     contentInformation: crawledData.contentInformation,
                     mediaInformation: crawledData.mediaInformation,
+
                     linkInformation: crawledData.linkInformation
                 });
 
@@ -138,6 +139,12 @@ async function main() {
                 console.log(`Crawling completed for domain: ${urlObj.hostname}`);
 
                 // ####################### put the message to another redis stream for completed crawling domain #######################
+                await produce({
+                    key: "analyze:url",
+                    message: {
+                        id,
+                    }
+                })
 
                 // ####################### delete the keys related to the domain from redis #######################
                 // ####################### delete the redis set which is storing the visited urls for the domain #######################

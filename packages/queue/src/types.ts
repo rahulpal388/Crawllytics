@@ -6,3 +6,8 @@ export type CrawlWebsiteDataType = {
     domainStatsKey: string;
     crawlDepth: string;
 }
+
+
+export type AnalyzeWebsiteDataType = {
+    id: string;
+}
