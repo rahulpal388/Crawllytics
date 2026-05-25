@@ -1,5 +1,5 @@
 import { tempHtml } from "@/extractor/tempHtml.js";
-import { HTMLCanonicalType, HTMLHeaderType, HTMLMetaDescriptionType, HTMLMetaRobotType, HTMLMetaViewportType, HTMLTitleType } from "@/types/htmlHeaderResponseTypes.js";
+import { HTMLCanonicalType, HTMLHeaderType, HTMLMetaDescriptionType, HTMLMetaRobotType, HTMLMetaViewportType, HTMLTitleType } from "@repo/config/types/urlInformationType/htmlHeaderResponseTypes";
 import { isAbsoluteUrl } from "@/utils/isAbsoluteUrl.js";
 import * as cherrio from "cheerio";
 

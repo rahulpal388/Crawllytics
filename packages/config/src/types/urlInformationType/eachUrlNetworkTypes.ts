@@ -1,4 +1,4 @@
-import { ResponseHeadersType } from "@/types/responseHeadersTypes.js";
+import { ResponseHeadersType } from "./responseHeadersTypes.js";
 
 
 export type EachUrlNetworkResultTypes = {
@@ -15,5 +15,4 @@ export type EachUrlNetworkResultTypes = {
     size: number;
 
     responseHeaders: ResponseHeadersType;
-
 }

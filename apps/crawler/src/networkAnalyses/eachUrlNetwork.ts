@@ -1,5 +1,5 @@
 import { HttpsResponseType } from "@/fetchWebPage.js";
-import { EachUrlNetworkResultTypes } from "@/types/eachUrlNetworkTypes.js";
+import { EachUrlNetworkResultTypes } from "@repo/config/types/urlInformationType/eachUrlNetworkTypes";
 
 
 export function eachUrlNetwork(response: HttpsResponseType): EachUrlNetworkResultTypes {

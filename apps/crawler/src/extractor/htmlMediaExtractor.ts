@@ -1,4 +1,4 @@
-import { HTMLMediaTypes } from "@/types/htmlMediaTypes.js";
+import { HTMLMediaTypes } from "@repo/config/types/urlInformationType/htmlMediaTypes";
 import * as Cheerio from "cheerio";
 
 

@@ -1,7 +1,5 @@
-import { tempHtml } from "@/extractor/tempHtml.js";
-import { HTMLContentsType } from "@/types/htmlContentsTypes.js";
 import * as cherrio from "cheerio"
-
+import { HTMLContentsType } from "@repo/config/types/urlInformationType/htmlContentsTypes";
 
 
 export function htmlContentsExtractor(html: string): HTMLContentsType {

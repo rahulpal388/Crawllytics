@@ -2,7 +2,7 @@ import {
     ExternalLinkType,
     HTMLLinksType,
     InternalLinkType,
-} from "@/types/htmlLinksTypes.js";
+} from "@repo/config/types/urlInformationType/htmlLinksTypes";
 
 import * as cheerio from "cheerio";
 

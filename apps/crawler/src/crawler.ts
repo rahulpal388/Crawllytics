@@ -5,10 +5,10 @@ import { htmlMediaExtractor } from "@/extractor/htmlMediaExtractor.js";
 import { fetchWebPage } from "@/fetchWebPage.js";
 import { eachUrlNetwork } from "@/networkAnalyses/eachUrlNetwork.js";
 import { ContentInformationType } from "@repo/db/schema/contentInformation.schema";
-import { EachUrlNetworkResultTypes } from "@/types/eachUrlNetworkTypes.js";
-import { HTMLHeaderType } from "@/types/htmlHeaderResponseTypes.js";
-import { HTMLMediaTypes } from "@/types/htmlMediaTypes.js";
-import { HTMLLinksType } from "@/types/htmlLinksTypes.js";
+import { EachUrlNetworkResultTypes } from "@repo/config/types/urlInformationType/eachUrlNetworkTypes";
+import { HTMLHeaderType } from "@repo/config/types/urlInformationType/htmlHeaderResponseTypes";
+import { HTMLMediaTypes } from "@repo/config/types/urlInformationType/htmlMediaTypes";
+import { HTMLLinksType } from "@repo/config/types/urlInformationType/htmlLinksTypes";
 
 type gatherPageData = {
     networkInformation: EachUrlNetworkResultTypes,
