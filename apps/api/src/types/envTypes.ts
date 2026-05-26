@@ -8,14 +8,7 @@ export const envSchema = globalEnv.extend({
     CROSS_ORIGIN_URL: z.string(),
 });
 
-export type EnvTypes = z.infer<typeof envSchema>;
 
-
-declare global {
-    namespace NodeJS {
-        interface ProcessEnv extends EnvTypes { }
-    }
-}
 
 
 

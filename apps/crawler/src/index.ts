@@ -12,12 +12,12 @@ import { GatherInformationModel } from "@repo/db/model/gatherInformation";
 
 
 
-validateEnv();
+const env = validateEnv();
 
 export const redisClient = await createRedisConnection({
-    url: process.env.REDIS_URL,
-    password: process.env.REDIS_PASSWORD,
-    username: process.env.REDIS_USERNAME
+    url: env.REDIS_URL,
+    password: env.REDIS_PASSWORD,
+    username: env.REDIS_USERNAME
 })
 
 
@@ -27,7 +27,7 @@ let init = true;
 async function main() {
     let lastId = "$"
 
-    const dbClient = await connectDB(process.env.DATABASE_URL);
+    const dbClient = await connectDB(env.DATABASE_URL);
     if (!dbClient) {
         console.error("Failed to connect to the database");
         process.exit(1);

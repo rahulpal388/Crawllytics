@@ -7,13 +7,14 @@ import { produce } from "@/produce.js";
 import { addToSet, generateSetKey } from "@repo/queue/set";
 import { generateHashKey, setDomainStats } from "@repo/queue/hashes";
 import { connectDB } from "@repo/db/index";
-import { GatherInformationModel, gatherInformationSchema } from "@repo/db/model/gatherInformation";
+import { GatherInformationModel } from "@repo/db/model/gatherInformation";
+import { getGatherInformation } from "@repo/db/utils/getGatherInformation";
 
 const app = express();
-ValidateEnv();
+const env = ValidateEnv();
 
-const allowedOrigins = process.env.CROSS_ORIGIN_URL.split(",")
-const port = process.env.PORT;
+const allowedOrigins = env.CROSS_ORIGIN_URL.split(",")
+const port = env.PORT;
 
 app.use(
     cors({
@@ -33,12 +34,12 @@ app.use(
 app.use(express.json());
 
 export const redisClient = await createRedisConnection({
-    url: process.env.REDIS_URL,
-    password: process.env.REDIS_PASSWORD,
-    username: process.env.REDIS_USERNAME,
+    url: env.REDIS_URL,
+    password: env.REDIS_PASSWORD,
+    username: env.REDIS_USERNAME,
 })
 
-const dbClient = await connectDB(process.env.DATABASE_URL);
+const dbClient = await connectDB(env.DATABASE_URL);
 if (!dbClient) {
     console.error("Failed to connect to the database");
     process.exit(1);
@@ -88,6 +89,17 @@ app.post("/api/url", async (req, res) => {
         id: gatherInformation._id,
         message: "added url successfully"
     })
+})
+
+
+app.get("/gatherInformation/:id", async (req, res) => {
+    const { id } = req.params;
+    const data = await getGatherInformation(id);
+    if (!data) {
+        res.status(404).json({ message: "Gather information not found" });
+    } else {
+        res.status(200).json(data);
+    }
 })
 
 

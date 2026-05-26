@@ -4,16 +4,17 @@ import { htmlLinksExtractor } from "@/extractor/htmlLinks.js";
 import { htmlMediaExtractor } from "@/extractor/htmlMediaExtractor.js";
 import { fetchWebPage } from "@/fetchWebPage.js";
 import { eachUrlNetwork } from "@/networkAnalyses/eachUrlNetwork.js";
-import { ContentInformationType } from "@repo/db/schema/contentInformation.schema";
 import { EachUrlNetworkResultTypes } from "@repo/config/types/urlInformationType/eachUrlNetworkTypes";
 import { HTMLHeaderType } from "@repo/config/types/urlInformationType/htmlHeaderResponseTypes";
 import { HTMLMediaTypes } from "@repo/config/types/urlInformationType/htmlMediaTypes";
 import { HTMLLinksType } from "@repo/config/types/urlInformationType/htmlLinksTypes";
+import { HTMLContentsType } from "@repo/config/types/urlInformationType/htmlContentsTypes";
+
 
 type gatherPageData = {
     networkInformation: EachUrlNetworkResultTypes,
     headerInformation: HTMLHeaderType,
-    contentInformation: ContentInformationType,
+    contentInformation: HTMLContentsType,
     mediaInformation: HTMLMediaTypes,
     linkInformation: HTMLLinksType,
 }
@@ -51,7 +52,7 @@ export async function crawler(url: URL): Promise<{
 
     return {
         success: true,
-        internalLinks: htmlLinks.internalLinks.map((link) => link.url), // htmlLayedData.links.internal,
+        internalLinks: htmlLinks.internalLinks.slice(0, 10).map((link) => link.url), // htmlLayedData.links.internal,
         crawledData: {
             networkInformation: urlNetworkAnalyses,
             headerInformation: htmlHeader,

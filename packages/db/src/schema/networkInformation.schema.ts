@@ -9,7 +9,10 @@ export const ResponseHeaderSchema = new mongoose.Schema({
     server: { type: [String], default: null },
     xRobotsTag: { type: [String], default: null },
 })
+
 export type ResponseHeaderType = mongoose.InferSchemaType<typeof ResponseHeaderSchema>;
+
+
 export const networkInformationSchema = new mongoose.Schema({
     url: { type: String, required: true },
     statusCode: { type: Number, default: null },
@@ -24,6 +27,8 @@ export const networkInformationSchema = new mongoose.Schema({
         required: true,
     }
 
+}, {
+    _id: false,
 })
 
 

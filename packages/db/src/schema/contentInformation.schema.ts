@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
+import { HTMLContentsType } from "@repo/config/types/urlInformationType/htmlContentsTypes";
 
 
-
-export const contentInformationSchema = new mongoose.Schema({
+export const contentInformationSchema = new mongoose.Schema<HTMLContentsType>({
     h1: {
         count: { type: Number, default: 0 },
         texts: [{ type: String, default: "" }],
@@ -18,8 +18,8 @@ export const contentInformationSchema = new mongoose.Schema({
     words: {
         count: { type: Number, default: 0 },
     }
+}, {
+    _id: false,
 })
 
 
-
-export type ContentInformationType = mongoose.InferSchemaType<typeof contentInformationSchema>;

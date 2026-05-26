@@ -9,4 +9,4 @@ export type ProducerType<T extends StreamsKeyTypes> = {
 // handle error is remeaning
 export async function producer<T extends StreamsKeyTypes>({ key, message, client }: ProducerType<T>) {
     const res = await client.xAdd(key, "*", message);
-}
+} 

@@ -5,8 +5,3 @@ export const envSchema = globalEnv.extend({})
 
 
 
-declare global {
-    namespace NodeJS {
-        interface ProcessEnv extends z.infer<typeof envSchema> { }
-    }
-}

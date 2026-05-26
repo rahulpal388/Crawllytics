@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
+import { HTMLMediaTypes } from "@repo/config/types/urlInformationType/htmlMediaTypes";
 
-
-export const mediaInformationSchema = new mongoose.Schema({
+export const mediaInformationSchema = new mongoose.Schema<HTMLMediaTypes>({
     images: [{
         src: { type: String, default: "" },
         altText: { type: String, default: "" },
@@ -20,6 +20,8 @@ export const mediaInformationSchema = new mongoose.Schema({
         autoPlay: { type: Boolean, default: false },
 
     }]
+}, {
+    _id: false,
 })
 
 
