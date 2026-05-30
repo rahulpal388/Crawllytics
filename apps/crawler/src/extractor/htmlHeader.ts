@@ -1,6 +1,6 @@
-import { tempHtml } from "@/extractor/tempHtml.js";
 import { HTMLCanonicalType, HTMLHeaderType, HTMLMetaDescriptionType, HTMLMetaRobotType, HTMLMetaViewportType, HTMLTitleType } from "@repo/config/types/urlInformationType/htmlHeaderResponseTypes";
 import { isAbsoluteUrl } from "@/utils/isAbsoluteUrl.js";
+import { HreflangType, TwitterCardType, PaginationType, FaviconType, ResourceHintType } from "@repo/config/types/urlInformationType/htmlHeaderResponseTypes";
 import * as cherrio from "cheerio";
 
 
@@ -15,6 +15,7 @@ export function htmlHeaderExtractor(html: string, url: string): HTMLHeaderType {
         const text = $(el).text();
         const lengthChar = text.length;
         const lengthPixel = lengthChar * 10;
+        const wordCount = text.trim().split(/\s+/).length;
         titleValue.push({
             text,
             lengthChar,
@@ -42,44 +43,8 @@ export function htmlHeaderExtractor(html: string, url: string): HTMLHeaderType {
 
     const metaRobotContent = $(`meta[name="robots"]`).attr("content") || "";
 
-    const contentArr = metaRobotContent.split(",").map(items => items.trim().toLowerCase());
-    let robotValue = ""
-    let followValue = "";
-    let snippetControl = ""
-    let imageControl = ""
-    let videoControl = ""
-
-    for (const value of contentArr) {
-        // index / noindex
-        if (value === "index" || value === "noindex") {
-            robotValue = value;
-        }
-        // follow / nofollow
-        if (value === "follow" || value === "nofollow") {
-            followValue = value;
-        }
-
-        // max-snippet
-        if (value.startsWith("max-snippet")) {
-            snippetControl = value;
-        }
-
-        // max-image-preview
-        if (value.startsWith("max-image-preview")) {
-            imageControl = value;
-        }
-
-        // max-video-preview
-        if (value.startsWith("max-video-preview")) {
-            videoControl = value;
-        }
-    }
     metaRobot = {
-        robotValue,
-        followValue,
-        snippetControl,
-        imageControl,
-        videoControl
+        content: metaRobotContent
     }
 
 
@@ -106,12 +71,11 @@ export function htmlHeaderExtractor(html: string, url: string): HTMLHeaderType {
         }
 
         canonical.push({
-            canonicalUrl,
-            isSelfReferencing,
-            isCrossPage,
-            isCrossDomain,
-            isAbsoluteUrl: isAbsoluteUrl(canonicalUrl)
-
+            url: canonicalUrl,
+            isSelf: isSelfReferencing,
+            isCrossPage: isCrossPage,
+            isCrossDomain: isCrossDomain,
+            isAbsoluteUrl: isAbsoluteUrl(canonicalUrl),
         })
     })
 
@@ -121,8 +85,10 @@ export function htmlHeaderExtractor(html: string, url: string): HTMLHeaderType {
     const metaViewportContent = $(`meta[name="viewport"]`).attr("content") || "";
     let metaViewport: HTMLMetaViewportType = {
         value: metaViewportContent,
-        isMobileReady: metaViewportContent.includes("width=device-width")
+        isMobileReady: metaViewportContent.includes("width=device-width"),
+        hasInitialScale: metaViewportContent.includes("initial-scale")
     }
+
 
     // <------------- openGraph ------------------->
     const openGraph = {
@@ -130,18 +96,88 @@ export function htmlHeaderExtractor(html: string, url: string): HTMLHeaderType {
         description: $(`meta[property="og:description"]`).attr("content") || "",
         image: $(`meta[property="og:image"]`).attr("content") || "",
         url: $(`meta[property="og:url"]`).attr("content") || "",
-        type: $(`meta[property="og:type"]`).attr("content") || ""
+        type: $(`meta[property="og:type"]`).attr("content") || "",
+        siteName: $(`meta[property="og:site_name"]`).attr("content") || "",
+        locale: $(`meta[property="og:locale"]`).attr("content") || "",
+        imageWidth: $(`meta[property="og:image:width"]`).attr("content") || "",
+        imageHeight: $(`meta[property="og:image:height"]`).attr("content") || ""
     }
+
+
+
+    // ---------------------- hreflang ----------------------
+    const hreflang: HreflangType[] = [];
+    $(`link[rel="alternate"][hreflang]`).each((i, el) => {
+        const lang = $(el).attr("hreflang") || "";
+        const href = $(el).attr("href") || "";
+        const region = lang.includes("-") ? lang.split("-")[1] : null;
+        hreflang.push({
+            lang,
+            href,
+            hrefStatusCode: null,
+            isReturn: false,
+            region: region ?? null,
+        })
+    })
+
+
+    // ---------------------- pagination ----------------------
+    const pagination: PaginationType = {
+        prev: $(`link[rel="prev"]`).attr("href") || null,
+        next: $(`link[rel="next"]`).attr("href") || null,
+    }
+
+
+    // ---------------------- twitter card ----------------------
+    const twitterCard: TwitterCardType = {
+        card: $(`meta[name="twitter:card"]`).attr("content") || "",
+        title: $(`meta[name="twitter:title"]`).attr("content") || "",
+        description: $(`meta[name="twitter:description"]`).attr("content") || "",
+        image: $(`meta[name="twitter:image"]`).attr("content") || "",
+        site: $(`meta[name="twitter:site"]`).attr("content") || "",
+        creator: $(`meta[name="twitter:creator"]`).attr("content") || ""
+    }
+
+
+    // ---------------------- favicon ----------------------
+    const favicon: FaviconType[] = [];
+    $(`link[rel="icon"], link[rel="shortcut icon"]`).each((i, el) => {
+        const href = $(el).attr("href") || "";
+        const type = $(el).attr("type") || null;
+        favicon.push({
+            href,
+            type,
+            sizes: $(el).attr("sizes") || null,
+        })
+    })
+
+
+    // ---------------------- resource hints ----------------------
+    const resourceHints: ResourceHintType[] = [];
+    $(`link[rel="preconnect"], link[rel="preload"], link[rel="prefetch"], link[rel="dns-prefetch"]`).each((i, el) => {
+        const rel = $(el).attr("rel") as ResourceHintType["rel"];
+        const href = $(el).attr("href") || "";
+        resourceHints.push({
+            rel,
+            href,
+            as: $(el).attr("as") || null,
+        });
+    });
 
     return {
         title: titleValue,
         meta: {
             metaDescription: metaDescription,
-            metaRobot: metaRobot,
+            metaRobot,
             Canonical: canonical,
             openGraph: openGraph,
             metaViewport: metaViewport,
         },
+        hreflang,
+        pagination,
+        twitterCard,
+        favicon,
+        resourceHints,
     }
 
 

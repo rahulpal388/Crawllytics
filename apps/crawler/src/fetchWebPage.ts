@@ -1,4 +1,3 @@
-import { IncomingHttpHeaders } from "http";
 import { CompressionEncodingType, EachUrlNetworkResultTypes, RedirectChainType } from "@repo/config/types/urlInformationType/eachUrlNetworkTypes";
 import { HSTSType, CacheControlType } from "@repo/config/types/urlInformationType/responseHeadersTypes";
 import { findCdnProvider } from "@repo/lib/findCdnProvider";
@@ -44,6 +43,7 @@ export async function fetchWebPage(
 
         let timeToFirstByte = performance.now();
         let totalResponseTime = performance.now();
+        let html = "";
         let isRedirectLoop = false;
         let isCompressed = false;
         let transferSize = 0;
@@ -165,6 +165,7 @@ export async function fetchWebPage(
 
 
             res.on("data", (chunk) => {
+                html += chunk.toString();
                 transferSize += chunk.length;
                 buffer.push(chunk);
             })
@@ -178,7 +179,7 @@ export async function fetchWebPage(
                 resolve({
                     success: true,
                     data: {
-                        html: "",
+                        html,
                         response: {
                             url: url.href,
                             statusCode: res.statusCode ?? 0,
