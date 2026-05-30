@@ -28,6 +28,7 @@
     "@repo/db": "*",
     "@repo/typescript-config": "*",
     "@repo/config": "*",
+    "@repo/lib": "*",
     "@types/express": "^5.0.6",
     "nodemon": "^3.1.14",
     "tsx": "^4.21.0",
