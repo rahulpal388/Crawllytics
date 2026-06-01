@@ -1,8 +1,8 @@
 import * as cherrio from "cheerio"
-import { HTMLContentsType } from "@repo/config/types/urlInformationType/htmlContentsTypes";
+import { HTMLHeadingContentsType } from "@repo/config/types/urlInformationType/htmlHeadingContentsTypes";
 
 
-export function htmlContentsExtractor(html: string): HTMLContentsType {
+export function htmlContentsExtractor(html: string): HTMLHeadingContentsType {
 
     const h1Contents: string[] = [];
     const h2Contents: string[] = [];
