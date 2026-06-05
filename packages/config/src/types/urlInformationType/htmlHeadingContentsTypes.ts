@@ -1,8 +1,8 @@
 
 
 
-type HTMLHeadingContentType = {
-    text: number;
+export type HTMLHeadingContentType = {
+    text: string;
     charLength: number;
     wordCount: number;
 }
@@ -18,16 +18,16 @@ export type HTMLHeadingContentsType = {
         sentenceCount: number;
         avgSentenceLength: number;
     }
-    fleschReadingEase: number;
-    fleschKincaidGrade: number;
-    detectedLanguage: string;
-    topKeywords: KeywordFrequencyType[];
-    topBigrams: KeywordFrequencyType[]
-    topTrigrams: KeywordFrequencyType[]
-    tfidfTopTerms: KeywordFrequencyType[]
-    isThinContent: boolean;
-    hasTableOfContents: boolean;
-    contentHash: string;
+    // fleschReadingEase: number;
+    // fleschKincaidGrade: number;
+    // detectedLanguage: string | null;
+    // topKeywords: KeywordFrequencyType[];
+    // topBigrams: KeywordFrequencyType[]
+    // topTrigrams: KeywordFrequencyType[]
+    // tfidfTopTerms: KeywordFrequencyType[]
+    // isThinContent: boolean;
+    // hasTableOfContents: boolean;
+    // contentHash: string;
 }
 
 

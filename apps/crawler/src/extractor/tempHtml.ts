@@ -22,6 +22,61 @@ export const tempHtml = `<!DOCTYPE html>
 	<script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.j56hQv-j.js"></script>
 	<link rel="stylesheet" href="/_astro/Navbar.D9sEVnbo.css">
 	<link rel="stylesheet" href="/_astro/Navbar.D3huzBwt.css">
+	<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"BreadcrumbList",
+ "itemListElement":[
+   {
+     "@type":"ListItem",
+     "position":1,
+     "name":"Home",
+     "item":"https://example.com"
+   },
+   {
+     "@type":"ListItem",
+     "position":2,
+     "name":"Phones",
+     "item":"https://example.com/phones"
+   }
+ ]
+}
+</script>
+	<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "Title of a News Article",
+      "image": [
+        "https://example.com/photos/1x1/photo.jpg",
+        "https://example.com/photos/4x3/photo.jpg",
+        "https://example.com/photos/16x9/photo.jpg"
+       ],
+      "datePublished": "2024-01-05T08:00:00+08:00",
+      "dateModified": "2024-02-05T09:20:00+08:00",
+      "author": [{
+          "@type": "Person",
+          "name": "Jane Doe",
+          "url": "https://example.com/profile/janedoe123"
+        },{
+          "@type": "Person",
+          "name": "John Doe",
+          "url": "https://example.com/profile/johndoe123"
+      }]
+    }
+    </script>
+	<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Product",
+  "name":"iPhone 17",
+  "offers":{
+    "@type":"Offer",
+    "price":"999",
+    "priceCurrency":"USD"
+  }
+}
+</script>
 </head>
 
 <body class="flex min-h-screen flex-col bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-100">
@@ -54,6 +109,9 @@ export const tempHtml = `<!DOCTYPE html>
 		</div> <!-- Mobile menu -->
 		<div id="mobile-menu"
 			class="hidden border-t border-slate-200 bg-white md:hidden dark:border-slate-800 dark:bg-slate-900">
+			<div itemscope itemtype="https://schema.org/Product">
+    <span itemprop="name">iPhone 17</span>
+</div>
 			<div class="space-y-1 px-4 pb-4 pt-2"> <a href="/docs/intro"
 					class="block rounded-lg px-3 py-2.5 text-sm font-medium bg-primary/10 text-primary"> Learn </a><a
 					href="/docs/api"

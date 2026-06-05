@@ -1,5 +1,5 @@
 import { htmlHeaderExtractor } from "@/extractor/htmlHeader.js";
-import { htmlContentsExtractor } from "@/extractor/htmlContents.js";
+import { htmlContentsExtractor } from "@/extractor/htmlHeadingContents.js";
 import { htmlLinksExtractor } from "@/extractor/htmlLinks.js";
 import { htmlMediaExtractor } from "@/extractor/htmlMediaExtractor.js";
 import { fetchWebPage } from "@/fetchWebPage.js";
