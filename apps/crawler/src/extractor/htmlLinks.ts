@@ -6,6 +6,7 @@ import {
 
 import * as cheerio from "cheerio";
 
+
 export function htmlLinksExtractor(
     html: string,
     baseUrl: URL
@@ -13,80 +14,117 @@ export function htmlLinksExtractor(
 
     const $ = cheerio.load(html);
 
-    const internalLinks: InternalLinkType[] = [];
-    const externalLinks: ExternalLinkType[] = [];
+    const internalLinks = findUniqueInternalLinks($, baseUrl);
+    const externalLinks = findUniqueExternalLinks($, baseUrl);
+    const totalLinksCount = internalLinks.length + externalLinks.length;
+    const emptyAnchorTextCount = internalLinks.filter(link => link.anchorText === "").length + externalLinks.filter(link => link.anchorText === "").length;
+    const imageAnchorCount = internalLinks.filter(link => link.isImage).length + externalLinks.filter(link => link.isImage).length;
+    const nofollowInternalCount = internalLinks.filter(link => !link.isDoFollow).length;
 
-    // Track unique URLs
-    const internalSeen = new Set<string>();
-    const externalSeen = new Set<string>();
-
-    $("a").each((i, el) => {
-
-        const href = $(el).attr("href") || "";
-        const anchorText = $(el).text().trim();
-
-        try {
-
-            const newUrl = new URL(href, baseUrl);
-
-            const allowedProtocols = ["http:", "https:"];
-
-            if (!allowedProtocols.includes(newUrl.protocol)) {
-                return;
-            }
-
-            newUrl.hash = "";
-
-            let normalizedUrl = newUrl.href;
-
-            if (normalizedUrl.endsWith("/")) {
-                normalizedUrl = normalizedUrl.slice(0, -1);
-            }
-
-            if (newUrl.origin === baseUrl.origin) {
-
-                if (!internalSeen.has(normalizedUrl)) {
-
-                    internalSeen.add(normalizedUrl);
-
-                    internalLinks.push({
-                        url: normalizedUrl,
-                        anchorText,
-                    });
-
-                }
-
-            }
-
-            else {
-
-                if (!externalSeen.has(normalizedUrl)) {
-
-                    externalSeen.add(normalizedUrl);
-
-                    externalLinks.push({
-                        url: normalizedUrl,
-                        anchorText,
-                        relAttributes: $(el).attr("rel") || "",
-                    });
-
-                }
-
-            }
-
-        } catch (error) {
-
-            console.warn(
-                `Invalid URL found: ${href} - Skipping this link.`
-            );
-
-        }
-
-    });
 
     return {
         internalLinks,
         externalLinks,
-    };
+        totalLinksCount,
+        emptyAnchorTextCount,
+        imageAnchorCount,
+        nofollowInternalCount,
+    }
 
+
+}
+
+
+
+
+
+
+function findUniqueInternalLinks($: cheerio.CheerioAPI, baseUrl: URL): InternalLinkType[] {
+    const internalLinks: InternalLinkType[] = [];
+    const uniqueInternalLinks = new Set<string>();
+
+    $("a").each((_, el) => {
+        const href = $(el).attr("href");
+        if (!href) return;
+
+        try {
+            const newUrl = new URL(href, baseUrl);
+            newUrl.hash = "";
+            if (uniqueInternalLinks.has(newUrl.href)) {
+                return;
+            }
+            uniqueInternalLinks.add(newUrl.href);
+            if (newUrl.origin === baseUrl.origin) {
+                const anchorText = $(el).text().trim();
+                const isImage = $(el).find("img").length > 0;
+                const altText = $(el).find("img").attr("alt") || null;
+                const relAttributes = $(el).attr("rel") || "";
+                const isDoFollow = !relAttributes.toLowerCase().includes("nofollow");
+
+                internalLinks.push({
+                    url: newUrl.href,
+                    anchorText,
+                    isImage,
+                    altText,
+                    relAttributes,
+                    isDoFollow,
+                });
+
+            }
+        } catch {
+            console.warn(`Invalid URL found in href: ${href}`);
+
+        }
+    })
+
+
+    return internalLinks;
+}
+
+
+function findUniqueExternalLinks($: cheerio.CheerioAPI, baseUrl: URL): ExternalLinkType[] {
+    const externalLinks: ExternalLinkType[] = [];
+
+    const uniqueExternalLinks = new Set<string>();
+
+    $("a").each((_, el) => {
+        const href = $(el).attr("href");
+        if (!href) return;
+        try {
+            const newUrl = new URL(href, baseUrl);
+            newUrl.hash = "";
+            if (uniqueExternalLinks.has(newUrl.href)) {
+                return;
+            }
+            uniqueExternalLinks.add(newUrl.href);
+
+            if (newUrl.origin !== baseUrl.origin) {
+                const anchorText = $(el).text().trim();
+                const relAttributes = $(el).attr("rel") || "";
+                const isImage = $(el).find("img").length > 0;
+                const altText = $(el).find("img").attr("alt") || null;
+                const isNoFollow = relAttributes.toLowerCase().includes("nofollow");
+                const isSponsored = relAttributes.toLowerCase().includes("sponsored");
+                const isUGC = relAttributes.toLowerCase().includes("ugc");
+                const domain = newUrl.hostname;
+
+                externalLinks.push({
+                    url: newUrl.href,
+                    anchorText,
+                    relAttributes,
+                    isImage,
+                    altText,
+                    isNoFollow,
+                    isSponsored,
+                    isUGC,
+                    domain,
+                });
+            }
+        } catch {
+            console.warn(`Invalid URL found in href: ${href}`);
+        }
+
+    })
+
+    return externalLinks;
 }

@@ -11,6 +11,8 @@ import { GatherPageInformationModel } from "@repo/db/model/gatherPageInformation
 import { GatherInformationModel } from "@repo/db/model/gatherInformation";
 import { htmlStructureData } from "@/extractor/htmlStructureData.js";
 import { tempHtml } from "@/extractor/tempHtml.js";
+import { htmlLinksExtractor } from "@/extractor/htmlLinks.js";
+import axios from "axios";
 
 
 
@@ -167,4 +169,10 @@ let init = true;
 // main();
 
 
-console.log(htmlStructureData(tempHtml));
+// console.log(htmlStructureData(tempHtml));
+const html = await axios.get("https://redis.io/")
+
+const a = htmlLinksExtractor(html.data, new URL("https://redis.io/"));
+
+
+console.log(a);
