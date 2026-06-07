@@ -5,7 +5,7 @@ import * as Cheerio from "cheerio";
 
 const BATCH_SIZE = 10; // Number of images to process in parallel
 
-export async function imagesWithSize($: Cheerio.CheerioAPI, preloadImages: Set<String>): Promise<ImageType[]> {
+export async function imagesWithSize($: Cheerio.CheerioAPI, preloadImages: Set<String>, baseUrl: URL): Promise<ImageType[]> {
 
     const images = findImages($, preloadImages);
 
@@ -15,7 +15,7 @@ export async function imagesWithSize($: Cheerio.CheerioAPI, preloadImages: Set<S
 
         await Promise.all(
             batch.map(async (image) => {
-                const size = await getImageSize(image.src);
+                const size = await getImageSize(image.src, baseUrl);
                 image.fileSizeBytes = size;
             })
         )

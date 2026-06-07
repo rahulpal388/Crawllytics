@@ -170,15 +170,14 @@ let init = true;
 // main();
 
 
-// console.log(htmlStructureData(tempHtml));
-const html = await axios.get("https://www.w3schools.com/html/html5_video.asp")
+const url = "https://www.w3schools.com/html/html5_video.asp";
+const html = await axios.get(url);
 
-// const a = htmlLinksExtractor(html.data, new URL("https://www.w3schools.com/html/html5_video.asp"));
 
-// console.log(a);
 
-const htmlHeader = htmlHeaderExtractor(html.data, "https://www.w3schools.com/html/html5_video.asp");
+const htmlHeader = htmlHeaderExtractor(html.data, new URL(url));
 
 const newSet = htmlHeader.resourceHints.filter(hint => hint.rel === "preload" && hint.as === "image").map(hint => hint.href)
 
-htmlMediaExtractor(html.data, new Set<String>(newSet))
+const mediaData = await htmlMediaExtractor(html.data, new Set<String>(newSet), new URL(url));
+console.log(mediaData);

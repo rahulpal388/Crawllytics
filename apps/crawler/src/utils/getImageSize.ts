@@ -1,9 +1,16 @@
+import { isAbsoluteUrl } from "@/utils/isAbsoluteUrl.js";
 
 
 
-export async function getImageSize(src: string): Promise<number | null> {
+export async function getImageSize(src: string, baseUrl: URL): Promise<number | null> {
 
     try {
+        const isAbsolute = isAbsoluteUrl(src);
+        if (!isAbsolute) {
+            src = new URL(src, baseUrl).href;
+
+        }
+
         const response = await fetch(src, {
             method: "HEAD"
         })

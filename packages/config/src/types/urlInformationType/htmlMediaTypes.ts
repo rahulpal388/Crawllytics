@@ -36,8 +36,6 @@ export type HTMLMediaTypes = {
     imagesMissingAlt: number;
     imagesMissingDimensions: number;
     imagesNotLazy: number;
-    imagesBelowFoldNotLazy: number;
-    imagesLegacyFormat: number;
     notWebpOrAvif: number;
-    totalImageWeight: number;
+    totalImageSize: number;
 };

@@ -6,14 +6,32 @@ import { HTMLMediaTypes, ImageType, VideoType } from "@repo/config/types/urlInfo
 import * as Cheerio from "cheerio";
 
 
-export async function htmlMediaExtractor(html: string, preloadImages: Set<String>) {
+export async function htmlMediaExtractor(html: string, preloadImages: Set<String>, baseUrl: URL): Promise<HTMLMediaTypes> {
 
     const $ = Cheerio.load(html);
 
-    const images = await imagesWithSize($, preloadImages);
+    const images = await imagesWithSize($, preloadImages, baseUrl);
     const videos = findVideos($);
 
+    const imagesMissingAlt = images.filter(image => !image.hasAlt).length;
+    const imagesWithoutDimensions = images.filter(image => !image.widthDeclared || !image.heightDeclared).length;
+    const imagesNotLazyLoaded = images.filter(image => image.loading !== "lazy").length;
+    const notWebpOrAvif = images.filter(image => image.format !== "webp" && image.format !== "avif").length;
 
-    console.log("Extracted videos:", videos);
+    const totalImageWeight = images.reduce((total, image) => {
+        total += image.fileSizeBytes || 0;
+        return total;
+    }, 0)
+
+    return {
+        images,
+        videos,
+        imagesMissingAlt,
+        imagesMissingDimensions: imagesWithoutDimensions,
+        imagesNotLazy: imagesNotLazyLoaded,
+        notWebpOrAvif: notWebpOrAvif,
+        totalImageSize: totalImageWeight,
+    }
+
 }
 

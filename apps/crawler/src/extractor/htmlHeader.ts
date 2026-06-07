@@ -4,7 +4,7 @@ import { HreflangType, TwitterCardType, PaginationType, FaviconType, ResourceHin
 import * as cherrio from "cheerio";
 
 
-export function htmlHeaderExtractor(html: string, url: string): HTMLHeaderType {
+export function htmlHeaderExtractor(html: string, url: URL): HTMLHeaderType {
 
 
     const $ = cherrio.load(html);
