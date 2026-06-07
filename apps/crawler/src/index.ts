@@ -2,7 +2,6 @@ import { consumer } from "@/consumer.js";
 import { crawler } from "@/crawler.js";
 import { validateEnv } from "@/utils/validateEnv.js";
 import { createRedisConnection } from "@repo/queue/queue";
-import { generateSetKey, isMemberOfSet } from "@repo/queue/set";
 import { generateHashKey, increaseDomainStatsValue, isCrawlCompleted } from "@repo/queue/hashes";
 import "dotenv/config"
 import { produce } from "@/produce.js";
@@ -13,6 +12,8 @@ import { htmlStructureData } from "@/extractor/htmlStructureData.js";
 import { tempHtml } from "@/extractor/tempHtml.js";
 import { htmlLinksExtractor } from "@/extractor/htmlLinks.js";
 import axios from "axios";
+import { htmlMediaExtractor } from "@/extractor/htmlMediaExtractor.js";
+import { htmlHeaderExtractor } from "@/extractor/htmlHeader.js";
 
 
 
@@ -170,9 +171,14 @@ let init = true;
 
 
 // console.log(htmlStructureData(tempHtml));
-const html = await axios.get("https://redis.io/")
+const html = await axios.get("https://www.w3schools.com/html/html5_video.asp")
 
-const a = htmlLinksExtractor(html.data, new URL("https://redis.io/"));
+// const a = htmlLinksExtractor(html.data, new URL("https://www.w3schools.com/html/html5_video.asp"));
 
+// console.log(a);
 
-console.log(a);
+const htmlHeader = htmlHeaderExtractor(html.data, "https://www.w3schools.com/html/html5_video.asp");
+
+const newSet = htmlHeader.resourceHints.filter(hint => hint.rel === "preload" && hint.as === "image").map(hint => hint.href)
+
+htmlMediaExtractor(html.data, new Set<String>(newSet))

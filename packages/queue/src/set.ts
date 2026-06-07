@@ -1,22 +1,46 @@
 import { createClient } from "redis";
 
-export type AddToSetType = {
+/* 
+    This file contains utility functions related to keep track of visited URLs of a given Seed URL.
+
+*/
+
+export type AddVisitedUrlTypes = {
     client: ReturnType<typeof createClient>;
     key: string;
-    value: string;
+    addUrls: string[];
+}
+
+export type CreateVisitedUrlSetType = Pick<AddVisitedUrlTypes, "client" | "addUrls"> & {
+    seedUrl: string;
+};
+
+
+export async function createVisitedUrlSet({ client, seedUrl, addUrls }: CreateVisitedUrlSetType): Promise<{ key: string } | null> {
+    const key = generateVisitedUrlKey(seedUrl);
+
+    try {
+        await addUrlToVisitedSet({ client, key, addUrls });
+    } catch {
+        console.error("Error creating visited url set");
+        return null;
+    }
+
+    return {
+        key
+    }
+}
+
+export async function addUrlToVisitedSet({ client, key, addUrls }: AddVisitedUrlTypes) {
+    await client.sAdd(key, addUrls);
 }
 
 
-export async function addToSet({ client, key, value }: AddToSetType) {
-    await client.sAdd(key, value);
-}
-
-
-export async function isMemberOfSet({ client, key, value }: AddToSetType): Promise<boolean> {
-    const res = await client.sIsMember(key, value);
+export async function isMemberOfVisitedSet({ client, key, url }: Omit<AddVisitedUrlTypes, "addUrls"> & { url: string }): Promise<boolean> {
+    const res = await client.sIsMember(key, url);
     return res == 0 ? false : true;
 }
 
-export function generateSetKey(hostname: string): string {
-    return `urls:${hostname}`;
+export function generateVisitedUrlKey(seedUrl: string): string {
+    return `urls:${seedUrl}`;
 }

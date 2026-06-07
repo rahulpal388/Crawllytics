@@ -1,40 +1,46 @@
 
 import { createClient } from "redis";
 
-export type DomainStatsMessageType = {
+/*
+
+This file contains utility functions related to managing URL statistics in Redis. It includes functions to set URL statistics, increase specific values, and check if the crawling process for a URL is completed based on the total URLs and total URLs crawled.
+
+*/
+
+export type URLStatsMessageType = {
     totalUrls: number;
     totalUrlsCrawled: number;
 }
 
-export type DomainStateCommonType = {
+export type URLStateCommonType = {
     client: ReturnType<typeof createClient>;
     key: string;
 }
 
-export type DomainStatsType = DomainStateCommonType & {
+export type URLStatsType = URLStateCommonType & {
 
-    message: DomainStatsMessageType
+    message: URLStatsMessageType
 }
 
-export type IncreaseDomainStatsValueType = DomainStateCommonType & {
+export type IncreaseURLStatsValueType = URLStateCommonType & {
     incValue: number;
-    field: keyof DomainStatsMessageType;
+    field: keyof URLStatsMessageType;
 }
 
 
 
 
 
-export async function setDomainStats({ client, key, message }: DomainStatsType) {
+export async function setDomainStats({ client, key, message }: URLStatsType) {
     await client.hSet(key, message);
 }
 
 
-export async function increaseDomainStatsValue({ client, key, field, incValue }: IncreaseDomainStatsValueType) {
+export async function increaseDomainStatsValue({ client, key, field, incValue }: IncreaseURLStatsValueType) {
     await client.hIncrBy(key, field, incValue);
 }
 
-export async function isCrawlCompleted({ client, key }: DomainStateCommonType): Promise<boolean> {
+export async function isCrawlCompleted({ client, key }: URLStateCommonType): Promise<boolean> {
     const stats = await client.hGetAll(key);
     if (!stats || Object.keys(stats).length === 0) {
         return false;

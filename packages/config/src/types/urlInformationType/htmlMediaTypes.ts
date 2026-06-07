@@ -10,12 +10,8 @@ export type ImageType = {
     loading: 'lazy' | 'eager' | null;
     fetchPriority: 'high' | 'low' | 'auto' | null;
     decoding: 'async' | 'sync' | 'auto' | null;
-    format: 'webp' | 'avif' | 'jpg' | 'png' | 'gif' | 'svg';
+    format: string | null;
     fileSizeBytes: number | null;
-    naturalWidth: number | null;
-    naturalHeight: number | null;
-    isAboveTheFold: boolean;
-    isLcpCandidate: boolean;
     isPreloaded: boolean;
 
 };
@@ -31,7 +27,7 @@ export type VideoType = {
     hasCaptions: boolean;
     hasTranscript: boolean;
     isEmbedded: boolean;
-    embedProvider: 'youtube' | 'vimeo' | null;
+    embedProvider: "youtube" | "vimeo" | null;
 };
 
 export type HTMLMediaTypes = {
