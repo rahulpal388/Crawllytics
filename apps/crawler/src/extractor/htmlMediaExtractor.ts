@@ -6,9 +6,7 @@ import { HTMLMediaTypes, ImageType, VideoType } from "@repo/config/types/urlInfo
 import * as Cheerio from "cheerio";
 
 
-export async function htmlMediaExtractor(html: string, preloadImages: Set<String>, baseUrl: URL): Promise<HTMLMediaTypes> {
-
-    const $ = Cheerio.load(html);
+export async function htmlMediaExtractor($: Cheerio.CheerioAPI, preloadImages: Set<String>, baseUrl: URL): Promise<HTMLMediaTypes> {
 
     const images = await imagesWithSize($, preloadImages, baseUrl);
     const videos = findVideos($);

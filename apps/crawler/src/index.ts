@@ -14,6 +14,7 @@ import { htmlLinksExtractor } from "@/extractor/htmlLinks.js";
 import axios from "axios";
 import { htmlMediaExtractor } from "@/extractor/htmlMediaExtractor.js";
 import { htmlHeaderExtractor } from "@/extractor/htmlHeader.js";
+import { getRobotsTxt, extractRobotsTxt } from "@repo/lib/extractRobotsTxt";
 
 
 
@@ -169,15 +170,3 @@ let init = true;
 
 // main();
 
-
-const url = "https://www.w3schools.com/html/html5_video.asp";
-const html = await axios.get(url);
-
-
-
-const htmlHeader = htmlHeaderExtractor(html.data, new URL(url));
-
-const newSet = htmlHeader.resourceHints.filter(hint => hint.rel === "preload" && hint.as === "image").map(hint => hint.href)
-
-const mediaData = await htmlMediaExtractor(html.data, new Set<String>(newSet), new URL(url));
-console.log(mediaData);

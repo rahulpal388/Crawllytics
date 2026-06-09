@@ -1,13 +1,12 @@
 import { HTMLCanonicalType, HTMLHeaderType, HTMLMetaDescriptionType, HTMLMetaRobotType, HTMLMetaViewportType, HTMLTitleType } from "@repo/config/types/urlInformationType/htmlHeaderResponseTypes";
 import { isAbsoluteUrl } from "@/utils/isAbsoluteUrl.js";
 import { HreflangType, TwitterCardType, PaginationType, FaviconType, ResourceHintType } from "@repo/config/types/urlInformationType/htmlHeaderResponseTypes";
-import * as cherrio from "cheerio";
+import * as cheerio from "cheerio";
 
 
-export function htmlHeaderExtractor(html: string, url: URL): HTMLHeaderType {
+export function htmlHeaderExtractor($: cheerio.CheerioAPI, url: URL): HTMLHeaderType {
 
 
-    const $ = cherrio.load(html);
 
     // <--------------  title section   --------------->
     const titleValue: HTMLTitleType[] = [];

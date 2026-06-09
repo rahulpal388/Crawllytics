@@ -11,8 +11,7 @@ export type UrlAnalysesType = {
     hasSpaces: boolean;
     hasNonAscii: boolean;
     hasFileExtension: boolean;
-    fileExtension: string | null;
-    urlCategory: 'homepage' | 'blog' | 'product' | 'category' | 'other';
+    fileExtension: string[];
     hasRepetitivePath: boolean;
     domainExtension: string | null;
 }

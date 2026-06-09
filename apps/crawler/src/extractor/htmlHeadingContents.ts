@@ -1,15 +1,15 @@
-import * as cherrio from "cheerio"
+import * as cheerio from "cheerio"
 import { HTMLHeadingContentsType, HTMLHeadingContentType } from "@repo/config/types/urlInformationType/htmlHeadingContentsTypes";
+import { getHeadingContent } from "@/utils/getHeadingContent.js";
 
 
 
-export function htmlContentsExtractor(html: string): HTMLHeadingContentsType {
+export function htmlContentsExtractor($: cheerio.CheerioAPI): HTMLHeadingContentsType {
 
     const h1Contents: HTMLHeadingContentType[] = [];
     const h2Contents: HTMLHeadingContentType[] = [];
     const h3H6Contents: HTMLHeadingContentType[] = [];
 
-    const $ = cherrio.load(html);
 
 
     // ------------------- H1 heading ----------------
@@ -77,11 +77,3 @@ export function htmlContentsExtractor(html: string): HTMLHeadingContentsType {
 
 
 
-function getHeadingContent(text: string): HTMLHeadingContentType {
-    return {
-        text,
-        charLength: text.length,
-        wordCount: text.split(/\s+/).filter(Boolean).length
-    }
-
-}
