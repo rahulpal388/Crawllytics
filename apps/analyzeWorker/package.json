@@ -6,6 +6,9 @@
   "author": "",
   "type": "module",
   "main": "index.js",
+  "imports": {
+    "#/*": "./src/*"
+  },
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc -p tsconfig.json",

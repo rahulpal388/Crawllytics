@@ -14,6 +14,7 @@ export type HTMLHeaderType = {
     twitterCard: TwitterCardType,
     favicon: FaviconType[],
     resourceHints: ResourceHintType[],
+    sitename: string | null;
 
 }
 
@@ -111,7 +112,6 @@ export type ResourceHintType = {
     href: string;
     as: string | null; // "script", "style", "image", "font", etc.
 }
-
 
 
 

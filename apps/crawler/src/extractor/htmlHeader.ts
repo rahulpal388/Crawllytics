@@ -163,6 +163,11 @@ export function htmlHeaderExtractor($: cheerio.CheerioAPI, url: URL): HTMLHeader
         });
     });
 
+
+    // ---------------------- sitename (from title or openGraph) ----------------------
+    let sitename: string | null = null;
+    sitename = $("meta[property='og:site_name']").attr("content") || null;
+
     return {
         title: titleValue,
         meta: {
@@ -177,6 +182,7 @@ export function htmlHeaderExtractor($: cheerio.CheerioAPI, url: URL): HTMLHeader
         twitterCard,
         favicon,
         resourceHints,
+        sitename
     }
 
 

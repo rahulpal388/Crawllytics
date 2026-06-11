@@ -15,6 +15,7 @@ import axios from "axios";
 import { htmlMediaExtractor } from "@/extractor/htmlMediaExtractor.js";
 import { htmlHeaderExtractor } from "@/extractor/htmlHeader.js";
 import { getRobotsTxt, extractRobotsTxt } from "@repo/lib/extractRobotsTxt";
+import * as Cherrio from "cheerio";
 
 
 
@@ -170,3 +171,11 @@ let init = true;
 
 // main();
 
+const url = new URL("https://www.beatroom.space");
+const response = await axios.get(url.href);
+const html = response.data;
+const $ = Cherrio.load(html);
+
+const a = htmlHeaderExtractor($, url);
+
+console.log(a);
