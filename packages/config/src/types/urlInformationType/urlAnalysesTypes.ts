@@ -3,6 +3,7 @@
 export type UrlAnalysesType = {
     urlLength: number;
     urlDepth: number;
+    isBlockedByRobotsTxt: boolean;
     hasQueryParams: boolean;
     queryParams: string[];
     hasFragment: boolean;

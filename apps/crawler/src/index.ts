@@ -16,6 +16,8 @@ import { htmlMediaExtractor } from "@/extractor/htmlMediaExtractor.js";
 import { htmlHeaderExtractor } from "@/extractor/htmlHeader.js";
 import { getRobotsTxt, extractRobotsTxt } from "@repo/lib/extractRobotsTxt";
 import * as Cherrio from "cheerio";
+import { fetchWebPageAndNetworkInfo } from "@/fetchWebPageAndNetworkInfo.js";
+import { RedirectChainType } from "@repo/config/types/urlInformationType/eachUrlNetworkTypes";
 
 
 
@@ -177,5 +179,10 @@ const html = response.data;
 const $ = Cherrio.load(html);
 
 const a = htmlHeaderExtractor($, url);
+const redirectChain: RedirectChainType[] = []
 
-console.log(a);
+const { success, data } = await fetchWebPageAndNetworkInfo(new URL("https://redis.io/"), redirectChain, new Set<String>())
+
+if (success) {
+    console.log(data.eachUrlNetwork)
+}

@@ -2,12 +2,12 @@
 export type AccessibilityType = {
     formsWithoutLabels: number;
     buttonsWithoutText: number;
-    hasSkipNavigation: boolean;
-    ariaLandmarks: string[];
-    hasAriaHidden: boolean;
+    // hasSkipNavigation: boolean;
+    // ariaLandmarks: string[];
+    // hasAriaHidden: boolean;
     langDeclared: boolean;
-    langMatchesContent: boolean;
-    tabIndexAbuse: boolean;
-    linksOpenNewTabWithoutWarning: number;
+    //  langMatchesContent: boolean;
+    // tabIndexAbuse: boolean;
+    //  linksOpenNewTabWithoutWarning: number;
     tablesMissingHeaders: number;
 }

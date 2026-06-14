@@ -1,26 +1,20 @@
 
-export const GOOGLE_RICH_RESULT_TYPES = {
-    Article: "Article",
-    BreadcrumbList: "Breadcrumb",
-    Course: "Course",
-    DiscussionForumPosting: "Discussion Forum",
-    EducationQAPage: "Education Q&A",
-    Event: "Event",
-    FAQPage: "FAQ",
-    JobPosting: "Job Posting",
-    LocalBusiness: "Local Business",
-    Organization: "Organization",
-    Product: "Product",
-    ProfilePage: "Profile Page",
-    QAPage: "Q&A",
-    Recipe: "Recipe",
-    Review: "Review Snippet",
-    AggregateRating: "Review Snippet",
-    SoftwareApplication: "Software App",
-    VideoObject: "Video",
-    VacationRental: "Vacation Rental",
-    Vehicle: "Vehicle Listing",
-    ClaimReview: "Fact Check",
-    Movie: "Movie",
-    Book: "Book"
-};
+
+export const RICH_RESULT_ELIGIBLE = new Set([
+    "Article",
+    "Book",
+    "BreadcrumbList",
+    "Course",
+    "Dataset",
+    "Event",
+    "FAQPage",
+    "HowTo",
+    "JobPosting",
+    "LocalBusiness",
+    "Movie",
+    "Product",
+    "Recipe",
+    "Review",
+    "SoftwareApplication",
+    "VideoObject"
+]);

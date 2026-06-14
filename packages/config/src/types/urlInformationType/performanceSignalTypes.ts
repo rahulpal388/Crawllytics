@@ -10,20 +10,19 @@ export type PerformanceSignalType = {
     stylesheets: StylesheetType[];
     renderBlockingScripts: number;
     renderBlockingCss: number;
-    thirdPartyScripts: ThirdPartyScript[];
+    // thirdPartyScripts: ThirdPartyScript[];
     totalScriptCount: number;
     inlineScriptCount: number;
     totalScriptSizeBytes: number;
     lcpCandidate: LcpCandidateType;
-    clsRiskScore: number;
+    // clsRiskScore: number;
     resourceHintCoverage: ResourceHintCoverage;
     inlineCssBytes: number;
     totalCssFiles: number;
     estimatedTbtMs: number;
     hasServiceWorker: boolean;
     hasPwaManifest: boolean;
-    interstitialDetected: boolean;
-    adsDotTxt: boolean;
+    // interstitialDetected: boolean;
 
 }
 
@@ -51,18 +50,26 @@ export type StylesheetType = {
 }
 
 
-export type ThirdPartyScript = {
-    domain: string;
-    category: 'analytics' | 'ads' | 'chat' | 'social' | 'cdn' | 'other';
-}
+// export type ThirdPartyScript = {
+//     domain: string;
+//     category:
+//     | "analytics"
+//     | "ads"
+//     | "chat"
+//     | "social"
+//     | "cdn"
+//     | "video"
+//     | "payment"
+//     | "other";
+// }
 
 
 export type LcpCandidateType = {
-    type: 'image' | 'text';
+    type: "image" | "text";
     src: string | null;
     isPreloaded: boolean;
     hasEagerLoading: boolean;
-}
+};
 
 export type ResourceHintCoverage = {
     preconnectCount: number;

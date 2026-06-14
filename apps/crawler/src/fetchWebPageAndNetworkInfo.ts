@@ -8,7 +8,7 @@ import https from "https";
 const MAX_REDIRECTS = 3;
 
 
-export async function fetchWebPage(
+export async function fetchWebPageAndNetworkInfo(
     url: URL,
     redirectChain: RedirectChainType[],
     visitedUrls: Set<String>
@@ -17,7 +17,7 @@ export async function fetchWebPage(
         success: true;
         data: {
             html: string;
-            response: EachUrlNetworkResultTypes;
+            eachUrlNetwork: EachUrlNetworkResultTypes;
         };
     }
     | {
@@ -87,7 +87,7 @@ export async function fetchWebPage(
                             data: null
                         });
                     } else {
-                        resolve(await fetchWebPage(new URL(location, url.origin), redirectChain, visitedUrls));
+                        resolve(await fetchWebPageAndNetworkInfo(new URL(location, url.origin), redirectChain, visitedUrls));
                     }
 
                 }
@@ -180,7 +180,7 @@ export async function fetchWebPage(
                     success: true,
                     data: {
                         html,
-                        response: {
+                        eachUrlNetwork: {
                             url: url.href,
                             statusCode: res.statusCode ?? 0,
                             httpVersion: `HTTP/${res.httpVersion}` as "HTTP/1.1" | "HTTP/2" | "HTTP/3",
