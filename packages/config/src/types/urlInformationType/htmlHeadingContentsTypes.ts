@@ -1,7 +1,7 @@
 
 
 
-export type HTMLHeadingContentType = {
+export type HTMLHeadingType = {
     text: string;
     charLength: number;
     wordCount: number;
@@ -9,9 +9,9 @@ export type HTMLHeadingContentType = {
 
 export type HTMLHeadingContentsType = {
 
-    h1: HTMLHeadingContentType[],
-    h2: HTMLHeadingContentType[],
-    h3H6: HTMLHeadingContentType[]
+    h1: HTMLHeadingType[],
+    h2: HTMLHeadingType[],
+    h3H6: HTMLHeadingType[]
     count: {
         wordCount: number;
         paragraphCount: number;

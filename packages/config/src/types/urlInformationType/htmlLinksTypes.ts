@@ -1,17 +1,6 @@
 
 
 
-/*
-    => this all can be found when analyzing the URL
-    // brokenInternalLinksCount: number;
-    // inboundInternalLinks: number;
-    // crawlDepth: number;
-    // isOrphan: boolean;
-    // discoveredVia: DiscoveredViaType;
-    // internalPageRankScore: number;
-
-*/
-
 export type InternalLinkType = {
     url: string;
     anchorText: string;
@@ -43,11 +32,4 @@ export type HTMLLinksType = {
     emptyAnchorTextCount: number;
     imageAnchorCount: number;
     nofollowInternalCount: number;
-}
-
-export type DiscoveredViaType = 'link' | 'sitemap' | 'manual'
-
-export type AnchorFreq = {
-    text: string;
-    count: number;
 }

@@ -16,6 +16,7 @@ export type HTMLHeaderType = {
     resourceHints: ResourceHintType[],
     sitename: string | null;
 
+
 }
 
 

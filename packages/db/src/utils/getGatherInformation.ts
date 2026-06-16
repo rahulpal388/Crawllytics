@@ -1,6 +1,6 @@
-import { GatherInformationType } from "@repo/db/model/gatherInformation";
+import { GatherInformationType } from "../model/seedUrlModel.js";
 import { GatherPageInformationType } from "@repo/db/model/gatherPageInformation";
-import { GatherInformationModel } from "@repo/db/model/gatherInformation";
+import { GatherInformationModel } from "../model/seedUrlModel.js";
 import "@repo/db/model/gatherPageInformation";
 import mongoose from "mongoose";
 
