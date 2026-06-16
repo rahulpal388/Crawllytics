@@ -23,5 +23,5 @@ export type UrlCrawledType = {
     performanceSignals: PerformanceSignalType;
     htmlDocument: HTMLDocumentType;
     accessibility: AccessibilityType;
-    analyzedUrlData: Schema.Types.ObjectId;
+    analyzedUrlData: Schema.Types.ObjectId | null;
 }
