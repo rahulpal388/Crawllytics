@@ -1,10 +1,5 @@
-import { createClient, RedisClientType } from 'redis';
-
-type RedisConfigType = {
-    url: string;
-    password: string;
-    username: string;
-}
+import { RedisConfigType } from '@/types/redisConfigTypes.js';
+import { createClient } from 'redis';
 
 
 
