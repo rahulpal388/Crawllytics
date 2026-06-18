@@ -1,20 +1,30 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
-import { createRedisConnection } from "@repo/queue/queue";
 import { ValidateEnv } from "@/lib/validateEnv.js";
 import { produce } from "@/produce.js";
-import { addToSet, generateSetKey } from "@repo/queue/set";
-import { generateHashKey, setDomainStats } from "@repo/queue/hashes";
 import { connectDB } from "@repo/db/index";
-import { GatherInformationModel } from "@repo/db/model/gatherInformation";
-import { getGatherInformation } from "@repo/db/utils/getGatherInformation";
+import { createRedisConnection } from "@repo/queue/client/client";
+import { crawlStateStore } from "@repo/queue/stores/crawlState/crawlState"
+import { errorHandler } from "@/middlewares/errors/errorHander.js";
+import { registerV1Routes } from "@/routes/index.js";
+import { registerMiddlerwares } from "@/middlewares/middleware.js";
+import { crawlPublisherConfig } from "@repo/queue/streams/publishers/crawlPublisher"
+import { logger } from "@/config/logger.js";
 
-const app = express();
-const env = ValidateEnv();
+
+export const app = express();
+export const env = ValidateEnv();
+app.use(express.json());
+const port = env.PORT;
+
+
+
+// ###################################################
+//                  CORS config
+// ###################################################
 
 const allowedOrigins = env.CROSS_ORIGIN_URL.split(",")
-const port = env.PORT;
 
 app.use(
     cors({
@@ -31,78 +41,53 @@ app.use(
     })
 );
 
-app.use(express.json());
 
-export const redisClient = await createRedisConnection({
+
+// ###################################################
+//                  Create Redis Connection
+// ###################################################
+const redisClient = await createRedisConnection({
     url: env.REDIS_URL,
     password: env.REDIS_PASSWORD,
     username: env.REDIS_USERNAME,
 })
 
+export const crawlStateSt = crawlStateStore(redisClient);
+
+export const crawlPublisher = crawlPublisherConfig(redisClient);
+
+
+
+// ###################################################
+//                  Connect to DB
+// ###################################################
+
 const dbClient = await connectDB(env.DATABASE_URL);
 if (!dbClient) {
-    console.error("Failed to connect to the database");
+    logger.fatal({
+        message: "Failed to connect to the database",
+        path: "",
+        metaData: {
+            databaseUrl: env.DATABASE_URL
+        }
+    })
     process.exit(1);
 }
 
-app.get("/api/health", (req, res) => {
-    res.status(200).json({ status: "ok" });
-});
 
-let id = 1;
-app.post("/api/url", async (req, res) => {
-    const { url } = req.body;
-    const urlObj = new URL(url);
-    console.log(urlObj);
-    const visitedSetKey = generateSetKey(urlObj.hostname);
-    const domainStatsKey = generateHashKey(urlObj.hostname);
-    const gatherInformation = await GatherInformationModel.create({
-        userId: "647b1c8f9c1b8a0015d9c8b4",
-        url: url,
-        pages: []
-    });
-    await addToSet({
-        client: redisClient,
-        key: visitedSetKey,
-        value: url
-    });
-    await setDomainStats({
-        client: redisClient,
-        key: domainStatsKey,
-        message: {
-            totalUrls: 1,
-            totalUrlsCrawled: 0
-        }
-    })
-    await produce({
-        key: "crawl:url",
-        message: {
-            id: gatherInformation._id.toString(),
-            url,
-            visitedSetKey,
-            domainStatsKey: domainStatsKey,
-            crawlDepth: "0"
-        }
-    })
-    id++;
-    res.status(200).json({
-        id: gatherInformation._id,
-        message: "added url successfully"
-    })
-})
+// ###################################################
+//                  register routes
+// ###################################################
+
+registerV1Routes(app);
 
 
-app.get("/gatherInformation/:id", async (req, res) => {
-    const { id } = req.params;
-    const data = await getGatherInformation(id);
-    if (!data) {
-        res.status(404).json({ message: "Gather information not found" });
-    } else {
-        res.status(200).json(data);
-    }
-})
 
-
+// ###################################################
+//                  register middleware
+// ###################################################
+registerMiddlerwares(app);
+app.use(errorHandler);
 
 app.listen(port, () => {
     console.log(`API server is running on port ${port}`);

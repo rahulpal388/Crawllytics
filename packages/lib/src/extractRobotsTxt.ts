@@ -13,7 +13,12 @@ export async function getRobotsTxt(origin: string): Promise<string | null> {
 
 }
 
-export function extractRobotsTxt(robotsTxtContent: string): RobotsTxtType {
+export async function extractRobotsTxt(origin: string): Promise<RobotsTxtType | null> {
+
+    const robotsTxtContent = await getRobotsTxt(origin);
+    if (!robotsTxtContent) {
+        return null;
+    }
 
     const lines = robotsTxtContent.split("\n").map(line => line.trim());
 

@@ -1,5 +1,6 @@
 import { CrawlStateType } from "@/types/crawlStateTypes.js";
 import { RedisClientType } from "redis";
+import { Types } from "mongoose";
 
 export function crawlStateStore(redisClient: RedisClientType) {
 
@@ -46,7 +47,7 @@ export function crawlStateStore(redisClient: RedisClientType) {
     }
 
 
-    function generateKey(seedUrlId: string) {
+    function generateKey(seedUrlId: string | Types.ObjectId): string {
         return `crawlState:${seedUrlId}`;
     }
 

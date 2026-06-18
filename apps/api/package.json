@@ -1,6 +1,6 @@
 {
   "name": "api",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "exposes api ",
   "license": "ISC",
   "author": "",
@@ -24,6 +24,7 @@
     "@repo/queue": "*",
     "@repo/db": "*",
     "@repo/config": "*",
+    "@repo/lib": "*",
     "tsx": "^4.21.0",
     "typescript": "^5.9.2"
   }

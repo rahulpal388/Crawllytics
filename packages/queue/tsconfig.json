@@ -1,6 +1,7 @@
 {
   "extends": "@repo/typescript-config/base.json",
   "compilerOptions": {
+    "rootDir": "./src",
     "paths": {
       "@/*": [
         "./src/*"
@@ -8,6 +9,6 @@
     }
   },
   "include": [
-    "src"
+    "src/**/*.ts"
   ]
 }

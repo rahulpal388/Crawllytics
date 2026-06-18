@@ -19,5 +19,5 @@ export type CrawlStateType = {
 
     status: CrawlStatusType;
 
-    robotsTxt: RobotsTxtType;
+    robotsTxt: RobotsTxtType | null;
 }
