@@ -1,4 +1,4 @@
-import { CrawlStateType } from "@/types/crawlStateTypes.js";
+import { CrawlStateType } from '../../types/crawlStateTypes.js';
 import { RedisClientType } from "redis";
 import { Types } from "mongoose";
 

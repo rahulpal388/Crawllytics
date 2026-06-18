@@ -2,6 +2,7 @@ import { validateEnv } from "@/utils/validateEnv.js";
 import "dotenv/config"
 import { createRedisConnection } from "@repo/queue/client/client";
 import { crawlConsumerConfig } from "@repo/queue/streams/consumers/crawlConsumer";
+import { createConsumerGroup } from "@repo/queue/client/createConsumerGroup";
 
 
 
@@ -13,6 +14,12 @@ export const redisClient = await createRedisConnection({
     username: env.REDIS_USERNAME
 })
 
+await createConsumerGroup({
+    redisClient,
+    key: "crawl_stream",
+    group: "crawl_stream_group"
+});
+
 const crawlConsumer = crawlConsumerConfig(redisClient, "worker-1");
 
 
@@ -21,6 +28,10 @@ async function main() {
 
     while (true) {
         const message = await crawlConsumer.consume();
+
+        if (message) {
+            console.log("Message Received : ", message);
+        }
     }
 
 }

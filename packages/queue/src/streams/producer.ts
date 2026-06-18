@@ -1,4 +1,4 @@
-import { StreamGroupKeys, StreamKeys, StreamMessageMap } from "@/types/streamTypes.js";
+import { StreamGroupKeys, StreamKeys, StreamMessageMap } from '../types/streamTypes.js';
 import { RedisClientType } from "redis";
 
 

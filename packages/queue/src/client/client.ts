@@ -1,4 +1,4 @@
-import { RedisConfigType } from '@/types/redisConfigTypes.js';
+import { RedisConfigType } from '../types/redisConfigTypes.js';
 import { createClient, RedisClientType } from 'redis';
 
 

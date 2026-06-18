@@ -1,5 +1,5 @@
-import { AnalyzeStreamMessageType } from "@/types/analyzeStreamMessageTypes.js";
-import { CrawlStreamMessageType } from "@/types/crawlStreamMessageType.js";
+import { AnalyzeStreamMessageType } from './analyzeStreamMessageTypes.js';
+import { CrawlStreamMessageType } from './crawlStreamMessageType.js';
 
 
 export const STREAMS = {

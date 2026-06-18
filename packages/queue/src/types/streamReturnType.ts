@@ -1,4 +1,4 @@
-import { StreamKeys, StreamMessageMap } from "@/types/streamTypes.js";
+import { StreamKeys, StreamMessageMap } from './streamTypes.js';
 
 
 

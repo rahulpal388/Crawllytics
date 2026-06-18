@@ -1,4 +1,4 @@
-import { AnalyzeStreamMessageType } from "@/types/analyzeStreamMessageTypes.js"
+import { AnalyzeStreamMessageType } from '../../types/analyzeStreamMessageTypes.js';
 import { RedisClientType } from "redis"
 import { produce } from "../producer.js"
 
