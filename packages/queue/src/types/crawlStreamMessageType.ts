@@ -6,4 +6,6 @@ export type CrawlStreamMessageType = {
     storeId: string;
     seedUrl: string;
     url: string;
+    maxDepth: string;
+    depth: string;
 }

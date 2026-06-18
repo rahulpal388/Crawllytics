@@ -10,7 +10,9 @@ export const seedUrlRepository = {
     addSeedUrl,
     getUrlsCrawled,
     getAnalyzedData,
-    updateAnalyzedData
+    updateAnalyzedData,
+    updateSeedUrlStatus,
+    findByUrl
 }
 
 
@@ -52,4 +54,18 @@ async function updateAnalyzedData(seedUrlId: string | Types.ObjectId, analyzedDa
         { analyzedData: analyzedDataId },
         { new: true }
     );
+}
+
+async function updateSeedUrlStatus(seedUrlId: string | Types.ObjectId, status: SeedUrlType["status"]) {
+    return await seedUrlModel.findByIdAndUpdate(
+        seedUrlId,
+        { status },
+        { new: true }
+    );
+}
+
+
+
+export async function findByUrl(seedUrl: string) {
+    return await seedUrlModel.findOne({ seedUrl });
 }

@@ -1,0 +1,83 @@
+import { CrawlSeedUrlBody } from "@/validator/crawlValitator.js"
+import { seedUrlRepository } from "@repo/db/repository/seedUrlRepository";
+import { validUrl } from "@repo/lib/validUrl";
+import { extractRobotsTxt } from "@repo/lib/extractRobotsTxt";
+import { crawlStateSt } from "@/index.js"
+import { crawlPublisher } from "@/index.js"
+import { AppError } from "@/middlewares/errors/appError.js"
+
+
+export const crawlServices = {
+    startCrawl,
+
+}
+
+
+
+async function startCrawl(body: CrawlSeedUrlBody) {
+    const { url, depth } = body;
+
+    const normalizedUrl = validUrl(url);
+
+    if (!normalizedUrl) {
+        throw new AppError("Invalid URL", 400);
+    }
+
+    // get the robots.txt file 
+    const robotsTxt = await extractRobotsTxt(normalizedUrl.origin);
+
+
+    // add info to the database
+    const isSeedUrlExists = await seedUrlRepository.findByUrl(normalizedUrl.href);
+    if (isSeedUrlExists) {
+        throw new AppError("Seed URL already exists", 400);
+    }
+    const seedUrl = await seedUrlRepository.addSeedUrl({
+        status: "created",
+        seedUrl: normalizedUrl.href,
+        robotsTxt: robotsTxt ? robotsTxt.userAgents : [],
+        siteMapXMLUrls: robotsTxt ? robotsTxt.siteMapXMLUrls : [],
+        urlCrawled: [],
+        analyzedData: null
+    });
+
+
+    // store the info in redis
+
+    const storeKey = crawlStateSt.generateKey(seedUrl._id.toString());
+
+    await crawlStateSt.add(storeKey, {
+        _id: seedUrl._id.toString(),
+        seedUrl: normalizedUrl.href,
+        status: "pending",
+        discoveredUrls: 0,
+        crawledUrls: 0,
+        failedUrls: 0,
+        maxDepth: depth || 1,
+        robotsTxt: robotsTxt ? robotsTxt : null
+    });
+
+    // push the job to the queue
+    await crawlPublisher.enqueue({
+        _id: seedUrl._id.toString(),
+        storeId: storeKey,
+        seedUrl: normalizedUrl.href,
+        url: normalizedUrl.href,
+        maxDepth: depth ? depth.toString() : "1",
+        depth: "0"
+    })
+
+
+    await seedUrlRepository.updateSeedUrlStatus(seedUrl._id, "queued");
+
+    return {
+        message: "Crawl job added to the queue",
+        crawlId: seedUrl._id,
+        storeId: storeKey,
+        status: "queued"
+    }
+
+
+
+}
+

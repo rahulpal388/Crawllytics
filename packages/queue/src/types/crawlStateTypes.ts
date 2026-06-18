@@ -12,7 +12,7 @@ export type CrawlStatusType =
 export type CrawlStateType = {
     _id: string;
     seedUrl: string;
-
+    maxDepth: number;
     discoveredUrls: number;
     crawledUrls: number;
     failedUrls: number;

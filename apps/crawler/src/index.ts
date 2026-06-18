@@ -28,10 +28,12 @@ async function main() {
 
     while (true) {
         const message = await crawlConsumer.consume();
-
-        if (message) {
-            console.log("Message Received : ", message);
+        if (!message || message.length === 0) {
+            continue;
         }
+        console.log("Message Received : ", message);
+
+
     }
 
 }

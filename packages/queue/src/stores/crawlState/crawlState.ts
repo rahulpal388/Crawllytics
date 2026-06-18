@@ -21,6 +21,7 @@ export function crawlStateStore(redisClient: RedisClientType) {
         return await redisClient.hSet(key, {
             ...state,
             discoveredUrls: state.discoveredUrls.toString(),
+            maxDepth: state.maxDepth.toString(),
             crawledUrls: state.crawledUrls.toString(),
             failedUrls: state.failedUrls.toString(),
             robotsTxt: JSON.stringify(state.robotsTxt)
@@ -42,6 +43,7 @@ export function crawlStateStore(redisClient: RedisClientType) {
             crawledUrls: Number(data.crawledUrls),
             status: data.status! as CrawlStateType["status"],
             failedUrls: Number(data.failedUrls),
+            maxDepth: Number(data.maxDepth),
             robotsTxt: JSON.parse(data.robotsTxt || "")
         };
     }
