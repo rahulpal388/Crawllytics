@@ -4,9 +4,9 @@ import { HTMLHeadingType, HTMLHeadingContentsType } from "@repo/config/types/url
 
 
 const htmlHeadingSchemaDefination: SchemaOf<HTMLHeadingType> = {
-    text: { type: String, required: true },
-    charLength: { type: Number, required: true },
-    wordCount: { type: Number, required: true },
+    text: { type: String },
+    charLength: { type: Number },
+    wordCount: { type: Number },
 }
 
 const htmlHeadingSchema = new Schema<HTMLHeadingType>(htmlHeadingSchemaDefination, { _id: false, versionKey: false, strict: true });
@@ -16,8 +16,8 @@ const htmlHeadingContentsSchemaDefination: SchemaOf<HTMLHeadingContentsType> = {
     h2: { type: [htmlHeadingSchema], default: [] },
     h3H6: { type: [htmlHeadingSchema], default: [] },
     count: {
-        wordCount: { type: Number, required: true },
-        paragraphCount: { type: Number, required: true },
+        wordCount: { type: Number },
+        paragraphCount: { type: Number },
     }
 }
 

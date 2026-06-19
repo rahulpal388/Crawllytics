@@ -11,6 +11,7 @@ import { registerV1Routes } from "@/routes/index.js";
 import { registerMiddlerwares } from "@/middlewares/middleware.js";
 import { crawlPublisherConfig } from "@repo/queue/streams/publishers/crawlPublisher"
 import { logger } from "@/config/logger.js";
+import { urlDeDuplication } from "@repo/queue/stores/deduplication/urlDeDuplication";
 
 
 export const app = express();
@@ -21,7 +22,7 @@ const port = env.PORT;
 
 
 // ###################################################
-//                  CORS config
+// CORS config
 // ###################################################
 
 const allowedOrigins = env.CROSS_ORIGIN_URL.split(",")
@@ -44,7 +45,7 @@ app.use(
 
 
 // ###################################################
-//                  Create Redis Connection
+//  Create Redis Connection
 // ###################################################
 const redisClient = await createRedisConnection({
     url: env.REDIS_URL,
@@ -55,11 +56,12 @@ const redisClient = await createRedisConnection({
 export const crawlStateSt = crawlStateStore(redisClient);
 
 export const crawlPublisher = crawlPublisherConfig(redisClient);
+export const urlDeDuplicationStore = urlDeDuplication(redisClient);
 
 
 
 // ###################################################
-//                  Connect to DB
+//  Connect to DB
 // ###################################################
 
 const dbClient = await connectDB(env.DATABASE_URL);
@@ -76,7 +78,7 @@ if (!dbClient) {
 
 
 // ###################################################
-//                  register routes
+//  register routes
 // ###################################################
 
 registerV1Routes(app);
@@ -84,10 +86,12 @@ registerV1Routes(app);
 
 
 // ###################################################
-//                  register middleware
+//  register middleware
 // ###################################################
 registerMiddlerwares(app);
 app.use(errorHandler);
+
+
 
 app.listen(port, () => {
     console.log(`API server is running on port ${port}`);

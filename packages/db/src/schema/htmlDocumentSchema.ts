@@ -4,14 +4,14 @@ import { Schema } from "mongoose";
 
 
 const htmlDocumentSchemaDefinition: SchemaOf<HTMLDocumentType> = {
-    htmlLang: { type: String, required: true },
-    charSet: { type: String, required: true },
-    htmlSizeBytes: { type: Number, required: true },
-    textHtmlRatio: { type: Number, required: true },
-    iFrameCount: { type: Number, required: true },
-    iFrameSrc: { type: [String], required: true },
-    hasFlash: { type: Boolean, required: true },
-    jsFrameworks: { type: [String], required: true }
+    htmlLang: { type: String },
+    charSet: { type: String },
+    htmlSizeBytes: { type: Number },
+    textHtmlRatio: { type: Number },
+    iFrameCount: { type: Number },
+    iFrameSrc: { type: [String] },
+    hasFlash: { type: Boolean },
+    jsFrameworks: { type: [String] }
 }
 
 

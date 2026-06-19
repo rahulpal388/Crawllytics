@@ -3,10 +3,10 @@ import { AccessibilityType } from "@repo/config/types/urlInformationType/accessi
 import { Schema } from "mongoose"
 
 const accessibilitySchemaDefinition: SchemaOf<AccessibilityType> = {
-    formsWithoutLabels: { type: Number, required: true },
-    buttonsWithoutText: { type: Number, required: true },
-    langDeclared: { type: Boolean, required: true },
-    tablesMissingHeaders: { type: Number, required: true }
+    formsWithoutLabels: { type: Number },
+    buttonsWithoutText: { type: Number },
+    langDeclared: { type: Boolean },
+    tablesMissingHeaders: { type: Number }
 }
 
 

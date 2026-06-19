@@ -14,20 +14,19 @@ export const urlCrawledRepository = {
 // ###################### add  #######################
 
 
-async function addUrlCrawled(urlInfo: UrlCrawledType): Promise<RepositoryResponseType<{ _id: string }>> {
+async function addUrlCrawled(urlInfo: UrlCrawledType) {
 
     try {
         const url = await urlCrawledModel.create(urlInfo);
         return {
             success: true,
-            data: {
-                _id: url._id.toString()
-            }
+            data: url
         }
     } catch (err) {
         console.error("Error adding URL Crawled data:", err);
         return {
-            success: false
+            success: false,
+            data: null
         }
 
     }

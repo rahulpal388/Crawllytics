@@ -5,23 +5,23 @@ import { SchemaOf } from "../types/schemaOfTypes.js";
 
 
 const internalLinkSchemaDefination: SchemaOf<InternalLinkType> = {
-    url: { type: String, required: true },
-    anchorText: { type: String, required: true },
-    isImage: { type: Boolean, required: true },
+    url: { type: String },
+    anchorText: { type: String },
+    isImage: { type: Boolean },
     altText: { type: String, default: null },
-    relAttributes: { type: String, require: true },
-    isDoFollow: { type: Boolean, required: true },
+    relAttributes: { type: String },
+    isDoFollow: { type: Boolean },
 }
 
 const externalLinkSchemaDefination: SchemaOf<ExternalLinkType> = {
-    url: { type: String, required: true },
-    anchorText: { type: String, required: true },
-    isImage: { type: Boolean, required: true },
+    url: { type: String },
+    anchorText: { type: String },
+    isImage: { type: Boolean },
     altText: { type: String, default: null },
-    relAttributes: { type: String, require: true },
-    isNoFollow: { type: Boolean, required: true },
-    isSponsored: { type: Boolean, required: true },
-    isUGC: { type: Boolean, required: true },
+    relAttributes: { type: String},
+    isNoFollow: { type: Boolean },
+    isSponsored: { type: Boolean },
+    isUGC: { type: Boolean },
     domain: { type: String, default: null },
 }
 
@@ -33,10 +33,10 @@ const externalLinkSchema = new mongoose.Schema<ExternalLinkType>(externalLinkSch
 const htmlLinksSchemaDefination: SchemaOf<HTMLLinksType> = {
     internalLinks: { type: [internalLinkSchema], default: [] },
     externalLinks: { type: [externalLinkSchema], default: [] },
-    totalLinksCount: { type: Number, required: true },
-    emptyAnchorTextCount: { type: Number, required: true },
-    imageAnchorCount: { type: Number, required: true },
-    nofollowInternalCount: { type: Number, required: true },
+    totalLinksCount: { type: Number },
+    emptyAnchorTextCount: { type: Number },
+    imageAnchorCount: { type: Number },
+    nofollowInternalCount: { type: Number },
 }
 
 

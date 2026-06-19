@@ -2,7 +2,7 @@ import { CrawlSeedUrlBody } from "@/validator/crawlValitator.js"
 import { seedUrlRepository } from "@repo/db/repository/seedUrlRepository";
 import { validUrl } from "@repo/lib/validUrl";
 import { extractRobotsTxt } from "@repo/lib/extractRobotsTxt";
-import { crawlStateSt } from "@/index.js"
+import { crawlStateSt, urlDeDuplicationStore } from "@/index.js"
 import { crawlPublisher } from "@/index.js"
 import { AppError } from "@/middlewares/errors/appError.js"
 
@@ -12,6 +12,8 @@ export const crawlServices = {
 
 }
 
+
+const MAX_CRAWL_DEPTH = 1;
 
 
 async function startCrawl(body: CrawlSeedUrlBody) {
@@ -41,6 +43,9 @@ async function startCrawl(body: CrawlSeedUrlBody) {
         analyzedData: null
     });
 
+    // add the seed url to the deduplication store
+    const urlDeDuplicationKey = urlDeDuplicationStore.generateKey(seedUrl._id.toString());
+    await urlDeDuplicationStore.add(urlDeDuplicationKey, [normalizedUrl.href]);
 
     // store the info in redis
 
@@ -49,24 +54,26 @@ async function startCrawl(body: CrawlSeedUrlBody) {
     await crawlStateSt.add(storeKey, {
         _id: seedUrl._id.toString(),
         seedUrl: normalizedUrl.href,
+        deDuplicateId: urlDeDuplicationKey,
         status: "pending",
-        discoveredUrls: 0,
+        discoveredUrls: 1,
         crawledUrls: 0,
         failedUrls: 0,
-        maxDepth: depth || 1,
+        maxDepth: MAX_CRAWL_DEPTH || 1,
         robotsTxt: robotsTxt ? robotsTxt : null
     });
+
 
     // push the job to the queue
     await crawlPublisher.enqueue({
         _id: seedUrl._id.toString(),
         storeId: storeKey,
+        deDuplicateId: urlDeDuplicationKey,
         seedUrl: normalizedUrl.href,
         url: normalizedUrl.href,
-        maxDepth: depth ? depth.toString() : "1",
+        maxDepth: MAX_CRAWL_DEPTH.toString(),
         depth: "0"
     })
-
 
     await seedUrlRepository.updateSeedUrlStatus(seedUrl._id, "queued");
 

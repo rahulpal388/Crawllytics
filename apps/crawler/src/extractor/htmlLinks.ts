@@ -20,7 +20,6 @@ export function htmlLinksExtractor(
     const imageAnchorCount = internalLinks.filter(link => link.isImage).length + externalLinks.filter(link => link.isImage).length;
     const nofollowInternalCount = internalLinks.filter(link => !link.isDoFollow).length;
 
-
     return {
         internalLinks,
         externalLinks,

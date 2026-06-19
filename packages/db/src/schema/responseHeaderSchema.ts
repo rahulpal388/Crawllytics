@@ -4,10 +4,10 @@ import { Schema } from "mongoose";
 
 const HSTSSchema = new Schema<HSTSType>(
     {
-        value: { type: String, required: true },
-        maxAge: { type: Number, required: true },
+        value: { type: String },
+        maxAge: { type: Number },
         includeSubdomains: { type: Boolean, default: false },
-        preload: { type: Boolean, required: true },
+        preload: { type: Boolean },
     },
     { _id: false, versionKey: false }
 );

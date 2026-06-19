@@ -14,6 +14,7 @@ export type CrawlStateType = {
     seedUrl: string;
     maxDepth: number;
     discoveredUrls: number;
+    deDuplicateId: string;
     crawledUrls: number;
     failedUrls: number;
 

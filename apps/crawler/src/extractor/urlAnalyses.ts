@@ -1,6 +1,6 @@
 import { UrlAnalysesType } from "@repo/config/types/urlInformationType/urlAnalysesTypes";
 
-export function urlAnalyses(url: URL, isBlockedByRobotsTxt: boolean): UrlAnalysesType {
+export function urlAnalyses(url: URL): UrlAnalysesType {
 
     const urlLength = url.href.length;
     const segment = url.pathname.split("/").filter(Boolean);
@@ -36,7 +36,7 @@ export function urlAnalyses(url: URL, isBlockedByRobotsTxt: boolean): UrlAnalyse
         hasNonAscii,
         hasRepetitivePath,
         domainExtension,
-        isBlockedByRobotsTxt
+        isBlockedByRobotsTxt: true
     }
 
 

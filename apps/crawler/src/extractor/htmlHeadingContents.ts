@@ -1,14 +1,14 @@
 import * as cheerio from "cheerio"
-import { HTMLHeadingContentsType, HTMLHeadingContentType } from "@repo/config/types/urlInformationType/htmlHeadingContentsTypes";
+import { HTMLHeadingContentsType, HTMLHeadingType } from "@repo/config/types/urlInformationType/htmlHeadingContentsTypes";
 import { getHeadingContent } from "@/utils/getHeadingContent.js";
 
 
 
 export function htmlContentsExtractor($: cheerio.CheerioAPI): HTMLHeadingContentsType {
 
-    const h1Contents: HTMLHeadingContentType[] = [];
-    const h2Contents: HTMLHeadingContentType[] = [];
-    const h3H6Contents: HTMLHeadingContentType[] = [];
+    const h1Contents: HTMLHeadingType[] = [];
+    const h2Contents: HTMLHeadingType[] = [];
+    const h3H6Contents: HTMLHeadingType[] = [];
 
 
 

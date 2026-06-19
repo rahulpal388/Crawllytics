@@ -41,6 +41,7 @@ export function crawlStateStore(redisClient: RedisClientType) {
             seedUrl: data.seedUrl!,
             discoveredUrls: Number(data.discoveredUrls),
             crawledUrls: Number(data.crawledUrls),
+            deDuplicateId: data.deDuplicateId!,
             status: data.status! as CrawlStateType["status"],
             failedUrls: Number(data.failedUrls),
             maxDepth: Number(data.maxDepth),
@@ -59,7 +60,6 @@ export function crawlStateStore(redisClient: RedisClientType) {
             return false;
 
         }
-
         return data.discoveredUrls === data.crawledUrls + data.failedUrls;
     }
 

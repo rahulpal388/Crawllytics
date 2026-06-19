@@ -5,12 +5,12 @@ import { Schema } from "mongoose";
 
 
 const mobileUIUXSchemaDefination: SchemaOf<MobileUIUXType> = {
-    hasMetaViewport: { type: Boolean, require: true },
-    viewportIsMobileReady: { type: Boolean, require: true },
-    touchIconPresent: { type: Boolean, require: true },
-    fontScalingSupported: { type: Boolean, require: true },
-    estimatedHorizontalScrollRisk: { type: Boolean, require: true },
-    estimatedPopupPresence: { type: Boolean, require: true },
+    hasMetaViewport: { type: Boolean },
+    viewportIsMobileReady: { type: Boolean },
+    touchIconPresent: { type: Boolean },
+    fontScalingSupported: { type: Boolean },
+    estimatedHorizontalScrollRisk: { type: Boolean },
+    estimatedPopupPresence: { type: Boolean },
 }
 
 

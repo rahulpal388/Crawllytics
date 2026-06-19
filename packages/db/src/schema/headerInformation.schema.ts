@@ -16,52 +16,52 @@ import {
 import { SchemaOf } from "../types/schemaOfTypes.js";
 
 const htmlTitleSchemaDefinition: SchemaOf<HTMLTitleType> = {
-    text: { type: String, required: true },
-    lengthChar: { type: Number, required: true },
-    lengthPixel: { type: Number, required: true },
+    text: { type: String },
+    lengthChar: { type: Number },
+    lengthPixel: { type: Number },
 };
 
 const htmlMetaDescriptionSchemaDefinition: SchemaOf<HTMLMetaDescriptionType> = {
-    text: { type: String, required: true },
-    lengthChar: { type: Number, required: true },
-    lengthPixel: { type: Number, required: true },
+    text: { type: String },
+    lengthChar: { type: Number },
+    lengthPixel: { type: Number },
 };
 
 const htmlMetaRobotSchemaDefinition: SchemaOf<HTMLMetaRobotType> = {
-    content: { type: String, required: true },
+    content: { type: String },
 };
 
 const htmlCanonicalSchemaDefinition: SchemaOf<HTMLCanonicalType> = {
-    url: { type: String, required: true },
-    isSelf: { type: Boolean, required: true },
-    isCrossPage: { type: Boolean, required: true },
-    isCrossDomain: { type: Boolean, required: true },
-    isAbsoluteUrl: { type: Boolean, required: true },
+    url: { type: String },
+    isSelf: { type: Boolean },
+    isCrossPage: { type: Boolean },
+    isCrossDomain: { type: Boolean },
+    isAbsoluteUrl: { type: Boolean },
 };
 
 const htmlOpenGraphSchemaDefinition: SchemaOf<HTMLOpenGraphType> = {
-    title: { type: String, required: true },
-    description: { type: String, required: true },
-    image: { type: String, required: true },
-    imageWidth: { type: String, required: true },
-    imageHeight: { type: String, required: true },
-    url: { type: String, required: true },
-    type: { type: String, required: true },
-    siteName: { type: String, required: true },
-    locale: { type: String, required: true },
+    title: { type: String },
+    description: { type: String },
+    image: { type: String },
+    imageWidth: { type: String },
+    imageHeight: { type: String },
+    url: { type: String },
+    type: { type: String },
+    siteName: { type: String },
+    locale: { type: String },
 };
 
 const htmlMetaViewportSchemaDefinition: SchemaOf<HTMLMetaViewportType> = {
-    value: { type: String, required: true },
-    isMobileReady: { type: Boolean, required: true },
-    hasInitialScale: { type: Boolean, required: true },
+    value: { type: String },
+    isMobileReady: { type: Boolean },
+    hasInitialScale: { type: Boolean },
 };
 
 const hreflangSchemaDefinition: SchemaOf<HreflangType> = {
-    lang: { type: String, required: true },
-    href: { type: String, required: true },
-    hrefStatusCode: { type: Number, required: true },
-    isReturn: { type: Boolean, required: true },
+    lang: { type: String },
+    href: { type: String },
+    hrefStatusCode: { type: Number },
+    isReturn: { type: Boolean },
     region: { type: String, default: null },
 };
 
@@ -71,18 +71,18 @@ const paginationSchemaDefinition: SchemaOf<PaginationType> = {
 };
 
 const twitterCardSchemaDefinition: SchemaOf<TwitterCardType> = {
-    card: { type: String, required: true },
-    title: { type: String, required: true },
-    description: { type: String, required: true },
-    image: { type: String, required: true },
-    site: { type: String, required: true },
-    creator: { type: String, required: true },
+    card: { type: String },
+    title: { type: String },
+    description: { type: String },
+    image: { type: String },
+    site: { type: String },
+    creator: { type: String },
 };
 
 const faviconSchemaDefinition: SchemaOf<FaviconType> = {
-    href: { type: String, required: true },
-    type: { type: String, required: true },
-    sizes: { type: String, required: true },
+    href: { type: String },
+    type: { type: String },
+    sizes: { type: String },
 };
 
 const resourceHintSchemaDefinition: SchemaOf<ResourceHintType> = {
@@ -91,7 +91,7 @@ const resourceHintSchemaDefinition: SchemaOf<ResourceHintType> = {
         enum: ["preload", "prefetch", "dns-prefetch", "preconnect"],
         required: true,
     },
-    href: { type: String, required: true },
+    href: { type: String },
     as: { type: String, default: null },
 };
 

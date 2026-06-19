@@ -5,35 +5,35 @@ import { Schema } from "mongoose";
 
 const scriptSchemaDefination: SchemaOf<ScriptType> = {
     src: { type: String, default: null },
-    isInline: { type: Boolean, required: true },
-    isAsync: { type: Boolean, required: true },
-    isDefer: { type: Boolean, required: true },
-    isModule: { type: Boolean, required: true },
-    isRenderBlocking: { type: Boolean, required: true },
-    isThirdParty: { type: Boolean, required: true },
+    isInline: { type: Boolean },
+    isAsync: { type: Boolean },
+    isDefer: { type: Boolean },
+    isModule: { type: Boolean },
+    isRenderBlocking: { type: Boolean },
+    isThirdParty: { type: Boolean },
     domain: { type: String, default: null },
 }
 
 const stylesheetSchemaDefination: SchemaOf<StylesheetType> = {
     href: { type: String, default: null },
-    isInline: { type: Boolean, required: true },
-    isRenderBlocking: { type: Boolean, required: true },
+    isInline: { type: Boolean },
+    isRenderBlocking: { type: Boolean },
     media: { type: String, default: null },
 }
 
 
 const lcpCandidateSchemaDefination: SchemaOf<LcpCandidateType> = {
-    type: { type: String, enum: ["image", "text"], required: true },
+    type: { type: String, enum: ["image", "text"] },
     src: { type: String, default: null },
-    isPreloaded: { type: Boolean, required: true },
-    hasEagerLoading: { type: Boolean, required: true },
+    isPreloaded: { type: Boolean },
+    hasEagerLoading: { type: Boolean },
 }
 
 
 const resourceHintCoverageSchemaDefination: SchemaOf<ResourceHintCoverage> = {
-    preconnectCount: { type: Number, required: true },
-    preloadCount: { type: Number, required: true },
-    prefetchCount: { type: Number, required: true },
+    preconnectCount: { type: Number },
+    preloadCount: { type: Number },
+    prefetchCount: { type: Number },
     thirdPartyOriginsWithoutHint: { type: [String], default: [] },
 }
 
@@ -46,18 +46,18 @@ const resourceHintCoverageSchema = new Schema<ResourceHintCoverage>(resourceHint
 const performanceSignalSchemaDefination: SchemaOf<PerformanceSignalType> = {
     scripts: { type: [scriptSchema] },
     stylesheets: { type: [stylesheetSchema] },
-    renderBlockingScripts: { type: Number, required: true },
-    renderBlockingCss: { type: Number, required: true },
-    totalScriptCount: { type: Number, required: true },
-    inlineScriptCount: { type: Number, required: true },
-    totalScriptSizeBytes: { type: Number, required: true },
+    renderBlockingScripts: { type: Number },
+    renderBlockingCss: { type: Number },
+    totalScriptCount: { type: Number },
+    inlineScriptCount: { type: Number },
+    totalScriptSizeBytes: { type: Number },
     lcpCandidate: { type: [lcpCandidateSchema] },
-    resourceHintCoverage: { type: resourceHintCoverageSchema, required: true },
-    inlineCssBytes: { type: Number, required: true },
-    totalCssFiles: { type: Number, required: true },
-    estimatedTbtMs: { type: Number, required: true },
-    hasServiceWorker: { type: Boolean, required: true },
-    hasPwaManifest: { type: Boolean, required: true },
+    resourceHintCoverage: { type: resourceHintCoverageSchema },
+    inlineCssBytes: { type: Number },
+    totalCssFiles: { type: Number },
+    estimatedTbtMs: { type: Number },
+    hasServiceWorker: { type: Boolean },
+    hasPwaManifest: { type: Boolean },
 
 
 }
