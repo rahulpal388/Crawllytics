@@ -1,0 +1,94 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+
+    font-family: var(--font-primary);
+    font-size: var(--font-size-md);
+    line-height: var(--line-height-base);
+
+    color: var(--color-text-primary);
+    background: var(--color-surface-base);
+
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+svg,
+video {
+    display: block;
+    max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul,
+ol {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+}
+
+:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: 2px;
+}
+
+::selection {
+    background: var(--color-primary);
+    color: white;
+}
+
+
+
+
+
+
+
+.hero-bg {
+    background:
+        radial-gradient(circle at top left,
+            rgba(254, 79, 0, .18),
+            transparent 40%),
+
+        radial-gradient(circle at top right,
+            rgba(255, 122, 61, .12),
+            transparent 40%),
+
+        radial-gradient(circle at center,
+            rgba(254, 79, 0, .06),
+            transparent 70%),
+
+        white;
+}

@@ -1,8 +1,6 @@
 @import "../../../packages/ui/src/styles/global.css";
-@import "tailwindcss";
 
-@source "../../../packages/ui/src/components/";
-
+@source "../../../packages/ui/src/components";
 
 @keyframes line {
     from {
