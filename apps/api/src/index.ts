@@ -10,7 +10,7 @@ import { errorHandler } from "@/middlewares/errors/errorHander.js";
 import { registerV1Routes } from "@/routes/index.js";
 import { registerMiddlerwares } from "@/middlewares/middleware.js";
 import { crawlPublisherConfig } from "@repo/queue/streams/publishers/crawlPublisher"
-import { logger } from "@/config/logger.js";
+import { logger } from "@repo/lib/logger";
 import { urlDeDuplication } from "@repo/queue/stores/deduplication/urlDeDuplication";
 
 

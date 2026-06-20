@@ -38,13 +38,13 @@ export function htmlHeaderExtractor($: cheerio.CheerioAPI, url: URL): HTMLHeader
 
 
     // <------------  metaRobotTag ------------->
-    let metaRobot: HTMLMetaRobotType | null = null;
+    let metaRobot: HTMLMetaRobotType[] = [];
 
-    const metaRobotContent = $(`meta[name="robots"]`).attr("content") || "";
-
-    metaRobot = {
-        content: metaRobotContent
-    }
+    $(`meta[name="robots"]`).each((i, el) => {
+        metaRobot.push({
+            content: $(el).attr("content") || "",
+        })
+    })
 
 
     // <------------- canonical ------------------->

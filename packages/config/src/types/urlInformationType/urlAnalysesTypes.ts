@@ -14,5 +14,6 @@ export type UrlAnalysesType = {
     hasFileExtension: boolean;
     fileExtension: string[];
     hasRepetitivePath: boolean;
+    isInSitemap: boolean;
     domainExtension: string | null;
 }

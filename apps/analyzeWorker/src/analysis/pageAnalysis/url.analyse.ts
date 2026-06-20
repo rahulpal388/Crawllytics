@@ -1,6 +1,6 @@
 import { SEOIssues } from "@/types/seoIssuesTypes.js"
 import { UrlAnalysesType } from "@repo/config/types/urlInformationType/urlAnalysesTypes"
-import { URL_RULES } from "@/analysesRules/urlRules.js"
+import { URL_RULES } from "@/analysisRules/urlRules.js"
 
 export function urlAnalyse(urlInfomation: UrlAnalysesType): SEOIssues[] {
     const issues: SEOIssues[] = [];

@@ -1,6 +1,6 @@
 import { RedisConfigType } from '../types/redisConfigTypes.js';
 import { createClient, RedisClientType } from 'redis';
-
+import { logger } from "@repo/lib/logger"
 
 
 export async function createRedisConnection(redisConfig: RedisConfigType
@@ -12,7 +12,14 @@ export async function createRedisConnection(redisConfig: RedisConfigType
         username: redisConfig.username,
 
     }).on("error", (err) => {
-        console.error(`Error Connecting To Redis Server : ${err.message}`)
+        logger.error({
+            message: "Redis connection failed",
+            path: "",
+            metaData: {
+                url: redisConfig.url,
+                username: redisConfig.username
+            }
+        })
         process.exit(1);
     }).connect()
 

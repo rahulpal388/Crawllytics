@@ -4,7 +4,7 @@ export type HTMLHeaderType = {
     title: HTMLTitleType[],
     meta: {
         metaDescription: HTMLMetaDescriptionType[],
-        metaRobot: HTMLMetaRobotType,
+        metaRobot: HTMLMetaRobotType[],
         Canonical: HTMLCanonicalType[],
         openGraph: HTMLOpenGraphType
         metaViewport: HTMLMetaViewportType,

@@ -1,6 +1,6 @@
-import { logger } from "@/config/logger.js";
 import { AppError } from "@/middlewares/errors/appError.js";
 import { Request, Response, NextFunction } from "express";
+import { logger } from "@repo/lib/logger"
 
 export function errorHandler(err: Error, req: Request, res: Response, next: NextFunction) {
 

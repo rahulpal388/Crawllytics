@@ -1,48 +1,120 @@
 import { validateEnv } from "@/utils/validateEnv.js";
 import "dotenv/config";
-import { createRedisConnection } from "@repo/queue/queue";
-import { consumer } from "@repo/queue/streams";
+import { createRedisConnection } from "@repo/queue/client/client";
+import { analyzerConsumerConfig } from "@repo/queue/streams/consumers/analyzeConsumer"
 import { connectDB } from "@repo/db/index";
-import { getGatherInformation } from "@repo/db/utils/getGatherInformation";
+import { logger } from "@repo/lib/logger"
+import { urlCrawledRepository } from "@repo/db/repository/urlCrawledRepository";
+import os from "os";
 
-const env = validateEnv();
+
+const ENV = validateEnv();
+const CONSUMER_NAME = os.hostname();
+console.log("os hostname ", CONSUMER_NAME);
+
+
+
+// ###################################################
+// redis configs
+// ###################################################
+
+const redisClient = await createRedisConnection({
+    url: ENV.REDIS_URL,
+    password: ENV.REDIS_PASSWORD,
+    username: ENV.REDIS_USERNAME,
+});
+
+const analyzeConsumer = analyzerConsumerConfig(redisClient, CONSUMER_NAME);
+
+
+
+
+// ###################################################
+// DB configs
+// ###################################################
+
+const dbClient = await connectDB(ENV.DATABASE_URL);
+if (!dbClient) {
+    logger.error({
+        message: "Failed to connect to the database",
+        path: "",
+        metaData: {
+            url: ENV.DATABASE_URL
+        }
+    })
+    process.exit(1);
+}
+
+
+
+
+// ###################################################
+// Listen to the analyze stream and process the data
+// ###################################################
 
 async function main() {
-    const redisClient = await createRedisConnection({
-        url: env.REDIS_URL,
-        password: env.REDIS_PASSWORD,
-        username: env.REDIS_USERNAME,
-    });
-
-    await connectDB(env.DATABASE_URL);
-
-    let lastId = "$";
 
     while (true) {
-
-        const consume = await consumer({
-            redisClient,
-            key: "analyze:url",
-            id: lastId
-        })
-
-        if (!consume) {
+        const message = await analyzeConsumer.consume();
+        if (!message || message.length === 0 || !message[0]) {
             continue;
         }
 
-        const { messages } = consume;
-        const id = messages[0]?.id;
-        const messageId = messages[0]?.message.id;
-        if (!id || !messageId) {
+        const msg = message[0].message;
+
+        // #############################################
+        // get the gather info form the DB 
+        // #############################################
+        const gatherInfoResponse = await urlCrawledRepository.getUrlCrawledWithoutAnalyzedUrlData(msg._id);
+
+        if (!gatherInfoResponse.success || !gatherInfoResponse.data) {
             continue;
         }
-        console.log(`Consumed message with id: ${id}`);
-        console.log(`messageId: ${messageId}`);
-        const data = await getGatherInformation(messageId);
-        console.dir(data, { depth: null });
+
+        const gatherInfo = gatherInfoResponse.data;
 
 
-        lastId = id || "$";
+        // #############################################
+        // Analyze the Data for each domain  
+        // #############################################
+
+
+
+
+
+
+        // #############################################
+        // find issues in analyzed data for each domain  
+        // #############################################
+
+
+
+
+
+
+        // #############################################
+        // add analyzed and issues data to db and update the urlCrawled collection 
+        // #############################################
+
+
+
+
+
+
+
+
+
+        // #############################################
+        // update the crawlStore 
+        // #############################################
+
+
+
+
+
+
+
+
 
 
 
@@ -51,4 +123,8 @@ async function main() {
 }
 
 
-main();
+
+
+
+
+// main();
