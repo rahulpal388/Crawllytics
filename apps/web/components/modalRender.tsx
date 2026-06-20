@@ -1,4 +1,4 @@
-import { ModalType } from "../app/context/modalContext"
+import { ModalType } from "../context/modalContext"
 
 
 export function ModalRender({ modal, closeModal }: {

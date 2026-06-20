@@ -1,25 +1,15 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Providers } from "./context/providers";
+import { Providers } from "../context/providers";
 
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-});
 
 const inter = Inter({
   subsets: ["latin"],
 });
 
 
-
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-});
 
 export const metadata: Metadata = {
   title: "Crawllytics — Technical SEO Analyzer & Website Crawler",
@@ -56,8 +46,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} 
- `}>
+      <body className={`${inter.className}`}
+      >
         <Providers>
           {children}
         </Providers>

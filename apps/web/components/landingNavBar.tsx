@@ -1,40 +1,42 @@
-import { Button } from "@repo/ui/components/button"
-import { Logo } from "@repo/ui/components/logo"
-import { ArrowBigRight, ArrowRight } from "lucide-react"
+import { Button } from "@repo/ui/components/button";
+import { Logo } from "@repo/ui/components/logo";
+import { ArrowBigRight, ArrowRight } from "lucide-react";
 
-
-const navBarItems = [{
+const navBarItems = [
+  {
     name: "Home",
-    href: "/"
-},
-{
+    href: "/",
+  },
+  {
     name: "Features",
-    href: "/features"
-},
-{
+    href: "/features",
+  },
+  {
     name: "How it works",
-    href: "/how-it-works"
-}
-]
-
+    href: "/how-it-works",
+  },
+];
 
 export function LandingNavBar() {
-
-
-    return <>
-        <div className=" w-full flex items-center justify-between  px-12 ">
-            <div>
-                <Logo />
-            </div>
-            <div className=" flex items-center justify-between gap-8 ">
-                {navBarItems.map((item) => <a key={item.name} href={item.href}>{item.name}</a>)}
-            </div>
-
-            <div>
-                <Button variant="outline" >
-                    Sign in
-                </Button>
-            </div>
+  return (
+    <>
+      <div className=" w-full flex items-center justify-between  px-12 ">
+        <div>
+          <Logo />
         </div>
+        <div className=" flex items-center justify-between gap-8 ">
+          {navBarItems.map((item) => (
+            <a key={item.name} href={item.href}>
+              {item.name}
+            </a>
+          ))}
+        </div>
+
+        <div className=" flex items-center justify-between gap-4 ">
+          <Button variant="outline">Sign in</Button>
+          <Button variant="primary">Try for free</Button>
+        </div>
+      </div>
     </>
+  );
 }

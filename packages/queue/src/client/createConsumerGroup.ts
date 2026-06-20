@@ -10,6 +10,9 @@ type CreateGroupOptionsType<T extends StreamKeys> = {
 }
 
 
+
+
+
 export async function createConsumerGroup({ redisClient, key, group }: CreateGroupOptionsType<StreamKeys>) {
     try {
         await redisClient.xGroupCreate(

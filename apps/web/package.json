@@ -15,6 +15,7 @@
     "@tailwindcss/postcss": "^4.2.2",
     "chart.js": "^4.5.1",
     "lucide-react": "^1.7.0",
+    "motion": "^12.40.0",
     "next": "^16.2.6",
     "postcss": "^8.4.31",
     "react": "^19.2.0",
@@ -29,6 +30,8 @@
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
     "eslint": "^9.39.1",
+    "prettier": "^3.8.4",
+    "prettier-plugin-tailwindcss": "^0.6.14",
     "typescript": "5.9.2"
   }
 }

@@ -1,6 +1,6 @@
 'use client'
 import { createContext, FC, ReactNode, useContext, useState } from "react";
-import { ModalRender } from "../../components/modalRender";
+import { ModalRender } from "../components/modalRender";
 
 
 export type ModalType = "create-project"

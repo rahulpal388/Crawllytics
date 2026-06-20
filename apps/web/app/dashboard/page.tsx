@@ -2,7 +2,7 @@
 import { Button } from "@repo/ui/components/button";
 import { ProjectTable } from "../../components/projectTable";
 import { InfoCard } from "@repo/ui/components/infoCard";
-import { useModal } from "../context/modalContext";
+import { useModal } from "../../context/modalContext";
 import { Plus } from "lucide-react";
 
 const value: { title: string; value: number }[] = [
