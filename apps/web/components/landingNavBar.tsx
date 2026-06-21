@@ -1,5 +1,5 @@
 import { Button } from "@repo/ui/components/button";
-import { Logo } from "@repo/ui/components/logo";
+import { Logo } from "./logo";
 import { GithubSvg } from "@repo/ui/svg/githubSvg";
 
 const navBarItems = [

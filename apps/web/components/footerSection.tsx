@@ -1,8 +1,8 @@
-import { Logo } from "@repo/ui/components/logo";
 import { Container } from "@repo/ui/components/container";
 import { HeroInput } from "./hero-section/heroInput";
 
 import { CodeXml } from "lucide-react";
+import { Logo } from "./logo";
 
 export function FooterSection() {
   return (

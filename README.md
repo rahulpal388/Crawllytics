@@ -1,159 +1,107 @@
-# Turborepo starter
+<p align="center">
+  <img src="apps/web/public/logo.svg" alt="Crawllytics" width="220" />
+</p>
 
-This Turborepo starter is maintained by the Turborepo core team.
+<!-- <h1 align="center">Crawllytics</h1> -->
 
-## Using this example
+<p align="center">
+  An SEO Analysis and Website Crawling Project
+</p>
 
-Run the following command:
+---
 
-```sh
-npx create-turbo@latest
-```
+## Overview
 
-## What's inside?
+Crawllytics is a project focused on understanding how search engines discover, crawl, and evaluate websites. It combines website crawling, technical SEO analysis, content evaluation, and reporting into a single platform.
 
-This Turborepo includes the following packages/apps:
+The goal of the project is to explore the technical challenges behind building a crawler, processing large amounts of website data, and transforming that data into meaningful SEO insights.
 
-### Apps and Packages
+---
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+## What It Does
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+Crawllytics crawls websites, gathers technical and content-related information, analyzes the collected data, and identifies issues that may impact search engine visibility.
 
-### Utilities
+The project aims to provide a structured view of a website's health, architecture, and optimization opportunities.
 
-This Turborepo has some additional tools already setup for you:
+---
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+## Features
 
-### Build
+### Website Crawling
 
-To build all apps and packages, run the following command:
+- Crawl and discover website pages
+- Follow internal links
+- Build website structure maps
+- Analyze page relationships
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+### Technical SEO Analysis
 
-```sh
-cd my-turborepo
-turbo build
-```
+- Status code validation
+- Redirect analysis
+- Canonical validation
+- Robots directives analysis
+- Sitemap analysis
+- Security checks
 
-Without global `turbo`, use your package manager:
+### Content Analysis
 
-```sh
-cd my-turborepo
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
-```
+- Title and meta description analysis
+- Heading structure evaluation
+- Content quality insights
+- Duplicate content detection
+- Image optimization checks
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+### Internal Linking Analysis
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+- Incoming and outgoing link analysis
+- Internal link discovery
+- Site architecture evaluation
+- Orphan page detection
 
-```sh
-turbo build --filter=docs
-```
+### Structured Data Analysis
 
-Without global `turbo`:
+- Schema detection
+- JSON-LD analysis
+- Rich result validation
 
-```sh
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
+### Performance Insights
 
-### Develop
+- Response time analysis
+- Time to First Byte (TTFB)
+- Resource optimization opportunities
 
-To develop all apps and packages, run the following command:
+### Reporting
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+- SEO issue reporting
+- Severity classification
+- Domain-level summaries
+- Crawl insights
 
-```sh
-cd my-turborepo
-turbo dev
-```
+---
 
-Without global `turbo`, use your package manager:
+## Project Goals
 
-```sh
-cd my-turborepo
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
+This project explores topics such as:
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+- Search engine crawling concepts
+- Distributed crawling systems
+- Website data collection
+- SEO auditing
+- Technical analysis pipelines
+- Large-scale data processing
+- Reporting and visualization
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+---
 
-```sh
-turbo dev --filter=web
-```
+## Current Status
 
-Without global `turbo`:
+⚠️ Active Development
 
-```sh
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
+The project is continuously evolving, with new features, analysis capabilities, and reporting improvements being added over time.
 
-### Remote Caching
+---
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+## Why This Project?
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+Crawllytics was built as a hands-on exploration of website crawling and SEO analysis systems, with a focus on understanding the engineering challenges behind tools that process and analyze websites at scale.

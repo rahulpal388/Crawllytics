@@ -3,13 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "../context/providers";
 
-
-
 const inter = Inter({
   subsets: ["latin"],
 });
-
-
 
 export const metadata: Metadata = {
   title: "Crawllytics — Technical SEO Analyzer & Website Crawler",
@@ -37,6 +33,7 @@ export const metadata: Metadata = {
     "nodejs-project",
     "react-dashboard",
   ],
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
@@ -46,11 +43,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className}`}
-      >
-        <Providers>
-          {children}
-        </Providers>
+      <body className={`${inter.className}`}>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
