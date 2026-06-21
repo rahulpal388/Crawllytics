@@ -3,6 +3,9 @@
 export type FeatureCardProps = {
     title: string;
     description: string;
-    icon: React.ReactNode;
-    about: string[];
+    image: {
+        alt: string;
+        path: string;
+    };
+    steps: string[];
 }

@@ -1,17 +1,18 @@
 @import "../../../packages/ui/src/styles/global.css";
 
 @source "../../../packages/ui/src/components";
+@source "../../../packages/ui/src/svg";
 
 @keyframes line {
-    from {
-        top: -8rem;
-    }
+  from {
+    top: -8rem;
+  }
 
-    to {
-        top: 100%;
-    }
+  to {
+    top: 100%;
+  }
 }
 
 .animate-line {
-    animation: line 3s linear infinite;
+  animation: line 3s linear infinite;
 }

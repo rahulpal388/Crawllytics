@@ -32,7 +32,7 @@ export const Button = ({
     <button
       {...props}
       className={cn(
-        "  cursor-pointer  border border-border-muted   shadow-sm  px-4 py-1 rounded-xs text-text-primary flex gap-2 items-center justify-center  ",
+        " w-auto cursor-pointer  border border-border-muted   shadow-sm  px-4 py-1 rounded-xs text-text-primary flex gap-2 items-center justify-center   ",
         variants[variant],
         className,
       )}

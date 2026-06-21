@@ -24,12 +24,12 @@ export function LandingPageStats() {
   return (
     <>
       <Container>
-        <div className="bg-card-background w-full py-12 pl-4">
-          <div className="max-w-2xl">
-            <h2 className="text-text-primary text-3xl font-semibold tracking-tighter">
+        <div className="bg-card-background w-full py-12">
+          <div className="section-content">
+            <h2 className="heading text-3xl">
               Helping Thousands of Users Understand Their Websites
             </h2>
-            <p className="text-text-secondary mt-4 text-lg">
+            <p className="subHeading mt-4">
               Analyze websites, uncover technical SEO issues, and gain the
               insights needed to improve search visibility.
             </p>

@@ -50,16 +50,6 @@ ol {
   list-style: none;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  margin: 0;
-}
-
 /* :focus-visible {
     outline: var(--focus-ring);
     outline-offset: 2px;
@@ -73,6 +63,21 @@ p {
 .tracking-wide {
   --tw-tracking: var(--tracking-wide);
   letter-spacing: var(--tracking-wide);
+}
+
+.heading {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
+  --tw-tracking: var(--tracking-tighter);
+  color: var(--color-text-primary);
+}
+
+.subHeading {
+  color: var(--color-text-secondary);
+}
+
+.section-content {
+  max-width: 50rem;
 }
 
 .hero-bg {

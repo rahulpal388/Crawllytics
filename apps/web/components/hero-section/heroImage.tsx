@@ -4,12 +4,12 @@ import { motion } from "motion/react";
 export function HeroImage() {
   return (
     <>
-      <div className="relative overflow-hidden rounded-xl border border-border-default">
+      <div className="border-border-default relative overflow-hidden rounded-xl border">
         <motion.div
-          className="absolute top-0 h-[2px] w-56 bg-gradient-to-r from-transparent via-primary to-transparent"
+          className="via-primary absolute top-0 h-[2px] w-56 bg-gradient-to-r from-transparent to-transparent"
           animate={{
             x: ["-100%", "500%"],
-            opacity: [1, 1, 1, 0],
+            opacity: [0, 1, 1, 1, 0],
           }}
           transition={{
             duration: 4,
@@ -23,7 +23,7 @@ export function HeroImage() {
           width={1023}
           height={840}
           priority
-          className="w-full h-auto object-contain"
+          className="h-auto w-full object-contain"
           loading="eager"
         />
       </div>

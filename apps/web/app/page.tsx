@@ -1,14 +1,13 @@
 "use client";
 import { Button } from "@repo/ui/components/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 import Image from "next/image";
 import { LandingNavBar } from "../components/landingNavBar";
 import { FeatureSection } from "../components/featureSection";
 import { LandingPageStats } from "../components/landingPageStats";
-import { HowItWorks } from "../components/howItWorks";
-import { SampleReportSection } from "../components/sampleReportSection";
 import { FooterSection } from "../components/footerSection";
 import { HeroSection } from "../sections/heroSection";
+import { DownloadSection } from "../sections/downloadSection";
 
 export default function Home() {
   return (
@@ -22,8 +21,7 @@ export default function Home() {
           <LandingPageStats />
         </div>
         <FeatureSection />
-        <HowItWorks />
-        <SampleReportSection />
+        <DownloadSection />
         <FooterSection />
       </div>
     </>

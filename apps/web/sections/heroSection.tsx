@@ -22,11 +22,11 @@ export function HeroSection() {
           </p>
         </div>
         <div className="mt-4 max-w-[50rem]">
-          <h1 className="text-text-primary text-center text-5xl font-semibold tracking-tighter">
+          <h1 className="heading text-center text-5xl">
             Deep Crawl Analysis with Crawllytics for Better Rankings
           </h1>
 
-          <p className="text-text-tertiary px-16 pt-4 text-center text-lg">
+          <p className="subHeading px-16 pt-4 text-center">
             Crawllytics helps businesses and developers analyze websites with
             deep crawling, technical SEO audits, and real-time insights to
             improve search rankings and website performance.
@@ -36,7 +36,6 @@ export function HeroSection() {
             <HeroInput />
           </div>
         </div>
-
         <div className="mt-8 h-12 w-full px-40">
           <HeroImage />
         </div>

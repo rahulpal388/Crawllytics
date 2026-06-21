@@ -1,6 +1,6 @@
 import { Button } from "@repo/ui/components/button";
 import { Logo } from "@repo/ui/components/logo";
-import { ArrowBigRight, ArrowRight } from "lucide-react";
+import { GithubSvg } from "@repo/ui/svg/githubSvg";
 
 const navBarItems = [
   {
@@ -20,11 +20,11 @@ const navBarItems = [
 export function LandingNavBar() {
   return (
     <>
-      <div className=" w-full flex items-center justify-between  px-12 ">
+      <div className="flex w-full items-center justify-between pl-12">
         <div>
           <Logo />
         </div>
-        <div className=" flex items-center justify-between gap-8 ">
+        <div className="flex items-center justify-between gap-8">
           {navBarItems.map((item) => (
             <a key={item.name} href={item.href}>
               {item.name}
@@ -32,7 +32,14 @@ export function LandingNavBar() {
           ))}
         </div>
 
-        <div className=" flex items-center justify-between gap-4 ">
+        <div className="flex items-center justify-between gap-4">
+          <a
+            href="https://github.com/rahulpal388/Crawllytics"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <GithubSvg />
+          </a>
           <Button variant="outline">Sign in</Button>
           <Button variant="primary">Try for free</Button>
         </div>
