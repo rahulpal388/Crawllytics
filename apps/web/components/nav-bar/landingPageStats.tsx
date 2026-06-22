@@ -26,7 +26,7 @@ export function LandingPageStats() {
       <Container>
         <div className="bg-card-background w-full py-12">
           <div className="section-content">
-            <h2 className="heading text-3xl">
+            <h2 className="heading xs:text-3xl text-2xl">
               Helping Thousands of Users Understand Their Websites
             </h2>
             <p className="subHeading mt-4">
@@ -34,11 +34,11 @@ export function LandingPageStats() {
               insights needed to improve search visibility.
             </p>
           </div>
-          <div className="border-border-default mx-auto mt-8 flex h-full max-w-7xl items-center justify-center gap-48 border-t-[0.8px] border-b-[0.8px] py-8">
+          <div className="border-border-default mx-auto mt-8 flex h-full w-full flex-wrap items-center justify-start gap-8 border-t-[0.8px] border-b-[0.8px] px-8 py-8 sm:justify-between sm:px-12">
             {landingPageStatsData.map((item) => (
               <div
                 key={item.name}
-                className="flex flex-col items-center justify-center gap-2"
+                className="flex flex-col flex-wrap items-center justify-center gap-2"
               >
                 <StatsCard value={item.value} title={item.name} />
               </div>

@@ -6,7 +6,8 @@
     "./components/*": "./src/components/*.tsx",
     "./types/*": "./src/types/*.ts",
     "./styles/*": "./src/styles/*",
-    "./svg/*": "./src/svg/*.tsx"
+    "./svg/*": "./src/svg/*.tsx",
+    "./utils": "./src/utils.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

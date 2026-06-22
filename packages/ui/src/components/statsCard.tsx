@@ -15,8 +15,10 @@ export function StatsCard({ value, title, className }: StatsCardProps) {
           className,
         )}
       >
-        <h3 className="text-5xl font-light text-orange-600">{value}</h3>
-        <p className="font-mono text-gray-500 uppercase tracking-wide text-lg ">
+        <h3 className="xs:text-5xl text-2xl font-light text-orange-600">
+          {value}
+        </h3>
+        <p className="font-mono text-gray-500 uppercase tracking-wide xs:text-lg text-sm  ">
           {title}
         </p>
       </div>

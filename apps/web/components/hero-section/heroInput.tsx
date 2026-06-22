@@ -15,7 +15,7 @@ export function HeroInput({ className }: { className?: string }) {
           placeholder="(eg: https://www.example.com)"
           className="flex-1 rounded-none border-none outline-none"
         />
-        <Button variant="primary" className="w-32">
+        <Button variant="primary" className="xs:w-32 w-18">
           Analyze
         </Button>
       </div>

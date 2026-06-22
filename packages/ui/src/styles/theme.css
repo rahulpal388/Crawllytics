@@ -14,6 +14,9 @@
   --color-border-default: var(--color-border-default);
   --color-border-muted: var(--color-border-muted);
 
+  /* cards */
+  --color-card-hover: var(--color-card-hover);
+
   /* SEO */
   --color-critical: var(--color-critical);
   --color-high: var(--color-high);
@@ -53,4 +56,10 @@
   /* Shadows */
   --shadow-sm: var(--shadow-sm);
   --shadow-md: var(--shadow-md);
+
+  /* breaking points */
+
+  --breakpoint-xs: 480px;
+  --breakpoint-nav: 1024px;
+  --breakpoint-footer: 778px;
 }

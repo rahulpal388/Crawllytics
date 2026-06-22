@@ -9,7 +9,7 @@ export function FeatureSection() {
       <Container>
         <div className="py-8">
           <div className="section-content flex flex-col gap-4">
-            <h2 className="heading text-5xl">
+            <h2 className="heading xs:text-3xl text-2xl">
               Comprehensive SEO Intelligence for Modern Websites
             </h2>
             <p className="subHeading">
@@ -18,13 +18,13 @@ export function FeatureSection() {
               intelligence, and actionable recommendations.
             </p>
           </div>
-          <div className="divide-border-default mt-12 flex flex-col gap-4 divide-y">
+          <div className="divide-border-default flex flex-col gap-4 divide-y">
             {featuresItems.map((items, index) => (
               <FeatureCards
                 key={items.title}
                 {...items}
                 index={index}
-                className="py-16"
+                className="py-8 max-md:flex-col"
               />
             ))}
           </div>

@@ -25,6 +25,7 @@
   --color-text-primary: #020203;
   --color-text-secondary: #535862;
   --color-text-tertiary: #252b37;
+  --color-card-hover: #e8e4e4;
 
   --color-surface-base: #ffffff;
   --color-surface-muted: #fafafa;
@@ -66,6 +67,9 @@
   /* Shadow */
   --shadow-sm: 0 1px 2px rgba(10, 13, 18, 0.05);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+  /* --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.405); */
+  /* --shadow-lg: 0 0 32px 8px rgba(0, 0, 0, 0.4); */
+  --shadow-lg: 0 0 40px 8px rgb(59 130 246 / 0.25);
 
   /* Layout */
   --container-width: 1280px;

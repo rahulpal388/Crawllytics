@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 export function HeroImage() {
   return (
     <>
-      <div className="border-border-default relative overflow-hidden rounded-xl border">
+      <div className="border-border-default relative flex w-full items-center justify-center overflow-hidden rounded-xl border">
         <motion.div
           className="via-primary absolute top-0 h-[2px] w-56 bg-gradient-to-r from-transparent to-transparent"
           animate={{
@@ -23,7 +23,7 @@ export function HeroImage() {
           width={1023}
           height={840}
           priority
-          className="h-auto w-full object-contain"
+          className="h-auto w-auto object-contain"
           loading="eager"
         />
       </div>
