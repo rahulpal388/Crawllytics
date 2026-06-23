@@ -61,8 +61,8 @@
   --space-8: 32px;
 
   /* Radius */
-  --radius-xs: 8px;
-  --radius-sm: 18px;
+  --radius-xs: 4px;
+  --radius-sm: 10px;
 
   /* Shadow */
   --shadow-sm: 0 1px 2px rgba(10, 13, 18, 0.05);

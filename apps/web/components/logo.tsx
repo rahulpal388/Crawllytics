@@ -1,11 +1,11 @@
 import Image from "next/image";
 
 type LogoProps = {
-  varients?: "full" | "icon";
+  variants?: "full" | "icon";
 };
 
-export function Logo({ varients = "full" }: LogoProps) {
-  if (varients === "icon") {
+export function Logo({ variants = "full" }: LogoProps) {
+  if (variants === "icon") {
     return (
       <>
         <Image

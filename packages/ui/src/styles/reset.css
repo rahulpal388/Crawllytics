@@ -95,3 +95,23 @@ ol {
     radial-gradient(circle at center, rgba(254, 79, 0, 0.06), transparent 70%),
     white;
 }
+
+.project-card {
+  background: var(--color-surface-base);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-4);
+  transition:
+    box-shadow var(--duration-fast) ease-in-out,
+    border-color var(--duration-fast) ease-in-out;
+}
+
+.project-card:hover {
+  border-color: var(--color-primary);
+}
+
+.project-item-info {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
