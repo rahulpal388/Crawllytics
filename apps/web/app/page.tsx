@@ -1,7 +1,3 @@
-"use client";
-import { Button } from "@repo/ui/components/button";
-import { ArrowRight, Download } from "lucide-react";
-import Image from "next/image";
 import { LandingNavBar } from "../components/nav-bar/landingNavBar";
 import { FeatureSection } from "../components/featureSection";
 import { LandingPageStats } from "../components/nav-bar/landingPageStats";

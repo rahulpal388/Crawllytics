@@ -1,6 +1,9 @@
 import { EllipsisVertical, ExternalLink } from "lucide-react";
 import Image from "next/image";
 import { SiteAuditCard } from "./siteAuditCard";
+import { GoogleSearchConsoleCard } from "./googleSearchConsoleCard";
+import { GoogleAnalytic } from "./googleAnalytic";
+import { TechnicalAuditCard } from "./techincalAuditCard";
 
 export function ProjectCard() {
   return (
@@ -28,9 +31,9 @@ export function ProjectCard() {
         </div>
         <div className="divide-border-muted mt-2 flex w-full flex-wrap items-center justify-between gap-8 px-4 max-md:divide-y md:divide-x">
           <SiteAuditCard />
-          <SiteAuditCard />
-          <SiteAuditCard />
-          <SiteAuditCard />
+          <TechnicalAuditCard />
+          <GoogleSearchConsoleCard />
+          <GoogleAnalytic />
         </div>
       </div>
     </>

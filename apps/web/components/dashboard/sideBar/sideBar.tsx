@@ -25,13 +25,13 @@ export function SideBar() {
         {isOpen ? (
           <PanelLeftClose
             size={26}
-            className="absolute top-4 -right-4 cursor-pointer"
+            className="absolute top-4 -right-4 cursor-pointer stroke-1"
             onClick={() => setIsOpen(false)}
           />
         ) : (
           <PanelLeftOpen
             size={26}
-            className="absolute top-4 -right-4 cursor-pointer"
+            className="absolute top-4 -right-4 cursor-pointer stroke-1"
             onClick={() => setIsOpen(true)}
           />
         )}

@@ -29,7 +29,7 @@ const sideBarItems: {
   },
   {
     name: "Dashboard",
-    getHref: () => "/dashboard",
+    getHref: (projectId) => `/projects/${projectId}/dashboard`,
     icon: <LayoutDashboard size={20} />,
   },
   {

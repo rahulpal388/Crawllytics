@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useRef, useState } from "react";
 import { LoaderSvg } from "../svg/loader";
 import { motion, useInView } from "motion/react";

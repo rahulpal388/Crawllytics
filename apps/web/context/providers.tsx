@@ -1,12 +1,7 @@
-'use client'
+"use client";
 
-import { ReactNode } from "react"
-import { ModalProvider } from "./modalContext"
+import { ReactNode } from "react";
 
 export function Providers({ children }: { children: ReactNode }) {
-    return <>
-        <ModalProvider>
-            {children}
-        </ModalProvider>
-    </>
+  return <>{children}</>;
 }

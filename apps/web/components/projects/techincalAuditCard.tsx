@@ -1,25 +1,25 @@
-export function SiteAuditCard() {
+export function TechnicalAuditCard() {
   return (
     <div className="project-card-features flex flex-col gap-4 px-4 py-4">
       <div>
-        <p className="text-md font-semibold">Site Audit</p>
+        <p className="text-md font-semibold">Technical Audit</p>
         <p className="subHeading text-xs">{new Date().toLocaleDateString()}</p>
       </div>
       <div>
         <div className="project-item-info flex justify-between gap-4">
-          <span>SEO Score</span>
-          <span>85%</span>
+          <span>Indexable Pages</span>
+          <span>1,984</span>
         </div>
         <div className="project-item-info flex justify-between gap-4">
-          <span>Crawled Pages</span>
-          <span>85</span>
+          <span>Blocked Pages</span>
+          <span>47</span>
         </div>
         <div className="project-item-info flex justify-between gap-4">
-          <span>Critical Issues</span>
-          <span>12</span>
+          <span>Broken Links</span>
+          <span>23</span>
         </div>
         <div className="project-item-info flex justify-between gap-4">
-          <span>Warning Issues</span>
+          <span>Redirect Chains</span>
           <span>8</span>
         </div>
       </div>
