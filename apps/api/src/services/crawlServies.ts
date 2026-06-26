@@ -5,6 +5,11 @@ import { extractRobotsTxt } from "@repo/lib/extractRobotsTxt";
 import { crawlStateSt, urlDeDuplicationStore } from "@/index.js"
 import { crawlPublisher } from "@/index.js"
 import { AppError } from "@/middlewares/errors/appError.js"
+import { getSiteMapUrls } from "@/lib/getSiteMapUrls.js";
+
+
+
+
 
 
 export const crawlServices = {
@@ -17,7 +22,7 @@ const MAX_CRAWL_DEPTH = 1;
 
 
 async function startCrawl(body: CrawlSeedUrlBody) {
-    const { url, depth } = body;
+    const { url, depth, includeSiteMapXML, siteMapUrl } = body;
 
     const normalizedUrl = validUrl(url);
 
@@ -25,8 +30,11 @@ async function startCrawl(body: CrawlSeedUrlBody) {
         throw new AppError("Invalid URL", 400);
     }
 
-    // get the robots.txt file 
+    // get the robots.txt file  
     const robotsTxt = await extractRobotsTxt(normalizedUrl.origin);
+
+    // siteMapXML urls if includeSiteMapXML is true
+    const siteMapXMLUrls = includeSiteMapXML ? await getSiteMapUrls(siteMapUrl || normalizedUrl.origin + "/sitemap.xml") : [];
 
 
     // add info to the database
@@ -38,7 +46,8 @@ async function startCrawl(body: CrawlSeedUrlBody) {
         status: "created",
         seedUrl: normalizedUrl.href,
         robotsTxt: robotsTxt ? robotsTxt.userAgents : [],
-        siteMapXMLUrls: robotsTxt ? robotsTxt.siteMapXMLUrls : [],
+        siteMapXMLUrls,
+        siteMaps: robotsTxt ? robotsTxt.siteMapXMLUrls : [],
         urlCrawled: [],
         analyzedData: null
     });

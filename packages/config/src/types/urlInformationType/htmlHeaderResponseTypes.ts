@@ -4,7 +4,7 @@ export type HTMLHeaderType = {
     title: HTMLTitleType[],
     meta: {
         metaDescription: HTMLMetaDescriptionType[],
-        metaRobot: HTMLMetaRobotType[],
+        metaRobot: string[],
         Canonical: HTMLCanonicalType[],
         openGraph: HTMLOpenGraphType
         metaViewport: HTMLMetaViewportType,
@@ -42,10 +42,26 @@ export type HTMLMetaDescriptionType = {
 //     maxVideoPreview: string | null;
 //     noArchive: string | null;
 //     noImageIndex: string | null;
+
 // }
-export type HTMLMetaRobotType = {
-    content: string
-}
+
+
+export type RobotDirective =
+    | "index"
+    | "noindex"
+    | "follow"
+    | "nofollow"
+    | "noarchive"
+    | "nosnippet"
+    | "noimageindex"
+    | "indexifembedded"
+    | "max-snippet"
+    | "max-image-preview"
+    | "max-video-preview"
+    | "unavailable_after"
+    | string;
+
+
 
 export type HTMLCanonicalType = {
     url: string;

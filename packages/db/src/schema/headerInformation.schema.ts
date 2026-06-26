@@ -27,9 +27,7 @@ const htmlMetaDescriptionSchemaDefinition: SchemaOf<HTMLMetaDescriptionType> = {
     lengthPixel: { type: Number },
 };
 
-const htmlMetaRobotSchemaDefinition: SchemaOf<HTMLMetaRobotType> = {
-    content: { type: String },
-};
+
 
 const htmlCanonicalSchemaDefinition: SchemaOf<HTMLCanonicalType> = {
     url: { type: String },
@@ -107,10 +105,6 @@ const htmlMetaDescriptionSchema = new mongoose.Schema<HTMLMetaDescriptionType>(
     { _id: false, versionKey: false }
 );
 
-const htmlMetaRobotSchema = new mongoose.Schema<HTMLMetaRobotType>(
-    htmlMetaRobotSchemaDefinition,
-    { _id: false, versionKey: false }
-);
 
 const htmlCanonicalSchema = new mongoose.Schema<HTMLCanonicalType>(
     htmlCanonicalSchemaDefinition,
@@ -159,7 +153,7 @@ const headerInformationSchemaDefinition: SchemaOf<HTMLHeaderType> = {
     title: { type: [htmlTitleSchema], required: true },
     meta: {
         metaDescription: { type: [htmlMetaDescriptionSchema], required: true },
-        metaRobot: { type: htmlMetaRobotSchema, required: true },
+        metaRobot: [{ type: String, required: true }],
         Canonical: { type: [htmlCanonicalSchema], required: true },
         openGraph: { type: htmlOpenGraphSchema, required: true },
         metaViewport: { type: htmlMetaViewportSchema, required: true },

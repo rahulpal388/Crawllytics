@@ -19,6 +19,7 @@ export type SeedUrlType = {
     seedUrl: string;
     robotsTxt: UserAgentType[];
     siteMapXMLUrls: string[];
+    siteMaps: string[];
     urlCrawled: Schema.Types.ObjectId[];
     analyzedData: Schema.Types.ObjectId | null;
 }

@@ -9,6 +9,7 @@ import {
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
+import { useSelectedProjectId } from "../../../store/useSelectedProjectId";
 
 type ActiveSideBarItem =
   | "Dashboard"
@@ -19,7 +20,7 @@ type ActiveSideBarItem =
 
 const sideBarItems: {
   name: ActiveSideBarItem;
-  getHref: (projectId?: string) => string;
+  getHref: (projectId?: string | null) => string;
   icon: React.ReactNode;
 }[] = [
   {
@@ -29,29 +30,33 @@ const sideBarItems: {
   },
   {
     name: "Dashboard",
-    getHref: (projectId) => `/projects/${projectId}/dashboard`,
+    getHref: (projectId) =>
+      projectId ? `/projects/${projectId}/dashboard` : "/dashboard",
     icon: <LayoutDashboard size={20} />,
   },
   {
     name: "Issues",
-    getHref: (projectId) => `/projects/${projectId}/issues`,
+    getHref: (projectId) =>
+      projectId ? `/projects/${projectId}/issues` : "/issues",
     icon: <CircleAlert size={20} />,
   },
   {
     name: "Reports",
-    getHref: (projectId) => `/projects/${projectId}/reports`,
+    getHref: (projectId) =>
+      projectId ? `/projects/${projectId}/reports` : "/reports",
     icon: <ChartColumn size={20} />,
   },
   {
     name: "Pages",
-    getHref: (projectId) => `/projects/${projectId}/pages`,
+    getHref: (projectId) =>
+      projectId ? `/projects/${projectId}/pages` : "/pages",
     icon: <FileText size={20} />,
   },
 ];
 
 export function SideBarItems({ isOpen }: { isOpen: boolean }) {
   const pathname = usePathname();
-  const projectId = "1234";
+  const { projectId } = useSelectedProjectId();
 
   return (
     <>

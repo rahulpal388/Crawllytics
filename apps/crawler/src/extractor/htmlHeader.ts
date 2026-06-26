@@ -1,4 +1,4 @@
-import { HTMLCanonicalType, HTMLHeaderType, HTMLMetaDescriptionType, HTMLMetaRobotType, HTMLMetaViewportType, HTMLTitleType } from "@repo/config/types/urlInformationType/htmlHeaderResponseTypes";
+import { HTMLCanonicalType, HTMLHeaderType, HTMLMetaDescriptionType, HTMLMetaRobotType, HTMLMetaViewportType, HTMLTitleType, RobotDirective } from "@repo/config/types/urlInformationType/htmlHeaderResponseTypes";
 import { isAbsoluteUrl } from "@/utils/isAbsoluteUrl.js";
 import { HreflangType, TwitterCardType, PaginationType, FaviconType, ResourceHintType } from "@repo/config/types/urlInformationType/htmlHeaderResponseTypes";
 import * as cheerio from "cheerio";
@@ -38,13 +38,21 @@ export function htmlHeaderExtractor($: cheerio.CheerioAPI, url: URL): HTMLHeader
 
 
     // <------------  metaRobotTag ------------->
-    let metaRobot: HTMLMetaRobotType[] = [];
 
-    $(`meta[name="robots"]`).each((i, el) => {
-        metaRobot.push({
-            content: $(el).attr("content") || "",
-        })
-    })
+    const metaRobots = new Set<RobotDirective>();
+
+    $("meta[name='robots']").each((_, el) => {
+        const content = $(el).attr("content");
+
+        if (!content) return;
+
+        content
+            .split(",")
+            .map(directive => directive.trim().toLowerCase())
+            .forEach(directive => metaRobots.add(directive));
+    });
+
+  
 
 
     // <------------- canonical ------------------->
@@ -172,7 +180,7 @@ export function htmlHeaderExtractor($: cheerio.CheerioAPI, url: URL): HTMLHeader
         title: titleValue,
         meta: {
             metaDescription: metaDescription,
-            metaRobot,
+            metaRobot:[...metaRobots],
             Canonical: canonical,
             openGraph: openGraph,
             metaViewport: metaViewport,

@@ -52,6 +52,7 @@
   /* Radius */
   --radius-xs: var(--radius-xs);
   --radius-sm: var(--radius-sm);
+  --radius-lg: var(--radius-lg);
 
   /* Shadows */
   --shadow-sm: var(--shadow-sm);

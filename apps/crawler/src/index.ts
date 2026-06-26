@@ -82,7 +82,7 @@ async function main() {
         // ##################################################
 
         const html = data.html;
-        const gatherInfo = await getGatherInformation(html, url);
+        const gatherInfo = await getGatherInformation(html, url, parseInt(msg.depth));
 
         // ##################################################
         //  store the gathered information in the database

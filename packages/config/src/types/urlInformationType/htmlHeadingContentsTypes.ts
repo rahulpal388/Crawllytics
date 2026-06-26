@@ -8,31 +8,37 @@ export type HTMLHeadingType = {
 }
 
 export type HTMLHeadingContentsType = {
+    h1: HTMLHeadingType[];
+    h2: HTMLHeadingType[];
+    h3H6: HTMLHeadingType[];
 
-    h1: HTMLHeadingType[],
-    h2: HTMLHeadingType[],
-    h3H6: HTMLHeadingType[]
     count: {
+        headingCount: number;
+
         wordCount: number;
+        characterCount: number;
+
         paragraphCount: number;
         sentenceCount: number;
-        avgSentenceLength: number;
-    }
-    // fleschReadingEase: number;
-    // fleschKincaidGrade: number;
-    // detectedLanguage: string | null;
-    // topKeywords: KeywordFrequencyType[];
-    // topBigrams: KeywordFrequencyType[]
-    // topTrigrams: KeywordFrequencyType[]
-    // tfidfTopTerms: KeywordFrequencyType[]
-    // isThinContent: boolean;
-    // hasTableOfContents: boolean;
-    // contentHash: string;
-}
 
+        averageWordsPerSentence: number;
+        averageWordsPerParagraph: number;
+    };
 
-export type KeywordFrequencyType = {
-    word: string;
-    count: number;
-    density: number;
+    structure: {
+        firstHeadingLevel: 1 | 2 | 3 | 4 | 5 | 6 | null;
+        longestParagraphWords: number;
+        shortestParagraphWords: number;
+        skippedHeadingLevels: boolean;
+
+        duplicateHeadings: number;
+
+        emptyHeadings: number;
+
+        headingsWithoutContent: number;
+
+        headingWordCount: number;
+
+        headingToContentRatio: number;
+    };
 }

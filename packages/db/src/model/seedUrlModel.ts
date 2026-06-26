@@ -9,6 +9,7 @@ const seedUrlSchemaDefination: SchemaOf<SeedUrlType> = {
     seedUrl: { type: String, required: true },
     robotsTxt: [{ type: userAgentSchema, required: true }],
     siteMapXMLUrls: [{ type: String, required: true }],
+    siteMaps: [{ type: String, required: true }],
     urlCrawled: [{ type: Schema.Types.ObjectId, ref: "UrlCrawled" }],
     analyzedData: { type: Schema.Types.ObjectId, ref: "AnalyzedData", default: null }
 }

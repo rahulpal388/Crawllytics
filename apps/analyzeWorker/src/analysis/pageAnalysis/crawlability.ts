@@ -1,45 +1,53 @@
-import { UrlCrawledType } from "@repo/db/types/urlCrawledTypes";
 import { PageCrawlabilityAnalysis } from "@repo/config/types/analysesTypes/perPages/pageCrawlability";
-import { findInternalIncomingLinks } from "@/utils/findInternalIncomingLinks.js";
+import { GatherInfoType } from "@/types/gatherInfoType.js";
 
 
-export function crawlability(gatherInfo: Omit<UrlCrawledType, "analyzedUrlData">): PageCrawlabilityAnalysis {
+export function crawlability(gatherInfo: GatherInfoType): PageCrawlabilityAnalysis {
 
-    const statusCode = gatherInfo.networkInfo.statusCode;
 
+
+    const isReachable = gatherInfo.networkInfo.statusCode >= 200 && gatherInfo.networkInfo.statusCode < 400;
+    const isBlockedByRobots = gatherInfo.urlAnalyses.isBlockedByRobotsTxt;
+    const isBlockedByMetaRobots = gatherInfo.htmlHeader.meta.metaRobot.includes("noindex") || gatherInfo.htmlHeader.meta.metaRobot.includes("nofollow");
+
+    const isBlockedByXRobots = gatherInfo.networkInfo.responseHeaders.xRobotsTag.includes("noindex") || gatherInfo.networkInfo.responseHeaders.xRobotsTag.includes("nofollow");
+
+    const isRedirect = gatherInfo.networkInfo.redirectChain.length > 0;
     const redirectChainLength = gatherInfo.networkInfo.redirectChain.length;
-    const isRedirect = redirectChainLength > 0;
     const isRedirectLoop = gatherInfo.networkInfo.isRedirectLoop;
 
-    const robotsTxtBlocked = gatherInfo.urlAnalyses.isBlockedByRobotsTxt;
+
+    const crawlDepth = gatherInfo.urlAnalyses.crawlDepth;
+    const discoveredViaInternalLink = gatherInfo.urlAnalyses.isDiscoveredViaInternalLink;
+    const discoveredViaSitemap = gatherInfo.urlAnalyses.isDiscoveredViaSiteMap;
 
 
-    // remeaning
-    const robotsRuleMatched = null;
-
-    const metaRobots = gatherInfo.htmlHeader.meta.metaRobot.map((item) => item.content);
-
-    const canonicalUrl = gatherInfo.htmlHeader.meta.Canonical.map((item) => item.url);
-
-    const isInSitemap = gatherInfo.urlAnalyses.isInSitemap;
-
-    const urlDepth = gatherInfo.urlAnalyses.urlDepth;
-
-    const internalIncomingLinks = findInternalIncomingLinks();
+    // #########################################
+    // calcuate later
+    // #########################################
+    const score = 0;
+    const crawlable = false;
+    const isSoft404 = false;
+    const canonicalConflict = false;
 
 
     return {
-        statusCode,
-        redirectChainLength,
+        score,
+        crawlable,
+        isReachable,
+        isBlockedByRobots,
+        isBlockedByMetaRobots,
+        isBlockedByXRobots,
         isRedirect,
+        redirectChainLength,
         isRedirectLoop,
-        robotsTxtBlocked,
-        robotsRuleMatched,
-        metaRobots,
-        canonicalUrl,
-        isInSitemap,
-        internalIncomingLinks,
-        urlDepth,
+        isSoft404,
+        canonicalConflict,
+        crawlDepth,
+        discoveredViaInternalLink,
+        discoveredViaSitemap
     }
 
 }
+
+

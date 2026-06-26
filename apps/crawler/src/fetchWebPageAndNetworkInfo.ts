@@ -2,12 +2,11 @@ import { deCompress } from "@/utils/deCompress.js";
 import { handleRedirect } from "@/utils/handleRedirect.js";
 import { parseResponseHeader } from "@/utils/parseResponseHeader.js";
 import { CompressionEncodingType, EachUrlNetworkResultTypes, RedirectChainType } from "@repo/config/types/urlInformationType/eachUrlNetworkTypes";
-import { HSTSType, CacheControlType } from "@repo/config/types/urlInformationType/responseHeadersTypes";
 import { findCdnProvider } from "@repo/lib/findCdnProvider";
 import { getUnCompressedSize } from "@repo/lib/getUnCompressedSize";
 import https from "https";
+import { headerConfig } from "@repo/config/constant/fetchHeaderConfig";
 
-export const USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/135.0.0.0 Safari/537.36";
 
 
 export async function fetchWebPageAndNetworkInfo(
@@ -29,12 +28,7 @@ export async function fetchWebPageAndNetworkInfo(
 
     return new Promise((resolve) => {
         const req = https.get(url, {
-            headers: {
-                "accept-encoding":
-                    "gzip, br, deflate",
-
-                "user-agent": USER_AGENT
-            }
+            headers: headerConfig
         });
 
 

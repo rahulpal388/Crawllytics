@@ -1,63 +1,171 @@
-import * as cheerio from "cheerio"
-import { HTMLHeadingContentsType, HTMLHeadingType } from "@repo/config/types/urlInformationType/htmlHeadingContentsTypes";
+
+
+import * as cheerio from "cheerio";
+import {
+    HTMLHeadingContentsType,
+    HTMLHeadingType,
+} from "@repo/config/types/urlInformationType/htmlHeadingContentsTypes";
 import { getHeadingContent } from "@/utils/getHeadingContent.js";
 
+export function htmlContentsExtractor(
+    $: cheerio.CheerioAPI
+): HTMLHeadingContentsType {
 
-
-export function htmlContentsExtractor($: cheerio.CheerioAPI): HTMLHeadingContentsType {
+    // --------------------- Heading Collection ---------------------
 
     const h1Contents: HTMLHeadingType[] = [];
     const h2Contents: HTMLHeadingType[] = [];
     const h3H6Contents: HTMLHeadingType[] = [];
 
+    const headingTexts: string[] = [];
+    let headingWordCount = 0;
+    let emptyHeadings = 0;
+    let firstHeadingLevel: 1 | 2 | 3 | 4 | 5 | 6 | null = null;
 
+    const headingLevels: number[] = [];
 
-    // ------------------- H1 heading ----------------
-    $("h1").each((i, el) => {
+    $("h1,h2,h3,h4,h5,h6").each((_, el) => {
+        const tag = el.tagName.toLowerCase();
+        const level = Number(tag.substring(1)) as 1 | 2 | 3 | 4 | 5 | 6;
+
+        if (firstHeadingLevel === null) {
+            firstHeadingLevel = level;
+        }
+
+        headingLevels.push(level);
+
         const text = $(el).text().trim();
-        h1Contents.push(getHeadingContent(text));
+
+        if (!text) {
+            emptyHeadings++;
+        }
+
+        const heading = getHeadingContent(text);
+
+        headingTexts.push(text.toLowerCase());
+
+        headingWordCount += heading.wordCount;
+
+        switch (level) {
+            case 1:
+                h1Contents.push(heading);
+                break;
+
+            case 2:
+                h2Contents.push(heading);
+                break;
+
+            default:
+                h3H6Contents.push(heading);
+        }
+    });
+
+    // --------------------- Content Statistics ---------------------
+
+    const bodyText = $("body")
+        .text()
+        .replace(/\s+/g, " ")
+        .trim();
+
+    const characterCount = bodyText.length;
+
+    const wordCount =
+        bodyText.length === 0
+            ? 0
+            : bodyText.split(/\s+/).length;
+
+
+    // --------------------- Paragraph and Sentence Counts ---------------------
+    let paragraphCount = 0;
+    let longestParagraphWords = 0;
+    let shortestParagraphWords = 0;
+    $("p").each((idx, el) => {
+        paragraphCount++;
+        const txt = $(el).text().trim();
+        const txtLen = txt.length;
+        longestParagraphWords = txtLen > longestParagraphWords ? txtLen : longestParagraphWords;
+
+        if (shortestParagraphWords === 0) {
+            shortestParagraphWords = txtLen;
+        } else {
+
+
+            shortestParagraphWords = txtLen < shortestParagraphWords ? txtLen : shortestParagraphWords;
+        }
+
     })
 
+    const sentenceCount =
+        bodyText
+            .split(/[.!?]+/)
+            .filter(sentence => sentence.trim().length > 0).length;
 
-    // ------------------- H2 heading ----------------
-    $("h2").each((i, el) => {
-        const text = $(el).text().trim();
-        h2Contents.push(getHeadingContent(text));
-    })
+    const averageWordsPerSentence =
+        sentenceCount === 0
+            ? 0
+            : Number((wordCount / sentenceCount).toFixed(2));
+
+    const averageWordsPerParagraph =
+        paragraphCount === 0
+            ? 0
+            : Number((wordCount / paragraphCount).toFixed(2));
+
+    // --------------------- Heading Structure ---------------------
+
+    const headingCount =
+        h1Contents.length +
+        h2Contents.length +
+        h3H6Contents.length;
+
+    const duplicateHeadings =
+        headingTexts.length -
+        new Set(headingTexts).size;
+
+    let skippedHeadingLevels = false;
+
+    for (let i = 1; i < headingLevels.length; i++) {
+        const previous = headingLevels[i - 1];
+        const current = headingLevels[i];
+
+        if (previous === undefined || current === undefined) {
+            continue;
+        }
+
+        if (current - previous > 1) {
+            skippedHeadingLevels = true;
+            break;
+        }
+    }
+
+    // --------------------- Heading Without Content ---------------------
+
+    let headingsWithoutContent = 0;
+
+    $("h1,h2,h3,h4,h5,h6").each((_, el) => {
+        const next = $(el).nextAll().first();
+
+        const nextElement = next.get(0);
+
+        if (
+            !nextElement ||
+            !["p", "ul", "ol", "div", "section", "article"].includes(
+                nextElement.tagName.toLowerCase()
+            )
+        ) {
+            headingsWithoutContent++;
+        }
+    });
 
 
-    // ------------------- H3 to H6 heading ----------------
-    $("h3").each((i, el) => {
-        const text = $(el).text().trim();
-        h3H6Contents.push(getHeadingContent(text));
-    })
-    $("h4").each((i, el) => {
-        const text = $(el).text().trim();
-        h3H6Contents.push(getHeadingContent(text));
-    })
-    $("h5").each((i, el) => {
-        const text = $(el).text().trim();
-        h3H6Contents.push(getHeadingContent(text));
-    })
-    $("h6").each((i, el) => {
-        const text = $(el).text().trim();
-        h3H6Contents.push(getHeadingContent(text));
-    })
 
+    // --------------------- Ratios ---------------------
 
+    const headingToContentRatio =
+        wordCount === 0
+            ? 0
+            : Number((headingWordCount / wordCount).toFixed(3));
 
-    // --------------------- words and body contents -----------------
-
-    const bodyText = $("body").text().trim();
-    const wordCount = bodyText.split(/\s+/).length;
-    const paragraphCount = $("p").length;
-    const sentenceCount = bodyText.split(/[.!?]+/).length;
-    const avgSentenceLength = wordCount / sentenceCount;
-
-
-    // ------------- some other information -------------------
-
-    const detectedLanguage = $("html").attr("lang") || null;
+    // --------------------- Return ---------------------
 
     return {
         h1: h1Contents,
@@ -65,15 +173,33 @@ export function htmlContentsExtractor($: cheerio.CheerioAPI): HTMLHeadingContent
         h3H6: h3H6Contents,
 
         count: {
+            headingCount,
+
             wordCount,
+            characterCount,
+
             paragraphCount,
             sentenceCount,
-            avgSentenceLength,
-        }
-    }
 
+            averageWordsPerSentence,
+            averageWordsPerParagraph,
+        },
 
+        structure: {
+            firstHeadingLevel,
+            longestParagraphWords,
+            shortestParagraphWords,
+            skippedHeadingLevels,
+
+            duplicateHeadings,
+
+            emptyHeadings,
+
+            headingsWithoutContent,
+
+            headingWordCount,
+
+            headingToContentRatio,
+        },
+    };
 }
-
-
-

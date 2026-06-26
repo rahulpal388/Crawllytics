@@ -3,6 +3,7 @@
 export type UrlAnalysesType = {
     urlLength: number;
     urlDepth: number;
+    crawlDepth: number;
     isBlockedByRobotsTxt: boolean;
     hasQueryParams: boolean;
     queryParams: string[];
@@ -15,5 +16,7 @@ export type UrlAnalysesType = {
     fileExtension: string[];
     hasRepetitivePath: boolean;
     isInSitemap: boolean;
+    isDiscoveredViaInternalLink: boolean;
+    isDiscoveredViaSiteMap: boolean;
     domainExtension: string | null;
 }

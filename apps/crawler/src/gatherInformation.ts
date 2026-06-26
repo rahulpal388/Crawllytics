@@ -13,7 +13,7 @@ import * as cheerio from "cheerio"
 
 export type GatherInformationType = Omit<UrlCrawledType, "networkInfo" | "analyzedUrlData">
 
-export async function getGatherInformation(html: string, url: URL): Promise<GatherInformationType> {
+export async function getGatherInformation(html: string, url: URL, crawlDepth: number): Promise<GatherInformationType> {
 
     const $ = cheerio.load(html);
 
@@ -24,7 +24,7 @@ export async function getGatherInformation(html: string, url: URL): Promise<Gath
     const media = await htmlMediaExtractor($, new Set<string>(), url);
     const structureData = htmlStructureData($);
     const UIUX = mobileUIUX($);
-    const url_Analyses = urlAnalyses(url);
+    const url_Analyses = urlAnalyses(url, crawlDepth);
     const performance = performanceSignal($, url);
     const document = htmlDocument($, html);
     const accessibility = accessibilityInfo($);
