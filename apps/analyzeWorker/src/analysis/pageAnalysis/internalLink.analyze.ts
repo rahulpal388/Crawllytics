@@ -6,12 +6,17 @@ export function internalLink(gatherInfo: GatherInfoType): PageInternalLinkAnalys
     let uniqueInternalLinks = 0;
     let incomingInternalLinks = 0;
     let outgoingInternalLinks = 0;
-    let orphanPage = false;
-    let brokenInternalLinks = 0
+    let deadEndPage = false;
+    let clickDepth = 0;
+    let urlDepth = 0;
 
     internalLinkCount = gatherInfo.links.internalLinks.length;
     uniqueInternalLinks = new Set(gatherInfo.links.internalLinks).size;
+    outgoingInternalLinks = uniqueInternalLinks;
 
+    deadEndPage = internalLinkCount === 0;
+    clickDepth = gatherInfo.urlAnalyses.crawlDepth;
+    urlDepth = gatherInfo.urlAnalyses.urlDepth;
 
 
 
@@ -19,8 +24,8 @@ export function internalLink(gatherInfo: GatherInfoType): PageInternalLinkAnalys
         internalLinkCount,
         uniqueInternalLinks,
         incomingInternalLinks,
-        outgoingInternalLinks,
-        orphanPage,
-        brokenInternalLinks
+        deadEndPage,
+        clickDepth,
+        urlDepth,
     };
 }

@@ -1,19 +1,8 @@
-
-
-
-export type PageIndexabilityAnalysis = {
-    metaNoindex: boolean;
-    metaNofollow: boolean;
-
-    xRobotsNoindex: boolean;
-
-    canonicalUrl: string | null;
-
-    canonicalIsSelfReferencing: boolean;
-
-    canonicalTargetIndexable: boolean;
-
-    duplicateContentHash: string;
-
-    indexabilityScore: number;
+export type PageIndexabilityType = {
+    statusCode: number;
+    metaRobots: string[];
+    xRobotsTag: string[];
+    canonicalUrl: string[];
+    redirectTarget: string | null;
+    isInSitemap: boolean;
 }

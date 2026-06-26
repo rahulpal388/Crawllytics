@@ -38,6 +38,8 @@ export function urlAnalyses(url: URL, crawlDepth: number): UrlAnalysesType {
         hasRepetitivePath,
         domainExtension,
         isInSitemap: false,
+        isDiscoveredViaInternalLink: false,
+        isDiscoveredViaSiteMap: false,
         isBlockedByRobotsTxt: true
     }
 
