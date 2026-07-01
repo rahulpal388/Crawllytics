@@ -10,19 +10,16 @@ export type PerformanceSignalType = {
     stylesheets: StylesheetType[];
     renderBlockingScripts: number;
     renderBlockingCss: number;
-    // thirdPartyScripts: ThirdPartyScript[];
     totalScriptCount: number;
     inlineScriptCount: number;
     totalScriptSizeBytes: number;
     lcpCandidate: LcpCandidateType;
-    // clsRiskScore: number;
     resourceHintCoverage: ResourceHintCoverage;
     inlineCssBytes: number;
     totalCssFiles: number;
     estimatedTbtMs: number;
     hasServiceWorker: boolean;
     hasPwaManifest: boolean;
-    // interstitialDetected: boolean;
 
 }
 

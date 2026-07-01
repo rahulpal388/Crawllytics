@@ -1,8 +1,3 @@
-
-
-
-
-
 export type PageSecurityAnalysis = {
     httpsEnabled: boolean;
 
@@ -15,4 +10,9 @@ export type PageSecurityAnalysis = {
     xContentTypeOptionsPresent: boolean;
 
     referrerPolicyPresent: boolean;
+
+    permissionsPolicyPresent: boolean;
+
+
+
 }

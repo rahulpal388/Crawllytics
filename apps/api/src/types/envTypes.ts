@@ -6,6 +6,8 @@ export const envSchema = globalEnv.extend({
     NODE_ENV: z.enum(["production", "development"]).default("development"),
     PORT: z.string().default("8080"),
     CROSS_ORIGIN_URL: z.string(),
+    GOOGLE_CLIENT_ID: z.string(),
+    GOOGLE_CLIENT_SECRET: z.string(),
 });
 
 

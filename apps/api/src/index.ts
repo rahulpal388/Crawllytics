@@ -13,7 +13,6 @@ import { crawlPublisherConfig } from "@repo/queue/streams/publishers/crawlPublis
 import { logger } from "@repo/lib/logger";
 import { urlDeDuplication } from "@repo/queue/stores/deduplication/urlDeDuplication";
 
-
 export const app = express();
 export const env = ValidateEnv();
 app.use(express.json());

@@ -33,8 +33,6 @@ export type EachUrlNetworkResultTypes = {
 
     redirectChain: RedirectChainType[];
     isRedirectLoop: boolean;
-    // isMixedContent: boolean;
-    // connectionReuse: boolean;
     isCompressed: boolean;
 
     cdnProvider: string | null; // detect from CF-Ray, X-Cache, X-Served-By headers
