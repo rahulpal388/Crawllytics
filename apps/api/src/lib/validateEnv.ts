@@ -1,4 +1,4 @@
-import { envSchema } from "@/types/envTypes.js";
+import { envSchema } from "@/validation/envTypes.js";
 import e from "express";
 
 

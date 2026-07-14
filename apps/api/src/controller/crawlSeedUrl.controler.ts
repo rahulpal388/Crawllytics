@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express"
 import { AppError } from "@/middlewares/errors/appError.js"
-import { crawlSeedUrlBodySchema } from "@/validator/crawlValitator.js"
+import { crawlSeedUrlBodySchema } from "@/validation/crawlSeedUrl.validation.js"
 import { crawlServices } from "@/services/crawlServies.js"
 
 

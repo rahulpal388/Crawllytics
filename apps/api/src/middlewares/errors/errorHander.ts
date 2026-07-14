@@ -12,6 +12,7 @@ export function errorHandler(err: Error, req: Request, res: Response, next: Next
             path: req.path,
             metaData: {
                 statusCode: err.statusCode,
+                options: err.options
             }
         })
 

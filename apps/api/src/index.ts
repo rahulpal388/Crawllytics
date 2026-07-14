@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import "dotenv/config";
 import { ValidateEnv } from "@/lib/validateEnv.js";
-import { produce } from "@/produce.js";
 import { connectDB } from "@repo/db/index";
 import { createRedisConnection } from "@repo/queue/client/client";
 import { crawlStateStore } from "@repo/queue/stores/crawlState/crawlState"
@@ -12,6 +11,8 @@ import { registerMiddlerwares } from "@/middlewares/middleware.js";
 import { crawlPublisherConfig } from "@repo/queue/streams/publishers/crawlPublisher"
 import { logger } from "@repo/lib/logger";
 import { urlDeDuplication } from "@repo/queue/stores/deduplication/urlDeDuplication";
+import { oidcStatesStore } from "@repo/queue/stores/authStates/oidcStatesStore";
+import { sessionStoreConfig } from "@repo/queue/stores/authStates/sessionStore";
 
 export const app = express();
 export const env = ValidateEnv();
@@ -56,6 +57,9 @@ export const crawlStateSt = crawlStateStore(redisClient);
 
 export const crawlPublisher = crawlPublisherConfig(redisClient);
 export const urlDeDuplicationStore = urlDeDuplication(redisClient);
+export const oidcStore = oidcStatesStore(redisClient);
+export const sessionStore = sessionStoreConfig(redisClient);
+
 
 
 

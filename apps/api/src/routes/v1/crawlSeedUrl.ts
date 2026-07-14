@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { crawlSeedUrl } from "@/controler/crawlSeedUrlControler/crawlSeedUrl.controler.js"
+import { crawlSeedUrl } from "@/controller/crawlSeedUrl.controler.js"
 import { crawlStateSt } from "@/index.js"
 
 

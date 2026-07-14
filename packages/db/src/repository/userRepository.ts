@@ -5,7 +5,8 @@ import { Types } from "mongoose";
 
 export const userRepository = {
     addUser,
-    updateSeedUrl
+    updateSeedUrl,
+    findByEmail,
 }
 
 
@@ -22,6 +23,10 @@ async function addUser(userInfo: UserType) {
 
 
 // ######################## get data from user collection #########################
+
+async function findByEmail(email: string) {
+    return await userModel.findOne({ email: email });
+}
 
 
 

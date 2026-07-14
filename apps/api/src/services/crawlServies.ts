@@ -1,4 +1,4 @@
-import { CrawlSeedUrlBody } from "@/validator/crawlValitator.js"
+import { CrawlSeedUrlBody } from "@/validation/crawlSeedUrl.validation.js"
 import { seedUrlRepository } from "@repo/db/repository/seedUrlRepository";
 import { validUrl } from "@repo/lib/validUrl";
 import { extractRobotsTxt } from "@repo/lib/extractRobotsTxt";
