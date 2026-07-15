@@ -6,16 +6,16 @@ import { model } from "mongoose";
 
 
 const userSchemaDefination: SchemaOf<UserType> = {
-    username: { type: String, required: true, unique: true },
-    displayName: { type: String, required: true },
+    name: { type: String, required: true, unique: true },
     avatar: { type: String, default: null },
     email: { type: String, required: true, unique: true },
     emailVerified: { type: Boolean, default: false },
     status: { type: String, enum: STATUS, required: true },
     provider: { type: String, enum: PROVIDERS, required: true },
-    providerUserId: { type: String, required: true },
-    credential: { type: Schema.Types.ObjectId, ref: "Credential", default: null },
-    session: { type: Schema.Types.ObjectId, ref: "Session", default: null },
+    providerUserId: { type: String, default: null },
+    providerToken: { type: String, default: null },
+    hashPassword: { type: String, default: null },
+
     seedUrls: [{ type: Schema.Types.ObjectId, ref: "SeedUrl" }]
 }
 

@@ -1,7 +1,7 @@
 import { CookieOptions } from "express";
 import { env } from "@/index.js";
 
-export const sessionCookieOptions: CookieOptions = {
+export const cookieOptions: CookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",

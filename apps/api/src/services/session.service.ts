@@ -3,7 +3,7 @@ import { SessionStoreType } from "@repo/queue/types/sessionStoreType";
 import { sessionStore } from "@/index.js";
 import { AppError } from "@/middlewares/errors/appError.js";
 
-export function sessionService() {
+function sessionService() {
 
     return {
         createSession,
@@ -38,3 +38,7 @@ export function sessionService() {
     }
 
 }
+
+
+const SessionService = sessionService();
+export default SessionService;

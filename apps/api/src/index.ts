@@ -13,10 +13,12 @@ import { logger } from "@repo/lib/logger";
 import { urlDeDuplication } from "@repo/queue/stores/deduplication/urlDeDuplication";
 import { oidcStatesStore } from "@repo/queue/stores/authStates/oidcStatesStore";
 import { sessionStoreConfig } from "@repo/queue/stores/authStates/sessionStore";
+import { userOtpStore } from "@repo/queue/stores/authStates/userOtpStore";
 
 export const app = express();
 export const env = ValidateEnv();
 app.use(express.json());
+app.set("trust proxy", env.NODE_ENV == "production");
 const port = env.PORT;
 
 
@@ -59,6 +61,7 @@ export const crawlPublisher = crawlPublisherConfig(redisClient);
 export const urlDeDuplicationStore = urlDeDuplication(redisClient);
 export const oidcStore = oidcStatesStore(redisClient);
 export const sessionStore = sessionStoreConfig(redisClient);
+export const OTPStore = userOtpStore(redisClient);
 
 
 

@@ -19,6 +19,7 @@
     "dotenv": "^16.0.3",
     "express": "^5.2.1",
     "openid-client": "^6.8.4",
+    "ua-parser-js": "^2.0.10",
     "zod": "^4.4.3"
   },
   "devDependencies": {

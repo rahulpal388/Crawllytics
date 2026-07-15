@@ -6,7 +6,7 @@ import { getGoogleConfiguration } from "@/config/google.config.js";
 import axios from "axios";
 import { UserInfoType } from "@/types/userInfoType.js";
 
-export function googleService() {
+function googleService() {
     return {
         createAuthorizationUrl,
         getToken,
@@ -78,3 +78,8 @@ export function googleService() {
 
 
 }
+
+
+const GoogleService = googleService();
+
+export default GoogleService;

@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import { env } from "@/index.js";
-import { googleService } from "@/services/google.service.js";
-import { sessionService } from "@/services/session.service.js";
-import { sessionCookieOptions } from "@/config/cookieOptions.js";
+import { env, sessionStore } from "@/index.js";
+import SessionService from "@/services/session.service.js";
+import { cookieOptions } from "@/config/cookieOptions.js";
+import AuthService from "@/services/auth.service.js";
+import EmailService from "@/services/email.service.js";
 
-const googleServiceInstance = googleService();
 
 export async function googleCallbackController(req: Request, res: Response, next: NextFunction) {
     const { state, code } = req.query;
@@ -18,19 +18,21 @@ export async function googleCallbackController(req: Request, res: Response, next
 
         const callbackUrl = new URL(req.originalUrl, env.API_ORIGIN);
 
-        const token = await googleServiceInstance.getToken(state, callbackUrl);
+        const token = await AuthService.getToken(state, callbackUrl);
 
-        const userInfo = await googleServiceInstance.getUserInfo(token);
+        const userInfo = await AuthService.getUserInfo(token);
 
         console.log("userinfo ", userInfo)
 
-        const sessionId = await sessionService().createSession({
+        const sessionId = await SessionService.createSession({
             userId: userInfo.sub,
             ipAddress: req.ip || null,
             userAgent: req.headers["user-agent"] || ""
         });
+       
+        await EmailService.sendWelcomeEmail(userInfo.email, userInfo.name);
 
-        res.cookie("sessionId", sessionId, sessionCookieOptions)
+        res.cookie("sessionId", sessionId, cookieOptions)
 
         res.status(200).redirect(env.REDIRECT_URL);
 
