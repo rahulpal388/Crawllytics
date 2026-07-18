@@ -1,33 +1,21 @@
 import { findUniqueExternalLinks } from "@/utils/findUniqueExternalLinks.js";
 import { findUniqueInternalLinks } from "@/utils/findUniqueInternalLinks.js";
-import {
-    HTMLLinksType,
-} from "@repo/config/types/urlInformationType/htmlLinksTypes";
+import { getLinkData } from "@/utils/links/getLinkData.js";
+import { HTMLLinksType } from "@repo/config/types/urlInformationType/htmlLinksTypes";
 
 import * as cheerio from "cheerio";
 
-
 export function htmlLinksExtractor(
-    $: cheerio.CheerioAPI,
-    baseUrl: URL
-): HTMLLinksType {
+  $: cheerio.CheerioAPI,
+  baseUrl: URL,
+): HTMLLinksType & { internalLinks: string[] } {
+  const links = getLinkData($, baseUrl);
+  const internalLinks = links
+    .filter((link) => link.linkType === "internal")
+    .map((link) => link.absoluteUrl);
 
-
-    const internalLinks = findUniqueInternalLinks($, baseUrl);
-    const externalLinks = findUniqueExternalLinks($, baseUrl);
-    const totalLinksCount = internalLinks.length + externalLinks.length;
-    const emptyAnchorTextCount = internalLinks.filter(link => link.anchorText === "").length + externalLinks.filter(link => link.anchorText === "").length;
-    const imageAnchorCount = internalLinks.filter(link => link.isImage).length + externalLinks.filter(link => link.isImage).length;
-    const nofollowInternalCount = internalLinks.filter(link => !link.isDoFollow).length;
-
-    return {
-        internalLinks,
-        externalLinks,
-        totalLinksCount,
-        emptyAnchorTextCount,
-        imageAnchorCount,
-        nofollowInternalCount,
-    }
-
-
+  return {
+    links,
+    internalLinks,
+  };
 }

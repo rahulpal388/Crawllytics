@@ -25,14 +25,7 @@ export function LoaderSvg({
       className="lucide lucide-circle-check-icon lucide-circle-check"
     >
       {!isActive && !isCompleted && (
-        <circle
-          cx="12"
-          cy="12"
-          r="10"
-          stroke="#9ca3af"
-          strokeDasharray="4 4"
-          fill="transparent"
-        />
+        <circle cx="12" cy="12" r="10" stroke="#9ca3af" strokeDasharray="4 4" fill="transparent" />
       )}
       <motion.circle
         cx="12"

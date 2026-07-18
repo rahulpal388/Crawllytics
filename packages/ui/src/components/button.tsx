@@ -5,12 +5,8 @@ import { cn } from "../utils";
 
 type BtnVariants = "primary" | "secondary" | "outline";
 
-const variants: Record<
-  BtnVariants,
-  React.HTMLAttributes<HTMLButtonElement>["className"]
-> = {
-  primary:
-    " bg-primary  hover:bg-primary-hover active:bg-primary-active text-white ",
+const variants: Record<BtnVariants, React.HTMLAttributes<HTMLButtonElement>["className"]> = {
+  primary: " bg-primary  hover:bg-primary-hover active:bg-primary-active text-white ",
   secondary: " bg-text-primary  hover:bg-black/90 text-white  ",
   outline: "  text-text-primary bg-surface-base  hover:bg-surface-muted  ",
 };
@@ -22,12 +18,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant: BtnVariants;
 }
 
-export const Button = ({
-  children,
-  className,
-  variant,
-  ...props
-}: ButtonProps) => {
+export const Button = ({ children, className, variant, ...props }: ButtonProps) => {
   return (
     <button
       {...props}

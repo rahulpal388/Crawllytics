@@ -1,11 +1,10 @@
-
 export type UserAgentType = {
-    userAgent: string[];
-    allow: string[];
-    disallow: string[];
-}
+  userAgent: string[];
+  allow: string[];
+  disallow: string[];
+};
 
 export type RobotsTxtType = {
-    userAgents: UserAgentType[];
-    siteMapXMLUrls: string[];
-}
+  userAgents: UserAgentType[];
+  siteMapXMLUrls: string[];
+};

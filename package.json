@@ -6,10 +6,13 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types"
+    "format:check": "prettier . --check",
+    "check-types": "turbo run check-types",
+    "services:start": " docker compose -f docker-compose.dev.yml up -d ",
+    "services:stop": " docker compose -f docker-compose.dev.yml down "
   },
   "devDependencies": {
-    "prettier": "^3.7.4",
+    "prettier": "^3.9.5",
     "turbo": "^2.9.0",
     "typescript": "5.9.2"
   },

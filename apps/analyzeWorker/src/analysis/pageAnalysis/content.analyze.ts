@@ -3,92 +3,73 @@ import crypto from "node:crypto";
 import { GatherInfoType } from "@/types/gatherInfoType.js";
 import { PageContentAnalysis } from "@repo/config/types/analysesTypes/perPages/pageContent";
 
-export function content(
-    gatherInfo: GatherInfoType
-): PageContentAnalysis {
+export function content(gatherInfo: GatherInfoType): PageContentAnalysis {
+  // --------------------- Counts ---------------------
 
-    // --------------------- Counts ---------------------
+  const { wordCount, characterCount, paragraphCount, sentenceCount } =
+    gatherInfo.htmlHeadingContent.count;
 
-    const {
-        wordCount,
-        characterCount,
-        paragraphCount,
-        sentenceCount,
-    } = gatherInfo.htmlHeadingContent.count;
+  // --------------------- Reading ---------------------
 
-    // --------------------- Reading ---------------------
+  const averageWordsPerSentence =
+    sentenceCount === 0 ? 0 : Number((wordCount / sentenceCount).toFixed(2));
 
-    const averageWordsPerSentence =
-        sentenceCount === 0
-            ? 0
-            : Number((wordCount / sentenceCount).toFixed(2));
+  const averageWordsPerParagraph =
+    paragraphCount === 0 ? 0 : Number((wordCount / paragraphCount).toFixed(2));
 
-    const averageWordsPerParagraph =
-        paragraphCount === 0
-            ? 0
-            : Number((wordCount / paragraphCount).toFixed(2));
+  const readingTimeMinutes = Math.max(1, Math.ceil(wordCount / 200));
 
-    const readingTimeMinutes =
-        Math.max(1, Math.ceil(wordCount / 200));
+  // --------------------- HTML ---------------------
 
-    // --------------------- HTML ---------------------
+  const textHtmlRatio = gatherInfo.htmlDocument.textHtmlRatio;
 
-    const textHtmlRatio =
-        gatherInfo.htmlDocument.textHtmlRatio;
+  // --------------------- Quality ---------------------
 
+  const thinContent = wordCount < 300;
 
-    // --------------------- Quality ---------------------
+  // Will be determined after comparing every page
+  const duplicateContent = false;
 
-    const thinContent = wordCount < 300;
+  // --------------------- Structure ---------------------
 
-    // Will be determined after comparing every page
-    const duplicateContent = false;
+  const hasMainContent = gatherInfo.htmlDocument.hasMainTag;
 
-    // --------------------- Structure ---------------------
+  const hasLargeTextBlocks = gatherInfo.htmlHeadingContent.structure.longestParagraphWords > 200;
 
-    const hasMainContent =
-        gatherInfo.htmlDocument.hasMainTag;
+  const hasBoilerplateDominance = textHtmlRatio < 0.15;
 
-    const hasLargeTextBlocks =
-        gatherInfo.htmlHeadingContent.structure.longestParagraphWords > 200;
+  // --------------------- Distribution ---------------------
 
-    const hasBoilerplateDominance =
-        textHtmlRatio < 0.15;
+  const longestParagraphWords = gatherInfo.htmlHeadingContent.structure.longestParagraphWords;
 
-    // --------------------- Distribution ---------------------
+  const shortestParagraphWords = gatherInfo.htmlHeadingContent.structure.shortestParagraphWords;
 
-    const longestParagraphWords =
-        gatherInfo.htmlHeadingContent.structure.longestParagraphWords;
+  // --------------------- Readability ---------------------
 
-    const shortestParagraphWords =
-        gatherInfo.htmlHeadingContent.structure.shortestParagraphWords;
+  const readabilityScore = undefined;
 
-    // --------------------- Readability ---------------------
+  return {
+    wordCount,
+    characterCount,
+    paragraphCount,
+    sentenceCount,
 
-    const readabilityScore = undefined;
+    readingTimeMinutes,
+    averageWordsPerSentence,
+    averageWordsPerParagraph,
 
-    return {
-        wordCount,
-        characterCount,
-        paragraphCount,
-        sentenceCount,
+    textHtmlRatio,
 
-        readingTimeMinutes,
-        averageWordsPerSentence,
-        averageWordsPerParagraph,
+    thinContent,
+    duplicateContent,
 
-        textHtmlRatio,
+    hasMainContent,
+    hasLargeTextBlocks,
+    hasBoilerplateDominance,
 
-        thinContent,
-        duplicateContent,
+    longestParagraphWords,
+    shortestParagraphWords,
 
-        hasMainContent,
-        hasLargeTextBlocks,
-        hasBoilerplateDominance,
-
-        longestParagraphWords,
-        shortestParagraphWords,
-
-        readabilityScore,
-    };
+    readabilityScore,
+  };
 }

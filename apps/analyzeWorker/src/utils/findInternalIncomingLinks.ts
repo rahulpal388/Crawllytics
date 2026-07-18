@@ -1,6 +1,3 @@
-
-
-
 export function findInternalIncomingLinks() {
-    return 0;
+  return 0;
 }

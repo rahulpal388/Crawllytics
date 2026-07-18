@@ -1,5 +1,3 @@
-
-
 // export type HTMLDocumentType = {
 //     htmlLang: string | null;
 //     charSet: string | null;
@@ -15,32 +13,30 @@
 //     jsFrameworks: string[];
 // }
 
-
 export type HTMLDocumentType = {
-    htmlLang: string | null;
+  htmlLang: string | null;
 
-    charSet: string | null;
+  charSet: string | null;
 
-    htmlSizeBytes: number;
+  htmlSizeBytes: number;
 
-    textHtmlRatio: number;
+  textHtmlRatio: number;
 
-    domElementCount: number;
+  domElementCount: number;
 
+  hasMainTag: boolean;
 
-    hasMainTag: boolean;
+  hasNoscript: boolean;
 
-    hasNoscript: boolean;
+  hasInlineStyles: boolean;
 
-    hasInlineStyles: boolean;
+  inlineScriptCount: number;
 
-    inlineScriptCount: number;
+  iFrameCount: number;
 
-    iFrameCount: number;
+  iFrameSrc: string[];
 
-    iFrameSrc: string[];
+  hasFlash: boolean;
 
-    hasFlash: boolean;
-
-    jsFrameworks: string[];
-}
+  jsFrameworks: string[];
+};

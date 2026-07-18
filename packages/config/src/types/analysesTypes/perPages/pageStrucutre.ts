@@ -1,21 +1,18 @@
 export type StructuredDataAnalysis = {
-    hasStructuredData: boolean;
+  hasStructuredData: boolean;
 
-    hasJsonLd: boolean;
-    hasMicroData: boolean;
-    hasRdfa: boolean;
+  hasJsonLd: boolean;
+  hasMicroData: boolean;
+  hasRdfa: boolean;
 
-    schemaTypes: string[];
+  schemaTypes: string[];
 
-    totalSchemas: number;
-    validSchemas: number;
-    invalidSchemas: number;
+  totalSchemas: number;
+  validSchemas: number;
+  invalidSchemas: number;
 
-    richResultEligible: boolean;
+  richResultEligible: boolean;
 
-
-
-    hasBreadcrumbSchema: boolean;
-    hasFaqSchema: boolean;
-
-}
+  hasBreadcrumbSchema: boolean;
+  hasFaqSchema: boolean;
+};

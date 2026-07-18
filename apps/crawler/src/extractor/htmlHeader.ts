@@ -1,202 +1,71 @@
-import { HTMLCanonicalType, HTMLHeaderType, HTMLMetaDescriptionType, HTMLMetaRobotType, HTMLMetaViewportType, HTMLTitleType, RobotDirective } from "@repo/config/types/urlInformationType/htmlHeaderResponseTypes";
-import { isAbsoluteUrl } from "@/utils/isAbsoluteUrl.js";
-import { HreflangType, TwitterCardType, PaginationType, FaviconType, ResourceHintType } from "@repo/config/types/urlInformationType/htmlHeaderResponseTypes";
+import {
+    HTMLHeaderType,
+    HTMLMetaDescriptionType,
+    HTMLTitleType,
+    RobotDirective,
+} from "@repo/config/types/urlInformationType/htmlHeaderResponseTypes";
 import * as cheerio from "cheerio";
-
+import { getCanonicalData } from "@/utils/htmlHeaders/getCanonicalData.js";
+import { getMetaViewportData } from "@/utils/htmlHeaders/getMetaViewportData.js";
+import { getOpenGraphData } from "@/utils/htmlHeaders/getOpenGraphData.js";
+import { getHrefLangData } from "@/utils/htmlHeaders/getHrefLangData.js";
+import { getTwitterCardData } from "@/utils/htmlHeaders/getTwitterCardData.js";
+import { getFaviconData } from "@/utils/htmlHeaders/getFaviconData.js";
+import { getResourceHintData } from "@/utils/htmlHeaders/getResourceHintData.js";
+import { getTitleData } from "@/utils/htmlHeaders/getTitleData.js";
+import { getMetaDescriptionData } from "@/utils/htmlHeaders/getMetaDescriptionData.js";
+import { getMetaRobotsData } from "@/utils/htmlHeaders/getMetaRobotsData.js";
 
 export function htmlHeaderExtractor($: cheerio.CheerioAPI, url: URL): HTMLHeaderType {
-
-
-
     // <--------------  title section   --------------->
-    const titleValue: HTMLTitleType[] = [];
-    $("title").each((i, el) => {
-        const text = $(el).text();
-        const lengthChar = text.length;
-        const lengthPixel = lengthChar * 10;
-        const wordCount = text.trim().split(/\s+/).length;
-        titleValue.push({
-            text,
-            lengthChar,
-            lengthPixel,
-        });
-    });
+    const title = getTitleData($);
 
     // <-------------- metaDescition section ------------->
-    const metaDescription: HTMLMetaDescriptionType[] = [];
-    const meta = $(`meta[name="description"]`)
-    meta.each((i, el) => {
-        const text = $(el).attr("content") || "";
-        const lengthChar = text.length;
-        const lengthPixel = lengthChar * 10;
-        metaDescription.push({
-            text,
-            lengthChar,
-            lengthPixel,
-        })
-    })
-
+    const metaDescription = getMetaDescriptionData($);
 
     // <------------  metaRobotTag ------------->
 
-    const metaRobots = new Set<RobotDirective>();
-
-    $("meta[name='robots']").each((_, el) => {
-        const content = $(el).attr("content");
-
-        if (!content) return;
-
-        content
-            .split(",")
-            .map(directive => directive.trim().toLowerCase())
-            .forEach(directive => metaRobots.add(directive));
-    });
-
-  
-
-
+    const metaRobots = getMetaRobotsData($);
     // <------------- canonical ------------------->
-    const canonical: HTMLCanonicalType[] = [];
 
-    $(`link[rel="canonical"]`).each((i, el) => {
-
-        let canonicalUrl = ""
-        let isSelfReferencing = false;
-        let isCrossPage = false
-        let isCrossDomain = false
-        try {
-            const resolvedCanonical = new URL(canonicalUrl, url);
-            const currentUrl = new URL(url);
-            isSelfReferencing =
-                resolvedCanonical.href === currentUrl.href;
-            isCrossPage =
-                resolvedCanonical.href !== currentUrl.href;
-            isCrossDomain =
-                resolvedCanonical.hostname !== currentUrl.hostname;
-        } catch {
-            console.log("Invalid Canonical URL: ", canonicalUrl);
-        }
-
-        canonical.push({
-            url: canonicalUrl,
-            isSelf: isSelfReferencing,
-            isCrossPage: isCrossPage,
-            isCrossDomain: isCrossDomain,
-            isAbsoluteUrl: isAbsoluteUrl(canonicalUrl),
-        })
-    })
-
-
+    const canonical = getCanonicalData($, url);
 
     // <------------- metaViewport ------------------->
-    const metaViewportContent = $(`meta[name="viewport"]`).attr("content") || "";
-    let metaViewport: HTMLMetaViewportType = {
-        value: metaViewportContent,
-        isMobileReady: metaViewportContent.includes("width=device-width"),
-        hasInitialScale: metaViewportContent.includes("initial-scale")
-    }
-
+    const metaViewport = getMetaViewportData($);
 
     // <------------- openGraph ------------------->
-    const openGraph = {
-        title: $(`meta[property="og:title"]`).attr("content") || "",
-        description: $(`meta[property="og:description"]`).attr("content") || "",
-        image: $(`meta[property="og:image"]`).attr("content") || "",
-        url: $(`meta[property="og:url"]`).attr("content") || "",
-        type: $(`meta[property="og:type"]`).attr("content") || "",
-        siteName: $(`meta[property="og:site_name"]`).attr("content") || "",
-        locale: $(`meta[property="og:locale"]`).attr("content") || "",
-        imageWidth: $(`meta[property="og:image:width"]`).attr("content") || "",
-        imageHeight: $(`meta[property="og:image:height"]`).attr("content") || ""
-    }
-
-
+    const openGraph = getOpenGraphData($);
 
     // ---------------------- hreflang ----------------------
-    const hreflang: HreflangType[] = [];
-    $(`link[rel="alternate"][hreflang]`).each((i, el) => {
-        const lang = $(el).attr("hreflang") || "";
-        const href = $(el).attr("href") || "";
-        const region = lang.includes("-") ? lang.split("-")[1] : null;
-        hreflang.push({
-            lang,
-            href,
-            hrefStatusCode: null,
-            isReturn: false,
-            region: region ?? null,
-        })
-    })
-
-
-    // ---------------------- pagination ----------------------
-    const pagination: PaginationType = {
-        prev: $(`link[rel="prev"]`).attr("href") || null,
-        next: $(`link[rel="next"]`).attr("href") || null,
-    }
+    const hreflang = getHrefLangData($, url);
 
 
     // ---------------------- twitter card ----------------------
-    const twitterCard: TwitterCardType = {
-        card: $(`meta[name="twitter:card"]`).attr("content") || "",
-        title: $(`meta[name="twitter:title"]`).attr("content") || "",
-        description: $(`meta[name="twitter:description"]`).attr("content") || "",
-        image: $(`meta[name="twitter:image"]`).attr("content") || "",
-        site: $(`meta[name="twitter:site"]`).attr("content") || "",
-        creator: $(`meta[name="twitter:creator"]`).attr("content") || ""
-    }
-
+    const twitterCard = getTwitterCardData($);
 
     // ---------------------- favicon ----------------------
-    const favicon: FaviconType[] = [];
-    $(`link[rel="icon"], link[rel="shortcut icon"]`).each((i, el) => {
-        const href = $(el).attr("href") || "";
-        const type = $(el).attr("type") || null;
-        favicon.push({
-            href,
-            type,
-            sizes: $(el).attr("sizes") || null,
-        })
-    })
-
+    const favicon = getFaviconData($, url);
 
     // ---------------------- resource hints ----------------------
-    const resourceHints: ResourceHintType[] = [];
-    $(`link[rel="preconnect"], link[rel="preload"], link[rel="prefetch"], link[rel="dns-prefetch"]`).each((i, el) => {
-        const rel = $(el).attr("rel") as ResourceHintType["rel"];
-        const href = $(el).attr("href") || "";
-        resourceHints.push({
-            rel,
-            href,
-            as: $(el).attr("as") || null,
-        });
-    });
-
+    const resourceHints = getResourceHintData($, url);
 
     // ---------------------- sitename (from title or openGraph) ----------------------
     let sitename: string | null = null;
     sitename = $("meta[property='og:site_name']").attr("content") || null;
 
     return {
-        title: titleValue,
+        title,
         meta: {
             metaDescription: metaDescription,
-            metaRobot:[...metaRobots],
+            metaRobot: [...metaRobots],
             Canonical: canonical,
             openGraph: openGraph,
             metaViewport: metaViewport,
         },
         hreflang,
-        pagination,
         twitterCard,
         favicon,
         resourceHints,
-        sitename
-    }
-
-
-
+        sitename,
+    };
 }
-
-
-
-

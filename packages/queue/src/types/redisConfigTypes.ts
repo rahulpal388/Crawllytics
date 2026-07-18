@@ -1,6 +1,5 @@
-
 export type RedisConfigType = {
-    url: string;
-    password: string;
-    username: string;
-}
+  url: string;
+  password: string;
+  username: string;
+};

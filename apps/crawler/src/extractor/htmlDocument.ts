@@ -2,97 +2,86 @@ import * as Cheerio from "cheerio";
 import { HTMLDocumentType } from "@repo/config/types/urlInformationType/htmlDocumentTypes";
 import { getJsFramework } from "@/utils/getJsFramework.js";
 
-export function htmlDocument(
-    $: Cheerio.CheerioAPI,
-    html: string
-): HTMLDocumentType {
+export function htmlDocument($: Cheerio.CheerioAPI, html: string): HTMLDocumentType {
+  // --------------------- Basic ---------------------
 
-    // --------------------- Basic ---------------------
+  const htmlLang = $("html").attr("lang") ?? null;
 
-    const htmlLang = $("html").attr("lang") ?? null;
+  const charSet =
+    $("meta[charset]").attr("charset") ??
+    $('meta[http-equiv="content-type"]').attr("content") ??
+    null;
 
-    const charSet =
-        $('meta[charset]').attr("charset") ??
-        $('meta[http-equiv="content-type"]').attr("content") ??
-        null;
+  // --------------------- Size ---------------------
 
-    // --------------------- Size ---------------------
+  const htmlSizeBytes = Buffer.byteLength(html, "utf8");
 
-    const htmlSizeBytes = Buffer.byteLength(html, "utf8");
+  const visibleText = $("body").text().replace(/\s+/g, " ").trim();
 
-    const visibleText = $("body")
-        .text()
-        .replace(/\s+/g, " ")
-        .trim();
+  const textLength = Buffer.byteLength(visibleText, "utf8");
 
-    const textLength = Buffer.byteLength(visibleText, "utf8");
+  const textHtmlRatio =
+    htmlSizeBytes === 0 ? 0 : Number(((textLength / htmlSizeBytes) * 100).toFixed(2));
 
-    const textHtmlRatio =
-        htmlSizeBytes === 0
-            ? 0
-            : Number(((textLength / htmlSizeBytes) * 100).toFixed(2));
+  // --------------------- DOM ---------------------
 
-    // --------------------- DOM ---------------------
+  const domElementCount = $("*").length;
 
-    const domElementCount = $("*").length;
+  const hasMainTag = $("main").length > 0;
 
+  const hasNoscript = $("noscript").length > 0;
 
-    const hasMainTag = $("main").length > 0;
+  const hasInlineStyles = $("[style]").length > 0;
 
-    const hasNoscript = $("noscript").length > 0;
+  const inlineScriptCount = $("script:not([src])").length;
 
-    const hasInlineStyles = $("[style]").length > 0;
+  // --------------------- iFrame ---------------------
 
-    const inlineScriptCount = $("script:not([src])").length;
+  const iFrameCount = $("iframe").length;
 
-    // --------------------- iFrame ---------------------
+  const iFrameSrc = $("iframe")
+    .map((_, el) => $(el).attr("src"))
+    .get()
+    .filter((src): src is string => Boolean(src));
 
-    const iFrameCount = $("iframe").length;
+  // --------------------- Flash ---------------------
 
-    const iFrameSrc = $("iframe")
-        .map((_, el) => $(el).attr("src"))
-        .get()
-        .filter((src): src is string => Boolean(src));
+  const hasFlash =
+    $('object[type="application/x-shockwave-flash"]').length > 0 ||
+    $('embed[type="application/x-shockwave-flash"]').length > 0 ||
+    html.includes("application/x-shockwave-flash");
 
-    // --------------------- Flash ---------------------
+  // --------------------- JavaScript ---------------------
 
-    const hasFlash =
-        $('object[type="application/x-shockwave-flash"]').length > 0 ||
-        $('embed[type="application/x-shockwave-flash"]').length > 0 ||
-        html.includes("application/x-shockwave-flash");
+  const jsFrameworks = getJsFramework($);
 
-    // --------------------- JavaScript ---------------------
+  // --------------------- Return ---------------------
 
-    const jsFrameworks = getJsFramework($);
+  return {
+    htmlLang,
 
-    // --------------------- Return ---------------------
+    charSet,
 
-    return {
-        htmlLang,
+    htmlSizeBytes,
 
-        charSet,
+    textHtmlRatio,
 
-        htmlSizeBytes,
+    domElementCount,
 
-        textHtmlRatio,
+    hasMainTag,
 
-        domElementCount,
+    hasNoscript,
 
+    hasInlineStyles,
 
-        hasMainTag,
+    inlineScriptCount,
 
-        hasNoscript,
+    iFrameCount,
 
-        hasInlineStyles,
+    iFrameSrc,
 
-        inlineScriptCount,
+    hasFlash,
 
-        iFrameCount,
-
-        iFrameSrc,
-
-        hasFlash,
-
-        jsFrameworks,
-    };
+    jsFrameworks,
+  };
 }

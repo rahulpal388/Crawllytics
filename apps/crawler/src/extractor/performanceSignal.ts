@@ -1,107 +1,68 @@
 import * as Cheerio from "cheerio";
-import {
-    PerformanceSignalType
-} from "@repo/config/types/urlInformationType/performanceSignalTypes";
+import { PerformanceSignalType } from "@repo/config/types/urlInformationType/performanceSignalTypes";
 
 import { getScriptInfo } from "@/utils/getScriptInfo.js";
 import { getStyleSheetInfo } from "@/utils/getStyleSheetInfo.js";
 import { findLcpCandidate } from "@/utils/findlcpCandiate.js";
 import { findResourceHintCoverage } from "@/utils/findResourceHintCoverage.js";
 
-export function performanceSignal(
-    $: Cheerio.CheerioAPI,
-    url: URL
-): PerformanceSignalType {
+export function performanceSignal($: Cheerio.CheerioAPI, url: URL): PerformanceSignalType {
+  const scripts = getScriptInfo($, url);
 
-    const scripts = getScriptInfo($, url);
+  const stylesheets = getStyleSheetInfo($);
 
-    const stylesheets =
-        getStyleSheetInfo($);
+  const renderBlockingScripts = scripts.filter((script) => script.isRenderBlocking).length;
 
-    const renderBlockingScripts =
-        scripts.filter(
-            script => script.isRenderBlocking
-        ).length;
+  const renderBlockingCss = stylesheets.filter((stylesheet) => stylesheet.isRenderBlocking).length;
 
-    const renderBlockingCss =
-        stylesheets.filter(
-            stylesheet => stylesheet.isRenderBlocking
-        ).length;
+  const totalScriptCount = scripts.length;
 
-    const totalScriptCount =
-        scripts.length;
+  const inlineScriptCount = scripts.filter((script) => script.isInline).length;
 
-    const inlineScriptCount =
-        scripts.filter(
-            script => script.isInline
-        ).length;
+  const lcpCandidate = findLcpCandidate($);
 
-    const lcpCandidate =
-        findLcpCandidate($);
+  const resourceHintCoverage = findResourceHintCoverage($, url.href);
 
-    const resourceHintCoverage =
-        findResourceHintCoverage(
-            $,
-            url.href
-        );
+  let inlineCssBytes = 0;
 
-    let inlineCssBytes = 0;
+  $("style").each((_, el) => {
+    const css = $(el).html() ?? "";
 
-    $("style").each((_, el) => {
+    inlineCssBytes += Buffer.byteLength(css, "utf8");
+  });
 
-        const css =
-            $(el).html() ?? "";
+  const totalCssFiles = stylesheets.filter((stylesheet) => !stylesheet.isInline).length;
 
-        inlineCssBytes +=
-            Buffer.byteLength(
-                css,
-                "utf8"
-            );
-    });
+  const estimatedTbtMs = renderBlockingScripts * 100 + totalScriptCount * 20;
 
-    const totalCssFiles =
-        stylesheets.filter(
-            stylesheet => !stylesheet.isInline
-        ).length;
+  const hasServiceWorker = /serviceWorker\.register/i.test($.html());
 
-    const estimatedTbtMs =
-        renderBlockingScripts * 100 +
-        totalScriptCount * 20;
+  const hasPwaManifest = $('link[rel="manifest"]').length > 0;
 
-    const hasServiceWorker =
-        /serviceWorker\.register/i
-            .test($.html());
+  // Placeholder until implemented
+  const totalScriptSizeBytes = 0;
 
-    const hasPwaManifest =
-        $('link[rel="manifest"]').length > 0;
+  return {
+    scripts,
+    stylesheets,
 
-    // Placeholder until implemented
-    const totalScriptSizeBytes = 0;
+    renderBlockingScripts,
+    renderBlockingCss,
 
+    totalScriptCount,
+    inlineScriptCount,
+    totalScriptSizeBytes,
 
-    return {
-        scripts,
-        stylesheets,
+    lcpCandidate,
 
-        renderBlockingScripts,
-        renderBlockingCss,
+    resourceHintCoverage,
 
-        totalScriptCount,
-        inlineScriptCount,
-        totalScriptSizeBytes,
+    inlineCssBytes,
+    totalCssFiles,
 
-        lcpCandidate,
+    estimatedTbtMs,
 
-
-        resourceHintCoverage,
-
-        inlineCssBytes,
-        totalCssFiles,
-
-        estimatedTbtMs,
-
-        hasServiceWorker,
-        hasPwaManifest,
-
-    };
+    hasServiceWorker,
+    hasPwaManifest,
+  };
 }

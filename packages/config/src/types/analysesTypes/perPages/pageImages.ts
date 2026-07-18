@@ -1,8 +1,3 @@
-
-
-
-
-
 // export type PageImagesAnalysis = {
 //     imageCount: number;
 
@@ -15,30 +10,22 @@
 //     lazyLoadedImages: number;
 // }
 
-
-
 export type PageImagesAnalysis = {
-    // Counts
-    imageCount: number;
+  // Counts
+  imageCount: number;
 
-    // Accessibility
-    imagesWithoutAlt: number;
-    emptyAltImages: number;
-    duplicateAltImages: number;
+  // Accessibility
+  imagesWithoutAlt: number;
+  emptyAltImages: number;
+  duplicateAltImages: number;
 
-    // Performance
-    imagesOver100KB: number;
-    imagesOver500KB: number;
-    totalImageSizeBytes: number;
+  // Performance
+  imagesOver100KB: number;
+  imagesOver500KB: number;
+  totalImageSizeBytes: number;
 
-    lazyLoadedImages: number;
-    imagesNotLazyLoaded: number;
+  lazyLoadedImages: number;
+  imagesNotLazyLoaded: number;
 
-    imagesMissingDimensions: number;
-
-
-
-
-
-
-}
+  imagesMissingDimensions: number;
+};

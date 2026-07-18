@@ -12,11 +12,7 @@ import { useState } from "react";
 import { useSelectedProjectId } from "../../../store/useSelectedProjectId";
 
 type ActiveSideBarItem =
-  | "Dashboard"
-  | "Projects"
-  | "Issues"
-  | "Reports"
-  | "Pages";
+  "Dashboard" | "Projects" | "Issues" | "Reports" | "Pages";
 
 const sideBarItems: {
   name: ActiveSideBarItem;

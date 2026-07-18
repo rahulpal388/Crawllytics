@@ -1,5 +1,3 @@
-import { Request, Response, NextFunction } from "express"
+import { Request, Response, NextFunction } from "express";
 
-export function logoutController(req: Request, res: Response, next: NextFunction) {
-
-}
+export function logoutController(req: Request, res: Response, next: NextFunction) {}

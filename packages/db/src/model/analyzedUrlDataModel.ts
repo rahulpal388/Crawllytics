@@ -2,9 +2,7 @@ import { model, Schema } from "mongoose";
 import { SchemaOf } from "../types/schemaOfTypes.js";
 import { analyzedUrlDataType } from "../types/analyzedUrlDataType.js";
 
-
-const analyzedUrlDataSchemaDefination: SchemaOf<analyzedUrlDataType> = {}
-
+const analyzedUrlDataSchemaDefination: SchemaOf<analyzedUrlDataType> = {};
 
 const analyzedUrlDataSchema = new Schema<analyzedUrlDataType>(analyzedUrlDataSchemaDefination);
 

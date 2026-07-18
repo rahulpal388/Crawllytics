@@ -1,37 +1,35 @@
-
-
 export type HTMLHeaderType = {
-    title: HTMLTitleType[],
+    title: HTMLTitleType[];
     meta: {
-        metaDescription: HTMLMetaDescriptionType[],
-        metaRobot: string[],
-        Canonical: HTMLCanonicalType[],
-        openGraph: HTMLOpenGraphType
-        metaViewport: HTMLMetaViewportType,
-    },
-    hreflang: HreflangType[],
-    pagination: PaginationType,
-    twitterCard: TwitterCardType,
-    favicon: FaviconType[],
-    resourceHints: ResourceHintType[],
+        metaDescription: HTMLMetaDescriptionType[];
+        metaRobot: string[]; // store the directives as strings, e.g., "index", "noindex", "follow", "nofollow", etc.
+        Canonical: HTMLCanonicalType[];
+        openGraph: HTMLOpenGraphType;
+        metaViewport: HTMLMetaViewportType[];
+    };
+    hreflang: HreflangType[];
+    twitterCard: TwitterCardType;
+    favicon: FaviconType[];
+    resourceHints: ResourceHintType[];
     sitename: string | null;
-
-
-}
-
+    // alternate: HTMLAlternateType[];
+    // themeColor: string | null;
+    // manifest: string | null;
+    // charset: string | null;
+    // author: string | null;
+};
 
 export type HTMLTitleType = {
     text: string;
     lengthChar: number;
     lengthPixel: number; // <- google truncates at ~600px;
-}
+};
 
 export type HTMLMetaDescriptionType = {
     text: string;
     lengthChar: number;
-    lengthPixel: number  // <- google truncates at ~960px;
-}
-
+    lengthPixel: number; // <- google truncates at ~960px;
+};
 
 // use this type for information analyses
 // export type HTMLMetaRobotType = {
@@ -44,7 +42,6 @@ export type HTMLMetaDescriptionType = {
 //     noImageIndex: string | null;
 
 // }
-
 
 export type RobotDirective =
     | "index"
@@ -61,48 +58,57 @@ export type RobotDirective =
     | "unavailable_after"
     | string;
 
-
-
 export type HTMLCanonicalType = {
     url: string;
     isSelf: boolean;
     isCrossPage: boolean;
     isCrossDomain: boolean;
-    isAbsoluteUrl: boolean
-}
+    isAbsoluteUrl: boolean;
+    isRelativeUrl: boolean;
+    isHttps: boolean;
+    isValidUrl: boolean;
+};
 
 export type HTMLOpenGraphType = {
-    title: string;
-    description: string;
-    image: string;
-    imageWidth: string;
-    imageHeight: string;
-    url: string;
-    type: string;
-    siteName: string;
-    locale: string;
-}
+    title: string | null;
+    description: string | null;
+    image: string[];
+    audio: string[];
+    video: string[];
+    imageWidth: number | null;
+    imageHeight: number | null;
+    imageAlt: string | null;
+    imageType: string | null;
+    url: string | null;
+    type: string | null;
+    siteName: string | null;
+    locale: string | null;
+};
 
 export type HTMLMetaViewportType = {
-    value: string; // "width=device-width, initial-scale=1"
-    isMobileReady: boolean;
-    hasInitialScale: boolean;
-}
+    value: string;
+    width: string | null;
+    initialScale: number | null;
+    minimumScale: number | null;
+    maximumScale: number | null;
+    userScalable: boolean | null;
+    viewportFit: "auto" | "contain" | "cover" | null;
+    interactiveWidget: string | null;
+};
 
 export type HreflangType = {
-    lang: string; // "en", "en-US", "en-GB"
+    hreflang: string;          // Original value (en-US, fr, x-default)
+    language: string | null;   // en
+    region: string | null;     // US
     href: string;
     hrefStatusCode: number | null;
-    isReturn: boolean; // whether the hreflang points back to the same page (reciprocal)
-    region: string | null; // "US", "GB"
+    isReturn: boolean;
+    isDefault: boolean;
+    isValidLanguage: boolean;
+    isAbsoluteUrl: boolean;
 }
 
 
-
-export type PaginationType = {
-    prev: string | null;
-    next: string | null;
-}
 
 export type TwitterCardType = {
     card: string; // "summary", "summary_large_image", "app", "player"
@@ -111,24 +117,50 @@ export type TwitterCardType = {
     image: string;
     site: string; // twitter handle of the site
     creator: string; // twitter handle of the content creator
-}
-
-
-
-
+    imageAlt: string | null;
+    player: {
+        playerUrl: string;
+        width: number;
+        height: number;
+        streamUrl: string | null;
+        streamContentType: string | null;
+    };
+};
 
 export type FaviconType = {
     href: string;
     type: string | null; // "image/png", "image/x-icon"
     sizes: string | null; // "16x16", "32x32", "any"
-}
+    rel: string | null; // "icon", "shortcut icon", "apple-touch-icon"
+};
 
+export type ResourceHintRelType =
+    | "preconnect"
+    | "dns-prefetch"
+    | "preload"
+    | "prefetch"
+    | "modulepreload"
+    | "prerender"
+    | string;
 
 export type ResourceHintType = {
-    rel: "preconnect" | "preload" | "prefetch" | "dns-prefetch";
+    rel: ResourceHintRelType;
     href: string;
-    as: string | null; // "script", "style", "image", "font", etc.
-}
+    as: string | null;
+    type: string | null;
+    media: string | null;
+    crossOrigin: string | null;
+    fetchPriority: "high" | "low" | "auto" | null;
+    imageSrcSet: string | null;
+    imageSizes: string | null;
+    disabled: boolean;
+};
 
-
-
+export type HTMLAlternateType = {
+    rel: string;
+    href: string;
+    type: string | null;
+    media: string | null;
+    hreflang: string | null;
+    title: string | null;
+};

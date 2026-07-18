@@ -5,27 +5,31 @@ import { ResponseHeadersType } from "@repo/config/types/urlInformationType/respo
 
 import { CrawlabilityPerPage } from "@repo/config/types/analysesTypes/crawlabilityTypesPerPage";
 
-export function getCrawlability(urlInfo: EachUrlNetworkResultTypes, htmlHeader: HTMLHeaderType, responseHeader: ResponseHeadersType, url: UrlAnalysesType): CrawlabilityPerPage {
+export function getCrawlability(
+  urlInfo: EachUrlNetworkResultTypes,
+  htmlHeader: HTMLHeaderType,
+  responseHeader: ResponseHeadersType,
+  url: UrlAnalysesType,
+): CrawlabilityPerPage {
+  return {
+    statusCode: urlInfo.statusCode,
+    redirectChainLength: urlInfo.redirectChain.length,
+    isRedirectLoop: urlInfo.isRedirectLoop,
 
-    return {
-        statusCode: urlInfo.statusCode,
-        redirectChainLength: urlInfo.redirectChain.length,
-        isRedirectLoop: urlInfo.isRedirectLoop,
+    robotsTxtBlocked:
+      htmlHeader.meta.metaRobot.content.includes("noindex") || url.isBlockedByRobotsTxt,
 
-        robotsTxtBlocked: htmlHeader.meta.metaRobot.content.includes("noindex") || url.isBlockedByRobotsTxt,
+    metaRobots: htmlHeader.meta.metaRobot.content,
+    xRobotsTag: urlInfo.responseHeaders.xRobotsTag,
 
-        metaRobots: htmlHeader.meta.metaRobot.content,
-        xRobotsTag: urlInfo.responseHeaders.xRobotsTag,
+    canonicalUrl: htmlHeader.meta.Canonical.map((x) => x.url),
+    internalIncomingLinks: 1,
+    isOrphanPage: false,
 
-        canonicalUrl: htmlHeader.meta.Canonical.map(x => x.url),
-        internalIncomingLinks: 1,
-        isOrphanPage: false,
+    urlDepth: url.urlDepth,
 
-        urlDepth: url.urlDepth,
+    isInSitemap: false,
 
-        isInSitemap: false,
-
-        crawlabilityScore: 0, // 0-100
-    }
-
+    crawlabilityScore: 0, // 0-100
+  };
 }

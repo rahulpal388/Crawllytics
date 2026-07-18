@@ -1,10 +1,9 @@
 export type PageInternalLinkAnalysis = {
-    internalLinkCount: number;
-    uniqueInternalLinks: number;
-    incomingInternalLinks: number;
-    deadEndPage: boolean;
+  internalLinkCount: number;
+  uniqueInternalLinks: number;
+  incomingInternalLinks: number;
+  deadEndPage: boolean;
 
-    clickDepth: number;
-    urlDepth: number;
-
-}
+  clickDepth: number;
+  urlDepth: number;
+};

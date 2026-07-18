@@ -37,9 +37,7 @@ export function StepAnimation({
 
           {!isLast && <Connector complete={isCompleted} />}
         </div>
-        <span
-          className={`${isCompleted ? "text-text-primary" : "text-text-tertiary/40"}`}
-        >
+        <span className={`${isCompleted ? "text-text-primary" : "text-text-tertiary/40"}`}>
           {content}
         </span>
       </div>
@@ -47,11 +45,7 @@ export function StepAnimation({
   );
 }
 
-export function StepAnimationComponent({
-  stepContent,
-}: {
-  stepContent: string[];
-}) {
+export function StepAnimationComponent({ stepContent }: { stepContent: string[] }) {
   const [activeStep, setActiveStep] = useState(-1);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -96,8 +90,7 @@ function Connector({ complete }: { complete: boolean }) {
         className="absolute w-[2px]"
         style={{
           height: 32,
-          background:
-            "repeating-linear-gradient(to bottom, #9ca3af 0 4px, transparent 4px 8px)",
+          background: "repeating-linear-gradient(to bottom, #9ca3af 0 4px, transparent 4px 8px)",
         }}
       />
 

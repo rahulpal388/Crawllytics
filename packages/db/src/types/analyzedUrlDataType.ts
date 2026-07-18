@@ -1,4 +1,1 @@
-
-
-
-export type analyzedUrlDataType = {}
+export type analyzedUrlDataType = {};

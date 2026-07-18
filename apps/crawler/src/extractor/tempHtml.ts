@@ -1,6 +1,3 @@
-
-
-
 export const tempHtml = `<!DOCTYPE html>
 <html lang="en">
 
@@ -657,4 +654,4 @@ Menu
 	</footer>
 </body>
 
-</html>` 
+</html>`;

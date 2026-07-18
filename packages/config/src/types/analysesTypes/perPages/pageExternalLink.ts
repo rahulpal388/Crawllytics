@@ -1,14 +1,9 @@
-
-
-
-
-
 export type PageExternalLinkAnalysis = {
-    externalLinkCount: number;
+  externalLinkCount: number;
 
-    uniqueExternalDomains: number;
+  uniqueExternalDomains: number;
 
-    brokenExternalLinks: number;
+  brokenExternalLinks: number;
 
-    nofollowExternalLinks: number;
-}
+  nofollowExternalLinks: number;
+};

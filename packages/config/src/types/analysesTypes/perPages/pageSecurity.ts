@@ -1,18 +1,15 @@
 export type PageSecurityAnalysis = {
-    httpsEnabled: boolean;
+  httpsEnabled: boolean;
 
-    hstsEnabled: boolean;
+  hstsEnabled: boolean;
 
-    cspPresent: boolean;
+  cspPresent: boolean;
 
-    xFrameOptionsPresent: boolean;
+  xFrameOptionsPresent: boolean;
 
-    xContentTypeOptionsPresent: boolean;
+  xContentTypeOptionsPresent: boolean;
 
-    referrerPolicyPresent: boolean;
+  referrerPolicyPresent: boolean;
 
-    permissionsPolicyPresent: boolean;
-
-
-
-}
+  permissionsPolicyPresent: boolean;
+};

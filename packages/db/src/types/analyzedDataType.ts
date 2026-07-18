@@ -1,2 +1,1 @@
-
-export type analyzedDataType = {}
+export type analyzedDataType = {};

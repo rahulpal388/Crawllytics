@@ -12,16 +12,16 @@ import { AccessibilityType } from "@repo/config/types/urlInformationType/accessi
 import { Schema } from "mongoose";
 
 export type UrlCrawledType = {
-    networkInfo: EachUrlNetworkResultTypes;
-    htmlHeader: HTMLHeaderType;
-    htmlHeadingContent: HTMLHeadingContentsType;
-    links: HTMLLinksType;
-    media: HTMLMediaTypes;
-    structureData: HTMLStructureDataType;
-    mobileUIUX: MobileUIUXType;
-    urlAnalyses: UrlAnalysesType;
-    performanceSignals: PerformanceSignalType;
-    htmlDocument: HTMLDocumentType;
-    accessibility: AccessibilityType;
-    analyzedUrlData: Schema.Types.ObjectId | null;
-}
+  networkInfo: EachUrlNetworkResultTypes;
+  htmlHeader: HTMLHeaderType;
+  htmlHeadingContent: HTMLHeadingContentsType;
+  links: HTMLLinksType;
+  media: HTMLMediaTypes;
+  structureData: HTMLStructureDataType;
+  mobileUIUX: MobileUIUXType;
+  urlAnalyses: UrlAnalysesType;
+  performanceSignals: PerformanceSignalType;
+  htmlDocument: HTMLDocumentType;
+  accessibility: AccessibilityType;
+  analyzedUrlData: Schema.Types.ObjectId | null;
+};

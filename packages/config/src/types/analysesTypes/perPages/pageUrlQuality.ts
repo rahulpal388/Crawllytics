@@ -1,24 +1,21 @@
-
-
-
 export type PageUrlQualityAnalysis = {
-    urlLength: number;
+  urlLength: number;
 
-    urlDepth: number;
+  urlDepth: number;
 
-    hasUppercase: boolean;
+  hasUppercase: boolean;
 
-    hasUnderscores: boolean;
+  hasUnderscores: boolean;
 
-    hasQueryParams: boolean;
+  hasQueryParams: boolean;
 
-    queryParamCount: number;
+  queryParamCount: number;
 
-    hasFragment: boolean;
+  hasFragment: boolean;
 
-    containsStopWords: boolean;
+  containsStopWords: boolean;
 
-    containsDate: boolean;
+  containsDate: boolean;
 
-    slugWordCount: number;
-}
+  slugWordCount: number;
+};

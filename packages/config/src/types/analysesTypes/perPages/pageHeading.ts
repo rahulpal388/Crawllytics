@@ -1,15 +1,13 @@
 export type PageHeadingAnalysis = {
-    h1Count: number;
+  h1Count: number;
 
-    h2Count: number;
+  h2Count: number;
 
+  headingCount: number;
 
-    headingCount: number;
+  hasH1: boolean;
 
-    hasH1: boolean;
+  multipleH1: boolean;
 
-    multipleH1: boolean;
-
-    duplicateH1: boolean;
-
-}
+  duplicateH1: boolean;
+};

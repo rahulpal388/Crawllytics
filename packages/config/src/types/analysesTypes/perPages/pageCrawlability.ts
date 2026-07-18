@@ -1,31 +1,29 @@
-
-
 export type PageCrawlabilityAnalysis = {
-    score: number;
+  score: number;
 
-    crawlable: boolean;
+  crawlable: boolean;
 
-    isReachable: boolean;
+  isReachable: boolean;
 
-    isBlockedByRobots: boolean;
+  isBlockedByRobots: boolean;
 
-    isBlockedByMetaRobots: boolean;
+  isBlockedByMetaRobots: boolean;
 
-    isBlockedByXRobots: boolean;
+  isBlockedByXRobots: boolean;
 
-    isRedirect: boolean;
+  isRedirect: boolean;
 
-    redirectChainLength: number;
+  redirectChainLength: number;
 
-    isRedirectLoop: boolean;
+  isRedirectLoop: boolean;
 
-    isSoft404: boolean;
+  isSoft404: boolean;
 
-    canonicalConflict: boolean;
+  canonicalConflict: boolean;
 
-    crawlDepth: number;
+  crawlDepth: number;
 
-    discoveredViaInternalLink: boolean;
+  discoveredViaInternalLink: boolean;
 
-    discoveredViaSitemap: boolean;
-}
+  discoveredViaSitemap: boolean;
+};

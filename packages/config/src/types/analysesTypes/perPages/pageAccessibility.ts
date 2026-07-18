@@ -1,13 +1,9 @@
-
-
-
-
 export type PageAccessibilityAnalysis = {
-    imagesWithoutAlt: number;
+  imagesWithoutAlt: number;
 
-    formInputsWithoutLabel: number;
+  formInputsWithoutLabel: number;
 
-    buttonsWithoutText: number;
+  buttonsWithoutText: number;
 
-    missingLangAttribute: boolean;
-}
+  missingLangAttribute: boolean;
+};

@@ -2,86 +2,63 @@ import { ResourceHintCoverage } from "@repo/config/types/urlInformationType/perf
 import * as Cheerio from "cheerio";
 
 export function findResourceHintCoverage(
-    $: Cheerio.CheerioAPI,
-    pageUrl: string
+  $: Cheerio.CheerioAPI,
+  pageUrl: string,
 ): ResourceHintCoverage {
+  const preconnectCount = $('link[rel="preconnect"]').length;
 
-    const preconnectCount =
-        $('link[rel="preconnect"]').length;
+  const preloadCount = $('link[rel="preload"]').length;
 
-    const preloadCount =
-        $('link[rel="preload"]').length;
+  const prefetchCount = $('link[rel="prefetch"]').length;
 
-    const prefetchCount =
-        $('link[rel="prefetch"]').length;
+  const pageOrigin = new URL(pageUrl).origin;
 
-    const pageOrigin =
-        new URL(pageUrl).origin;
+  const hintedOrigins = new Set<string>();
 
-    const hintedOrigins =
-        new Set<string>();
+  const thirdPartyOrigins = new Set<string>();
 
-    const thirdPartyOrigins =
-        new Set<string>();
+  // Collect preconnect and dns-prefetch origins
+  $('link[rel="preconnect"], link[rel="dns-prefetch"]').each((_, el) => {
+    const href = $(el).attr("href");
 
-    // Collect preconnect and dns-prefetch origins
-    $('link[rel="preconnect"], link[rel="dns-prefetch"]').each((_, el) => {
+    if (!href) {
+      return;
+    }
 
-        const href = $(el).attr("href");
+    try {
+      const normalizedHref = href.startsWith("//") ? `https:${href}` : href;
 
-        if (!href) {
-            return;
-        }
+      const origin = new URL(normalizedHref, pageUrl).origin;
 
-        try {
+      hintedOrigins.add(origin);
+    } catch {}
+  });
 
-            const normalizedHref =
-                href.startsWith("//")
-                    ? `https:${href}`
-                    : href;
+  // Collect third-party origins
+  $("script[src], link[href], img[src], iframe[src], video[src], source[src]").each((_, el) => {
+    const url = $(el).attr("src") ?? $(el).attr("href");
 
-            const origin =
-                new URL(normalizedHref, pageUrl).origin;
+    if (!url) {
+      return;
+    }
 
-            hintedOrigins.add(origin);
+    try {
+      const origin = new URL(url, pageUrl).origin;
 
-        } catch { }
-    });
+      if (origin !== pageOrigin) {
+        thirdPartyOrigins.add(origin);
+      }
+    } catch {}
+  });
 
-    // Collect third-party origins
-    $(
-        'script[src], link[href], img[src], iframe[src], video[src], source[src]'
-    ).each((_, el) => {
+  const thirdPartyOriginsWithoutHint = [...thirdPartyOrigins]
+    .filter((origin) => !hintedOrigins.has(origin))
+    .sort();
 
-        const url =
-            $(el).attr("src") ??
-            $(el).attr("href");
-
-        if (!url) {
-            return;
-        }
-
-        try {
-
-            const origin =
-                new URL(url, pageUrl).origin;
-
-            if (origin !== pageOrigin) {
-                thirdPartyOrigins.add(origin);
-            }
-
-        } catch { }
-    });
-
-    const thirdPartyOriginsWithoutHint =
-        [...thirdPartyOrigins]
-            .filter(origin => !hintedOrigins.has(origin))
-            .sort();
-
-    return {
-        preconnectCount,
-        preloadCount,
-        prefetchCount,
-        thirdPartyOriginsWithoutHint
-    };
+  return {
+    preconnectCount,
+    preloadCount,
+    prefetchCount,
+    thirdPartyOriginsWithoutHint,
+  };
 }

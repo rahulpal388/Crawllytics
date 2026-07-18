@@ -1,5 +1,5 @@
-import { SchemaDefinitionProperty } from "mongoose"
+import { SchemaDefinitionProperty } from "mongoose";
 
 export type SchemaOf<T> = {
-    [K in keyof T]: SchemaDefinitionProperty<T[K]>
-}
+  [K in keyof T]: SchemaDefinitionProperty<T[K]>;
+};

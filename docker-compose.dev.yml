@@ -1,0 +1,12 @@
+services:
+  mongoDB:
+    image: mongo
+    container_name: seo_mongoDB
+    ports:
+      - "27017:27017"
+
+  redis:
+    image: redis
+    container_name: seo_redis
+    ports:
+      - "6379:6379"

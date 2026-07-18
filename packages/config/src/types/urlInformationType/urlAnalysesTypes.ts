@@ -1,22 +1,20 @@
-
-
 export type UrlAnalysesType = {
-    urlLength: number;
-    urlDepth: number;
-    crawlDepth: number;
-    isBlockedByRobotsTxt: boolean;
-    hasQueryParams: boolean;
-    queryParams: string[];
-    hasFragment: boolean;
-    hasUppercase: boolean;
-    hasUnderscores: boolean;
-    hasSpaces: boolean;
-    hasNonAscii: boolean;
-    hasFileExtension: boolean;
-    fileExtension: string[];
-    hasRepetitivePath: boolean;
-    isInSitemap: boolean;
-    isDiscoveredViaInternalLink: boolean;
-    isDiscoveredViaSiteMap: boolean;
-    domainExtension: string | null;
-}
+  urlLength: number;
+  urlDepth: number;
+  crawlDepth: number;
+  isBlockedByRobotsTxt: boolean;
+  hasQueryParams: boolean;
+  queryParams: string[];
+  hasFragment: boolean;
+  hasUppercase: boolean;
+  hasUnderscores: boolean;
+  hasSpaces: boolean;
+  hasNonAscii: boolean;
+  hasFileExtension: boolean;
+  fileExtension: string[];
+  hasRepetitivePath: boolean;
+  isInSitemap: boolean;
+  isDiscoveredViaInternalLink: boolean;
+  isDiscoveredViaSiteMap: boolean;
+  domainExtension: string | null;
+};
