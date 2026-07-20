@@ -1,5 +1,5 @@
+import { USER_AGENT } from "@repo/config/constant/fetchHeaderConfig";
 import { UserAgentType } from "@repo/config/types/robotsTxtType";
-import { USER_AGENT } from "@/fetchWebPageAndNetworkInfo.js";
 
 export function isUrlCrawlAllowed(url: string, robotsTxt: UserAgentType[]): boolean {
   if (robotsTxt.length === 0) {

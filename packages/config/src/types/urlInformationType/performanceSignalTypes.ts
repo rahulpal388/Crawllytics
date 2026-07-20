@@ -33,19 +33,6 @@ export type StylesheetType = {
   media: string | null;
 };
 
-// export type ThirdPartyScript = {
-//     domain: string;
-//     category:
-//     | "analytics"
-//     | "ads"
-//     | "chat"
-//     | "social"
-//     | "cdn"
-//     | "video"
-//     | "payment"
-//     | "other";
-// }
-
 export type LcpCandidateType = {
   type: "image" | "text";
   src: string | null;

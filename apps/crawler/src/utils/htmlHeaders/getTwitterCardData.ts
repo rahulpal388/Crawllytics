@@ -1,69 +1,46 @@
 import * as cheerio from "cheerio";
 import { TwitterCardType } from "@repo/config/types/urlInformationType/htmlHeaderResponseTypes";
 
-export function getTwitterCardData(
-    $: cheerio.CheerioAPI
-): TwitterCardType {
+export function getTwitterCardData($: cheerio.CheerioAPI): TwitterCardType {
+  const twitterMap = new Map<string, string[]>();
 
-    const twitterMap = new Map<string, string[]>();
+  $('meta[name^="twitter:"]').each((_, el) => {
+    const name = $(el).attr("name")?.trim();
+    const content = $(el).attr("content")?.trim();
 
-    $('meta[name^="twitter:"]').each((_, el) => {
+    if (!name || !content) return;
 
-        const name = $(el).attr("name")?.trim();
-        const content = $(el).attr("content")?.trim();
+    if (!twitterMap.has(name)) {
+      twitterMap.set(name, []);
+    }
 
-        if (!name || !content) return;
+    twitterMap.get(name)!.push(content);
+  });
 
-        if (!twitterMap.has(name)) {
-            twitterMap.set(name, []);
-        }
+  return {
+    card: twitterMap.get("twitter:card")?.[0] ?? "",
 
-        twitterMap.get(name)!.push(content);
+    title: twitterMap.get("twitter:title")?.[0] ?? "",
 
-    });
+    description: twitterMap.get("twitter:description")?.[0] ?? "",
+    image: twitterMap.get("twitter:image")?.[0] ?? "",
 
-    return {
+    site: twitterMap.get("twitter:site")?.[0] ?? "",
 
-        card: twitterMap.get("twitter:card")?.[0] ?? "",
+    creator: twitterMap.get("twitter:creator")?.[0] ?? "",
 
-        title: twitterMap.get("twitter:title")?.[0] ?? "",
+    imageAlt: twitterMap.get("twitter:image:alt")?.[0] ?? null,
 
-        description:
-            twitterMap.get("twitter:description")?.[0] ?? "",
-        image:
-            twitterMap.get("twitter:image")?.[0] ?? "",
+    player: {
+      playerUrl: twitterMap.get("twitter:player")?.[0] ?? "",
 
-        site:
-            twitterMap.get("twitter:site")?.[0] ?? "",
+      width: Number(twitterMap.get("twitter:player:width")?.[0]) || 0,
 
-        creator:
-            twitterMap.get("twitter:creator")?.[0] ?? "",
+      height: Number(twitterMap.get("twitter:player:height")?.[0]) || 0,
 
-        imageAlt:
-            twitterMap.get("twitter:image:alt")?.[0] ?? null,
+      streamUrl: twitterMap.get("twitter:player:stream")?.[0] ?? null,
 
-        player: {
-
-            playerUrl:
-                twitterMap.get("twitter:player")?.[0] ?? "",
-
-            width:
-                Number(
-                    twitterMap.get("twitter:player:width")?.[0]
-                ) || 0,
-
-            height:
-                Number(
-                    twitterMap.get("twitter:player:height")?.[0]
-                ) || 0,
-
-            streamUrl:
-                twitterMap.get("twitter:player:stream")?.[0] ?? null,
-
-            streamContentType:
-                twitterMap.get("twitter:player:stream:content_type")?.[0] ?? null,
-
-        },
-    };
-
+      streamContentType: twitterMap.get("twitter:player:stream:content_type")?.[0] ?? null,
+    },
+  };
 }

@@ -1,5 +1,3 @@
-import { findUniqueExternalLinks } from "@/utils/findUniqueExternalLinks.js";
-import { findUniqueInternalLinks } from "@/utils/findUniqueInternalLinks.js";
 import { getLinkData } from "@/utils/links/getLinkData.js";
 import { HTMLLinksType } from "@repo/config/types/urlInformationType/htmlLinksTypes";
 

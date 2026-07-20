@@ -1,0 +1,33 @@
+export type HTMLImageType = {
+  src: string;
+  absoluteUrl: string;
+  originalAttribute: "src" | "srcset" | "picture";
+  sourceTag: "img" | "picture" | "svg" | "canvas";
+  altText: string;
+  altLength: number;
+  hasAlt: boolean;
+  isDecorative: boolean; // alt=""
+  title: string | null;
+  ariaLabel: string | null;
+  widthDeclared: boolean;
+  heightDeclared: boolean;
+  width: number | null;
+  height: number | null;
+  loading: "lazy" | "eager" | null;
+  fetchPriority: "high" | "low" | "auto" | null;
+  decoding: "async" | "sync" | "auto" | null;
+  srcSet: string[];
+  sizes: string | null;
+  responsive: boolean;
+  insidePicture: boolean;
+  extension: string | null;
+  mimeType: string | null;
+  format: "jpg" | "jpeg" | "png" | "gif" | "svg" | "webp" | "avif" | "bmp" | "ico" | "other" | null;
+  isAboveTheFold: boolean | null;
+  isHeroImage: boolean;
+  isBackgroundImage: boolean;
+  filename: string;
+  filenameReadable: boolean;
+  containsKeyword: boolean | null;
+  isPreloaded: boolean;
+};

@@ -1,62 +1,52 @@
 import { HTMLOpenGraphType } from "@repo/config/types/urlInformationType/htmlHeaderResponseTypes";
 import * as cheerio from "cheerio";
 
-
 /*
-* Gather Open Graph Data from the HTML Document
-*/
-export function getOpenGraphData(
-    $: cheerio.CheerioAPI
-): HTMLOpenGraphType {
+ * Gather Open Graph Data from the HTML Document
+ */
+export function getOpenGraphData($: cheerio.CheerioAPI): HTMLOpenGraphType {
+  const ogMap = new Map<string, string[]>();
 
-    const ogMap = new Map<string, string[]>();
+  $('meta[property^="og:"]').each((_, el) => {
+    const property = $(el).attr("property")?.trim();
+    const content = $(el).attr("content")?.trim();
 
-    $('meta[property^="og:"]').each((_, el) => {
+    if (!property || !content) return;
 
-        const property = $(el).attr("property")?.trim();
-        const content = $(el).attr("content")?.trim();
+    if (!ogMap.has(property)) {
+      ogMap.set(property, []);
+    }
 
-        if (!property || !content) return;
+    ogMap.get(property)!.push(content);
+  });
 
-        if (!ogMap.has(property)) {
-            ogMap.set(property, []);
-        }
+  return {
+    title: ogMap.get("og:title")?.[0] ?? null,
 
-        ogMap.get(property)!.push(content);
+    description: ogMap.get("og:description")?.[0] ?? null,
 
-    });
+    image: ogMap.get("og:image") ?? [],
 
-    return {
+    audio: ogMap.get("og:audio") ?? [],
 
-        title: ogMap.get("og:title")?.[0] ?? null,
+    video: ogMap.get("og:video") ?? [],
 
-        description: ogMap.get("og:description")?.[0] ?? null,
+    imageWidth: ogMap.get("og:image:width")?.[0] ? Number(ogMap.get("og:image:width")![0]) : null,
 
-        image: ogMap.get("og:image") ?? [],
+    imageHeight: ogMap.get("og:image:height")?.[0]
+      ? Number(ogMap.get("og:image:height")![0])
+      : null,
 
-        audio: ogMap.get("og:audio") ?? [],
+    imageAlt: ogMap.get("og:image:alt")?.[0] ?? null,
 
-        video: ogMap.get("og:video") ?? [],
+    imageType: ogMap.get("og:image:type")?.[0] ?? null,
 
-        imageWidth: ogMap.get("og:image:width")?.[0]
-            ? Number(ogMap.get("og:image:width")![0])
-            : null,
+    url: ogMap.get("og:url")?.[0] ?? null,
 
-        imageHeight: ogMap.get("og:image:height")?.[0]
-            ? Number(ogMap.get("og:image:height")![0])
-            : null,
+    type: ogMap.get("og:type")?.[0] ?? null,
 
-        imageAlt: ogMap.get("og:image:alt")?.[0] ?? null,
+    siteName: ogMap.get("og:site_name")?.[0] ?? null,
 
-        imageType: ogMap.get("og:image:type")?.[0] ?? null,
-
-        url: ogMap.get("og:url")?.[0] ?? null,
-
-        type: ogMap.get("og:type")?.[0] ?? null,
-
-        siteName: ogMap.get("og:site_name")?.[0] ?? null,
-
-        locale: ogMap.get("og:locale")?.[0] ?? null,
-
-    };
+    locale: ogMap.get("og:locale")?.[0] ?? null,
+  };
 }

@@ -2,13 +2,24 @@ import { Schema } from "mongoose";
 import { SchemaOf } from "../types/schemaOfTypes.js";
 import {
   HTMLHeadingType,
-  HTMLHeadingContentsType,
+  HTMLContentType,
+  HTMLHeadingContentType,
 } from "@repo/config/types/urlInformationType/htmlHeadingContentsTypes";
 
 const htmlHeadingSchemaDefination: SchemaOf<HTMLHeadingType> = {
+  level: { type: Number },
   text: { type: String },
-  charLength: { type: Number },
+  characterCount: { type: Number },
   wordCount: { type: Number },
+  id: { type: String, default: null },
+  position: { type: Number }, // order in document
+  hasAnchor: { type: Boolean, default: false },
+};
+
+const htmlContentSchemaDefination: SchemaOf<HTMLContentType> = {
+  visibleText: { type: String },
+  language: { type: String, default: null },
+  contentHash: { type: String },
 };
 
 const htmlHeadingSchema = new Schema<HTMLHeadingType>(htmlHeadingSchemaDefination, {
@@ -17,17 +28,12 @@ const htmlHeadingSchema = new Schema<HTMLHeadingType>(htmlHeadingSchemaDefinatio
   strict: true,
 });
 
-const htmlHeadingContentsSchemaDefination: SchemaOf<HTMLHeadingContentsType> = {
-  h1: { type: [htmlHeadingSchema], default: [] },
-  h2: { type: [htmlHeadingSchema], default: [] },
-  h3H6: { type: [htmlHeadingSchema], default: [] },
-  count: {
-    wordCount: { type: Number },
-    paragraphCount: { type: Number },
-  },
+const htmlHeadingContentsSchemaDefination: SchemaOf<HTMLHeadingContentType> = {
+  headings: { type: [htmlHeadingSchema], required: true },
+  content: { type: htmlContentSchemaDefination, required: true },
 };
 
-export const htmlHeadingContentsSchema = new Schema<HTMLHeadingContentsType>(
+export const htmlHeadingContentsSchema = new Schema<HTMLHeadingContentType>(
   htmlHeadingContentsSchemaDefination,
   { _id: false, versionKey: false, strict: true },
 );

@@ -1,6 +1,6 @@
-import { deCompress } from "@/utils/deCompress.js";
-import { handleRedirect } from "@/utils/handleRedirect.js";
-import { parseResponseHeader } from "@/utils/parseResponseHeader.js";
+import { deCompress } from "@/utils/eachNetworkUrl/deCompress.js";
+import { handleRedirect } from "@/utils/eachNetworkUrl/handleRedirect.js";
+import { parseResponseHeader } from "@/utils/eachNetworkUrl/parseResponseHeader.js";
 import {
   CompressionEncodingType,
   EachUrlNetworkResultTypes,

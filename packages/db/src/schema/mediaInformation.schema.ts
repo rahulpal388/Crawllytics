@@ -1,46 +1,19 @@
 import mongoose from "mongoose";
-import {
-  HTMLMediaTypes,
-  ImageType,
-  VideoType,
-} from "@repo/config/types/urlInformationType/htmlMediaTypes";
+import { HTMLMediaTypes } from "@repo/config/types/urlInformationType/HTMLMediaTypes/htmlMediaTypes";
+import { HTMLAudioType } from "@repo/config/types/urlInformationType/HTMLMediaTypes/htmlAudioType";
 import { SchemaOf } from "../types/schemaOfTypes.js";
+import { imageSchema } from "./imageSchame.js";
+import { videoSchema } from "./videoSchema.js";
 
-const imageSchemaDefination: mongoose.SchemaDefinition<ImageType> = {
-  src: { type: String },
-  altText: { type: String },
-  altLength: { type: Number },
-  hasAlt: { type: Boolean },
-  widthDeclared: { type: Boolean },
-  heightDeclared: { type: Boolean },
-  loading: { type: String, enum: ["lazy", "eager"], default: null },
-  fetchPriority: { type: String, enum: ["high", "low", "auto"], default: null },
-  decoding: { type: String, enum: ["async", "sync", "auto"], default: null },
-  format: { type: String, default: null },
-  fileSizeBytes: { type: Number, default: null },
-  isPreloaded: { type: Boolean },
-};
-
-const videoSchemaDefination: mongoose.SchemaDefinition<VideoType> = {
+const audioSchemaDefination: mongoose.SchemaDefinition<HTMLAudioType> = {
   src: { type: String },
   type: { type: String, default: null },
-  autoPlay: { type: Boolean },
-  controls: { type: Boolean },
-  muted: { type: Boolean },
+  controls: { type: Boolean, default: false },
+  autoplay: { type: Boolean, default: false },
   preload: { type: String, enum: ["auto", "metadata", "none"], default: null },
-  hasCaptions: { type: Boolean },
-  hasTranscript: { type: Boolean },
-  isEmbedded: { type: Boolean },
-  embedProvider: { type: String, enum: ["youtube", "vimeo"], default: null },
 };
 
-const imageSchema = new mongoose.Schema<ImageType>(imageSchemaDefination, {
-  _id: false,
-  versionKey: false,
-  strict: true,
-});
-
-const videoSchema = new mongoose.Schema<VideoType>(videoSchemaDefination, {
+const audioSchema = new mongoose.Schema<HTMLAudioType>(audioSchemaDefination, {
   _id: false,
   versionKey: false,
   strict: true,
@@ -49,11 +22,7 @@ const videoSchema = new mongoose.Schema<VideoType>(videoSchemaDefination, {
 const htmlMediaSchemaDefination: SchemaOf<HTMLMediaTypes> = {
   images: { type: [imageSchema], default: [] },
   videos: { type: [videoSchema], default: [] },
-  imagesMissingAlt: { type: Number },
-  imagesMissingDimensions: { type: Number },
-  imagesNotLazy: { type: Number },
-  notWebpOrAvif: { type: Number },
-  totalImageSize: { type: Number },
+  audios: { type: [audioSchema], default: [] },
 };
 
 export const htmlMediaSchema = new mongoose.Schema<HTMLMediaTypes>(htmlMediaSchemaDefination, {

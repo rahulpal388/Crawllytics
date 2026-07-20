@@ -13,6 +13,7 @@ import { crawlPublisherConfig } from "@repo/queue/streams/publishers/crawlPublis
 import { isUrlCrawlAllowed } from "@/utils/isUrlCrawlAllowed.js";
 import { connectDB } from "@repo/db/index";
 import { seedUrlRepository } from "@repo/db/repository/seedUrlRepository";
+import { logger } from "@repo/lib/logger";
 import os from "os";
 
 const env = validateEnv();
@@ -108,26 +109,41 @@ async function main() {
     //  and update the deduplication store
     // ##################################################
 
-    for (const link of gatherInfo.links.internalLinks) {
+    for (const link of gatherInfo.uniqueInternalLinks) {
       // check for url depth
+
+      const urlCrawledInfo = await urlCrawledSt.get(msg.storeId);
+      console.log("discovered urls", urlCrawledInfo?.discoveredUrls);
+      if (!urlCrawledInfo) {
+        logger.error({
+          message: "Crawl state not found for storeId",
+          path: " apps/crawler/src/index.ts",
+          metaData: { storeId: msg.storeId },
+        });
+        break;
+      }
+
+      if (urlCrawledInfo.maxUrlsToCrawl <= urlCrawledInfo.discoveredUrls) {
+        break;
+      }
+
       if (parseInt(msg.depth) >= parseInt(msg.maxDepth)) {
         continue;
       }
 
-      const isDuplicate = await urlDeDuplicateStore.isMember(msg.deDuplicateId, link.url);
+      const isDuplicate = await urlDeDuplicateStore.isMember(msg.deDuplicateId, link);
 
       if (isDuplicate) {
         continue;
       }
 
       // get robotsTxt
-      const robotTxt = await urlCrawledSt.get(msg.storeId);
 
-      if (!robotTxt || !robotTxt.robotsTxt) {
+      if (!urlCrawledInfo.robotsTxt) {
         continue;
       }
 
-      const isCrawlable = isUrlCrawlAllowed(link.url, robotTxt.robotsTxt.userAgents);
+      const isCrawlable = isUrlCrawlAllowed(link, urlCrawledInfo.robotsTxt.userAgents);
 
       if (!isCrawlable) {
         // this url is not allow to crawl by robots.txt
@@ -138,7 +154,7 @@ async function main() {
 
       await crawlPublisher.enqueue({
         ...msg,
-        url: link.url,
+        url: link,
         depth: (parseInt(msg.depth) + 1).toString(),
       });
     }

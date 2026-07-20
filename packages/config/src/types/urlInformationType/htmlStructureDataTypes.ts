@@ -1,23 +1,36 @@
 export type HTMLStructureDataType = {
-  JsonLdBlocks: JsonLdBlock[];
+  jsonLdBlocks: JsonLdBlockType[];
+  breadcrumbs: BreadcrumbItemType[];
   schemaTypes: string[];
-  hasMicroData: boolean;
+  hasMicrodata: boolean;
   hasRdfa: boolean;
-  richResultEligible: string[]; // remeaning
-  breadcrumbs: BreadcrumbItem[];
   faqCount: number;
+  organizationName: string | null;
+  organizationLogo: string | null;
+  websiteName: string | null;
+  articleAuthor: string | null;
+  articlePublishedTime: string | null;
+  articleModifiedTime: string | null;
+  productCount: number;
+  reviewCount: number;
+  videoCount: number;
+  eventCount: number;
+  localBusinessCount: number;
+  personCount: number;
 };
 
-export type JsonLdBlock = {
+export type JsonLdBlockType = {
   rawJson: string;
-  schemaType: string | null;
-  isValid: boolean;
-  errors: string[];
-  warnings: string[];
+  parsedJson: Record<string, unknown> | Record<string, unknown>[] | null;
+  schemaType: string | string[] | null;
+  context: string | null;
+  id: string | null;
+  isParsable: boolean;
+  parseErrors: string[];
 };
 
-export type BreadcrumbItem = {
-  url: string;
-  name: string;
+export type BreadcrumbItemType = {
   position: number;
+  name: string;
+  url: string;
 };

@@ -1,6 +1,6 @@
 import { RedisClientType } from "redis";
 import { consumeFromGroup } from "../consumer.js";
-import { STREAM_GROUPS, STREAMS } from "@/types/streamTypes.js";
+import { STREAM_GROUPS, STREAMS } from "../../types/streamTypes.js";
 
 export function crawlConsumerConfig(redisClient: RedisClientType, consumerName: string) {
   return {

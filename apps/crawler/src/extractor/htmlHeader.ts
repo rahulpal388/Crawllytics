@@ -1,9 +1,4 @@
-import {
-    HTMLHeaderType,
-    HTMLMetaDescriptionType,
-    HTMLTitleType,
-    RobotDirective,
-} from "@repo/config/types/urlInformationType/htmlHeaderResponseTypes";
+import { HTMLHeaderType } from "@repo/config/types/urlInformationType/htmlHeaderResponseTypes";
 import * as cheerio from "cheerio";
 import { getCanonicalData } from "@/utils/htmlHeaders/getCanonicalData.js";
 import { getMetaViewportData } from "@/utils/htmlHeaders/getMetaViewportData.js";
@@ -15,57 +10,43 @@ import { getResourceHintData } from "@/utils/htmlHeaders/getResourceHintData.js"
 import { getTitleData } from "@/utils/htmlHeaders/getTitleData.js";
 import { getMetaDescriptionData } from "@/utils/htmlHeaders/getMetaDescriptionData.js";
 import { getMetaRobotsData } from "@/utils/htmlHeaders/getMetaRobotsData.js";
+import { getAlternateData } from "@/utils/htmlHeaders/getAlternateData.js";
 
 export function htmlHeaderExtractor($: cheerio.CheerioAPI, url: URL): HTMLHeaderType {
-    // <--------------  title section   --------------->
-    const title = getTitleData($);
+  const title = getTitleData($);
+  const metaDescription = getMetaDescriptionData($);
+  const metaRobots = getMetaRobotsData($);
+  const canonical = getCanonicalData($, url);
+  const metaViewport = getMetaViewportData($);
+  const openGraph = getOpenGraphData($);
+  const hreflang = getHrefLangData($, url);
+  const twitterCard = getTwitterCardData($);
+  const favicon = getFaviconData($, url);
+  const resourceHints = getResourceHintData($, url);
+  const alternate = getAlternateData($, url);
 
-    // <-------------- metaDescition section ------------->
-    const metaDescription = getMetaDescriptionData($);
+  // ############### other info #################
+  let sitename: string | null = null;
+  sitename = $("meta[property='og:site_name']").attr("content") || null;
 
-    // <------------  metaRobotTag ------------->
+  const manifestHref = $('link[rel="manifest"]').attr("href");
+  const manifest = manifestHref ? new URL(manifestHref, url).href : null;
 
-    const metaRobots = getMetaRobotsData($);
-    // <------------- canonical ------------------->
-
-    const canonical = getCanonicalData($, url);
-
-    // <------------- metaViewport ------------------->
-    const metaViewport = getMetaViewportData($);
-
-    // <------------- openGraph ------------------->
-    const openGraph = getOpenGraphData($);
-
-    // ---------------------- hreflang ----------------------
-    const hreflang = getHrefLangData($, url);
-
-
-    // ---------------------- twitter card ----------------------
-    const twitterCard = getTwitterCardData($);
-
-    // ---------------------- favicon ----------------------
-    const favicon = getFaviconData($, url);
-
-    // ---------------------- resource hints ----------------------
-    const resourceHints = getResourceHintData($, url);
-
-    // ---------------------- sitename (from title or openGraph) ----------------------
-    let sitename: string | null = null;
-    sitename = $("meta[property='og:site_name']").attr("content") || null;
-
-    return {
-        title,
-        meta: {
-            metaDescription: metaDescription,
-            metaRobot: [...metaRobots],
-            Canonical: canonical,
-            openGraph: openGraph,
-            metaViewport: metaViewport,
-        },
-        hreflang,
-        twitterCard,
-        favicon,
-        resourceHints,
-        sitename,
-    };
+  return {
+    title,
+    meta: {
+      metaDescription: metaDescription,
+      metaRobot: [...metaRobots],
+      Canonical: canonical,
+      openGraph: openGraph,
+      metaViewport: metaViewport,
+    },
+    hreflang,
+    twitterCard,
+    favicon,
+    resourceHints,
+    alternate,
+    sitename,
+    manifest,
+  };
 }

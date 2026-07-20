@@ -17,7 +17,7 @@ const urlCrawledSchemaDefinitation: SchemaOf<UrlCrawledType> = {
   networkInfo: { type: urlNetworkSchema, required: true },
   htmlHeader: { type: headerInformationSchema, required: true },
   htmlHeadingContent: { type: htmlHeadingContentsSchema, required: true },
-  links: { type: htmlLinksSchema, required: true },
+  links: { type: [htmlLinksSchema], required: true },
   media: { type: htmlMediaSchema, required: true },
   structureData: { type: htmlStructureDataSchema, required: true },
   mobileUIUX: { type: mobileUIUXSchema, required: true },

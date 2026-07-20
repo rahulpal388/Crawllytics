@@ -6,12 +6,11 @@ import { crawlStateSt, urlDeDuplicationStore } from "@/index.js";
 import { crawlPublisher } from "@/index.js";
 import { AppError } from "@/middlewares/errors/appError.js";
 import { getSiteMapUrls } from "@/lib/getSiteMapUrls.js";
+import { MAX_URLS_PER_DOMAIN, MAX_CRAWL_DEPTH } from "@/config/crawlStateStore.config.js";
 
 export const crawlServices = {
   startCrawl,
 };
-
-const MAX_CRAWL_DEPTH = 1;
 
 async function startCrawl(body: CrawlSeedUrlBody) {
   const { url, depth, includeSiteMapXML, siteMapUrl } = body;
@@ -58,10 +57,11 @@ async function startCrawl(body: CrawlSeedUrlBody) {
     seedUrl: normalizedUrl.href,
     deDuplicateId: urlDeDuplicationKey,
     status: "pending",
+    maxUrlsToCrawl: MAX_URLS_PER_DOMAIN,
     discoveredUrls: 1,
     crawledUrls: 0,
     failedUrls: 0,
-    maxDepth: MAX_CRAWL_DEPTH || 1,
+    maxDepth: MAX_CRAWL_DEPTH,
     robotsTxt: robotsTxt ? robotsTxt : null,
   });
 

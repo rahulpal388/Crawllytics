@@ -1,0 +1,22 @@
+export type HTMLVideoType = {
+  src: string;
+  absoluteUrl: string;
+  type: string | null;
+  controls: boolean;
+  autoPlay: boolean;
+  muted: boolean;
+  loop: boolean;
+  playsInline: boolean;
+  preload: "auto" | "metadata" | "none" | null;
+  poster: string | null;
+  width: number | null;
+  height: number | null;
+  duration: number | null;
+  fileSizeBytes: number | null;
+  hasCaptions: boolean;
+  captionLanguages: string[];
+  hasTranscript: boolean;
+  isEmbedded: boolean;
+  embedProvider: "youtube" | "vimeo" | "wistia" | "loom" | "other" | null;
+  embedUrl: string | null;
+};

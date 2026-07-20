@@ -1,54 +1,33 @@
 import mongoose from "mongoose";
-import {
-  HTMLLinksType,
-  InternalLinkType,
-  ExternalLinkType,
-} from "@repo/config/types/urlInformationType/htmlLinksTypes";
+import { HTMLLinksType, HTMLLinkType } from "@repo/config/types/urlInformationType/htmlLinksTypes";
 import { SchemaOf } from "../types/schemaOfTypes.js";
 
-const internalLinkSchemaDefination: SchemaOf<InternalLinkType> = {
+const linkSchemaDefination: SchemaOf<HTMLLinkType> = {
   url: { type: String },
+  absoluteUrl: { type: String },
   anchorText: { type: String },
-  isImage: { type: Boolean },
+  isImage: { type: Boolean, default: false },
   altText: { type: String, default: null },
-  relAttributes: { type: String },
-  isDoFollow: { type: Boolean },
-};
-
-const externalLinkSchemaDefination: SchemaOf<ExternalLinkType> = {
-  url: { type: String },
-  anchorText: { type: String },
-  isImage: { type: Boolean },
-  altText: { type: String, default: null },
-  relAttributes: { type: String },
-  isNoFollow: { type: Boolean },
-  isSponsored: { type: Boolean },
-  isUGC: { type: Boolean },
+  relAttributes: { type: [String], default: [] },
+  linkType: { type: String },
+  target: { type: String, default: null },
+  title: { type: String, default: null },
+  hreflang: { type: String, default: null },
+  type: { type: String, default: null },
+  isInternal: { type: Boolean },
+  isDoFollow: { type: Boolean, default: true },
+  isSponsored: { type: Boolean, default: false },
+  isUGC: { type: Boolean, default: false },
+  isNoOpener: { type: Boolean, default: false },
+  isNoReferrer: { type: Boolean, default: false },
+  isDownload: { type: Boolean, default: false },
   domain: { type: String, default: null },
+  protocol: { type: String, enum: ["http", "https", null], default: null },
+  position: { type: Number },
+  html: { type: String },
 };
 
-const internalLinkSchema = new mongoose.Schema<InternalLinkType>(internalLinkSchemaDefination, {
-  _id: false,
-  versionKey: false,
-  strict: true,
-});
-
-const externalLinkSchema = new mongoose.Schema<ExternalLinkType>(externalLinkSchemaDefination, {
-  _id: false,
-  versionKey: false,
-  strict: true,
-});
-
-const htmlLinksSchemaDefination: SchemaOf<HTMLLinksType> = {
-  internalLinks: { type: [internalLinkSchema], default: [] },
-  externalLinks: { type: [externalLinkSchema], default: [] },
-  totalLinksCount: { type: Number },
-  emptyAnchorTextCount: { type: Number },
-  imageAnchorCount: { type: Number },
-  nofollowInternalCount: { type: Number },
-};
-
-export const htmlLinksSchema = new mongoose.Schema<HTMLLinksType>(htmlLinksSchemaDefination, {
+export const htmlLinksSchema = new mongoose.Schema<HTMLLinkType>(linkSchemaDefination, {
   _id: false,
   versionKey: false,
   strict: true,

@@ -7,9 +7,9 @@ import { ResponseHeaderSchema } from "./responseHeaderSchema.js";
 import { SchemaOf } from "../types/schemaOfTypes.js";
 
 const redirectChainSchemaDefinition: SchemaOf<RedirectChainType> = {
-  sourceUrl: { type: String, required: true },
-  redirectedTo: { type: String, required: true },
-  statusCode: { type: Number, required: true },
+  sourceUrl: { type: String },
+  redirectedTo: { type: String },
+  statusCode: { type: Number },
 };
 
 const redirectChainSchema = new Schema<RedirectChainType>(redirectChainSchemaDefinition, {
@@ -18,49 +18,42 @@ const redirectChainSchema = new Schema<RedirectChainType>(redirectChainSchemaDef
 });
 
 const urlNetworkDefinition: SchemaOf<EachUrlNetworkResultTypes> = {
-  url: { type: String, required: true },
+  url: { type: String },
 
-  statusCode: { type: Number, required: true },
+  statusCode: { type: Number },
 
-  httpVersion: { type: String, enum: ["HTTP/1.0", "HTTP/1.1", "HTTP/2", "HTTP/3"], required: true },
+  httpVersion: { type: String, enum: ["HTTP/1.0", "HTTP/1.1", "HTTP/2", "HTTP/3"] },
 
-  method: { type: String, required: true },
+  method: { type: String },
 
-  protocol: { type: String, enum: ["http", "https"], required: true },
+  protocol: { type: String, enum: ["http", "https"] },
 
   dnsLookupTime: {
     type: Number,
-    required: true,
   },
 
   tcpConnectTime: {
     type: Number,
-    required: true,
   },
 
   tlsHandshakeTime: {
     type: Number,
-    required: true,
   },
 
   timeToFirstByte: {
     type: Number,
-    required: true,
   },
 
   totalResponseTime: {
     type: Number,
-    required: true,
   },
 
   transferSize: {
     type: Number,
-    required: true,
   },
 
   uncompressedSize: {
     type: Number,
-    required: true,
   },
 
   compressionEncoding: {
@@ -76,12 +69,10 @@ const urlNetworkDefinition: SchemaOf<EachUrlNetworkResultTypes> = {
 
   isRedirectLoop: {
     type: Boolean,
-    required: true,
   },
 
   isCompressed: {
     type: Boolean,
-    required: true,
   },
 
   cdnProvider: {
@@ -91,7 +82,6 @@ const urlNetworkDefinition: SchemaOf<EachUrlNetworkResultTypes> = {
 
   responseHeaders: {
     type: ResponseHeaderSchema,
-    required: true,
   },
 };
 

@@ -1,10 +1,10 @@
 import * as Cheerio from "cheerio";
 import { PerformanceSignalType } from "@repo/config/types/urlInformationType/performanceSignalTypes";
 
-import { getScriptInfo } from "@/utils/getScriptInfo.js";
-import { getStyleSheetInfo } from "@/utils/getStyleSheetInfo.js";
-import { findLcpCandidate } from "@/utils/findlcpCandiate.js";
-import { findResourceHintCoverage } from "@/utils/findResourceHintCoverage.js";
+import { getScriptInfo } from "@/utils/performanceSignal/getScriptInfo.js";
+import { getStyleSheetInfo } from "@/utils/performanceSignal/getStyleSheetInfo.js";
+import { findLcpCandidate } from "@/utils/performanceSignal/findlcpCandiate.js";
+import { findResourceHintCoverage } from "@/utils/performanceSignal/findResourceHintCoverage.js";
 
 export function performanceSignal($: Cheerio.CheerioAPI, url: URL): PerformanceSignalType {
   const scripts = getScriptInfo($, url);

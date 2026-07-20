@@ -39,6 +39,7 @@ function loggerFn() {
       }),
     );
   }
+
   function warn(msg: LogMessageType) {
     console.warn(
       "[WARN:]",
