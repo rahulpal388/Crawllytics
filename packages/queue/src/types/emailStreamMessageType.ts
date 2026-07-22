@@ -42,6 +42,7 @@ interface LoginAlertPayload {
 }
 
 interface OtpPayload {
+  username: string;
   email: string;
   otp: string;
   expireIn: number;

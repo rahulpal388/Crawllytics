@@ -3,6 +3,7 @@ import z from "zod";
 import { globalEnv } from "@repo/config/globalEnv";
 
 export const envSchema = z.object({
+  NODE_ENV: z.enum(["development", "production"]).default("development"),
   REDIS_URL: z.string(),
   REDIS_USERNAME: z.string(),
   REDIS_PASSWORD: z.string(),

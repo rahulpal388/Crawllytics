@@ -11,12 +11,7 @@ import {
   Section,
   Text,
 } from "@react-email/components";
-
-interface WelcomeEmailProps {
-  displayName: string;
-  dashboardUrl: string;
-  supportEmail: string;
-}
+import { WelcomeEmailProps } from "./welcome.js";
 
 export default function WelcomeEmail({
   displayName,

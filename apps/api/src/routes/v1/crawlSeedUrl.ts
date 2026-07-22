@@ -4,18 +4,14 @@ import { crawlStateSt, emailPublisher } from "@/index.js";
 
 export const crawlSeedUrlRouter = Router();
 
-crawlSeedUrlRouter.get("/email", async (req, res) => {
-  const { email } = req.body;
+crawlSeedUrlRouter.post("/email", async (req, res) => {
+  const { payload, type } = req.body;
   const eventId = crypto.randomUUID();
   console.log(eventId);
   await emailPublisher.enqueue({
     eventId,
-    type: "otp",
-    payload: {
-      email: email,
-      otp: "123456",
-      expireIn: 2,
-    },
+    type: type,
+    payload: payload,
     createdAt: new Date().toISOString(),
   });
 

@@ -13,7 +13,13 @@ import {
 
 import { OTPEmailProps } from "./otp.js";
 
-export default function OTPEmail({ appName, otp, expiresInMinutes, supportEmail }: OTPEmailProps) {
+export default function OTPEmail({
+  username,
+  appName,
+  otp,
+  expiresInMinutes,
+  supportEmail,
+}: OTPEmailProps) {
   return (
     <Html>
       <Head />
@@ -59,7 +65,7 @@ export default function OTPEmail({ appName, otp, expiresInMinutes, supportEmail 
               lineHeight: "26px",
             }}
           >
-            Hi,
+            Hi {username},
           </Text>
 
           <Text
