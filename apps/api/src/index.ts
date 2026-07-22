@@ -15,12 +15,40 @@ import { oidcStatesStore } from "@repo/queue/stores/authStates/oidcStatesStore";
 import { sessionStoreConfig } from "@repo/queue/stores/authStates/sessionStore";
 import { userOtpStore } from "@repo/queue/stores/authStates/userOtpStore";
 import { emailPublisherConfig } from "@repo/queue/streams/publishers/emailPublisher";
+import helmet from "helmet";
+import compression from "compression";
+import requestLogMiddleware from "@/middlewares/requestLog.middleware.js";
+import { sortedSetStoreConfig } from "@repo/queue/stores/sortedSetStore";
+import { HashesStoreConfig } from "@repo/queue/stores/hashesStore";
+import { SlidingWindow } from "@repo/rate-limiter/algo/silidingWindow";
+
 
 export const app = express();
 export const env = ValidateEnv();
 app.use(express.json());
+app.use(express.json({
+  limit: "1mb",
+}));
 app.set("trust proxy", env.NODE_ENV == "production");
 const port = env.PORT;
+
+// ###################################################
+// logging middleware
+// ###################################################
+app.use(requestLogMiddleware);
+
+// ###################################################
+// Helmet for secure headers and compression
+// ###################################################
+
+app.use(helmet({
+  contentSecurityPolicy: false,
+  crossOriginEmbedderPolicy: false
+}));
+
+app.use(compression());
+
+
 
 // ###################################################
 // CORS config
@@ -32,7 +60,7 @@ app.use(
   cors({
     // to allow multiple origins
     origin: function (origin, callback) {
-      if (!origin || allowedOrigins?.includes(origin)) {
+      if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
         callback(new Error("Origin not allowed"));
@@ -60,6 +88,16 @@ export const urlDeDuplicationStore = urlDeDuplication(redisClient);
 export const oidcStore = oidcStatesStore(redisClient);
 export const sessionStore = sessionStoreConfig(redisClient);
 export const OTPStore = userOtpStore(redisClient);
+export const sortedSetStore = sortedSetStoreConfig(redisClient);
+export const hashesStore = HashesStoreConfig(redisClient);
+
+
+// ###################################################
+//  Rate Limiting initialization
+// ###################################################
+
+export const slidingWindow = new SlidingWindow(sortedSetStore);
+
 
 // ###################################################
 //  Connect to DB

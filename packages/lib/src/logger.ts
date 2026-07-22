@@ -6,6 +6,18 @@ type LogMessageType = {
   metaData?: Record<string, unknown>;
 };
 
+type RequestMessageType = {
+  timestamp: string;
+  level: LogLevelType;
+  requestId: string;
+  event: string;
+  method: string;
+  path: string;
+  ip: string;
+  userAgent: string;
+  contentLength: number
+}
+
 type FormateMessageType = LogMessageType & { level: LogLevelType };
 
 export const logger = loggerFn();
@@ -17,6 +29,7 @@ function loggerFn() {
     error,
     debug,
     fatal,
+    logRequest
   };
 
   function formateMessage(msg: FormateMessageType) {
@@ -26,6 +39,23 @@ function loggerFn() {
       message: msg.message,
       metaData: msg.metaData,
     });
+  }
+
+  function logRequest(msg: RequestMessageType) {
+    console.log(
+      "[REQUEST:]",
+      JSON.stringify({
+        timestamp: msg.timestamp,
+        level: msg.level,
+        requestId: msg.requestId,
+        event: msg.event,
+        method: msg.method,
+        path: msg.path,
+        ip: msg.ip,
+        userAgent: msg.userAgent,
+        contentLength: msg.contentLength
+      })
+    );
   }
 
   function info(msg: LogMessageType) {
