@@ -18,7 +18,7 @@ export type ResponseHeadersType = {
   hsts: HSTSType | null;
   csp: string[];
   xFrameOptions: "DENY" | "SAMEORIGIN" | null;
-  xContentTypeOptions: boolean;
+  xContentType: string | null;
   referrerPolicy: string | null;
   permissionsPolicy: string | null;
   xRobotsTag: string[];

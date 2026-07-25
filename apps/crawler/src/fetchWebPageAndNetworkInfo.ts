@@ -16,16 +16,16 @@ export async function fetchWebPageAndNetworkInfo(
   redirectChain: RedirectChainType[],
 ): Promise<
   | {
-      success: true;
-      data: {
-        html: string;
-        eachUrlNetwork: EachUrlNetworkResultTypes;
-      };
-    }
+    success: true;
+    data: {
+      html: string;
+      eachUrlNetwork: EachUrlNetworkResultTypes;
+    };
+  }
   | {
-      success: false;
-      data: null;
-    }
+    success: false;
+    data: null;
+  }
 > {
   return new Promise((resolve) => {
     const req = https.get(url, {
@@ -129,7 +129,7 @@ export async function fetchWebPageAndNetworkInfo(
                 hsts: header.hsts,
                 csp: header.csp,
                 xFrameOptions: header.xFrameOptions,
-                xContentTypeOptions: header.xContentTypeOptions,
+                xContentType: header.xContentType,
                 referrerPolicy: header.referrerPolicy,
                 permissionsPolicy: header.permissionsPolicy,
                 xRobotsTag: header.xRobotsTag,

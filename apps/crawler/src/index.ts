@@ -68,7 +68,7 @@ async function main() {
     if (!success) {
       // failed to fetch
       // update the crawl failure in crawlStore
-
+      console.log(`Failed to fetch URL: ${msg.url}, Error: ${data}`);
       continue;
     }
 
