@@ -1,7 +1,7 @@
 
 import { CRAWLABILITY_DOCUMENTATION } from "@/crawlability/documentation.js";
 import { CRAWLABILITY_ISSUE_CODES, CrawlabilityIssueCode } from "./issuesCode.js";
-import { RecommendationType } from "@/types/recommendationTypes.js";
+import { RecommendationType } from "@repo/config/types/analysesTypes/recommendationTypes";
 
 export const crawlabilityRecommendations: Record<
     CrawlabilityIssueCode,

@@ -1,7 +1,7 @@
 import { PageCrawlabilityAnalysis } from "@repo/config/types/analysesTypes/perPages/pageCrawlability";
-import { RulesType } from "@/types/rulesType.js";
 import { CRAWLABILITY_THRESHOLDS } from "@/crawlability/threshold.js";
 import { CrawlabilityIssueCode } from "@/crawlability/issuesCode.js";
+import { RulesType } from "@repo/config/types/analysesTypes/rulesType";
 
 export const crawlabilityIssuesRules: RulesType<PageCrawlabilityAnalysis, CrawlabilityIssueCode>[] = [
     // ===========================

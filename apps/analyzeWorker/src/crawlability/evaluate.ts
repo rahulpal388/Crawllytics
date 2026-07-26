@@ -1,9 +1,8 @@
 import { crawlabilityData } from "@/crawlability/crawlabilityData.js";
-import { EvaluateType, FindingsType, IssueType } from "@/types/evaluateTypes.js";
 import { GatherInfoType } from "@/types/gatherInfoType.js";
-import { RecommendationType } from "@/types/recommendationTypes.js";
 import { crawlabilityRecommendations } from "@/crawlability/recommendations.js";
 import { crawlabilityIssuesRules } from "@/crawlability/issuesRules.js";
+import { FindingsType, EvaluateType } from "@repo/config/types/analysesTypes/evaluteTypes";
 
 
 export function evaluateCrawlabilityRules(info: GatherInfoType): EvaluateType {

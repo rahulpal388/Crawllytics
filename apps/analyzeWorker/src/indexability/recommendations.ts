@@ -1,5 +1,5 @@
 import { INDEXABILITY_ISSUES_CODES, IndexabilityIssueCode } from "@/indexability/issuesCode.js";
-import { RecommendationType } from "@/types/recommendationTypes.js";
+import { RecommendationType } from "@repo/config/types/analysesTypes/recommendationTypes";
 import { INDEXABILITY_DOCUMENTATION } from "@/indexability/documentations.js";
 
 export const indexabilityRecommendations: Record<

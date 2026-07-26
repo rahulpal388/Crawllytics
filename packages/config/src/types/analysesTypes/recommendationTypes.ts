@@ -1,7 +1,9 @@
 
 
 
-type DocumentationLink = {
+
+
+export type DocumentationLinkType = {
     title: string;
     url: string;
 };
@@ -11,5 +13,5 @@ export type RecommendationType = {
     description: string;
     whyItMatters: string;
     howToFix: readonly string[];
-    documentationLinks: readonly DocumentationLink[];
+    documentationLinks: readonly DocumentationLinkType[];
 }

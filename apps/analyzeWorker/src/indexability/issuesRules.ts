@@ -1,6 +1,6 @@
 import { PageIndexabilityType } from "@repo/config/types/analysesTypes/perPages/pageIndexability";
-import { RulesType } from "@/types/rulesType.js";
 import { IndexabilityIssueCode } from "@/indexability/issuesCode.js";
+import { RulesType } from "@repo/config/types/analysesTypes/rulesType";
 
 export const indexabilityIssuesRules: RulesType<
     PageIndexabilityType,

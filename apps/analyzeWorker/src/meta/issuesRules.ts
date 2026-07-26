@@ -11,8 +11,8 @@ import { resourceHintsRules } from "@/meta/issuesRules/resourceHint.rules.js";
 import { titleRules } from "@/meta/issuesRules/title.rules.js";
 import { twitterCardRules } from "@/meta/issuesRules/twitterCard.rules.js";
 import { viewportRules } from "@/meta/issuesRules/viewPorts.rules.js";
-import { RulesType } from "@/types/rulesType.js";
 import { PageMetaAnalysis } from "@repo/config/types/analysesTypes/perPages/pageMeta";
+import { RulesType } from "@repo/config/types/analysesTypes/rulesType";
 
 export const metaIssuesRules: RulesType<
     PageMetaAnalysis,

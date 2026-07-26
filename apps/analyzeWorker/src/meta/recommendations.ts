@@ -12,7 +12,7 @@ import { RESOURCE_HINTS_RECOMMENDATIONS } from "@/meta/recommendations/resourceH
 import { TITLE_RECOMMENDATIONS } from "@/meta/recommendations/title.recommendation.js";
 import { TWITTER_CARD_RECOMMENDATIONS } from "@/meta/recommendations/twitterCard.recommendation.js";
 import { VIEWPORT_RECOMMENDATIONS } from "@/meta/recommendations/viewports.recommendation.js";
-import { RecommendationType } from "@/types/recommendationTypes.js";
+import { RecommendationType } from "@repo/config/types/analysesTypes/recommendationTypes";
 
 export const metaRecommendations: Record<
     MetaIssueCode,

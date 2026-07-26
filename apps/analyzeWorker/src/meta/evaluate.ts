@@ -1,8 +1,8 @@
 import { metaIssuesRules } from "@/meta/issuesRules.js";
 import { metaData } from "@/meta/metaData.js";
 import { metaRecommendations } from "@/meta/recommendations.js";
-import { EvaluateType, FindingsType } from "@/types/evaluateTypes.js";
 import { GatherInfoType } from "@/types/gatherInfoType.js";
+import { EvaluateType, FindingsType } from "@repo/config/types/analysesTypes/evaluteTypes";
 
 
 export function evaluateMetaData(metaInfo: GatherInfoType["htmlHeader"]): EvaluateType {

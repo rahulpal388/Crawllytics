@@ -1,5 +1,6 @@
 
 
+
 export type RuleSeverity = "critical" | "high" | "warning" | "low" | "info";
 
 export const RULE_CATEGORY = {

@@ -1,5 +1,5 @@
-import { RecommendationType } from "@/types/recommendationTypes.js";
-import { RuleCategory, RuleMetadata, RulesType } from "@/types/rulesType.js";
+import { RecommendationType } from "./recommendationTypes.js";
+import { RuleCategory, RuleMetadata } from "./rulesType.js";
 
 export type IssueType<TCode extends string = string> =
     RuleMetadata<TCode>;
