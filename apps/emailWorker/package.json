@@ -14,7 +14,7 @@
   "license": "ISC",
   "type": "module",
   "devDependencies": {
-    "@react-email/ui": "^6.9.0",
+    "@react-email/ui": "^6.9.1",
     "@repo/config": "*",
     "@repo/lib": "*",
     "@repo/queue": "*",
@@ -31,6 +31,7 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "resend": "^6.17.2",
+    "sharp": "^0.35.3",
     "zod": "^4.4.3"
   }
 }

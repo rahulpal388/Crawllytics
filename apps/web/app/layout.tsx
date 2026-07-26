@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "../context/providers";
+import { ModalRender } from "../components/modal/modalRender";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -45,6 +46,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} bg-surface-base`}>
         <Providers>{children}</Providers>
+        <ModalRender />
       </body>
     </html>
   );

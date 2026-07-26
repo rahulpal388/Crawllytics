@@ -1,20 +1,40 @@
+import { forwardRef } from "react";
 import { cn } from "../utils";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  className?: string;
-  children?: React.ReactNode;
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
+  containerClassName?: string;
 }
 
-export function Input({ className, children, ...props }: InputProps) {
-  return (
-    <input
-      {...props}
-      className={cn(
-        "w-full h-12 border-[0.8px] border-border-default rounded-xs overflow-hidden flex gap-1 justify-between pl-2 py-px bg-surface-base outline-primary-hover focus:outline-2 focus:outline-offset-1 focus:outline-primary-hover",
-        className,
-      )}
-    >
-      {children}
-    </input>
-  );
-}
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ startIcon, endIcon, className, containerClassName, ...props }, ref) => {
+    return (
+      <div
+        className={cn(
+          "flex h-12 w-full items-center gap-2 rounded-xs border border-border-default bg-surface-base focus-within:outline-2 focus-within:outline-offset-1 focus-within:outline-primary-hover px-2   ",
+          containerClassName,
+        )}
+      >
+        {startIcon && (
+          <span className="text-text-secondary flex shrink-0 items-center   ">{startIcon}</span>
+        )}
+
+        <input
+          ref={ref}
+          {...props}
+          className={cn(
+            "h-full flex-1 bg-transparent outline-none placeholder:text-text-secondary",
+            className,
+          )}
+        />
+
+        {endIcon && (
+          <span className="text-text-secondary flex shrink-0 items-center ">{endIcon}</span>
+        )}
+      </div>
+    );
+  },
+);
+
+Input.displayName = "Input";
