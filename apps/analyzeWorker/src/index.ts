@@ -6,10 +6,11 @@ import { connectDB } from "@repo/db/index";
 import { logger } from "@repo/lib/logger";
 import { urlCrawledRepository } from "@repo/db/repository/urlCrawledRepository";
 import os from "os";
-import { tempData } from "@/tempData.js";
 import { GatherInfoType } from "@/types/gatherInfoType.js";
 import { evaluateCrawlabilityRules } from "@/crawlability/evaluate.js";
-
+import { evaluateIndexability } from "@/indexability/evaludate.js";
+import { evaluateMetaData } from "@/meta/evaluate.js";
+import { tempData } from "@/tempData.js";
 const ENV = validateEnv();
 const CONSUMER_NAME = os.hostname();
 console.log("os hostname ", CONSUMER_NAME);
@@ -48,51 +49,64 @@ console.log("os hostname ", CONSUMER_NAME);
 
 const seoData = JSON.parse(JSON.stringify(tempData)) as GatherInfoType;
 
-async function main() {
-  // while (true) {
-  //   const message = await analyzeConsumer.consume();
-  //   if (!message || message.length === 0 || !message[0]) {
-  //     continue;
-  //   }
+// async function main() {
+//   while (true) {
+//     const message = await analyzeConsumer.consume();
+//     if (!message || message.length === 0 || !message[0]) {
+//       continue;
+//     }
 
-  //   const msg = message[0].message;
+//     const msg = message[0].message;
 
-  //   // #############################################
-  //   // get the gather info form the DB
-  //   // #############################################
-  //   const gatherInfoResponse = await urlCrawledRepository.getUrlCrawledWithoutAnalyzedUrlData(
-  //     msg._id,
-  //   );
+//   //   // #############################################
+//   //   // get the gather info form the DB
+//   //   // #############################################
+//     const gatherInfoResponse = await urlCrawledRepository.getUrlCrawledWithoutAnalyzedUrlData(
+//       msg._id,
+//     );
 
-  //   if (!gatherInfoResponse.success || !gatherInfoResponse.data) {
-  //     continue;
-  //   }
+//     if (!gatherInfoResponse.success || !gatherInfoResponse.data) {
+//       continue;
+//     }
 
-  //   const gatherInfo = gatherInfoResponse.data;
-
-
-  //   // #############################################
-  //   // Analyze the Data for each domain
-  //   // #############################################
-
-  //   // #############################################
-  //   // find issues in analyzed data for each domain
-  //   // #############################################
-
-  //   // #############################################
-  //   // add analyzed and issues data to db and update the urlCrawled collection
-  //   // #############################################
-
-  //   // #############################################
-  //   // update the crawlStore
-  //   // #############################################
-  // }
+//     const gatherInfo = gatherInfoResponse.data;
 
 
-  const crawlabilityAnalysis = evaluateCrawlabilityRules(seoData);
-  console.log("crawlabilityAnalysis ");
-  console.dir(crawlabilityAnalysis, { depth: null, color: true });
+//   //   // #############################################
+//   //   // Analyze the Data for each domain
+//   //   // #############################################
 
-}
+//   //   // #############################################
+//   //   // find issues in analyzed data for each domain
+//   //   // #############################################
 
-main();
+//   //   // #############################################
+//   //   // add analyzed and issues data to db and update the urlCrawled collection
+//   //   // #############################################
+
+//   //   // #############################################
+//   //   // update the crawlStore
+//   //   // #############################################
+//   }
+
+
+
+// }
+// main();
+
+
+console.log("analyzeWorker started");
+
+// const crawlabilityAnalysis = evaluateCrawlabilityRules(seoData);
+// console.log("crawlabilityAnalysis ");
+// console.dir(crawlabilityAnalysis, { depth: null, color: true });
+
+
+// const indexabilityAnalysis = evaluateIndexability(seoData);
+// console.log("indexabilityAnalysis ");
+// console.dir(indexabilityAnalysis, { depth: null, color: true });
+
+
+const metaAnalysis = evaluateMetaData(seoData.htmlHeader);
+console.log("metaAnalysis ");
+console.dir(metaAnalysis, { depth: null, color: true });

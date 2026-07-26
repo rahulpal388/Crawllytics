@@ -17,7 +17,7 @@ export async function getGatherInformation(
   html: string,
   url: URL,
   crawlDepth: number,
-): Promise<GatherInformationType & { uniqueInternalLinks: string[] }> {
+): Promise<{ info: GatherInformationType } & { uniqueInternalLinks: string[] }> {
   const $ = cheerio.load(html);
 
   const htmlHeader = htmlHeaderExtractor($, url);
@@ -35,16 +35,18 @@ export async function getGatherInformation(
   const accessibility = accessibilityInfo($);
 
   return {
-    htmlHeader,
-    htmlHeadingContent,
-    links: internalLinks,
+    info: {
+      htmlHeader,
+      htmlHeadingContent,
+      links: internalLinks,
+      media,
+      structureData,
+      mobileUIUX: UIUX,
+      urlAnalyses: url_Analyses,
+      performanceSignals: performance,
+      htmlDocument: document,
+      accessibility,
+    },
     uniqueInternalLinks,
-    media,
-    structureData,
-    mobileUIUX: UIUX,
-    urlAnalyses: url_Analyses,
-    performanceSignals: performance,
-    htmlDocument: document,
-    accessibility,
   };
 }

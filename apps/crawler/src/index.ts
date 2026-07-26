@@ -85,7 +85,7 @@ async function main() {
 
     const urlCrawled = await urlCrawledRepository.addUrlCrawled({
       networkInfo: data.eachUrlNetwork,
-      ...gatherInfo,
+      ...gatherInfo.info,
       analyzedUrlData: null,
     });
 

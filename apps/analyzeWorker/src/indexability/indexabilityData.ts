@@ -10,9 +10,9 @@ export function indexabilityData(gatherInfo: GatherInfoType): PageIndexabilityTy
   return {
     url,
     statusCode,
-    metaRobots,
+    metaRobots: ["index", "follow"],
     xRobotsTag,
     canonicalUrl,
-    contentType,
+    contentType: "html/text"
   };
 }

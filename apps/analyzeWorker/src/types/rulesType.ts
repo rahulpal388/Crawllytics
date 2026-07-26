@@ -7,6 +7,7 @@ export const RULE_CATEGORY = {
     CONTENT: "content",
     PERFORMANCE: "performance",
     CRAWLABILITY: "crawlability",
+    INDEXABILITY: "indexability",
     SECURITY: "security",
     IMAGES: "images",
     INTERNAL_LINKS: "internalLinks",
@@ -19,13 +20,13 @@ export type RuleCategory = typeof RULE_CATEGORY[keyof typeof RULE_CATEGORY];
 export type RuleMetadata<TCode extends string = string> = {
     code: TCode;
     title: string;
-    scoreImpact: number;
-    category: RuleCategory;
     severity: RuleSeverity;
 };
 
 export type RulesType<T, TCode extends string = string> =
     RuleMetadata<TCode> & {
+        category: RuleCategory;
+        scoreImpact: number;
         check: (data: T) => boolean;
     };
 

@@ -1,9 +1,9 @@
 import { crawlabilityData } from "@/crawlability/crawlabilityData.js";
-import { crawlabilityIssuesRules } from "@/crawlability/issuesrules.js";
 import { EvaluateType, FindingsType, IssueType } from "@/types/evaluateTypes.js";
 import { GatherInfoType } from "@/types/gatherInfoType.js";
 import { RecommendationType } from "@/types/recommendationTypes.js";
 import { crawlabilityRecommendations } from "@/crawlability/recommendations.js";
+import { crawlabilityIssuesRules } from "@/crawlability/issuesRules.js";
 
 
 export function evaluateCrawlabilityRules(info: GatherInfoType): EvaluateType {
@@ -20,8 +20,6 @@ export function evaluateCrawlabilityRules(info: GatherInfoType): EvaluateType {
                 issues: {
                     code: issue.code,
                     title: issue.title,
-                    scoreImpact: issue.scoreImpact,
-                    category: issue.category,
                     severity: issue.severity
                 },
                 recommendations: recommendation

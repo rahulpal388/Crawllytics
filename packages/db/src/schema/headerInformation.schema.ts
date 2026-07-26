@@ -183,7 +183,7 @@ const headerInformationSchemaDefinition: SchemaOf<HTMLHeaderType> = {
   title: { type: [htmlTitleSchema], required: true },
   meta: {
     metaDescription: { type: [htmlMetaDescriptionSchema], required: true },
-    metaRobot: [{ type: [String], required: true }],
+    metaRobot: { type: [String], required: true },
     Canonical: { type: [htmlCanonicalSchema], required: true },
     openGraph: { type: htmlOpenGraphSchema, required: true },
     metaViewport: { type: [htmlMetaViewportSchema], required: true },

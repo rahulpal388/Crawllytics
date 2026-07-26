@@ -10,6 +10,6 @@ export type RecommendationType = {
     title: string;
     description: string;
     whyItMatters: string;
-    howToFix: string[];
+    howToFix: readonly string[];
     documentationLinks: readonly DocumentationLink[];
 }
