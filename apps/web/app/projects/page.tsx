@@ -1,7 +1,7 @@
 import { Button } from "@repo/ui/components/button";
 import { Plus } from "lucide-react";
-import { ProjectItems } from "../../../components/projects/projectItems";
 import { DashboardContainer } from "@repo/ui/components/dashboardContainer";
+import { ProjectItems } from "../../components/projects/projectItems";
 
 export default function ProjectsPage() {
   return (
