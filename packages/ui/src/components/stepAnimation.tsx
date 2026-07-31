@@ -62,8 +62,6 @@ export function StepAnimationComponent({ stepContent }: { stepContent: string[] 
     <>
       <div ref={ref}>
         {stepContent.map((content, index) => {
-          const isCompleted = index < activeStep;
-          const isActive = index === activeStep;
           return (
             <StepAnimation
               key={index}

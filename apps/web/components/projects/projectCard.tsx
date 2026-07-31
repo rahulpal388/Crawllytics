@@ -2,11 +2,11 @@
 import { EllipsisVertical, ExternalLink } from "lucide-react";
 import Image from "next/image";
 import { SiteAuditCard } from "./siteAuditCard";
-import { GoogleSearchConsoleCard } from "./googleSearchConsoleCard";
-import { GoogleAnalytic } from "./googleAnalytic";
 import { TechnicalAuditCard } from "./techincalAuditCard";
 import { useSelectedProjectId } from "../../store/useSelectedProjectId";
 import { useRouter } from "next/navigation";
+import { GoogleSearchConsoleCard } from "../dashboard/googleSearchConsoleCard";
+import { GoogleAnalytic } from "../dashboard/googleAnalytic";
 
 export type ProjectCardProps = {
   projectId: string;

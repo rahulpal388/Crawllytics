@@ -1,15 +1,15 @@
-import { Modal } from "@repo/ui/components/modal";
-import { useModalStore } from "../../store/modalStore";
+import { useModalStore } from "../../../store/modalStore";
 import { Button } from "@repo/ui/components/button";
 import { GoogleSvg } from "@repo/ui/svg/googleSvg";
 import { Divider } from "@repo/ui/components/divider";
-import { SignUpForm } from "../forms/signupForm";
+import { SignUpForm } from "../../forms/signupForm";
+import { Dialog } from "@repo/ui/components/overlay/dialog";
 
 export function SignupModal() {
   const closeModal = useModalStore((state) => state.closeModal);
   return (
     <>
-      <Modal onClose={closeModal}>
+      <Dialog onClose={closeModal}>
         <div className="flex w-full max-w-lg flex-col gap-6 p-6">
           <div className="space-y-2 text-center">
             <h2 className="text-text-primary text-2xl font-semibold">
@@ -38,7 +38,7 @@ export function SignupModal() {
           </div>
           <SignUpForm />
         </div>
-      </Modal>
+      </Dialog>
     </>
   );
 }

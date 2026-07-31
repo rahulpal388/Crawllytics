@@ -1,13 +1,14 @@
 import { Button } from "@repo/ui/components/button";
 import { Column, DataTable } from "@repo/ui/components/table";
+import { ActionsTopIssues } from "./actionsTopIssues";
+import { Card } from "@repo/ui/components/card/card";
 
 type IssueRow = {
   id: string;
   issue: string;
-  severity: "critical" | "high" | "medium" | "low";
+  severity: "Critical" | "High" | "Medium" | "Low";
   pages: number;
-  "view-pages": null;
-  "view-issue": null;
+  actions: null;
 };
 
 export const issueColumns: Column<IssueRow>[] = [
@@ -24,14 +25,9 @@ export const issueColumns: Column<IssueRow>[] = [
     heading: "Pages",
   },
   {
-    key: "view-pages",
-    heading: null,
-    render: () => <Button variant="outline">View Pages</Button>,
-  },
-  {
-    key: "view-issue",
-    heading: null,
-    render: () => <Button variant="outline">How to Fix</Button>,
+    key: "actions",
+    heading: "Actions",
+    render: () => <ActionsTopIssues />,
   },
 ];
 
@@ -39,57 +35,61 @@ export const issueData: IssueRow[] = [
   {
     id: "1",
     issue: "Missing Title Tags",
-    severity: "critical",
+    severity: "Critical",
     pages: 34,
-    "view-pages": null,
-    "view-issue": null,
+    actions: null,
   },
   {
     id: "2",
     issue: "Duplicate Meta Descriptions",
-    severity: "high",
+    severity: "High",
     pages: 18,
-    "view-pages": null,
-    "view-issue": null,
+    actions: null,
   },
   {
     id: "3",
     issue: "Missing Meta Descriptions",
-    severity: "medium",
+    severity: "Medium",
     pages: 25,
-    "view-pages": null,
-    "view-issue": null,
+    actions: null,
   },
   {
     id: "4",
     issue: "Broken Internal Links",
-    severity: "critical",
+    severity: "Critical",
     pages: 12,
-    "view-pages": null,
-    "view-issue": null,
+    actions: null,
   },
   {
     id: "5",
     issue: "Missing Canonical Tags",
-    severity: "high",
+    severity: "High",
     pages: 7,
-    "view-pages": null,
-    "view-issue": null,
+    actions: null,
   },
 ];
 
 export function TopIssuesSection() {
   return (
     <>
-      <div>
-        <div className="flex items-center justify-between gap-4">
-          <h5 className="heading text-xl">Top Issues</h5>
-          <Button variant="outline"> View All Issues </Button>
+      <Card className="bg-surface-base">
+        <div className="flex items-center justify-between gap-4 p-4">
+          <h5 className="heading-5">Top Issues</h5>
+          <Button variant="ghost-icon" size="sm">
+            View All Issues
+          </Button>
         </div>
-        <div className="mt-6">
-          <DataTable data={issueData} columns={issueColumns} />
+        <div className="mt-4 w-full">
+          <DataTable
+            data={issueData}
+            columns={issueColumns}
+            className="rounded-[0px] shadow-xs"
+          />
         </div>
-      </div>
+        <div className="flex items-center justify-center gap-4 p-4">
+          <p className="subHeading text-xs">Showing 5 of 24</p>
+        </div>
+      </Card>
     </>
   );
 }

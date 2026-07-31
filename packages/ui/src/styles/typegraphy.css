@@ -1,0 +1,119 @@
+.heading {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-semibold);
+  --tw-tracking: var(--tracking-tighter);
+  color: var(--color-text-primary);
+}
+
+.subHeading {
+  color: var(--color-text-secondary);
+}
+
+/* ############################ */
+/* Display (Landing Page Hero) */
+
+.display {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+/* Page Title */
+
+.heading-1 {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+/* Section Title */
+
+.heading-2 {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+}
+
+/* Large Card Title */
+
+.heading-3 {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+}
+
+/* Medium Card Title */
+
+.heading-4 {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-normal);
+}
+
+/* Small Card Title */
+
+.heading-5 {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+}
+
+/* Table Header / Widget Title */
+
+.heading-6 {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+}
+.body-lg {
+  font-size: var(--font-size-lg);
+}
+
+.body {
+  font-size: var(--font-size-md);
+}
+
+.caption {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/*
+####################################
+  METRICS   
+######################################
+*/
+/* 
+.metric-xl {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+}
+
+.metric-lg {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+} */
+
+.metric-md {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+}
+
+.metric-sm {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+}

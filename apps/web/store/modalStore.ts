@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 
 
-export type ModalType = "login" | "signup"
+export type ModalType = "login" | "signup" | "page" | "view-issues" | "view-pages"
 
 
 interface ModalStore {

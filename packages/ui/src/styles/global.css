@@ -3,36 +3,14 @@
 @import "./token.css";
 @import "./reset.css";
 @import "./theme.css";
-
-.heading {
-  font-family: var(--font-heading);
-  font-weight: var(--font-weight-semibold);
-  --tw-tracking: var(--tracking-tighter);
-  color: var(--color-text-primary);
-}
-
-.subHeading {
-  color: var(--color-text-secondary);
-}
-
-.section-content {
-  max-width: 50rem;
-}
+@import "./utils.css";
+@import "./typegraphy.css";
 
 .hero-bg {
   background:
-    radial-gradient(
-      circle at top left,
-      rgba(254, 79, 0, 0.18),
-      transparent 40%
-    ),
-    radial-gradient(
-      circle at top right,
-      rgba(255, 122, 61, 0.12),
-      transparent 40%
-    ),
-    radial-gradient(circle at center, rgba(254, 79, 0, 0.06), transparent 70%),
-    white;
+    radial-gradient(circle at top left, rgba(254, 79, 0, 0.18), transparent 40%),
+    radial-gradient(circle at top right, rgba(255, 122, 61, 0.12), transparent 40%),
+    radial-gradient(circle at center, rgba(254, 79, 0, 0.06), transparent 70%), white;
 }
 
 .project-card {

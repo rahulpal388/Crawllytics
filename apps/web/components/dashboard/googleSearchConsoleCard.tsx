@@ -1,4 +1,4 @@
-import { LineChartComponent } from "./lineChart";
+import { LineChartComponent } from "../dashboard/lineChart";
 
 export const searchConsoleData = {
   labels: [

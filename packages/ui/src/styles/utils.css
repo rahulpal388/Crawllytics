@@ -1,0 +1,11 @@
+.section-content {
+  max-width: 50rem;
+}
+
+@utility project-card-features {
+  width: 13rem;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}

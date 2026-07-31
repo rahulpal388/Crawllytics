@@ -1,5 +1,8 @@
 @theme {
-  /* Colors */
+  /* ===========================
+     Colors
+  =========================== */
+
   --color-primary: var(--color-primary);
   --color-primary-hover: var(--color-primary-hover);
   --color-primary-active: var(--color-primary-active);
@@ -14,22 +17,67 @@
   --color-border-default: var(--color-border-default);
   --color-border-muted: var(--color-border-muted);
 
-  /* cards */
+  --color-progress-track: var(--color-progress-track);
+
   --color-card-hover: var(--color-card-hover);
 
   /* SEO */
+
   --color-critical: var(--color-critical);
   --color-high: var(--color-high);
   --color-medium: var(--color-medium);
   --color-low: var(--color-low);
 
-  /* Score */
   --color-score-excellent: var(--color-score-excellent);
   --color-score-good: var(--color-score-good);
   --color-score-warning: var(--color-score-warning);
   --color-score-poor: var(--color-score-poor);
 
-  /* Spacing */
+  /* ===========================
+     Typography
+  =========================== */
+
+  /* Font Family */
+
+  --font-primary: var(--font-primary);
+
+  /* Font Size */
+
+  --text-xs: var(--font-size-xs);
+  --text-sm: var(--font-size-sm);
+  --text-base: var(--font-size-md);
+  --text-lg: var(--font-size-lg);
+  --text-xl: var(--font-size-xl);
+  --text-2xl: var(--font-size-2xl);
+  --text-3xl: var(--font-size-3xl);
+  --text-4xl: var(--font-size-4xl);
+  --text-5xl: var(--font-size-5xl);
+
+  /* Font Weight */
+
+  --font-weight-light: var(--font-weight-light);
+  --font-weight-normal: var(--font-weight-normal);
+  --font-weight-medium: var(--font-weight-medium);
+  --font-weight-semibold: var(--font-weight-semibold);
+  --font-weight-bold: var(--font-weight-bold);
+
+  /* Line Height */
+
+  --leading-tight: var(--line-height-tight);
+  --leading-snug: var(--line-height-snug);
+  --leading-normal: var(--line-height-normal);
+  --leading-relaxed: var(--line-height-relaxed);
+
+  /* Letter Spacing */
+
+  --tracking-tight: var(--tracking-tight);
+  --tracking-normal: var(--tracking-normal);
+  --tracking-wide: var(--tracking-wide);
+
+  /* ===========================
+     Spacing
+  =========================== */
+
   --spacing-1: var(--space-1);
   --spacing-2: var(--space-2);
   --spacing-3: var(--space-3);
@@ -39,28 +87,27 @@
   --spacing-7: var(--space-7);
   --spacing-8: var(--space-8);
 
-  /* Typography */
-  --text-xs: var(--font-size-xs);
-  --text-sm: var(--font-size-sm);
-  --text-base: var(--font-size-md);
-  --text-lg: var(--font-size-lg);
-  --text-xl: var(--font-size-xl);
-  --text-2xl: var(--font-size-2xl);
-  --text-3xl: var(--font-size-3xl);
-  --text-4xl: var(--font-size-4xl);
+  /* ===========================
+     Radius
+  =========================== */
 
-  /* Radius */
   --radius-xs: var(--radius-xs);
   --radius-sm: var(--radius-sm);
   --radius-lg: var(--radius-lg);
 
-  /* Shadows */
+  /* ===========================
+     Shadows
+  =========================== */
+
   --shadow-sm: var(--shadow-sm);
   --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
 
-  /* breaking points */
+  /* ===========================
+     Breakpoints
+  =========================== */
 
   --breakpoint-xs: 480px;
-  --breakpoint-nav: 1024px;
   --breakpoint-footer: 778px;
+  --breakpoint-nav: 1024px;
 }

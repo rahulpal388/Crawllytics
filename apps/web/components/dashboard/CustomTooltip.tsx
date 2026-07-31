@@ -1,4 +1,4 @@
-import { LineToolTipDataType } from "./lineChart";
+import { LineToolTipDataType } from "../dashboard/lineChart";
 import { motion } from "motion/react";
 export function CustomTooltip({
   toolTip,
