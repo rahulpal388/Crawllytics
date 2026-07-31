@@ -74,7 +74,7 @@ export function TopIssuesSection() {
     <>
       <Card className="bg-surface-base">
         <div className="flex items-center justify-between gap-4 p-4">
-          <h5 className="heading-5">Top Issues</h5>
+          <h5 className="heading-5">Issue Overview</h5>
           <Button variant="ghost-icon" size="sm">
             View All Issues
           </Button>

@@ -7,6 +7,7 @@ import { TopIssuesSection } from "../../../../components/dashboard/topIssuesSect
 import { TopPagesSection } from "../../../../components/dashboard/topPagesSection";
 import { SearchConsolePerformance } from "../../../../components/dashboard/searchConsole/searchConsolePerformance";
 import { TopQueries } from "../../../../components/dashboard/searchConsole/topQueries";
+import { GoogleAnalytics } from "../../../../components/dashboard/googleAnalytics/googleAnalytics";
 export default function DashboardPage() {
   return (
     <>
@@ -22,10 +23,11 @@ export default function DashboardPage() {
           </div>
           <TopIssuesSection />
           <TopPagesSection />
-          <div className="flex flex-wrap gap-4">
-            <SearchConsolePerformance />
-            <TopQueries />
-          </div>
+          {/* <div className="flex flex-wrap gap-4"> */}
+          <SearchConsolePerformance />
+          <TopQueries />
+          {/* </div> */}
+          <GoogleAnalytics />
         </div>
       </DashboardContainer>
     </>

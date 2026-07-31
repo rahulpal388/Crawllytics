@@ -8,7 +8,7 @@ export function ScoresCards() {
     <>
       <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         <Card className="flex h-56 flex-col overflow-hidden p-5">
-          <h2 className="heading-6 text-text-secondary">SEO Score</h2>
+          <h3 className="heading-6 text-text-secondary">SEO Score</h3>
           <div className="flex items-center gap-4">
             <div className="flex items-end gap-1">
               <span className="metric-md">80</span>
@@ -30,7 +30,7 @@ export function ScoresCards() {
           />
         </Card>
         <Card className="flex h-56 flex-col overflow-hidden p-5">
-          <h2 className="heading-6 text-text-secondary">Pages Crawled</h2>
+          <h3 className="heading-6 text-text-secondary">Pages Crawled</h3>
           <div className="flex items-center gap-4">
             <p className="metric-md">1,234</p>
             <ChangeIndicator direction="up" value={18} />
@@ -49,7 +49,7 @@ export function ScoresCards() {
           />
         </Card>
         <Card className="flex h-56 flex-col overflow-hidden p-5">
-          <h2 className="heading-6 text-text-secondary">Total Issues</h2>
+          <h3 className="heading-6 text-text-secondary">Total Issues</h3>
           <div className="flex items-center gap-4">
             <p className="metric-md">14</p>
             <ChangeIndicator direction="down" value={18} />
@@ -69,7 +69,7 @@ export function ScoresCards() {
         </Card>
         <Card className="flex h-56 flex-col overflow-hidden p-5">
           <div className="space-y-4">
-            <h2 className="heading-6 text-text-secondary">Organic Clicks</h2>
+            <h3 className="heading-6 text-text-secondary">Organic Clicks</h3>
             <div className="flex items-center gap-4">
               <p className="metric-md">1.24k</p>
               <ChangeIndicator direction="up" value={30} />
@@ -90,9 +90,8 @@ export function ScoresCards() {
             />
           </div>
         </Card>
-
         <Card className="flex h-56 flex-col overflow-hidden p-5">
-          <h2 className="heading-6 text-text-secondary">Total Users</h2>
+          <h3 className="heading-6 text-text-secondary">Total Users</h3>
           <div className="flex items-center gap-4">
             <p className="metric-md">1.3k</p>
             <ChangeIndicator direction="up" value={24} />

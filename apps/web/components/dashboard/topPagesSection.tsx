@@ -111,7 +111,7 @@ export function TopPagesSection() {
     <>
       <CardContainer className="bg-surface-base">
         <div className="flex items-center justify-between gap-4 p-4">
-          <h5 className="heading text-lg">Top Pages</h5>
+          <h5 className="heading text-lg">Page Overview</h5>
           <Button variant="ghost-icon" size="sm">
             View All Pages
           </Button>

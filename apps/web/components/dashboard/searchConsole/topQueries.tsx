@@ -1,4 +1,5 @@
 import { Button } from "@repo/ui/components/button";
+import { Card } from "@repo/ui/components/card/card";
 import { CardContainer } from "@repo/ui/components/cardContaniner";
 import { Column, DataTable } from "@repo/ui/components/table";
 
@@ -27,7 +28,7 @@ const columns: Column<TopQueryTableData>[] = [
   {
     key: "ctr",
     heading: "CTR",
-    render: (row) => `${row}%`,
+    render: (row) => `${row.ctr.toFixed(2)}%`,
   },
   {
     key: "position",
@@ -39,7 +40,7 @@ const columns: Column<TopQueryTableData>[] = [
 const data: TopQueryTableData[] = [
   {
     id: "1",
-    query: "seo analyzer",
+    query: "Seo analyzer",
     click: 2345,
     impression: 12452,
     ctr: 18.83,
@@ -47,7 +48,7 @@ const data: TopQueryTableData[] = [
   },
   {
     id: "2",
-    query: "website audit",
+    query: "Website audit",
     click: 1987,
     impression: 9856,
     ctr: 20.16,
@@ -55,7 +56,7 @@ const data: TopQueryTableData[] = [
   },
   {
     id: "3",
-    query: "technical seo",
+    query: "Technical seo",
     click: 1234,
     impression: 6543,
     ctr: 18.86,
@@ -63,7 +64,7 @@ const data: TopQueryTableData[] = [
   },
   {
     id: "4",
-    query: "seo checker",
+    query: "Seo checker",
     click: 1102,
     impression: 5231,
     ctr: 21.07,
@@ -71,7 +72,7 @@ const data: TopQueryTableData[] = [
   },
   {
     id: "5",
-    query: "site audit",
+    query: "Site audit",
     click: 987,
     impression: 4321,
     ctr: 22.84,
@@ -79,7 +80,7 @@ const data: TopQueryTableData[] = [
   },
   {
     id: "6",
-    query: "core web vitals",
+    query: "Core web vitals",
     click: 845,
     impression: 3912,
     ctr: 21.6,
@@ -87,7 +88,7 @@ const data: TopQueryTableData[] = [
   },
   {
     id: "7",
-    query: "page speed test",
+    query: "Page speed test",
     click: 732,
     impression: 3567,
     ctr: 20.52,
@@ -95,7 +96,7 @@ const data: TopQueryTableData[] = [
   },
   {
     id: "8",
-    query: "google search console",
+    query: "Google search console",
     click: 698,
     impression: 3411,
     ctr: 20.46,
@@ -103,7 +104,7 @@ const data: TopQueryTableData[] = [
   },
   {
     id: "9",
-    query: "meta description checker",
+    query: "Meta description checker",
     click: 584,
     impression: 2890,
     ctr: 20.21,
@@ -111,7 +112,7 @@ const data: TopQueryTableData[] = [
   },
   {
     id: "10",
-    query: "crawl website",
+    query: "Crawl website",
     click: 473,
     impression: 2415,
     ctr: 19.59,
@@ -122,20 +123,21 @@ const data: TopQueryTableData[] = [
 export function TopQueries() {
   return (
     <>
-      <CardContainer className="flex-1">
+      <Card className="flex-1 p-0 py-px">
         <div className="p-4">
           <div className="flex items-center justify-between gap-4">
-            <h4 className="heading text-sm">Top Queries</h4>
+            <h4 className="heading-5 text-sm">Top Queries</h4>
             <Button variant="ghost">View Full Report</Button>
           </div>
-          <DataTable
-            data={data}
-            columns={columns}
-            cellClassName="whitespace-nowrap"
-            headerCellClassName="text-sm"
-          />
         </div>
-      </CardContainer>
+        <DataTable
+          data={data}
+          columns={columns}
+          className="rounded-[0px]"
+          cellClassName="whitespace-nowrap"
+          headerCellClassName="text-sm   "
+        />
+      </Card>
     </>
   );
 }
