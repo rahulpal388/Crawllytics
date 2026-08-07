@@ -13,7 +13,7 @@ export function TopPageUrlAction({ url }: { url: string }) {
         openModal("page");
       }}
     >
-      {url}
+      <span className="hover:underline">{url}</span>
     </Button>
   );
 }

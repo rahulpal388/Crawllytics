@@ -82,8 +82,16 @@
   font-size: var(--font-size-md);
 }
 
+.body-sm {
+  font-size: var(--font-size-sm);
+}
+
 .caption {
   font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+.caption-xs {
+  font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
 }
 

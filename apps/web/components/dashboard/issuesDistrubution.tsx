@@ -1,7 +1,10 @@
+"use client";
 import { IssueDistributionItem } from "@repo/ui/components/issueDistributionItems";
 import { Card } from "@repo/ui/components/card/card";
-import { DoughnutChart } from "@repo/ui/components/charts/pieChart";
+import { DoughnutChart } from "@repo/ui/components/charts/doughnutChart";
 import { Button } from "@repo/ui/components/button";
+import { useSelectedProjectId } from "../../store/useSelectedProjectId";
+import { useRouter } from "next/navigation";
 
 const issueDistributionData: {
   label: string;
@@ -59,6 +62,8 @@ const pieChartData = [
 ];
 
 export function IssuesDistribution() {
+  const projectId = useSelectedProjectId((s) => s.projectId);
+  const router = useRouter();
   return (
     <Card className="flex-1 space-y-6 p-4">
       <h3 className="heading-5">Issues Distribution</h3>
@@ -75,7 +80,7 @@ export function IssuesDistribution() {
         </div>
 
         {/* Distribution */}
-        <div className="flex flex-1 flex-col gap-3">
+        <div className="divide-surface-muted flex flex-1 flex-col gap-4 divide-y-2">
           {issueDistributionData.map((item) => (
             <IssueDistributionItem
               key={item.label}
@@ -87,7 +92,13 @@ export function IssuesDistribution() {
           ))}
         </div>
       </div>
-      <Button variant="outline" size="md">
+      <Button
+        variant="outline"
+        size="md"
+        onClick={() => {
+          router.push(`/projects/${projectId}/issues`);
+        }}
+      >
         View all issues
       </Button>
     </Card>

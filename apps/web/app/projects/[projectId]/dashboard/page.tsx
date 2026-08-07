@@ -1,7 +1,7 @@
 import { DashboardContainer } from "@repo/ui/components/dashboardContainer";
 import { IssuesDistribution } from "../../../../components/dashboard/issuesDistrubution";
 import { DashboardHeader } from "../../../../components/dashboard/dashboardHeader";
-import { ScoresCards } from "../../../../components/dashboard/scoresCards";
+import { ScoresCards } from "../../../../components/dashboard/kpiCards/kpiCards";
 import { SeoTrends } from "../../../../components/dashboard/SeoTrends";
 import { TopIssuesSection } from "../../../../components/dashboard/topIssuesSection";
 import { TopPagesSection } from "../../../../components/dashboard/topPagesSection";
@@ -17,7 +17,7 @@ export default function DashboardPage() {
             <DashboardHeader />
           </div>
           <ScoresCards />
-          <div className="flex flex-wrap gap-4">
+          <div className="flex gap-4">
             <IssuesDistribution />
             <SeoTrends />
           </div>

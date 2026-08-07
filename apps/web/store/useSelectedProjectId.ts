@@ -3,7 +3,7 @@ import { persist } from "zustand/middleware";
 
 type SelectedProjectIdType = {
   projectId: string | null;
-  setProjectId: (projectId: string) => void;
+  setProjectId: (projectId: string | null) => void;
   deleteProjectId: () => void;
 };
 
@@ -11,7 +11,7 @@ export const useSelectedProjectId = create<SelectedProjectIdType>()(
   persist(
     (set, get) => ({
       projectId: null,
-      setProjectId: (projectId: string) => set({ projectId }),
+      setProjectId: (projectId) => set({ projectId }),
       deleteProjectId: () => set({ projectId: null }),
     }),
     {

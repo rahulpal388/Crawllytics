@@ -3,6 +3,8 @@ import { cn } from "../utils";
 export type Column<T> = {
   key: keyof T;
   heading: string | null;
+  width?: string;
+  align?: "left" | "center" | "right";
   render?: (value: T) => React.ReactNode;
 };
 
@@ -35,8 +37,9 @@ export function DataTable<T extends { id: string | number }>({
               {columns.map((col) => (
                 <th
                   key={String(col.key)}
+                  style={{ width: col.width }}
                   className={cn(
-                    "h-12 px-6 text-left align-middle border-b border-border-muted font-bold subHeading ",
+                    "h-14 px-6 text-xs uppercase tracking-wide font-semibold text-text-secondary border-b border-border-muted  ",
                     headerCellClassName,
                   )}
                 >
@@ -50,10 +53,15 @@ export function DataTable<T extends { id: string | number }>({
             {data.map((row) => (
               <tr
                 key={row.id}
-                className=" px-6 align-middle border-b border-border-muted last:border-b-0  hover:bg-surface-muted   "
+                className=" px-6 align-middle border-b border-border-muted last:border-b-0  hover:bg-slate-50
+transition-colors duration-150    "
               >
                 {columns.map((col) => (
-                  <td key={String(col.key)} className={cn("p-3 text-sm  ", cellClassName)}>
+                  <td
+                    key={String(col.key)}
+                    style={{ width: col.width }}
+                    className={cn("px-6 py-5 align-top", cellClassName)}
+                  >
                     <div
                       className={cn(!col.render && "truncate whitespace-nowrap overflow-hidden")}
                     >

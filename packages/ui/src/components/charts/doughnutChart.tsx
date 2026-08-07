@@ -1,9 +1,18 @@
 "use client";
 
-import { useMemo, type ReactNode } from "react";
-import { ArcElement, Chart as ChartJS, ChartData, ChartOptions, Legend, Tooltip } from "chart.js";
+import { useMemo, useState, type ReactNode } from "react";
+import {
+  ArcElement,
+  Chart as ChartJS,
+  ChartData,
+  ChartOptions,
+  Legend,
+  Tooltip,
+  TooltipItem,
+} from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { cn } from "@repo/ui/utils";
+import { DoughnutTooltip } from "./doughnutTooltip";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -104,23 +113,29 @@ const defaultOptions: ChartOptions<"doughnut"> = {
   },
 };
 
+export type DoughnutTootleTipType = {
+  x: number;
+  y: number;
+  title: string;
+  dataPoints: TooltipItem<"doughnut">[];
+};
+
 export function DoughnutChart({
   data,
   className,
   center,
   cutout = "68%",
   showLegend = false,
-  showTooltip = true,
-  borderWidth = 3,
-  borderRadius = 8,
-  hoverOffset = 4,
+  showTooltip = false,
+  borderWidth = 1,
+  borderRadius = 12,
+  hoverOffset = 8,
   animate = true,
   options,
 }: DoughnutChartProps) {
   const chartData = useMemo<ChartData<"doughnut">>(
     () => ({
       labels: data.map((item) => item.label),
-
       datasets: [
         {
           data: data.map((item) => item.value),
@@ -130,6 +145,31 @@ export function DoughnutChart({
     }),
     [data],
   );
+
+  const [tooltip, setTooltip] = useState<DoughnutTootleTipType | null>(null);
+
+  const externalTooltipHandler = (context: any) => {
+    const { tooltip } = context;
+    if (tooltip.opacity === 0) {
+      setTooltip(null);
+      return;
+    }
+
+    setTooltip((prev) => {
+      const next = {
+        x: tooltip.caretX,
+        y: tooltip.caretY,
+        title: tooltip.title[0],
+        dataPoints: tooltip.dataPoints,
+      };
+
+      if (prev?.x === next.x && prev?.y === next.y) {
+        return prev;
+      }
+
+      return next;
+    });
+  };
 
   const chartOptions: ChartOptions<"doughnut"> = {
     ...defaultOptions,
@@ -149,6 +189,7 @@ export function DoughnutChart({
       tooltip: {
         ...defaultOptions.plugins?.tooltip,
         enabled: showTooltip,
+        external: externalTooltipHandler,
       },
     },
 
@@ -166,14 +207,9 @@ export function DoughnutChart({
   };
 
   return (
-    <div className={cn("relative h-full w-full", className)}>
+    <div className={cn("relative h-full w-full ", className)}>
       <Doughnut data={chartData} options={chartOptions} />
-
-      {center && (
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          {center}
-        </div>
-      )}
+      {tooltip && <DoughnutTooltip tooltip={tooltip} />}
     </div>
   );
 }

@@ -32,8 +32,6 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const Button = ({ children, className, variant, size, ...props }: ButtonProps) => {
-  console.log("size", size);
-  console.log("classes", sizes[size || "sm"]);
   return (
     <button
       {...props}

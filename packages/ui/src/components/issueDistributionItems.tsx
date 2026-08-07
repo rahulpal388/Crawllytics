@@ -1,3 +1,4 @@
+import { cn } from "../utils";
 import { ChangeIndicator } from "./charts/changeIndicator";
 
 type IssueDistributionItemProps = {
@@ -5,6 +6,7 @@ type IssueDistributionItemProps = {
   value: number;
   percentage: number;
   color: string;
+  className?: string;
 };
 
 export function IssueDistributionItem({
@@ -12,11 +14,11 @@ export function IssueDistributionItem({
   value,
   percentage,
   color,
+  className,
 }: IssueDistributionItemProps) {
-  console.log("color", color);
   return (
     <>
-      <div className="grid grid-cols-[1fr_100px] items-center  gap-4">
+      <div className={cn("grid grid-cols-[1fr_100px] items-center  gap-4 py-2", className)}>
         <div className="flex items-center gap-4">
           <div className={` h-4 w-4 rounded-full`} style={{ backgroundColor: color }} />
           <p className="subHeading text-sm  whitespace-nowrap">{label}</p>

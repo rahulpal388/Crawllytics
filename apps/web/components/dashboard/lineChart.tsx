@@ -37,7 +37,6 @@ export function LineChartComponent({ data }: LineChartDataType) {
   const [tooltip, setTooltip] = useState<LineToolTipDataType | null>(null);
   const externalTooltipHandler = (context: any) => {
     const { chart, tooltip } = context;
-    console.log(chart);
     if (tooltip.opacity === 0) {
       setTooltip(null);
       return;

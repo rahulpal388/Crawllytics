@@ -1,5 +1,5 @@
 import { Card } from "@repo/ui/components/card/card";
-import { DoughnutChart } from "@repo/ui/components/charts/pieChart";
+import { DoughnutChart } from "@repo/ui/components/charts/doughnutChart";
 import { IssueDistributionItem } from "@repo/ui/components/issueDistributionItems";
 
 const TrafficDistributionData: {

@@ -1,0 +1,136 @@
+import { IssuesTableDataType } from "@repo/config/types/apiResponseType/issuesTypes";
+
+
+
+export const issuesData: IssuesTableDataType[] = [
+    {
+        id: 1,
+        issues: {
+            title: "Missing Meta Description",
+            description: "Pages are missing a meta description.",
+        },
+        severity: "high",
+        category: "metadata",
+        affectedPages: 124,
+        impact: "high",
+        status: "open",
+        actions: null,
+    },
+    {
+        id: 2,
+        issues: {
+            title: "Duplicate Title Tags",
+            description: "Multiple pages share the same title tag.",
+        },
+        severity: "high",
+        category: "metadata",
+        affectedPages: 38,
+        impact: "high",
+        status: "open",
+        actions: null,
+    },
+    {
+        id: 3,
+        issues: {
+            title: "Missing H1 Heading",
+            description: "Some pages don't contain an H1 heading.",
+        },
+        severity: "medium",
+        category: "content",
+        affectedPages: 27,
+        impact: "medium",
+        status: "open",
+        actions: null,
+    },
+    {
+        id: 4,
+        issues: {
+            title: "Broken Internal Links",
+            description: "Internal links point to unavailable pages.",
+        },
+        severity: "critical",
+        category: "links",
+        affectedPages: 15,
+        impact: "high",
+        status: "open",
+        actions: null,
+    },
+    {
+        id: 5,
+        issues: {
+            title: "Large Image Files",
+            description: "Images exceed the recommended file size.",
+        },
+        severity: "medium",
+        category: "content",
+        affectedPages: 86,
+        impact: "medium",
+        status: "in-progress",
+        actions: null,
+    },
+    {
+        id: 6,
+        issues: {
+            title: "Missing Alt Text",
+            description: "Images are missing descriptive alt attributes.",
+        },
+        severity: "low",
+        category: "accessibility",
+        affectedPages: 203,
+        impact: "low",
+        status: "open",
+        actions: null,
+    },
+    {
+        id: 7,
+        issues: {
+            title: "Slow Largest Contentful Paint",
+            description: "Pages have poor LCP performance.",
+        },
+        severity: "high",
+        category: "performance",
+        affectedPages: 42,
+        impact: "high",
+        status: "open",
+        actions: null,
+    },
+    {
+        id: 8,
+        issues: {
+            title: "Missing Canonical Tags",
+            description: "Pages are missing canonical URLs.",
+        },
+        severity: "medium",
+        category: "metadata",
+        affectedPages: 31,
+        impact: "medium",
+        status: "closed",
+        actions: null,
+    },
+    {
+        id: 9,
+        issues: {
+            title: "Blocked by robots.txt",
+            description: "Important pages are blocked from crawling.",
+        },
+        severity: "critical",
+        category: "crawlability",
+        affectedPages: 9,
+        impact: "high",
+        status: "open",
+        actions: null,
+    },
+    {
+        id: 10,
+        issues: {
+            title: "Missing Structured Data",
+            description: "Pages do not include schema markup.",
+        },
+        severity: "low",
+        category: "structured-data",
+        affectedPages: 67,
+        impact: "low",
+        status: "open",
+        actions: null,
+    },
+];

@@ -48,10 +48,10 @@ export function TrendChart({
   className,
 }: TrendChartProps) {
   const data = {
-    labels,
+    labels: labels.length === 1 ? [...labels, labels[0]] : labels,
     datasets: [
       {
-        data: values,
+        data: values.length === 1 ? [...values, values[0]] : values,
         borderColor: "#ef4444",
         backgroundColor: (context: ScriptableContext<"line">) => {
           const chart = context.chart;
@@ -72,7 +72,7 @@ export function TrendChart({
         },
         fill: showArea,
         tension,
-        pointRadius: 0,
+        pointRadius: 1,
         borderWidth: 2,
       },
     ],

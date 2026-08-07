@@ -1,12 +1,6 @@
 import { LineToolTipDataType } from "../dashboard/lineChart";
 import { motion } from "motion/react";
-export function CustomTooltip({
-  toolTip,
-  children,
-}: {
-  toolTip: LineToolTipDataType;
-  children?: React.ReactNode;
-}) {
+export function CustomTooltip({ toolTip }: { toolTip: LineToolTipDataType }) {
   return (
     <>
       <motion.div

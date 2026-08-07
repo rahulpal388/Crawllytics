@@ -4,6 +4,9 @@ import { CardContainer } from "@repo/ui/components/cardContaniner";
 import { Column, DataTable } from "@repo/ui/components/table";
 import { ActionsPageSectionTable } from "./actionPageSectionTable";
 import { TopPageUrlAction } from "./topPageUrlAction";
+import { useSelectedProjectId } from "../../store/useSelectedProjectId";
+import { useRouter } from "next/navigation";
+import { StatusCodeBadge } from "../badges/statusCodeBadge";
 
 type PagesRow = {
   id: string;
@@ -23,6 +26,7 @@ export const issueColumns: Column<PagesRow>[] = [
   {
     key: "status",
     heading: "Status",
+    render: (data) => <StatusCodeBadge statusCode={data.status} />,
   },
   {
     key: "issues",
@@ -51,7 +55,7 @@ export const issueData: PagesRow[] = [
   {
     id: "2",
     url: "/about",
-    status: 200,
+    status: 500,
     issues: 2,
     seo: 94,
     action: null,
@@ -59,7 +63,7 @@ export const issueData: PagesRow[] = [
   {
     id: "3",
     url: "/services",
-    status: 200,
+    status: 400,
     issues: 5,
     seo: 87,
     action: null,
@@ -75,7 +79,7 @@ export const issueData: PagesRow[] = [
   {
     id: "5",
     url: "/blog/technical-seo-guide",
-    status: 200,
+    status: 300,
     issues: 8,
     seo: 79,
     action: null,
@@ -107,12 +111,20 @@ export const issueData: PagesRow[] = [
 ];
 
 export function TopPagesSection() {
+  const projectId = useSelectedProjectId((s) => s.projectId);
+  const router = useRouter();
   return (
     <>
       <CardContainer className="bg-surface-base">
         <div className="flex items-center justify-between gap-4 p-4">
           <h5 className="heading text-lg">Page Overview</h5>
-          <Button variant="ghost-icon" size="sm">
+          <Button
+            variant="ghost-icon"
+            size="sm"
+            onClick={() => {
+              router.push(`/projects/${projectId}/pages`);
+            }}
+          >
             View All Pages
           </Button>
         </div>
