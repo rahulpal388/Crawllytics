@@ -6,7 +6,7 @@ import { AppError } from "@/shared/error/appError.js";
 import { Request, Response } from "express"
 import { getRequestMetadata } from "@/lib/getRequestMetaData.js";
 import cookieService from "@/shared/auth/cookies/cookie.service.js";
-
+import { ApiError } from "@/shared/error/apiError.js"
 
 
 
@@ -14,11 +14,11 @@ export async function googleCallbackController(req: Request, res: Response) {
     const { code, state } = req.query;
 
     if (!code || typeof code != "string") {
-        throw new AppError("Missing authorization code", 400);
+        throw ApiError.forbidden("Invalid google code")
     }
 
     if (!state || typeof state != "string") {
-        throw new AppError("Missing authorization state", 400)
+        throw ApiError.forbidden("Invalide google state ")
     }
 
     const callbackUrl = new URL(req.originalUrl,

@@ -4,13 +4,14 @@ import { otpService, sessionService } from "@/app/server.js";
 import hashService from "@/shared/security/hash/hash.service.js";
 import { emailPublisher } from "@/app/server.js";
 import { userRepository } from "@repo/db/repository/userRepository";
-import { AuthLoginResponse } from "@repo/contracts/apiContracts/auth/common/auth-login.response";
+import { AuthLoginResponse } from "@repo/contracts/apiContracts/apiResponse/auth-login.response";
 import { OTP_EXPIRY } from "@/shared/auth/otp/otp.constants.js";
 import { randomUUID } from "crypto";
 import mongoose from "mongoose";
 import { authIdentityRepository } from "@repo/db/repository/authIdentityRepository"
 
 import { SessionInfoType } from "@/shared/auth/session/session.types.js";
+import { ApiError } from "@/shared/error/apiError.js";
 
 
 
@@ -31,8 +32,9 @@ async function registerUser(data: RegisterEmailRequestType) {
 
     const user = await userRepository.findByEmail(data.email);
 
+
     if (user) {
-        throw new AppError("User already exists", 400);
+        throw ApiError.userAlreadyExists();
     }
 
     const hashPassword = await hashService.hash(data.password);
@@ -94,7 +96,7 @@ async function verifyUserOtp(verificationId: string, userOtp: string, sessionInf
     *   If the OTP is invalid or expired, throw an next error
     */
     const data = await otpService.verify("EMAIL_VERIFICATION", verificationId, userOtp);
-
+    console.log(data);
     const mongoSession = await mongoose.startSession();
     try {
         /*
@@ -126,7 +128,7 @@ async function verifyUserOtp(verificationId: string, userOtp: string, sessionInf
             return user;
         })
 
-
+        console.log("newUser : ", newUser)
         // create a session for the user after successful OTP verification
         const sessionId = await sessionService.create({
             userId: newUser._id.toString(),
@@ -162,12 +164,8 @@ async function verifyUserOtp(verificationId: string, userOtp: string, sessionInf
         }
 
     } catch (error) {
-        throw new AppError(
-            "DB failed to create user after OTP verification",
-            500,
-            {
-                errorMessage: error instanceof Error ? error.message : "Unknown error"
-            });
+        console.log(error)
+        throw ApiError.internal("Failed to verify user OTP")
     } finally {
         await mongoSession.endSession();
 

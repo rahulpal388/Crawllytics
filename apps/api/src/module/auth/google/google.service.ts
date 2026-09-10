@@ -10,7 +10,7 @@ import { authIdentityRepository } from "@repo/db/repository/authIdentityReposito
 import { sessionService, emailPublisher } from "@/app/server.js";
 import { RequestMetadata } from "@/lib/getRequestMetaData.js";
 import { formatLocation } from "@/lib/formatLocation.js";
-
+import { ApiError } from "@/shared/error/apiError.js";
 
 
 const GOOGLE_CALLBACK_URL = `${env.API_ORIGIN}${env.API_BASE_PATH}/auth/google/callback`
@@ -91,7 +91,7 @@ export class GoogleService {
             typeof claim.name !== "string" ||
             typeof claim.picture != "string"
         ) {
-            throw new AppError("Invalid google identity", 400);
+            throw ApiError.forbidden("Invalid claim from google");
         }
 
         return {
@@ -113,7 +113,7 @@ export class GoogleService {
         const key = this.getRedisKey(state);
         const storedState = await setStore.get(key)
         if (!storedState) {
-            throw new AppError("Invalid state", 400);
+            throw ApiError.forbidden("Invalid state parameter");
         }
 
         const googleStoredData = JSON.parse(storedState) as GoogleStoredDataType
@@ -210,7 +210,7 @@ export class GoogleService {
             };
 
         } catch (error) {
-            throw new AppError("Failed to add user after login with google", 500, { errorMessage: error instanceof Error ? error.message : "Unknown error" });
+            throw ApiError.internal("Failed to add user");
         }
     }
 }

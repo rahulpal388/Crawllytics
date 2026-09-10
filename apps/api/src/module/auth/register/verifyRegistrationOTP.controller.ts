@@ -7,12 +7,14 @@ import { getRequestMetadata } from "@/lib/getRequestMetaData.js";
 
 export async function verifyRegistrationOTPController(req: Request, res: Response, next: NextFunction) {
     const { success, data, error: zodError } = verifyRegistrationOTPRequestSchema.safeParse(req.body);
-
     if (!success) {
         return next(zodError);
     }
 
+
     const sessionInfo = await getRequestMetadata(req);
+
+    console.log("sessionINfo ", sessionInfo)
     const userInfo = await registerService.verifyUserOtp(data.verificationId, data.otp, sessionInfo);
 
 

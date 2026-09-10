@@ -1,5 +1,5 @@
 import { LoginEmailRequestType } from "@repo/contracts/apiContracts/auth/login-email.request";
-import { AuthLoginResponse } from "@repo/contracts/apiContracts/auth/common/auth-login.response";
+import { AuthLoginResponse } from "@repo/contracts/apiContracts/apiResponse/auth-login.response";
 import { userRepository } from "@repo/db/repository/userRepository";
 import { AppError } from "../../../shared/error/appError.js";
 import hashService from "@/shared/security/hash/hash.service.js";
@@ -9,6 +9,8 @@ import { LoginActivitySchemaType } from "@repo/db/types/logActivitySchema.Types"
 import { randomUUID } from "crypto"
 import { formatLocation } from "@/lib/formatLocation.js";
 import { SessionInfoType } from "@/shared/auth/session/session.types.js";
+import { ApiError } from "@/shared/error/apiError.js";
+
 
 export async function loginService(data: LoginEmailRequestType, sessionInfo: SessionInfoType): Promise<AuthLoginResponse> {
 
@@ -17,19 +19,19 @@ export async function loginService(data: LoginEmailRequestType, sessionInfo: Ses
 
 
     if (!userInfo) {
-        throw new AppError("user does not exist", 401, { errorMessage: "No user exists with the provided credentials" });
+        throw ApiError.userNotFound();
     }
 
     const user = await authIdentityRepository.findByUserId(userInfo._id.toString(), "EMAIL");
 
     if (!user) {
-        throw new AppError("Invalid email or password", 401, { errorMessage: "No user exists with the provided credentials" });
+        throw ApiError.userNotFound();
     }
 
     const isPasswordValid = await hashService.verify(data.password, user.passwordHash!);
 
     if (!isPasswordValid) {
-        throw new AppError("Wrong password", 401, { errorMessage: "The provided password is incorrect" });
+        throw ApiError.invalidCredentials("Invalid email or password");
     }
 
     /* 

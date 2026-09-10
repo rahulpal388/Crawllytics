@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { SchemaOf } from "../../types/schemaOfTypes.js";
-import { ProjectSettingSchemaType } from "../../types/projectType/projectSetting.Types.js";
+import { LimitTypeEnum, ProjectSettingSchemaType } from "../../types/projectType/projectSetting.Types.js";
 import { ReportFormat } from "../../types/report.Types.js";
 
 
@@ -22,8 +22,19 @@ const projectSettingsSchemaDefinition: SchemaOf<ProjectSettingSchemaType> = {
     * If userAgent is not provided then default user agent will be used
     */
     userAgent: { type: String, default: null },
-    createdAt: { type: Date, required: true },
-    updatedAt: { type: Date, required: true },
+    crawlLimit: {
+        type: {
+            type: String,
+            enum: Object.values(LimitTypeEnum),
+            required: true
+        },
+        value: {
+            type: Number,
+            min: 1,
+            required: true
+        }
+    },
+
 }
 
 

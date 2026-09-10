@@ -35,6 +35,7 @@ await createConsumerGroup({
 const emailConsumer = emailConsumerConfig(redisClient, os.hostname());
 
 async function main() {
+  console.log("email worker is running...........")
   while (true) {
     const message = await emailConsumer.consume();
     if (!message || message.length === 0 || !message[0]?.message) {

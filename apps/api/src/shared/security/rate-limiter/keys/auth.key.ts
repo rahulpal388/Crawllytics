@@ -56,14 +56,6 @@ export const authRateLimitKey = {
             identifier: req.ip,
         });
     },
-    verifyOtpByEmail: (req: Request) => {
-        return createRateLimiterKey({
-            resource: AUTH_RESOURCE,
-            action: "verify-otp",
-            dimension: "email",
-            identifier: normalize(req.body.email),
-        });
-    },
     forgetPasswordByIp: (req: Request) => {
         if (!req.ip) {
             throw new Error("Client IP is unavailable");

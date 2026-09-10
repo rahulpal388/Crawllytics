@@ -15,7 +15,6 @@ export function RateLimitMiddleware<TPolicy>(
         for (const rule of rules) {
             const key = rule.key(req);
             const policy = rule.policy;
-
             const result = await algorithm.consume(key, policy);
             if (!result.allowed) {
                 res.setHeader("Retry-After", result.retryAfter);
@@ -24,9 +23,10 @@ export function RateLimitMiddleware<TPolicy>(
                     retryAfter: result.retryAfter,
                 });
             }
+
+
         }
 
-        console.log("Rate limit passed for all rules");
 
         next();
 

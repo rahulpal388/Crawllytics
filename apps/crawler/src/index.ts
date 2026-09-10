@@ -5,16 +5,10 @@ import { crawlConsumerConfig } from "@repo/redis/streams/consumers/crawlConsumer
 import { createConsumerGroup } from "@repo/redis/client/createConsumerGroup";
 import { urlDeDuplication } from "@repo/redis/stores/deduplication/urlDeDuplication";
 import { fetchWebPageAndNetworkInfo } from "@/fetchWebPageAndNetworkInfo.js";
-import { RedirectChainType } from "@repo/contract/types/urlInformationType/eachUrlNetworkTypes";
-import { getGatherInformation } from "@/gatherInformation.js";
-import { urlCrawledRepository } from "@repo/db/repository/urlCrawledRepository";
-import { crawlStateStore } from "@repo/redis/stores/crawlState/crawlState";
 import { crawlPublisherConfig } from "@repo/redis/streams/publishers/crawlPublisher";
-import { isUrlCrawlAllowed } from "@/utils/isUrlCrawlAllowed.js";
 import { connectDB } from "@repo/db/index";
-import { seedUrlRepository } from "@repo/db/repository/seedUrlRepository";
-import { logger } from "@repo/lib/logger";
-import os from "os";
+import os from "os"
+import { randomBytes } from "crypto";
 
 const env = validateEnv();
 
@@ -43,10 +37,13 @@ await createConsumerGroup({
   group: "crawl_stream_group",
 });
 
-const crawlConsumer = crawlConsumerConfig(redisClient, os.hostname());
+
+const consumerClient = `${os.hostname}${randomBytes(12).toString("hex")}`
+
+console.log(`consumer client name ${consumerClient}`)
+const crawlConsumer = crawlConsumerConfig(redisClient, consumerClient);
 
 export const urlDeDuplicateStore = urlDeDuplication(redisClient);
-export const urlCrawledSt = crawlStateStore(redisClient);
 export const crawlPublisher = crawlPublisherConfig(redisClient);
 
 async function main() {
@@ -55,119 +52,11 @@ async function main() {
     if (!message || message.length === 0 || !message[0]?.message) {
       continue;
     }
-    console.log("Message Received");
     const msg = message[0].message;
 
-    // ##################################################
-    // fetch the content of URL
-    // ##################################################
-    const redirectChain: RedirectChainType[] = [];
-    const url = new URL(msg.url);
-    const { success, data } = await fetchWebPageAndNetworkInfo(url, redirectChain);
+    console.log("Message Received", msg);
 
-    if (!success) {
-      // failed to fetch
-      // update the crawl failure in crawlStore
-      console.log(`Failed to fetch URL: ${msg.url}, Error: ${data}`);
-      continue;
-    }
 
-    // ##################################################
-    // gather the information from the fetched content
-    // ##################################################
-
-    const html = data.html;
-    const gatherInfo = await getGatherInformation(html, url, parseInt(msg.depth));
-
-    // ##################################################
-    //  store the gathered information in the database
-    // ##################################################
-
-    const urlCrawled = await urlCrawledRepository.addUrlCrawled({
-      networkInfo: data.eachUrlNetwork,
-      ...gatherInfo.info,
-      analyzedUrlData: null,
-    });
-
-    if (!urlCrawled.success || !urlCrawled.data) {
-      // error while storing the crawled data in database
-      // put the url back again to the stream
-
-      continue;
-    }
-
-    await seedUrlRepository.updateUrlCrawled(msg._id, urlCrawled.data._id);
-
-    // ##################################################
-    //  update the crawlStatus store
-    // ##################################################
-
-    await urlCrawledSt.incCrawledUrls(msg.storeId);
-
-    // ##################################################
-    //  put the unqiue crawable internal links back to      stream
-    //  and update the deduplication store
-    // ##################################################
-
-    for (const link of gatherInfo.uniqueInternalLinks) {
-      // check for url depth
-
-      const urlCrawledInfo = await urlCrawledSt.get(msg.storeId);
-      console.log("discovered urls", urlCrawledInfo?.discoveredUrls);
-      if (!urlCrawledInfo) {
-        logger.error({
-          message: "Crawl state not found for storeId",
-          path: " apps/crawler/src/index.ts",
-          metaData: { storeId: msg.storeId },
-        });
-        break;
-      }
-
-      if (urlCrawledInfo.maxUrlsToCrawl <= urlCrawledInfo.discoveredUrls) {
-        break;
-      }
-
-      if (parseInt(msg.depth) >= parseInt(msg.maxDepth)) {
-        continue;
-      }
-
-      const isDuplicate = await urlDeDuplicateStore.isMember(msg.deDuplicateId, link);
-
-      if (isDuplicate) {
-        continue;
-      }
-
-      // get robotsTxt
-
-      if (!urlCrawledInfo.robotsTxt) {
-        continue;
-      }
-
-      const isCrawlable = isUrlCrawlAllowed(link, urlCrawledInfo.robotsTxt.userAgents);
-
-      if (!isCrawlable) {
-        // this url is not allow to crawl by robots.txt
-        continue;
-      }
-
-      await urlCrawledSt.incDiscoveredUrls(msg.storeId);
-
-      await crawlPublisher.enqueue({
-        ...msg,
-        url: link,
-        depth: (parseInt(msg.depth) + 1).toString(),
-      });
-    }
-
-    // ##################################################
-    //  check completion of crawl of seed URL
-    // ##################################################
-
-    const isComplete = await urlCrawledSt.isComplete(msg.storeId);
-
-    if (isComplete) {
-      console.log(`Crawl completed for seed URL: ${msg.seedUrl}`);
-    }
   }
 }
 

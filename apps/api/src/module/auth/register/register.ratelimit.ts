@@ -43,11 +43,8 @@ export function verifyOtpRateLimit(
             {
                 key: authRateLimitKey.verifyOtpByIp,
                 policy: authRateLimitPolicies.verifyOtp
-            },
-            {
-                key: authRateLimitKey.verifyOtpByEmail,
-                policy: authRateLimitPolicies.verifyOtp
             }
+
         ]
     )
     return midd(req, res, next);

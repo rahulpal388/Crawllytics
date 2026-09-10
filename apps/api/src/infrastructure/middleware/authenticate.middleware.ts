@@ -1,14 +1,14 @@
 import cookieService from "@/shared/auth/cookies/cookie.service.js";
 import { NextFunction, Request, Response } from "express";
 import { sessionService } from "@/app/server.js";
+import { ApiError } from "@/shared/error/apiError.js";
 
 export async function authenticateMiddleware(req: Request, res: Response, next: NextFunction) {
 
     const sessionId = cookieService.getSessionId(req);
 
     if (!sessionId) {
-        req.user = null;
-        return next();
+        throw ApiError.unauthorized("User is not authenticated");
     }
 
 
@@ -16,8 +16,7 @@ export async function authenticateMiddleware(req: Request, res: Response, next: 
 
     if (!sessionUser) {
         cookieService.clearCookie(res);
-        req.user = null;
-        return next();
+        throw ApiError.unauthorized("User is not authenticated");
     }
 
     req.user = { ...sessionUser, sessionId };

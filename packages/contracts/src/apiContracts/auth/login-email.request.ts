@@ -1,6 +1,6 @@
 import z from "zod";
-import { emailSchema } from "./common/email-schema.js";
-import { passwordSchema } from "./common/password.schema.js";
+import { emailSchema } from "../common/email-schema.js";
+import { passwordSchema } from "../common/password.schema.js";
 
 
 

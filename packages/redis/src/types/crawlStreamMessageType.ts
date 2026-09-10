@@ -1,11 +1,45 @@
 
+/*
+* CrawlStreamMessageType : type of message that will be sent to the crawl stream
+*/
 export type CrawlStreamMessageType = {
-  _id: string;
+  projectId: string;
   storeId: string;
-  deDuplicateId: string;
-  seedUrl: string;
+  type: "link"
   url: string;
-  maxDepth: string;
-  depth: string;
+  limit: {
+    type: "pages" | "depth",
+    currValue: number
+  }
 };
 
+
+export type LinkInfoType = {
+  limit: {
+    type: "pages" | "depth";
+    value: number;
+    // current value is either depth or number of pages crawled, depending on the limit type
+    currentValue: number;
+  },
+  totalUrl: number;
+  crawledUrl: number;
+} | null;
+
+
+export type UserAgentType = {
+  userAgent: string[];
+  allow: string[];
+  disallow: string[];
+};
+
+
+/*
+* CrawlInfoStoreType : type of data that will be stored in the redis hash store for each crawl project
+*/
+
+export type CrawlInfoStoreType = {
+  projectId: string;
+  status: "in-progress" | "completed" | "analyzing" | "failed";
+  linkInfo: LinkInfoType;
+  userAgentInfo: UserAgentType[];
+}

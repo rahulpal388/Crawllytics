@@ -1,28 +1,19 @@
-export type AppErrorOptions = {
-    errorMessage: string;
-    details?: Record<string, unknown>;
-};
+import { ApiErrorCode, ApiErrorDataMap } from "@repo/contracts/apiContracts/error/errorTemplets.types";
 
-export class AppError extends Error {
-    public readonly statusCode: number;
-    public readonly errorMessage: string;
-    public readonly details?: Record<string, unknown>;
+
+
+export class AppError<K extends ApiErrorCode = ApiErrorCode> extends Error {
 
     constructor(
+        public readonly code: K,
+        public readonly statusCode: number,
         message: string,
-        statusCode: number,
-        options: AppErrorOptions = {
-            errorMessage: "An unexpected error occurred"
-        },
+        public readonly data?: ApiErrorDataMap[K]
     ) {
         super(message,);
-
         this.name = "AppError";
-        this.statusCode = statusCode;
-        this.errorMessage = options.errorMessage;
-        this.details = options.details;
 
-        Error.captureStackTrace(this, AppError);
+        // Error.captureStackTrace(this, AppError);
     }
 }
 

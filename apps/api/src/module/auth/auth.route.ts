@@ -11,6 +11,9 @@ import { verifyForgetPasswordController } from "@/module/auth/forget-password/ve
 import { forgetPasswordRateLimit, verifyForgetPasswordRateLimit } from "@/module/auth/forget-password/forget-password.ratelimit.js";
 import { googleController } from "@/module/auth/google/google.controller.js";
 import { googleCallbackController } from "@/module/auth/google/googleCallback.controller.js";
+import { AuthenticatedUserType } from "@/shared/types/authenticatedUserInfo.js";
+import { Request } from "express";
+import { authenticateMiddleware } from "@/infrastructure/middleware/authenticate.middleware.js";
 
 
 const authRouter = Router();
@@ -25,11 +28,20 @@ authRouter.post("/register/verify-otp", verifyOtpRateLimit, verifyRegistrationOT
 authRouter.post("/password-reset", forgetPasswordRateLimit, forgetPasswordController);
 authRouter.post("/password-reset/verify", verifyForgetPasswordRateLimit, verifyForgetPasswordController);
 
+
+/*
+* TODO :
+    1. Add the rate limiters for the google auth routes
+*/
+
 authRouter.get("/google", googleController);
 authRouter.get("/google/callback", googleCallbackController)
 
+
+
 //  logout user
-authRouter.get("/logout", logoutController)
+
+authRouter.get("/logout", authenticateMiddleware, logoutController)
 
 
 export default authRouter;

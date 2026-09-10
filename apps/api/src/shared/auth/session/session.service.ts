@@ -5,6 +5,7 @@ import { loginActivityRepository } from "@repo/db/repository/loginActivityRespos
 import { LoginActivitySchemaType } from "@repo/db/types/logActivitySchema.Types";
 import { HashStoreType } from "@repo/redis/stores/hashStore";
 import mongoose from "mongoose";
+import { ApiError } from "@/shared/error/apiError.js";
 
 export const SESSION_EXPIRATION_TIME = 3600;
 
@@ -41,7 +42,7 @@ export class SessionService {
             )
             return sessionId;
         } catch (error) {
-            throw new AppError("Failed to create session", 500, { errorMessage: error instanceof Error ? error.message : "Unknown error" });
+            throw ApiError.internal("Failed to create session");
         }
     }
 

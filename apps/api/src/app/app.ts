@@ -12,7 +12,6 @@ import requestLogMiddleware from "@/infrastructure/middleware/requestLog.middlew
 import { ValidateEnv } from "@/lib/validateEnv.js";
 import { requestIdMiddleware } from "@/infrastructure/middleware/requestId.middleware.js";
 import cookieParser from "cookie-parser"
-import { authenticateMiddleware } from "@/infrastructure/middleware/authenticate.middleware.js";
 
 export const env = ValidateEnv();
 export const app = express();
@@ -34,11 +33,6 @@ app.use(requestIdMiddleware)
 
 app.use(requestLogMiddleware);
 
-/*
-* authenticateMiddleware : This middleware authenticates the user and attaches the user object to the request.
-*/
-
-app.use(authenticateMiddleware)
 
 
 

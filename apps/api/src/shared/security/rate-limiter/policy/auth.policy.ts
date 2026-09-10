@@ -17,7 +17,7 @@ export const authRateLimitPolicies = {
         windowMs: 15 * 60 * 1000,
     },
     verifyOtp: {
-        limit: 5,
+        limit: 15,
         windowMs: 15 * 60 * 1000,
     },
     forgetPassword: {

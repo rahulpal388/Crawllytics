@@ -1,21 +1,16 @@
 import { Request, Response, NextFunction } from "express";
 
 import { crawlProjectRequestSchema } from "@repo/contracts/apiContracts/project/crawl.request";
-import { AppError } from "@/shared/error/appError.js";
-
+import crawlService from "./crawl.service.js"
+import { ApiError } from "@/shared/error/apiError.js";
 
 export async function CrawlProjectController(req: Request, res: Response, next: NextFunction) {
-    const user = req.user;
-
-    if (!user) {
-        throw new AppError("Invalid request, user not logged in", 401);
-    }
-
-    const { success, data, error } = crawlProjectRequestSchema.safeParse(req.params);
-
+    const { success, data, error } = crawlProjectRequestSchema.safeParse(req.query);
 
     if (!success) {
-        return next(error);
+        throw ApiError.validation(error)
     }
-    res.status(200).json({ message: "Crawl project endpoint", crawlProjectId: data.projectId });
+    const response = await crawlService.start(data);
+
+    res.status(200).json(response);
 }

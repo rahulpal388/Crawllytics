@@ -8,6 +8,8 @@ import hashService from "@/shared/security/hash/hash.service.js";
 import { verifyForgetPasswordRequestType } from "@repo/contracts/apiContracts/auth/forget-password.request";
 import { authIdentityRepository } from "@repo/db/repository/authIdentityRepository";
 import mongoose from "mongoose";
+import { ApiError } from "@/shared/error/apiError.js";
+
 
 const PASSWORD_RESET_TOKEN_EXPIRATION = 15 * 60; // 15 minutes in seconds
 
@@ -40,7 +42,7 @@ class ForgetPasswordService {
         const user = await userRepository.findByEmail(email);
 
         if (!user) {
-            throw new AppError("user not found with this email", 404);
+            throw ApiError.userNotFound();
         }
 
 
@@ -85,7 +87,7 @@ class ForgetPasswordService {
         const userData = await hashStore.get<PasswordResetTokenDataType>(key);
 
         if (!userData) {
-            throw new AppError("Link has expired", 400);
+            throw ApiError.linkExpired();
         }
 
         const hashPassword = await hashService.hash(data.newPassword)
