@@ -4,9 +4,9 @@ import { projectRepository } from "@repo/db/repository/projectRepository";
 import { projectSettingRepository } from "@repo/db/repository/projectSettingRepository"
 import { extractRobotsTxt } from "@/lib/extractRobotTxt.js";
 import { ApiError } from "@/shared/error/apiError.js";
-import { crawlPublisher, hashStore } from "@/app/server.js";
+import { crawlPublisher, crawlStore } from "@/app/server.js";
 import { ApiResponseType } from "@repo/contracts/apiContracts/apiResponse/apiResponseTemplete";
-import { CrawlInfoStoreType } from "@repo/redis/types/crawlStreamMessageType";
+
 
 
 
@@ -28,13 +28,12 @@ const NEXT_CRAWL_INTERVAL = 5 * 24 * 60 * 60 * 1000; // 5 days in milliseconds
 
 class CrawlService {
 
-    private getCrawlStoreKey(projectId: string) {
-        return `crawl:info:${projectId}`;
-    }
-
-
     async start(data: crawlProjectRequestType): Promise<ApiResponseType> {
-        const storeKey = this.getCrawlStoreKey(data.projectId.toString());
+        const isCrawlerRunning = await crawlStore.get(data.projectId.toString());
+
+        if (isCrawlerRunning) {
+            throw ApiError.crawlAlreadyRunning(crawlStore.getKey(data.projectId.toString()));
+        }
 
 
 
@@ -52,28 +51,30 @@ class CrawlService {
         }
 
         // fetch the robots.txt urls and format and store in crawlInfoStore
-        // const robotTxt = await extractRobotsTxt(projectSetting.robotsTxtUrls, project.domain);
+        const robotTxt = await extractRobotsTxt(projectSetting.robotsTxtUrls, project.domain);
 
 
 
-        //         await hashStore.set<CrawlInfoStoreType>({
-        //             storeKey,
-        // {
-        //                 projectId: project._id.toString(),
-        //                 status: "in-progress",
-        //                 linkedInfo: {
-        //                     type:projectSetting.crawlLimit.type,
-        //                     value:projectSetting.crawlLimit.value,
-        //                     currentValue:12
-        //                 },
-        //                 total
-        //             }
-        //         })
+        await crawlStore.set(data.projectId.toString(), {
+            projectId: project._id.toString(),
+            isGatheredDomainInfo: false,
+            status: "in-progress",
+            linkInfo: {
+                limit: {
+                    type: projectSetting.crawlLimit.type,
+                    value: projectSetting.crawlLimit.value,
+                    currentValue: projectSetting.crawlLimit.type === "depth" ? 0 : 1
+                },
+                totalUrl: 1,
+                crawledUrl: 0,
+            },
+            userAgentInfo: robotTxt
+        })
 
         await crawlPublisher.enqueue({
             projectId: project._id.toString(),
-            storeId: storeKey,
-            type: "link",
+            storeId: crawlStore.getKey(data.projectId.toString()),
+            type: "domain",
             url: project.domain,
             limit: {
                 type: projectSetting.crawlLimit.type,
@@ -85,9 +86,6 @@ class CrawlService {
             success: true,
             message: `Crawl started for project ${project._id.toString()}`,
         }
-
-
-
     }
 
 }

@@ -17,38 +17,8 @@ export async function getGatherInformation(
   html: string,
   url: URL,
   crawlDepth: number,
-): Promise<{ info: GatherInformationType } & { uniqueInternalLinks: string[] }> {
-  const $ = cheerio.load(html);
-
-  const htmlHeader = htmlHeaderExtractor($, url);
-  const htmlHeadingContent = htmlHeadingContentsExtractor($);
-
-  const linksData = htmlLinksExtractor($, url);
-  const internalLinks = linksData.links.filter((link) => link.isInternal);
-  const uniqueInternalLinks = Array.from(new Set(linksData.internalLinks));
-  const media = await htmlMediaExtractor($, url);
-  const structureData = htmlStructureData($);
-  const UIUX = getMobileHtmlData($, url);
-  const url_Analyses = urlAnalyses(url, crawlDepth);
-  const performance = performanceSignal($, url);
-  const document = htmlDocument($, html);
-  const accessibility = accessibilityInfo($);
-
-  return {
-    info: {
-      htmlHeader,
-      htmlHeadingContent,
-      links: internalLinks,
-      media,
-      structureData,
-      mobileUIUX: UIUX,
-      urlAnalyses: url_Analyses,
-      performanceSignals: performance,
-      htmlDocument: document,
-      accessibility,
-    },
-    uniqueInternalLinks,
-  };
+) {
+  console.log("Gathering Information for URL:", url.href);
 }
 
 

@@ -8,29 +8,43 @@ export type RedirectChainType = {
   statusCode: number;
 };
 
+export type FetchErrorType = {
+  code: "DNS_FAILURE" | "CONNECTION_REFUSED" | "TLS_ERROR" | "TIMEOUT" | "TOO_MANY_REDIRECTS" | "UNKNOWN";
+  message: string;
+};
+
+
 export type EachUrlNetworkResultTypes = {
-  url: string;
-  statusCode: number;
-  httpVersion: "HTTP/1.0" | "HTTP/1.1" | "HTTP/2" | "HTTP/3";
-  method: string;
-  protocol: "http" | "https";
+  requestedUrl: string;
+  finalUrl: string;
+  method: "GET";
+  protocol: "http:" | "https:";
+  httpVersion: "HTTP/1.0" | "HTTP/1.1" | "HTTP/2" | "HTTP/3" | null; // null on fetch failure
 
-  dnsLookupTime: number; // (ms)
-  tcpConnectTime: number; // (ms)
-  tlsHandshakeTime: number; // (ms)
-  timeToFirstByte: number; // (ms)
-  totalResponseTime: number; // (ms)
+  statusCode: number | null;
+  fetchError: FetchErrorType | null;
 
-  transferSize: number; // (bytes, gzipped)
-  uncompressedSize: number; // (bytes)
+  ipAddress: string | null;
+  cdnProvider: string | null;
+
+  dnsLookupTime: number | null;
+  tcpConnectTime: number | null;
+  tlsHandshakeTime: number | null | null;
+  timeToFirstByte: number | null;
+  totalResponseTime: number | null;
+  connectionReused: boolean;
+
+
+  contentType: string | null;
+  transferSize: number;
+  uncompressedSize: number;
   compressionEncoding: CompressionEncodingType;
+  isCompressed: boolean;
 
   redirectChain: RedirectChainType[];
   isRedirectLoop: boolean;
-  isCompressed: boolean;
 
-  cdnProvider: string | null; // detect from CF-Ray, X-Cache, X-Served-By headers
+  retryCount: number;
 
-  responseHeaders: ResponseHeadersType;
+  // responseHeaders: ResponseHeadersType;
 };
-

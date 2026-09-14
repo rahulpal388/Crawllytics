@@ -5,7 +5,7 @@
 export type CrawlStreamMessageType = {
   projectId: string;
   storeId: string;
-  type: "link"
+  type: "domain";
   url: string;
   limit: {
     type: "pages" | "depth",
@@ -37,9 +37,12 @@ export type UserAgentType = {
 * CrawlInfoStoreType : type of data that will be stored in the redis hash store for each crawl project
 */
 
+export type CrawlInfoStoreStatusType = "in-progress" | "completed" | "analyzing" | "failed";
+
 export type CrawlInfoStoreType = {
   projectId: string;
-  status: "in-progress" | "completed" | "analyzing" | "failed";
+  isGatheredDomainInfo: boolean;
+  status: CrawlInfoStoreStatusType;
   linkInfo: LinkInfoType;
   userAgentInfo: UserAgentType[];
 }

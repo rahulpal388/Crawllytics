@@ -11,7 +11,7 @@ import { OtpService } from "@/shared/auth/otp/otp.service.js";
 import geoIpService from "@/lib/getLocation.js";
 import { SlidingWindow } from "@repo/rate-limiter/algo/silidingWindow";
 import { GoogleService } from "@/module/auth/google/google.service.js";
-
+import { crawlInfoStoreConfig } from "@repo/redis/stores/crawl-store/crawlInfoStore";
 
 
 /*
@@ -28,6 +28,7 @@ export const {
     sortedSetStore,
     hashStore
 } = initilizeRedisStores(redisClient);
+export const crawlStore = new crawlInfoStoreConfig(redisClient);
 
 /*
 *   connect to the database

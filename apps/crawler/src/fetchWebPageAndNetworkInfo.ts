@@ -1,19 +1,40 @@
-import { deCompress } from "@/utils/eachNetworkUrl/deCompress.js";
-import { handleRedirect } from "@/utils/eachNetworkUrl/handleRedirect.js";
-import { parseResponseHeader } from "@/utils/eachNetworkUrl/parseResponseHeader.js";
-import {
-  CompressionEncodingType,
-  EachUrlNetworkResultTypes,
-  RedirectChainType,
-} from "@repo/contract/types/urlInformationType/eachUrlNetworkTypes";
-import { findCdnProvider } from "@repo/lib/findCdnProvider";
-import { getUnCompressedSize } from "@repo/lib/getUnCompressedSize";
-import https from "https";
-import { headerConfig } from "@repo/contract/constant/fetchHeaderConfig";
+import { getHttpClient, getHttpAgent } from "@/lib/getHttpClient.js";
+import { EachUrlNetworkResultTypes, RedirectChainType } from "@repo/contracts/types/urlInformationType/eachUrlNetworkTypes";
+import http from "node:http";
+import { performance } from "node:perf_hooks";
+import { TLSSocket } from "node:tls";
+import { headerConfig } from "@repo/contracts/constant/fetchHeaderConfig"
+import { SocketAddress } from "node:net";
+import { permission } from "node:process";
+import { normalizeURL } from "@/lib/normalizeUrl.js";
+import { normalizeHttpVersion } from "@/lib/getNormalizeHttpVersion.js";
+import { getFetchError } from "@/lib/getFetchError.js";
+import https from "node:https";
 
-export async function fetchWebPageAndNetworkInfo(
+const REDIRECT_LIMIT = 3;
+const REDIRECT_STATUS_CODES = new Set([
+  301,
+  302,
+  303,
+  307,
+  308,
+]);
+
+const SET_TIMEOUT = 30_000
+
+const REQUEST_OPTIONS: http.RequestOptions = {
+  method: "GET",
+  headers: headerConfig,
+  timeout: SET_TIMEOUT,
+
+}
+
+
+export async function fetchPageAndNetworkInfo(
   url: URL,
   redirectChain: RedirectChainType[],
+  visitedUrls: Set<string>,
+  isRedirectLoop: boolean
 ): Promise<
   | {
     success: true;
@@ -24,164 +45,207 @@ export async function fetchWebPageAndNetworkInfo(
   }
   | {
     success: false;
-    data: null;
+    data: {
+      eachUrlNetwork: EachUrlNetworkResultTypes;
+    };
   }
 > {
+
   return new Promise((resolve) => {
-    const req = https.get(url, {
-      headers: headerConfig,
-    });
+    const client = getHttpClient(url.protocol);
+    const agent = getHttpAgent(url.protocol);
 
-    let timeToFirstByte = performance.now();
-    let totalResponseTime = performance.now();
-    let html = "";
-    let isRedirectLoop = false;
-    let isCompressed = false;
-    let transferSize = 0;
-    let buffer: Buffer[] = [];
-    let uncompressedSize = 0;
-    let compressionEncoding: CompressionEncodingType = null;
-    let cdnProvider: string | null = null;
 
-    req.on("response", async (res) => {
-      timeToFirstByte = performance.now() - timeToFirstByte;
-      isCompressed = !!res.headers["content-encoding"];
-      cdnProvider = findCdnProvider(res.headers as Record<string, string>);
 
-      // ###################################################
-      // handle redirects
-      // ###################################################
-      const statusCode = res.statusCode;
-      if (statusCode && statusCode.toString().startsWith("3")) {
-        const redirect = await handleRedirect(res, redirectChain);
-        isRedirectLoop = redirect.isRedirectLoop;
-        if (redirect.isRedirect && redirect.redirectUrl && !redirect.isRedirectLoop) {
-          redirectChain.push({
-            sourceUrl: url.href,
-            redirectedTo: redirect.redirectUrl,
-            statusCode,
-          });
-          const redirectUrl = new URL(redirect.redirectUrl, url);
-          const redirectResult = await fetchWebPageAndNetworkInfo(redirectUrl, redirectChain);
-          return resolve(redirectResult);
-        } else {
-          return resolve({
-            success: false,
-            data: null,
-          });
+
+    let dnsLookupTime: number | null = null;
+    let tcpConnectTime: number | null = null;
+    let tlsHandshakeTime: number | null = null;
+    let ipAddress: string | null = null;
+    let timeToFirstByte: number | null = null;
+    let totalResponseTime: number | null = null;
+    let connectionReused: boolean = false;
+    let timeOut = false;
+    let transferSize: number = 0;
+
+    let firstByteReceived = false;
+
+
+
+    const start = performance.now();
+
+
+    const req = client.request(url, { ...REQUEST_OPTIONS, agent },
+
+      (res) => {
+        console.log(`Response received for URL: ${url.href}`);
+        const statusCode = res.statusCode ?? null;
+
+        /*
+        * Check the status code for redirection.
+        */
+        if (statusCode && !isRedirectLoop && redirectChain.length <= REDIRECT_LIMIT) {
+          const isRedirect = REDIRECT_STATUS_CODES.has(statusCode);
+          const newUrl = normalizeURL(res.headers.location ?? "", url.href);
+          if (isRedirect && newUrl) {
+
+            // check for redirect loop
+            if (visitedUrls.has(newUrl.href)) {
+              //  redirect loop detected
+              isRedirectLoop = true;
+            }
+
+            // add the url to visitedUrls
+            visitedUrls.add(newUrl.href);
+
+
+            // create a redirect chain
+            redirectChain.push({
+              sourceUrl: url.href,
+              redirectedTo: newUrl.href,
+              statusCode
+            })
+            // HTTP agent may keep sockets occupied and this becomes especially problematic when crawling many URLs.
+            res.resume();
+            resolve(
+              fetchPageAndNetworkInfo(newUrl, redirectChain, visitedUrls, isRedirectLoop)
+            )
+          }
+        }
+
+        const chunks: Buffer[] = [];
+        res.on("data", (chunk: Buffer) => {
+          if (!firstByteReceived) {
+            timeToFirstByte = performance.now() - start;
+            firstByteReceived = true;
+          }
+          chunks.push(chunk)
+          transferSize += chunk.length;
+        });
+
+        res.on("end", () => {
+          totalResponseTime = performance.now() - start;
+          const bufferBody = Buffer.concat(chunks)
+          const html = bufferBody.toString("utf-8")
+          console.log("Content-Encoding:", res.headers["content-encoding"]);
+          console.log("Content-Type:", res.headers["content-type"]);
+          resolve({
+            success: true,
+            data: {
+              html,
+              eachUrlNetwork: {
+                requestedUrl: redirectChain.length === 0 ? url.href : redirectChain[0]!.sourceUrl,
+                finalUrl: url.href,
+                method: res.method as "GET",
+                protocol: url.protocol as "http:" | "https:",
+                httpVersion: normalizeHttpVersion(res.httpVersion),
+                statusCode,
+                fetchError: null,
+                ipAddress,
+                cdnProvider: null,
+                dnsLookupTime,
+                tlsHandshakeTime,
+                tcpConnectTime,
+                timeToFirstByte,
+                totalResponseTime,
+                connectionReused,
+
+                contentType: res.headers["content-type"] ?? null,
+                transferSize,
+                uncompressedSize: 0,
+                compressionEncoding: null,
+                isCompressed: false,
+
+                redirectChain,
+                isRedirectLoop,
+                retryCount: 0
+              }
+            }
+          })
+        })
+      }
+    )
+
+
+
+    req.on("socket", (socket) => {
+      ipAddress = socket.remoteAddress ?? null
+      connectionReused = req.reusedSocket;
+      if (!req.reusedSocket) {
+        const socketStart = performance.now();
+
+
+        socket.once("lookup", () => {
+          dnsLookupTime = performance.now() - socketStart;
+        })
+
+        socket.once("connect", () => {
+          tcpConnectTime = performance.now() - socketStart;
+        })
+
+        if (url.protocol === "https:") {
+          const tlsSocket = socket as TLSSocket;
+          tlsSocket.once("secureConnect", () => {
+            tlsHandshakeTime = performance.now() - socketStart;
+          })
         }
       }
+    })
 
-      // ###################################################
-      // Return if the content is not HTML
-      // ###################################################
-
-      const contentType = res.headers["content-type"];
-
-      if (!contentType?.includes("text/html")) {
-        return resolve({
-          success: false,
-          data: null,
-        });
+    req.setTimeout(
+      SET_TIMEOUT,
+      () => {
+        timeOut = true;
+        req.destroy(new Error("Request timed out"));
       }
+    )
 
-      // ###################################################
-      // collect header information
-      // ###################################################
 
-      const header = parseResponseHeader(res);
 
-      res.on("data", (chunk) => {
-        transferSize += chunk.length;
-        buffer.push(chunk);
-      });
+    req.on("error", (err: NodeJS.ErrnoException) => {
+      const fetchError = getFetchError(err, timeOut);
 
-      res.on("end", () => {
-        totalResponseTime = performance.now() - totalResponseTime;
-        compressionEncoding = (res.headers["content-encoding"] as CompressionEncodingType) ?? null;
-        html = deCompress(Buffer.concat(buffer), compressionEncoding);
-        uncompressedSize = compressionEncoding
-          ? getUnCompressedSize(buffer, compressionEncoding)
-          : transferSize;
-        resolve({
-          success: true,
-          data: {
-            html,
-            eachUrlNetwork: {
-              url: url.href,
-              statusCode: res.statusCode ?? 0,
-              httpVersion: `HTTP/${res.httpVersion}` as "HTTP/1.1" | "HTTP/2" | "HTTP/3",
-              method: "GET",
-              protocol: url.protocol.replace(":", "") as "http" | "https",
-              dnsLookupTime,
-              tcpConnectTime: tcpConnectTime ?? 0,
-              tlsHandshakeTime: tlsHandshakeTime ?? 0,
-              timeToFirstByte,
-              totalResponseTime,
-              transferSize,
-              uncompressedSize,
-              compressionEncoding,
-              redirectChain,
-              isRedirectLoop,
-              isCompressed,
-              cdnProvider,
-              responseHeaders: {
-                hsts: header.hsts,
-                csp: header.csp,
-                xFrameOptions: header.xFrameOptions,
-                xContentType: header.xContentType,
-                referrerPolicy: header.referrerPolicy,
-                permissionsPolicy: header.permissionsPolicy,
-                xRobotsTag: header.xRobotsTag,
-                cacheControl: header.cacheControl,
-                etag: header.etag,
-                lastModified: header.lastModified,
-                vary: header.vary,
-              },
-            },
-          },
-        });
-      });
-    });
-
-    // ###################################################
-    // Network Timing Metrics Collection
-    // ###################################################
-
-    let dnsLookupTime = performance.now();
-    let tcpConnectTime: number;
-    let tlsHandshakeTime: number; // will be 0 for http
-    req.on("socket", (socket) => {
-      socket.on("lookup", () => {
-        dnsLookupTime = performance.now() - dnsLookupTime;
-      });
-      tcpConnectTime = performance.now();
-
-      socket.on("connect", () => {
-        tcpConnectTime = performance.now() - tcpConnectTime;
-      });
-
-      tlsHandshakeTime = performance.now();
-      socket.on("secureConnect", () => {
-        tlsHandshakeTime = performance.now() - tlsHandshakeTime;
-      });
-    });
-
-    req.setTimeout(10_000, () => {
-      req.destroy();
       resolve({
         success: false,
-        data: null,
-      });
-    });
+        data: {
+          eachUrlNetwork: {
+            requestedUrl: redirectChain.length === 0 ? url.href : redirectChain[0]!.sourceUrl,
+            finalUrl: url.href,
+            method: req.method as "GET",
+            protocol: url.protocol as "http:" | "https:",
+            httpVersion: null,
+            statusCode: null,
+            fetchError,
+            ipAddress,
+            cdnProvider: null,
+            dnsLookupTime,
+            tlsHandshakeTime,
+            tcpConnectTime,
+            timeToFirstByte,
+            totalResponseTime,
+            connectionReused,
 
-    req.on("error", () => {
-      resolve({
-        success: false,
-        data: null,
-      });
-    });
-  });
+            contentType: null,
+            transferSize,
+            uncompressedSize: 0,
+            compressionEncoding: null,
+            isCompressed: false,
+
+            redirectChain,
+            isRedirectLoop,
+            retryCount: 0
+          }
+        }
+      })
+
+    })
+
+    req.end();
+
+  })
+
+
+
 }
 
 
