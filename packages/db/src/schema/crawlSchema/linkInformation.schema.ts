@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { HTMLLinksType, HTMLLinkType } from "../../../../contracts/src/types/urlInformationType/htmlLinksTypes.js";
+import { HTMLLinksType, HTMLLinkType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlLinksTypes";
 import { SchemaOf } from "../types/schemaOfTypes.js";
 
 const linkSchemaDefination: SchemaOf<HTMLLinkType> = {

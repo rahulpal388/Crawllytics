@@ -1,5 +1,5 @@
 import { getLinkData } from "@/utils/links/getLinkData.js";
-import { HTMLLinksType } from "@repo/contract/types/urlInformationType/htmlLinksTypes";
+import { HTMLLinksType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlLinksTypes";
 
 import * as cheerio from "cheerio";
 

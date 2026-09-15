@@ -1,4 +1,4 @@
-import { AccessibilityType } from "@repo/contract/types/urlInformationType/accessibilityTypes";
+import { AccessibilityType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/accessibilityTypes";
 import * as Cheerio from "cheerio";
 
 export function accessibilityInfo($: Cheerio.CheerioAPI): AccessibilityType {

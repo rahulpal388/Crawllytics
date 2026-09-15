@@ -4,7 +4,7 @@ import {
   JsonLdBlockType,
   BreadcrumbItemType,
   HTMLStructureDataType,
-} from "../../../../contracts/src/types/urlInformationType/htmlStructureDataTypes.js";
+} from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlStructureDataTypes";
 
 const jsonLdBlockSchemaDefination: SchemaOf<JsonLdBlockType> = {
   rawJson: { type: String },

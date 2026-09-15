@@ -1,4 +1,4 @@
-import { UrlAnalysesType } from "@repo/contract/types/urlInformationType/urlAnalysesTypes";
+import { UrlAnalysesType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/urlAnalysesTypes";
 
 export function urlAnalyses(url: URL, crawlDepth: number): UrlAnalysesType {
   const urlLength = url.href.length;

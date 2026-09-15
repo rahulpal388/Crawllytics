@@ -19,6 +19,32 @@ export async function getGatherInformation(
   crawlDepth: number,
 ) {
   console.log("Gathering Information for URL:", url.href);
+  const $ = cheerio.load(html);
+  const htmlHeader = htmlHeaderExtractor($, url);
+  const htmlDocumentInfo = htmlDocument($);
+  const htmlLinks = htmlLinksExtractor($, url);
+  const htmlMedia = htmlMediaExtractor($, url);
+  const htmlStructure = htmlStructureData($);
+  const urlAnalysis = urlAnalyses(url, crawlDepth);
+  const performanceSignals = performanceSignal($, url);
+  const accessibility = accessibilityInfo($);
+  const mobileUIUX = getMobileHtmlData($, url);
+  const htmlHeadingContent = htmlHeadingContentsExtractor($);
+
+  return {
+    htmlHeader,
+    htmlDocument: htmlDocumentInfo,
+    links: htmlLinks,
+    media: htmlMedia,
+    structureData: htmlStructure,
+    urlAnalyses: urlAnalysis,
+    performanceSignals: performanceSignals,
+    accessibility: accessibility,
+    mobileUIUX: mobileUIUX,
+    htmlHeadingContent: htmlHeadingContent,
+
+  }
 }
+
 
 

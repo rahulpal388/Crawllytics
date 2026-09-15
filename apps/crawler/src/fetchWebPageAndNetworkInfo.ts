@@ -1,15 +1,17 @@
 import { getHttpClient, getHttpAgent } from "@/lib/getHttpClient.js";
-import { EachUrlNetworkResultTypes, RedirectChainType } from "@repo/contracts/types/urlInformationType/eachUrlNetworkTypes";
+import { EachUrlNetworkResultTypes, RedirectChainType, CompressionEncodingType } from "@repo/contracts/types/crawl/urlCrawl/network/eachUrlNetworkTypes";
 import http from "node:http";
 import { performance } from "node:perf_hooks";
 import { TLSSocket } from "node:tls";
 import { headerConfig } from "@repo/contracts/constant/fetchHeaderConfig"
-import { SocketAddress } from "node:net";
-import { permission } from "node:process";
 import { normalizeURL } from "@/lib/normalizeUrl.js";
 import { normalizeHttpVersion } from "@/lib/getNormalizeHttpVersion.js";
 import { getFetchError } from "@/lib/getFetchError.js";
-import https from "node:https";
+import { unCompressEncoding } from "@/lib/uncompressEncoding.js";
+import { getCDNProvider } from "@/lib/getCDNProvider.js";
+import { getResponseHeader } from "@/lib/getResponseHeader.js";
+import { ResponseHeadersType } from "@repo/contracts/types/crawl/urlCrawl/network/responseHeadersTypes";
+
 
 const REDIRECT_LIMIT = 3;
 const REDIRECT_STATUS_CODES = new Set([
@@ -67,6 +69,9 @@ export async function fetchPageAndNetworkInfo(
     let connectionReused: boolean = false;
     let timeOut = false;
     let transferSize: number = 0;
+    let compressionEncoding: CompressionEncodingType = null;
+    let cdnProvider: string[] = [];
+    let responseHeaders: ResponseHeadersType | null = null;
 
     let firstByteReceived = false;
 
@@ -125,10 +130,12 @@ export async function fetchPageAndNetworkInfo(
 
         res.on("end", () => {
           totalResponseTime = performance.now() - start;
+          compressionEncoding = res.headers["content-encoding"] as CompressionEncodingType
           const bufferBody = Buffer.concat(chunks)
-          const html = bufferBody.toString("utf-8")
-          console.log("Content-Encoding:", res.headers["content-encoding"]);
-          console.log("Content-Type:", res.headers["content-type"]);
+          const decompressedBody = unCompressEncoding(compressionEncoding, bufferBody)
+          const html = decompressedBody.toString("utf-8")
+          cdnProvider = getCDNProvider(res.headers)
+          responseHeaders = getResponseHeader(res.headers)
           resolve({
             success: true,
             data: {
@@ -142,7 +149,7 @@ export async function fetchPageAndNetworkInfo(
                 statusCode,
                 fetchError: null,
                 ipAddress,
-                cdnProvider: null,
+                cdnProvider,
                 dnsLookupTime,
                 tlsHandshakeTime,
                 tcpConnectTime,
@@ -152,13 +159,12 @@ export async function fetchPageAndNetworkInfo(
 
                 contentType: res.headers["content-type"] ?? null,
                 transferSize,
-                uncompressedSize: 0,
-                compressionEncoding: null,
-                isCompressed: false,
+                compressionEncoding,
+                isCompressed: compressionEncoding !== null,
 
                 redirectChain,
                 isRedirectLoop,
-                retryCount: 0
+                responseHeaders
               }
             }
           })
@@ -169,7 +175,7 @@ export async function fetchPageAndNetworkInfo(
 
 
     req.on("socket", (socket) => {
-      ipAddress = socket.remoteAddress ?? null
+
       connectionReused = req.reusedSocket;
       if (!req.reusedSocket) {
         const socketStart = performance.now();
@@ -181,6 +187,7 @@ export async function fetchPageAndNetworkInfo(
 
         socket.once("connect", () => {
           tcpConnectTime = performance.now() - socketStart;
+          ipAddress = socket.remoteAddress ?? null
         })
 
         if (url.protocol === "https:") {
@@ -217,7 +224,7 @@ export async function fetchPageAndNetworkInfo(
             statusCode: null,
             fetchError,
             ipAddress,
-            cdnProvider: null,
+            cdnProvider,
             dnsLookupTime,
             tlsHandshakeTime,
             tcpConnectTime,
@@ -227,13 +234,12 @@ export async function fetchPageAndNetworkInfo(
 
             contentType: null,
             transferSize,
-            uncompressedSize: 0,
             compressionEncoding: null,
             isCompressed: false,
 
             redirectChain,
             isRedirectLoop,
-            retryCount: 0
+            responseHeaders
           }
         }
       })

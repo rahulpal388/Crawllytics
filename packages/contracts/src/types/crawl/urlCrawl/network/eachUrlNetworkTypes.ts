@@ -25,7 +25,7 @@ export type EachUrlNetworkResultTypes = {
   fetchError: FetchErrorType | null;
 
   ipAddress: string | null;
-  cdnProvider: string | null;
+  cdnProvider: string[];
 
   dnsLookupTime: number | null;
   tcpConnectTime: number | null;
@@ -37,14 +37,12 @@ export type EachUrlNetworkResultTypes = {
 
   contentType: string | null;
   transferSize: number;
-  uncompressedSize: number;
   compressionEncoding: CompressionEncodingType;
   isCompressed: boolean;
 
   redirectChain: RedirectChainType[];
   isRedirectLoop: boolean;
 
-  retryCount: number;
 
-  // responseHeaders: ResponseHeadersType;
+  responseHeaders: ResponseHeadersType | null;
 };

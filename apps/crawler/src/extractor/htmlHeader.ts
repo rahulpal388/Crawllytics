@@ -1,4 +1,4 @@
-import { HTMLHeaderType } from "@repo/contract/types/urlInformationType/htmlHeaderResponseTypes";
+import { HTMLHeaderType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlHeaderResponseTypes";
 import * as cheerio from "cheerio";
 import { getCanonicalData } from "@/utils/htmlHeaders/getCanonicalData.js";
 import { getMetaViewportData } from "@/utils/htmlHeaders/getMetaViewportData.js";

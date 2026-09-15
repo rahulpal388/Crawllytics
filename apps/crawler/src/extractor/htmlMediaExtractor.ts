@@ -1,7 +1,7 @@
 import { getAudioData } from "@/utils/htmlMedia/getAudioData.js";
 import { getImageData } from "@/utils/htmlMedia/getImagesData.js";
 import { getVideoData } from "@/utils/htmlMedia/getVideoData.js";
-import { HTMLMediaTypes } from "@repo/contract/types/urlInformationType/HTMLMediaTypes/htmlMediaTypes";
+import { HTMLMediaTypes } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/HTMLMediaTypes/htmlMediaTypes";
 import * as Cheerio from "cheerio";
 
 export async function htmlMediaExtractor(

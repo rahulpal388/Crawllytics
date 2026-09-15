@@ -1,4 +1,4 @@
-import { HTMLCanonicalType } from "../../urlInformationType/htmlHeaderResponseTypes.js";
+import { HTMLCanonicalType } from "../../crawl/urlCrawl/htmlInfo/htmlHeaderResponseTypes.js";
 
 export type PageIndexabilityType = {
   url: string;

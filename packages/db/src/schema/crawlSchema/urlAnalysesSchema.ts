@@ -1,4 +1,4 @@
-import { UrlAnalysesType } from "../../../../contracts/src/types/urlInformationType/urlAnalysesTypes.js";
+import { UrlAnalysesType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/urlAnalysesTypes";
 import { SchemaOf } from "../types/schemaOfTypes.js";
 import { Schema } from "mongoose";
 

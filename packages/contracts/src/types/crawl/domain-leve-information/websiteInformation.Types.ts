@@ -2,14 +2,13 @@
 
 
 export type WebsiteInformationType = {
-    websiteName: string | string;
+    websiteName: string | null;
     domain: string;
     ipAddress: string | null;
-    webServer: string | null;
+    webServer: string[] | null;
     serverLocation: string | null;
     favicons: string[];
-    logo: string[];
-    languages: string[];
+    languages: string[] | null;
     robotsTxt: string | null;
     siteMapXml: string | null;
 }

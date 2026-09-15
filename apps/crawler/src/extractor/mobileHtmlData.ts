@@ -1,4 +1,4 @@
-import { MobileHtmlDataType } from "@repo/contract/types/urlInformationType/HTMLMobileType";
+import { MobileHtmlDataType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/HTMLMobileType";
 import * as cheerio from "cheerio";
 import { getViewport } from "@/utils/mobileHtmlData/getIViewPortData.js";
 import { getManifest } from "@/utils/mobileHtmlData/getManifestData.js";

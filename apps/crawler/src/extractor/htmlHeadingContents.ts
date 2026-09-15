@@ -1,5 +1,5 @@
 import * as cheerio from "cheerio";
-import { HTMLHeadingContentType } from "@repo/contract/types/urlInformationType/htmlHeadingContentsTypes";
+import { HTMLHeadingContentType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlHeadingContentsTypes";
 import { getContentData } from "@/utils/htmlHeadingsContent/getContentData.js";
 import { getHeadingData } from "@/utils/htmlHeadingsContent/getHeadingData.js";
 

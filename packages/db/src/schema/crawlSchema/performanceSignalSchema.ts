@@ -4,7 +4,7 @@ import {
   StylesheetType,
   LcpCandidateType,
   ResourceHintCoverage,
-} from "../../../../contracts/src/types/urlInformationType/performanceSignalTypes.js";
+} from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/performanceSignalTypes";
 import { SchemaOf } from "../types/schemaOfTypes.js";
 import { Schema } from "mongoose";
 

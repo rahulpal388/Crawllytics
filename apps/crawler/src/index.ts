@@ -11,6 +11,12 @@ import { randomBytes } from "crypto";
 import { crawlInfoStoreConfig } from "@repo/redis/stores/crawl-store/crawlInfoStore";
 import { fetchPageAndNetworkInfo } from "@/fetchWebPageAndNetworkInfo.js";
 import { normalizeURL } from "@/lib/normalizeUrl.js";
+import { getGatherInformation } from "@/gatherInformation.js";
+import fs from "node:fs/promises"
+import { getDomainInfo } from "@/lib/getDomainInfo.js";
+import { WebsiteInformationType } from "@repo/contracts/types/crawl/domain-leve-information/websiteInformation.Types";
+import { getLocationByIP } from "@repo/lib/location/getLocationByIP";
+
 
 
 const env = validateEnv();
@@ -62,20 +68,14 @@ async function main() {
     console.log("Message Received", msg);
 
 
-    //  gather the domain information
-    const isGatheredDomainInfo = await crawlInfoStore.isGatheredDomainInfo(msg.projectId);
-
-    if (!isGatheredDomainInfo) {
-      // TODO : get the domain information and store in DB
-      // TODO : update the crawl store to set isGatheredDomainInfo to true
-    }
-
-    // TODO : fech the url
     const url = normalizeURL(msg.url);
     if (!url) {
       console.error(`Invalid URL: ${msg.url}`);
       continue;
     }
+
+
+    // fech the url
     const fetchResult = await fetchPageAndNetworkInfo(url, [], new Set(), false);
 
     if (!fetchResult.success) {
@@ -86,10 +86,43 @@ async function main() {
       continue;
     }
 
+
     console.log(`Successfully fetched page and network info for URL: ${url.href}`);
 
-    console.dir(fetchResult.data.eachUrlNetwork, { depth: null });
+    // console.dir(fetchResult.data.eachUrlNetwork, { depth: null });
+
     // TODO : gather information from fetched HTML
+    const gatheredInfo = await getGatherInformation(fetchResult.data.html, url, msg.limit.currValue);
+
+    // console.dir(gatheredInfo, { depth: null });
+
+
+    //  gather the domain information
+    const isGatheredDomainInfo = await crawlInfoStore.isGatheredDomainInfo(msg.projectId);
+
+    if (!isGatheredDomainInfo) {
+      // TODO : get the domain information and store in DB
+      // TODO : update the crawl store to set isGatheredDomainInfo to true
+      const domainInfo = await getDomainInfo(url.hostname);
+      const ipAddress = fetchResult.data.eachUrlNetwork.ipAddress;
+      const serverLocation = ipAddress ? await getLocationByIP(ipAddress) : null;
+      const webSiteInformation: WebsiteInformationType = {
+        websiteName: gatheredInfo.htmlHeader.sitename,
+        domain: url.hostname,
+        ipAddress,
+        webServer: fetchResult.data.eachUrlNetwork.responseHeaders?.server ?? null,
+        serverLocation,
+        favicons: gatheredInfo.htmlHeader.favicon.map((f) => f.href),
+        languages: gatheredInfo.htmlHeader.alternate
+          .map((alt) => alt.hreflang)
+          .filter((hreflang): hreflang is string => hreflang !== null),
+        // TODO : robotTxt adn siteMapXML are null fix it
+        robotsTxt: null,
+        siteMapXml: null,
+      }
+      console.dir(domainInfo, { depth: null });
+      console.dir(webSiteInformation, { depth: null });
+    }
 
 
     // TODO : Add the url to the stream after checking the condition

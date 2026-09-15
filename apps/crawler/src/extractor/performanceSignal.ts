@@ -1,5 +1,5 @@
 import * as Cheerio from "cheerio";
-import { PerformanceSignalType } from "@repo/contract/types/urlInformationType/performanceSignalTypes";
+import { PerformanceSignalType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/performanceSignalTypes";
 
 import { getScriptInfo } from "@/utils/performanceSignal/getScriptInfo.js";
 import { getStyleSheetInfo } from "@/utils/performanceSignal/getStyleSheetInfo.js";
