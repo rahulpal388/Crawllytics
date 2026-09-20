@@ -1,50 +1,35 @@
-import {
-  CacheControlType,
-  HSTSType,
-  ResponseHeadersType,
-} from "../../../../contracts/src/types/urlInformationType/responseHeadersTypes.js";
 import { Schema } from "mongoose";
+import { ResponseHeadersType } from "@repo/contracts/types/crawl/urlCrawl/network/responseHeadersTypes";
+import { SchemaOf } from "../../types/schemaOfTypes.js";
 
-const HSTSSchema = new Schema<HSTSType>(
-  {
-    value: { type: String },
-    maxAge: { type: Number },
-    includeSubdomains: { type: Boolean, default: false },
-    preload: { type: Boolean },
-  },
-  { _id: false, versionKey: false },
-);
 
-const CacheControlSchema = new Schema<CacheControlType>(
-  {
-    maxAge: { type: Number, default: null },
-    noCache: { type: Boolean, default: false },
-    noStore: { type: Boolean, default: false },
-    sMaxAge: { type: Number, default: null },
-    mustRevalidate: { type: Boolean, default: false },
-    isImmutable: { type: Boolean, default: false },
-  },
-  { _id: false, versionKey: false },
-);
 
-export const ResponseHeaderSchema = new Schema<ResponseHeadersType>(
-  {
-    hsts: { type: HSTSSchema, default: null },
-    csp: { type: [String], default: [] },
-    xFrameOptions: {
-      type: String,
-      enum: ["DENY", "SAMEORIGIN"],
-      default: null,
-    },
-    xContentTypeOptions: { type: Boolean, default: false },
-    referrerPolicy: { type: String, default: null },
-    permissionsPolicy: { type: String, default: null },
-    xRobotsTag: { type: [String], default: [] },
-    cacheControl: { type: CacheControlSchema, default: null },
-    etag: { type: String, default: null },
-    lastModified: { type: String, default: null },
-    vary: { type: String, default: null },
-  },
+
+
+
+export const responseHeaderSchemaDefinition: SchemaOf<ResponseHeadersType> = {
+  // this browser tell to use https 
+  hsts: { type: String, default: null },
+  // CSP primarily protects against attacks such as XSS
+  csp: { type: [String], default: [] },
+  xFrameOptions: { type: [String], default: [] },
+  xContentType: { type: [String], default: [] },
+  referrerPolicy: { type: [String], default: [] },
+  permissionsPolicy: { type: [String], default: [] },
+  crossOriginOpenerPolicy: { type: [String], default: [] },
+  crossOriginEmbedderPolicy: { type: [String], default: [] },
+  crossOriginResourcePolicy: { type: [String], default: [] },
+  xRobotsTag: { type: [String], default: [] },
+  cacheControl: { type: String, default: null },
+  etag: { type: String, default: null },
+  lastModified: { type: String, default: null },
+  vary: { type: String, default: null },
+  server: { type: [String], default: [] },
+}
+
+
+
+export const ResponseHeaderSchema = new Schema<ResponseHeadersType>(responseHeaderSchemaDefinition,
   {
     _id: false,
     versionKey: false,

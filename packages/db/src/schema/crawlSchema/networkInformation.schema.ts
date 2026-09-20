@@ -1,10 +1,7 @@
-import {
-  EachUrlNetworkResultTypes,
-  RedirectChainType,
-} from "../../../../contracts/src/types/urlInformationType/eachUrlNetworkTypes.js";
 import { Schema } from "mongoose";
 import { ResponseHeaderSchema } from "./responseHeaderSchema.js";
-import { SchemaOf } from "../types/schemaOfTypes.js";
+import { EachUrlNetworkResultTypes, FetchErrorCodes, RedirectChainType } from "@repo/contracts/types/crawl/urlCrawl/network/eachUrlNetworkTypes";
+import { SchemaOf } from "../../types/schemaOfTypes.js";
 
 const redirectChainSchemaDefinition: SchemaOf<RedirectChainType> = {
   sourceUrl: { type: String },
@@ -18,14 +15,13 @@ const redirectChainSchema = new Schema<RedirectChainType>(redirectChainSchemaDef
 });
 
 const urlNetworkDefinition: SchemaOf<EachUrlNetworkResultTypes> = {
-  url: { type: String },
-
+  requestedUrl: { type: String },
+  finalUrl: { type: String },
   statusCode: { type: Number },
 
   httpVersion: { type: String, enum: ["HTTP/1.0", "HTTP/1.1", "HTTP/2", "HTTP/3"] },
 
   method: { type: String },
-
   protocol: { type: String, enum: ["http", "https"] },
 
   dnsLookupTime: {
@@ -52,10 +48,6 @@ const urlNetworkDefinition: SchemaOf<EachUrlNetworkResultTypes> = {
     type: Number,
   },
 
-  uncompressedSize: {
-    type: Number,
-  },
-
   compressionEncoding: {
     type: String,
     enum: ["gzip", "br", "zstd", "deflate"],
@@ -76,8 +68,28 @@ const urlNetworkDefinition: SchemaOf<EachUrlNetworkResultTypes> = {
   },
 
   cdnProvider: {
+    type: [String],
+    default: [],
+  },
+
+  ipAddress: {
     type: String,
-    default: null,
+  },
+  fetchError: {
+    code: {
+      type: String,
+      enum: Object.values(FetchErrorCodes),
+    },
+    message: {
+      type: String,
+    },
+  },
+  connectionReused: {
+    type: Boolean,
+  },
+
+  contentType: {
+    type: String,
   },
 
   responseHeaders: {

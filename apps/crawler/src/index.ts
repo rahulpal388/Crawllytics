@@ -3,7 +3,6 @@ import "dotenv/config";
 import { createRedisConnection } from "@repo/redis/client/client";
 import { crawlConsumerConfig } from "@repo/redis/streams/consumers/crawlConsumer";
 import { createConsumerGroup } from "@repo/redis/client/createConsumerGroup";
-import { urlDeDuplication } from "@repo/redis/stores/deduplication/urlDeDuplication";
 import { crawlPublisherConfig } from "@repo/redis/streams/publishers/crawlPublisher";
 import { connectDB } from "@repo/db/index";
 import os from "os"
@@ -16,6 +15,11 @@ import fs from "node:fs/promises"
 import { getDomainInfo } from "@/lib/getDomainInfo.js";
 import { WebsiteInformationType } from "@repo/contracts/types/crawl/domain-leve-information/websiteInformation.Types";
 import { getLocationByIP } from "@repo/lib/location/getLocationByIP";
+import { urlCrawledRepository } from "@repo/db/repository/urlCrawledRepository";
+import { projectRepository } from "@repo/db/repository/projectRepository";
+import mongoose from "mongoose";
+import { addUrlToStream } from "@/lib/addUrlToStream.js";
+import { urlDuplicationStoreConfig } from "@repo/redis/stores/urlDuplication";
 
 
 
@@ -52,9 +56,11 @@ const consumerClient = `${os.hostname}${randomBytes(12).toString("hex")}`
 console.log(`consumer client name ${consumerClient}`)
 const crawlConsumer = crawlConsumerConfig(redisClient, consumerClient);
 
-export const urlDeDuplicateStore = urlDeDuplication(redisClient);
+export const urlDuplicateStore = new urlDuplicationStoreConfig(redisClient);
 export const crawlPublisher = crawlPublisherConfig(redisClient);
 export const crawlInfoStore = new crawlInfoStoreConfig(redisClient);
+
+
 
 async function main() {
   while (true) {
@@ -64,75 +70,151 @@ async function main() {
     }
     const msg = message[0].message;
     const messageId = message[0].id;
-    console.log(`Received message with ID: ${messageId} and content`);
-    console.log("Message Received", msg);
+    console.log("messge received: ", msg)
+
+    try {
 
 
-    const url = normalizeURL(msg.url);
-    if (!url) {
-      console.error(`Invalid URL: ${msg.url}`);
-      continue;
-    }
-
-
-    // fech the url
-    const fetchResult = await fetchPageAndNetworkInfo(url, [], new Set(), false);
-
-    if (!fetchResult.success) {
-      console.error(`Failed to fetch page and network info for URL: ${url.href}`);
-      console.error("Network info:", fetchResult.data.eachUrlNetwork.fetchError);
-
-      // TODO : add the netowrk info to DB and rest gather info to null
-      continue;
-    }
-
-
-    console.log(`Successfully fetched page and network info for URL: ${url.href}`);
-
-    // console.dir(fetchResult.data.eachUrlNetwork, { depth: null });
-
-    // TODO : gather information from fetched HTML
-    const gatheredInfo = await getGatherInformation(fetchResult.data.html, url, msg.limit.currValue);
-
-    // console.dir(gatheredInfo, { depth: null });
-
-
-    //  gather the domain information
-    const isGatheredDomainInfo = await crawlInfoStore.isGatheredDomainInfo(msg.projectId);
-
-    if (!isGatheredDomainInfo) {
-      // TODO : get the domain information and store in DB
-      // TODO : update the crawl store to set isGatheredDomainInfo to true
-      const domainInfo = await getDomainInfo(url.hostname);
-      const ipAddress = fetchResult.data.eachUrlNetwork.ipAddress;
-      const serverLocation = ipAddress ? await getLocationByIP(ipAddress) : null;
-      const webSiteInformation: WebsiteInformationType = {
-        websiteName: gatheredInfo.htmlHeader.sitename,
-        domain: url.hostname,
-        ipAddress,
-        webServer: fetchResult.data.eachUrlNetwork.responseHeaders?.server ?? null,
-        serverLocation,
-        favicons: gatheredInfo.htmlHeader.favicon.map((f) => f.href),
-        languages: gatheredInfo.htmlHeader.alternate
-          .map((alt) => alt.hreflang)
-          .filter((hreflang): hreflang is string => hreflang !== null),
-        // TODO : robotTxt adn siteMapXML are null fix it
-        robotsTxt: null,
-        siteMapXml: null,
+      const url = normalizeURL(msg.url);
+      if (!url) {
+        throw new Error(`Invalid URL: ${msg.url}`);
+        continue;
       }
-      console.dir(domainInfo, { depth: null });
-      console.dir(webSiteInformation, { depth: null });
+
+
+      /*
+      * Fetch the page and network information for the given URL.
+      */
+      const fetchResult = await fetchPageAndNetworkInfo(url, [], new Set(), false);
+
+
+      /*
+      * If the fetch was not successful : 
+        1. Only put the network information in DB and rest to null
+      */
+
+      if (!fetchResult.success) {
+
+        /*
+        * add the netowrk info to DB and rest gather info to null
+        */
+
+        await urlCrawledRepository.addUrlCrawled({
+          projectId: new mongoose.Types.ObjectId(msg.projectId),
+          url: msg.url,
+          networkInfo: fetchResult.data.eachUrlNetwork,
+          htmlHeader: null,
+          htmlHeadingContent: null,
+          links: [],
+          media: null,
+          structureData: null,
+          mobileUIUX: null,
+          urlAnalyses: null,
+          performanceSignals: null,
+          htmlDocument: null,
+          accessibility: null
+        })
+
+        continue;
+      }
+
+      /*
+      * Gather the information from the fetched HTML
+      */
+      const gatheredInfo = await getGatherInformation(fetchResult.data.html, url, msg.limit.currValue);
+
+
+
+      /*
+      * Check domain and website info is already gathered for the URL or not, if not gather the domain information and store in DB
+      */
+      const isGatheredDomainInfo = await crawlInfoStore.isGatheredDomainInfo(msg.projectId);
+
+      if (!isGatheredDomainInfo) {
+        /*
+        * get the domain information and store in DB
+        */
+        const domainInfo = await getDomainInfo(url.hostname);
+        const ipAddress = fetchResult.data.eachUrlNetwork.ipAddress;
+        const serverLocation = ipAddress ? await getLocationByIP(ipAddress) : null;
+
+
+        /*
+        *  update the crawl store to set isGatheredDomainInfo to true
+        */
+        const webSiteInformation: WebsiteInformationType = {
+          websiteName: gatheredInfo.htmlHeader.sitename,
+          domain: url.hostname,
+          ipAddress,
+          webServer: fetchResult.data.eachUrlNetwork.responseHeaders?.server ?? null,
+          serverLocation,
+          favicons: gatheredInfo.htmlHeader.favicon.map((f) => f.href),
+          languages: gatheredInfo.htmlHeader.alternate
+            .map((alt) => alt.hreflang)
+            .filter((hreflang): hreflang is string => hreflang !== null)
+        }
+
+        /*
+        * put the domain and website info in DB
+        * and update the crawl store to set isGatheredDomainInfo to true
+        */
+        await projectRepository.updateDomainAndWebsiteInfo(
+          new mongoose.Types.ObjectId(msg.projectId),
+          domainInfo,
+          webSiteInformation
+        );
+
+        await crawlInfoStore.updateIsGatheredDomainInfo(msg.projectId, true);
+
+      }
+
+
+      /*
+      * Add the url to the stream after checking the condition
+      * After adding the urls to the stream, update the totalUrls in the crawlInfoStore
+      */
+      await addUrlToStream(gatheredInfo.internalLinks, msg);
+
+
+      /*
+      *  Put the gather information to the DB
+      */
+
+      await urlCrawledRepository.addUrlCrawled({
+        projectId: new mongoose.Types.ObjectId(msg.projectId),
+        url: msg.url,
+        networkInfo: fetchResult.data.eachUrlNetwork,
+        htmlHeader: gatheredInfo.htmlHeader,
+        htmlHeadingContent: gatheredInfo.htmlHeadingContent,
+        links: gatheredInfo.links,
+        media: gatheredInfo.media,
+        structureData: gatheredInfo.structureData,
+        mobileUIUX: gatheredInfo.mobileUIUX,
+        urlAnalyses: gatheredInfo.urlAnalyses,
+        performanceSignals: gatheredInfo.performanceSignals,
+        htmlDocument: gatheredInfo.htmlDocument,
+        accessibility: gatheredInfo.accessibility
+      })
+
+      /*
+      * Acknowledege the redis on completion of the task
+      */
+      await crawlConsumer.ack(messageId);
+      await crawlInfoStore.updateCrawledUrls(msg.projectId, 1);
+
+      /*
+      * Check does crawlUrl === totalUrl if yes, delete the urlDuplcation
+      */
+      console.log("Crawed : ", url.href)
+      const crawlStore = await crawlInfoStore.get(msg.projectId)
+      if (crawlStore && (crawlStore.linkInfo.totalUrl === crawlStore.linkInfo.crawledUrl)) {
+        await urlDuplicateStore.remove(msg.projectId);
+        console.log("Completed Crawl for ", url.hostname)
+      }
+
+    } catch (error) {
+      console.error(`Error processing message with ID: ${messageId}`, error);
     }
-
-
-    // TODO : Add the url to the stream after checking the condition
-    // TODO : after adding the url update the crawl store
-
-    // TODO : Put the gather information to the DB
-
-    // TODO : Acknowledege the redis on completion of the task
-
-    await crawlConsumer.ack(messageId);
   }
 }
 

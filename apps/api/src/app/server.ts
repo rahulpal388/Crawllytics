@@ -8,10 +8,11 @@ import { initilizeRedisStores } from "@/infrastructure/redis/stores.js";
 import { initializeDatabse } from "@/infrastructure/db/connectDb.js";
 import { SessionService } from "@/shared/auth/session/session.service.js";
 import { OtpService } from "@/shared/auth/otp/otp.service.js";
-import geoIpService from "@/lib/getLocation.js";
 import { SlidingWindow } from "@repo/rate-limiter/algo/silidingWindow";
 import { GoogleService } from "@/module/auth/google/google.service.js";
 import { crawlInfoStoreConfig } from "@repo/redis/stores/crawl-store/crawlInfoStore";
+import { urlDuplicationStoreConfig } from "@repo/redis/stores/urlDuplication"
+
 
 
 /*
@@ -24,11 +25,11 @@ export const {
     setStore,
     crawlPublisher,
     emailPublisher,
-    urlDeDuplicationStore,
     sortedSetStore,
     hashStore
 } = initilizeRedisStores(redisClient);
 export const crawlStore = new crawlInfoStoreConfig(redisClient);
+export const urlDuplicationStore = new urlDuplicationStoreConfig(redisClient);
 
 /*
 *   connect to the database
@@ -43,7 +44,6 @@ const dbClient = await initializeDatabse();
 
 export const sessionService = new SessionService(hashStore);
 export const otpService = new OtpService(hashStore);
-await geoIpService.initialize();
 export const slidingWindowRateLimit = new SlidingWindow(sortedSetStore);
 
 export const googleAuthService = await GoogleService.create();

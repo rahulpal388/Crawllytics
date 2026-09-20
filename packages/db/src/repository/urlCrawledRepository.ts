@@ -14,7 +14,18 @@ export const urlCrawledRepository = {
 
 async function addUrlCrawled(urlInfo: UrlCrawledType) {
   try {
-    const url = await UrlCrawledModel.create(urlInfo);
+    const { projectId, url: newUrl, ...rest } = urlInfo;
+    const url = await UrlCrawledModel.findOneAndUpdate(
+      { projectId: urlInfo.projectId, url: urlInfo.url },
+      {
+        $set: rest,
+        $setOnInsert: {
+          projectId: projectId,
+          url: newUrl,
+        },
+      },
+      { upsert: true, new: true },
+    );
     return {
       success: true,
       data: url,

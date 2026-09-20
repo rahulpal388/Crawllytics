@@ -3,12 +3,12 @@ import { SlidingWindowPolicyType } from "@repo/rate-limiter/types/silidingWindow
 
 export const authRateLimitPolicies = {
     loginIp: {
-        limit: 5,
+        limit: 15,
         windowMs: 15 * 60 * 1000,
     },
 
     loginEmail: {
-        limit: 5,
+        limit: 15,
         windowMs: 15 * 60 * 1000,
     },
 

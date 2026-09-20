@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export type LocationType = {
-    country: string;
+    country: string | null;
     region: string | null;
     city: string | null;
 } | null

@@ -3,7 +3,6 @@ import { CreateProjectRequestType, DeleteProjectRequestType } from "@repo/contra
 import { projectRepository } from "@repo/db/repository/projectRepository";
 import { projectSettingRepository } from "@repo/db/repository/projectSettingRepository";
 import mongoose from "mongoose";
-import { DEFAULT_PROJECT_SETTING } from "./default-project-setting.js";
 import { ApiError } from "@/shared/error/apiError.js";
 
 
@@ -38,14 +37,17 @@ async function createProject(projectData: CreateProjectRequestType, user: Authen
                 userId: new mongoose.Types.ObjectId(user.userId),
                 projectName: projectData.projectName,
                 domain: projectData.domain,
+                domainInfo: null,
+                websiteInfo: null,
                 lastCrawledAt: null,
                 nextCrawlAt: null,
                 createdAt: new Date()
             })
 
+
             await projectSettingRepository.create({
                 projectId: createProject._id,
-                ...DEFAULT_PROJECT_SETTING
+                ...projectData.projectSetting
             })
             return createProject;
 

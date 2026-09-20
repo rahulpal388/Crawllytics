@@ -1,6 +1,6 @@
 
 import { STREAM_GROUPS, STREAMS } from "@/types/streamTypes.js";
-import { CrawlInfoStoreStatusType, CrawlInfoStoreType } from "../../types/crawlStreamMessageType.js";
+import { CrawlInfoStoreStatusType, CrawlInfoStoreType, LinkInfoType } from "../../types/crawlStreamMessageType.js";
 import { RedisClientType } from 'redis';
 
 
@@ -54,5 +54,34 @@ export class crawlInfoStoreConfig {
         return isGatheredDomainInfo === 'true';
     }
 
+    async updateIsGatheredDomainInfo(projectId: string, isGathered: boolean): Promise<void> {
+        const storeKey = this.getKey(projectId);
+        await this.redisClient.hSet(storeKey, 'isGatheredDomainInfo', isGathered.toString());
+    }
+
+    async updateTotalUrls(projectId: string, incBy: number) {
+        const storeKey = this.getKey(projectId);
+        const linkInfoStr = await this.redisClient.hGet(storeKey, 'linkInfo');
+        if (!linkInfoStr) {
+            throw new Error(`Link info not found for projectId: ${projectId}`);
+        }
+        let linkInfo: LinkInfoType = JSON.parse(linkInfoStr);
+        linkInfo.totalUrl += incBy;
+
+
+        return await this.redisClient.hSet(storeKey, 'linkInfo', JSON.stringify(linkInfo));
+    }
+
+    async updateCrawledUrls(projectId: string, incBy: number) {
+        const storeKey = this.getKey(projectId);
+        const linkInfoStr = await this.redisClient.hGet(storeKey, 'linkInfo');
+        if (!linkInfoStr) {
+            throw new Error(`Link info not found for projectId: ${projectId}`);
+        }
+        let linkInfo: LinkInfoType = JSON.parse(linkInfoStr);
+        linkInfo.crawledUrl += incBy;
+
+        return await this.redisClient.hSet(storeKey, 'linkInfo', JSON.stringify(linkInfo));
+    }
 
 }

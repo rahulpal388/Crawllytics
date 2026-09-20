@@ -9,7 +9,5 @@ export type WebsiteInformationType = {
     serverLocation: string | null;
     favicons: string[];
     languages: string[] | null;
-    robotsTxt: string | null;
-    siteMapXml: string | null;
 }
 

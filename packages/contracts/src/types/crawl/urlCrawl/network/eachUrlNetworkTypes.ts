@@ -7,9 +7,16 @@ export type RedirectChainType = {
   redirectedTo: string;
   statusCode: number;
 };
-
+export const FetchErrorCodes = {
+  DNS_FAILURE: "DNS_FAILURE",
+  CONNECTION_REFUSED: "CONNECTION_REFUSED",
+  TLS_ERROR: "TLS_ERROR",
+  TIMEOUT: "TIMEOUT",
+  TOO_MANY_REDIRECTS: "TOO_MANY_REDIRECTS",
+  UNKNOWN: "UNKNOWN",
+} as const;
 export type FetchErrorType = {
-  code: "DNS_FAILURE" | "CONNECTION_REFUSED" | "TLS_ERROR" | "TIMEOUT" | "TOO_MANY_REDIRECTS" | "UNKNOWN";
+  code: typeof FetchErrorCodes[keyof typeof FetchErrorCodes];
   message: string;
 };
 
@@ -18,7 +25,7 @@ export type EachUrlNetworkResultTypes = {
   requestedUrl: string;
   finalUrl: string;
   method: "GET";
-  protocol: "http:" | "https:";
+  protocol: "http" | "https";
   httpVersion: "HTTP/1.0" | "HTTP/1.1" | "HTTP/2" | "HTTP/3" | null; // null on fetch failure
 
   statusCode: number | null;

@@ -4,7 +4,7 @@ import { projectRepository } from "@repo/db/repository/projectRepository";
 import { projectSettingRepository } from "@repo/db/repository/projectSettingRepository"
 import { extractRobotsTxt } from "@/lib/extractRobotTxt.js";
 import { ApiError } from "@/shared/error/apiError.js";
-import { crawlPublisher, crawlStore } from "@/app/server.js";
+import { crawlPublisher, crawlStore, urlDuplicationStore } from "@/app/server.js";
 import { ApiResponseType } from "@repo/contracts/apiContracts/apiResponse/apiResponseTemplete";
 
 
@@ -63,7 +63,6 @@ class CrawlService {
                 limit: {
                     type: projectSetting.crawlLimit.type,
                     value: projectSetting.crawlLimit.value,
-                    currentValue: projectSetting.crawlLimit.type === "depth" ? 0 : 1
                 },
                 totalUrl: 1,
                 crawledUrl: 0,
@@ -81,6 +80,8 @@ class CrawlService {
                 currValue: projectSetting.crawlLimit.type === "depth" ? 0 : 1
             }
         })
+
+        await urlDuplicationStore.add(data.projectId.toString(), [project.domain]);
 
         return {
             success: true,

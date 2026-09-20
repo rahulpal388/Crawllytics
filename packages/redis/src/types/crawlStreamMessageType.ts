@@ -18,12 +18,10 @@ export type LinkInfoType = {
   limit: {
     type: "pages" | "depth";
     value: number;
-    // current value is either depth or number of pages crawled, depending on the limit type
-    currentValue: number;
   },
   totalUrl: number;
   crawledUrl: number;
-} | null;
+};
 
 
 export type UserAgentType = {

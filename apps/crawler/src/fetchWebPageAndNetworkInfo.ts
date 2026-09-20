@@ -11,6 +11,7 @@ import { unCompressEncoding } from "@/lib/uncompressEncoding.js";
 import { getCDNProvider } from "@/lib/getCDNProvider.js";
 import { getResponseHeader } from "@/lib/getResponseHeader.js";
 import { ResponseHeadersType } from "@repo/contracts/types/crawl/urlCrawl/network/responseHeadersTypes";
+import { getNormalizeProtocol } from "@/lib/getNormalizeProtocol.js";
 
 
 const REDIRECT_LIMIT = 3;
@@ -83,7 +84,7 @@ export async function fetchPageAndNetworkInfo(
     const req = client.request(url, { ...REQUEST_OPTIONS, agent },
 
       (res) => {
-        console.log(`Response received for URL: ${url.href}`);
+
         const statusCode = res.statusCode ?? null;
 
         /*
@@ -144,7 +145,7 @@ export async function fetchPageAndNetworkInfo(
                 requestedUrl: redirectChain.length === 0 ? url.href : redirectChain[0]!.sourceUrl,
                 finalUrl: url.href,
                 method: res.method as "GET",
-                protocol: url.protocol as "http:" | "https:",
+                protocol: getNormalizeProtocol(url.protocol),
                 httpVersion: normalizeHttpVersion(res.httpVersion),
                 statusCode,
                 fetchError: null,
@@ -219,7 +220,7 @@ export async function fetchPageAndNetworkInfo(
             requestedUrl: redirectChain.length === 0 ? url.href : redirectChain[0]!.sourceUrl,
             finalUrl: url.href,
             method: req.method as "GET",
-            protocol: url.protocol as "http:" | "https:",
+            protocol: getNormalizeProtocol(url.protocol),
             httpVersion: null,
             statusCode: null,
             fetchError,
