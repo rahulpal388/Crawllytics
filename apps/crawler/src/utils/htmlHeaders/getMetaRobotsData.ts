@@ -17,5 +17,3 @@ export function getMetaRobotsData($: cheerio.CheerioAPI): string[] {
 
   return Array.from(metaRobots);
 }
-
-

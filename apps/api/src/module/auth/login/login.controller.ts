@@ -6,19 +6,17 @@ import { getRequestMetadata } from "@/lib/getRequestMetaData.js";
 import { ApiError } from "@/shared/error/apiError.js";
 
 export async function loginController(req: Request, res: Response, next: NextFunction) {
-    const { success, data, error } = loginEmailRequestSchema.safeParse(req.body);
+  const { success, data, error } = loginEmailRequestSchema.safeParse(req.body);
 
-    if (!success) {
-        throw ApiError.validation(error);
-    }
+  if (!success) {
+    throw ApiError.validation(error);
+  }
 
-    const sessionInfo = await getRequestMetadata(req);
-    const user = await loginService(data, sessionInfo);
+  const sessionInfo = await getRequestMetadata(req);
+  const user = await loginService(data, sessionInfo);
 
-    // set the session cookie in the response
-    cookieService.setCookie(res, user.data.sessionId);
+  // set the session cookie in the response
+  cookieService.setCookie(res, user.data.sessionId);
 
-    res.status(200).json(user);
-
+  res.status(200).json(user);
 }
-

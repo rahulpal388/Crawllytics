@@ -43,5 +43,3 @@ export function isUrlCrawlAllowed(url: string, robotsTxt: UserAgentType[]): bool
 
   return longestMatchType !== "disallow";
 }
-
-

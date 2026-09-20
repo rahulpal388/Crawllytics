@@ -71,7 +71,6 @@ const seoData = JSON.parse(JSON.stringify(tempData)) as GatherInfoType;
 
 //     const gatherInfo = gatherInfoResponse.data;
 
-
 //   //   // #############################################
 //   //   // Analyze the Data for each domain
 //   //   // #############################################
@@ -89,11 +88,8 @@ const seoData = JSON.parse(JSON.stringify(tempData)) as GatherInfoType;
 //   //   // #############################################
 //   }
 
-
-
 // }
 // main();
-
 
 console.log("analyzeWorker started");
 
@@ -101,14 +97,10 @@ console.log("analyzeWorker started");
 // console.log("crawlabilityAnalysis ");
 // console.dir(crawlabilityAnalysis, { depth: null, color: true });
 
-
 // const indexabilityAnalysis = evaluateIndexability(seoData);
 // console.log("indexabilityAnalysis ");
 // console.dir(indexabilityAnalysis, { depth: null, color: true });
 
-
 const metaAnalysis = evaluateMetaData(seoData.htmlHeader);
 console.log("metaAnalysis ");
 console.dir(metaAnalysis, { depth: null, color: true });
-
-

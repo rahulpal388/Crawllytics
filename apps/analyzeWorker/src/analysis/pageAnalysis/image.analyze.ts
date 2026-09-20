@@ -42,5 +42,3 @@ export function imageAnalyse(imageInformation: GatherInfoType["media"]): PageIma
     imagesMissingDimensions,
   };
 }
-
-

@@ -25,5 +25,3 @@ export function getContentData($: cheerio.CheerioAPI): HTMLContentType {
     contentHash,
   };
 }
-
-

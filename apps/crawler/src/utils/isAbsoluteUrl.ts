@@ -6,5 +6,3 @@ export function isAbsoluteUrl(url: string): boolean {
     return false;
   }
 }
-
-

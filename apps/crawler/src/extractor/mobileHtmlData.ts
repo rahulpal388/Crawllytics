@@ -24,5 +24,3 @@ export function getMobileHtmlData($: cheerio.CheerioAPI, baseUrl: URL): MobileHt
     mobileAlternateUrl: getAlternateMobileUrl($, baseUrl),
   };
 }
-
-

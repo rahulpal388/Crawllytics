@@ -44,5 +44,3 @@ export function getHrefLangData($: cheerio.CheerioAPI, baseUrl: URL): HreflangTy
 
   return hreflangs;
 }
-
-

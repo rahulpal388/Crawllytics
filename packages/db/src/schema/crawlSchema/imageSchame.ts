@@ -44,4 +44,3 @@ export const imageSchema = new mongoose.Schema<HTMLImageType>(imageSchemaDefinat
   versionKey: false,
   strict: true,
 });
-

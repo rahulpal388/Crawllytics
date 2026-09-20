@@ -16,4 +16,3 @@ ChartJS.register(
   BarElement,
   ArcElement,
 );
-

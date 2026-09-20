@@ -2,13 +2,8 @@ import { Schema } from "mongoose";
 import { ResponseHeadersType } from "@repo/contracts/types/crawl/urlCrawl/network/responseHeadersTypes";
 import { SchemaOf } from "../../types/schemaOfTypes.js";
 
-
-
-
-
-
 export const responseHeaderSchemaDefinition: SchemaOf<ResponseHeadersType> = {
-  // this browser tell to use https 
+  // this browser tell to use https
   hsts: { type: String, default: null },
   // CSP primarily protects against attacks such as XSS
   csp: { type: [String], default: [] },
@@ -25,15 +20,13 @@ export const responseHeaderSchemaDefinition: SchemaOf<ResponseHeadersType> = {
   lastModified: { type: String, default: null },
   vary: { type: String, default: null },
   server: { type: [String], default: [] },
-}
+};
 
-
-
-export const ResponseHeaderSchema = new Schema<ResponseHeadersType>(responseHeaderSchemaDefinition,
+export const ResponseHeaderSchema = new Schema<ResponseHeadersType>(
+  responseHeaderSchemaDefinition,
   {
     _id: false,
     versionKey: false,
     strict: true,
   },
 );
-

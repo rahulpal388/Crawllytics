@@ -14,4 +14,3 @@ export type CrawlStateType = {
   status: CrawlStatusType;
   robotsTxt: RobotsTxtType | null;
 };
-

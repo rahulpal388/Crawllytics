@@ -27,5 +27,3 @@ export function internalLink(gatherInfo: GatherInfoType): PageInternalLinkAnalys
     urlDepth,
   };
 }
-
-

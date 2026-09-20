@@ -6,12 +6,10 @@ import { passwordResetMail } from "../../emails/passwordReset/passwordResetMail.
 import { sendPasswordResetConfirmation } from "../../emails/password-reset-confirmation/sendPassword-reset-confirmation.js";
 
 export async function sendEmail(msg: EmailStreamMessage) {
-
-
   switch (msg.type) {
     case "otp": {
       return sendOTPMail(msg);
-    };
+    }
     case "welcome": {
       return sendWelcomeMail(msg);
     }
@@ -28,17 +26,13 @@ export async function sendEmail(msg: EmailStreamMessage) {
     }
     default: {
       /*
-      * _exhaustiveCheck : this will check if any new email type is added in the future and not handled here, it will throw a compile time error
-    */
+       * _exhaustiveCheck : this will check if any new email type is added in the future and not handled here, it will throw a compile time error
+       */
       return assertNever(msg);
     }
-
   }
-
 }
-
 
 function assertNever(_: never): never {
   throw new Error("Unsupported email type");
 }
-

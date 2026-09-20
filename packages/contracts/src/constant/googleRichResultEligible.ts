@@ -16,4 +16,3 @@ export const RICH_RESULT_ELIGIBLE = new Set([
   "SoftwareApplication",
   "VideoObject",
 ]);
-

@@ -22,5 +22,3 @@ export function securityAnalysis(gatherInfo: GatherInfoType): PageSecurityAnalys
     permissionsPolicyPresent,
   };
 }
-
-

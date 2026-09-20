@@ -19,4 +19,3 @@ export type PageUrlQualityAnalysis = {
 
   slugWordCount: number;
 };
-

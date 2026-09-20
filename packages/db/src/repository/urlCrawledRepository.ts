@@ -45,8 +45,7 @@ async function getUrlCrawledWithoutAnalyzedUrlData(
   _id: Types.ObjectId | string,
 ): Promise<RepositoryResponseType<Omit<UrlCrawledType, "analyzedUrlData">>> {
   try {
-    const urlCrawledData = await UrlCrawledModel
-      .findById(_id)
+    const urlCrawledData = await UrlCrawledModel.findById(_id)
       .select("-_id -__v -analyzedUrlData")
       .lean();
 
@@ -96,5 +95,4 @@ async function getUrlCrawled(
 
 // ###################### update  #######################
 
-async function updateUrlCrawled() { }
-
+async function updateUrlCrawled() {}

@@ -35,7 +35,7 @@ await createConsumerGroup({
 const emailConsumer = emailConsumerConfig(redisClient, os.hostname());
 
 async function main() {
-  console.log("email worker is running...........")
+  console.log("email worker is running...........");
   while (true) {
     const message = await emailConsumer.consume();
     if (!message || message.length === 0 || !message[0]?.message) {
@@ -45,7 +45,7 @@ async function main() {
 
     // Process the message here
     // send the email
-    console.log(msg.payload)
+    console.log(msg.payload);
     try {
       const response = await sendEmail(msg);
       console.log("Email sent successfully", response);
@@ -53,16 +53,15 @@ async function main() {
         requestId: msg.eventId,
         message: "Email sent successfully",
         path: ".",
-      })
+      });
     } catch (error) {
       logger.error({
         requestId: msg.eventId,
         message: error instanceof Error ? error.message : "unknown error",
-        path: "."
+        path: ".",
       });
     }
   }
 }
 
 main();
-

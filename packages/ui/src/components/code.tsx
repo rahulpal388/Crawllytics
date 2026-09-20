@@ -9,4 +9,3 @@ export function Code({
 }): JSX.Element {
   return <code className={className}>{children}</code>;
 }
-

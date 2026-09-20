@@ -17,5 +17,3 @@ export function urlAnalyse(urlInfomation: UrlAnalysesType): SEOIssues[] {
 
   return issues;
 }
-
-

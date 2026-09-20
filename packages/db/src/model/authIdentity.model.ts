@@ -3,8 +3,9 @@ import mongoose from "mongoose";
 
 import AuthIdentitySchema from "../schema/authIdentity/authIdentity.schema.js";
 
-
-
-const authIdentityModel = mongoose.model<AuthIdentitySchemaType>("AuthIdentity", AuthIdentitySchema);
+const authIdentityModel = mongoose.model<AuthIdentitySchemaType>(
+  "AuthIdentity",
+  AuthIdentitySchema,
+);
 
 export default authIdentityModel;

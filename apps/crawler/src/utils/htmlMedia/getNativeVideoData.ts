@@ -76,5 +76,3 @@ export function getNativeVideoData($: cheerio.CheerioAPI, baseUrl: URL): HTMLVid
   });
   return videos;
 }
-
-

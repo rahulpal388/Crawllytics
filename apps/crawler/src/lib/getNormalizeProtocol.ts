@@ -1,10 +1,7 @@
-
-
-
 export function getNormalizeProtocol(protocol: string): "http" | "https" {
-    if (protocol === "http:") {
-        return "http"
-    }
+  if (protocol === "http:") {
+    return "http";
+  }
 
-    return "https"
+  return "https";
 }

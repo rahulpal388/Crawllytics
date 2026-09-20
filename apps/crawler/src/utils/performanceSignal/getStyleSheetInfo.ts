@@ -21,5 +21,3 @@ export function getStyleSheetInfo($: Cheerio.CheerioAPI): StylesheetType[] {
 
   return styleSheet;
 }
-
-

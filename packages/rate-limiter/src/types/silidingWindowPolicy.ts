@@ -1,7 +1,4 @@
-
-
-
 export interface SlidingWindowPolicyType {
-    limit: number;
-    windowMs: number;
+  limit: number;
+  windowMs: number;
 }

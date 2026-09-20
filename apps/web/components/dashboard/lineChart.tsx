@@ -89,4 +89,3 @@ export function LineChartComponent({ data }: LineChartDataType) {
     </div>
   );
 }
-

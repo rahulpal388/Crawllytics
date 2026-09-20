@@ -7,4 +7,3 @@ export type HTMLMediaTypes = {
   videos: HTMLVideoType[];
   audios: HTMLAudioType[];
 };
-

@@ -18,4 +18,3 @@ export function getUnCompressedSize(buffer: Buffer[], encoding: CompressionEncod
 
   return decompressed.length;
 }
-

@@ -1,39 +1,22 @@
 import { ResourceHintsAnalysis } from "@repo/contract/types/analysesTypes/perPages/pageMeta";
 import { ResourceHintType } from "@repo/contract/types/urlInformationType/htmlHeaderResponseTypes";
 
+export function analyzeResourceHints(hints: ResourceHintType[]): ResourceHintsAnalysis {
+  return {
+    hasResourceHints: hints.length > 0,
 
+    resourceHintCount: hints.length,
 
-export function analyzeResourceHints(
-    hints: ResourceHintType[]
-): ResourceHintsAnalysis {
-    return {
-        hasResourceHints: hints.length > 0,
+    hasPreconnect: hints.some((h) => h.rel === "preconnect"),
 
-        resourceHintCount: hints.length,
+    hasDnsPrefetch: hints.some((h) => h.rel === "dns-prefetch"),
 
-        hasPreconnect: hints.some(
-            h => h.rel === "preconnect"
-        ),
+    hasPreload: hints.some((h) => h.rel === "preload"),
 
-        hasDnsPrefetch: hints.some(
-            h => h.rel === "dns-prefetch"
-        ),
+    hasPrefetch: hints.some((h) => h.rel === "prefetch"),
 
-        hasPreload: hints.some(
-            h => h.rel === "preload"
-        ),
+    hasModulePreload: hints.some((h) => h.rel === "modulepreload"),
 
-        hasPrefetch: hints.some(
-            h => h.rel === "prefetch"
-        ),
-
-        hasModulePreload: hints.some(
-            h => h.rel === "modulepreload"
-        ),
-
-        hasPrerender: hints.some(
-            h => h.rel === "prerender"
-        ),
-    };
+    hasPrerender: hints.some((h) => h.rel === "prerender"),
+  };
 }
-

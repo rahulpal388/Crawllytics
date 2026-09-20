@@ -16,4 +16,3 @@ export function crawlPublisherConfig(redisClient: RedisClientType) {
     });
   }
 }
-

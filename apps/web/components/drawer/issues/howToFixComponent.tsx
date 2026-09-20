@@ -42,4 +42,3 @@ export function HowToFixComponent({ howToFix }: { howToFix: HowToFixType }) {
     </>
   );
 }
-

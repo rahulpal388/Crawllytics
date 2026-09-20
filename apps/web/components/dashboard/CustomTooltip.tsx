@@ -51,4 +51,3 @@ export function CustomTooltip({ toolTip }: { toolTip: LineToolTipDataType }) {
     </>
   );
 }
-

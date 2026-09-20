@@ -43,5 +43,3 @@ export async function handleRedirect(
     attemptedRedirects: redirectChain.length,
   };
 }
-
-

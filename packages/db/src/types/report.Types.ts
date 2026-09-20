@@ -1,45 +1,42 @@
 import mongoose from "mongoose";
 
-
-
-
 export enum ReportType {
-    SEO_AUDIT = "seo_audit"
+  SEO_AUDIT = "seo_audit",
 }
 
 export const ReportFormat = {
-    PDF: "pdf",
-    CSV: "csv"
+  PDF: "pdf",
+  CSV: "csv",
 } as const;
 
-export type ReportFormatType = typeof ReportFormat[keyof typeof ReportFormat];
+export type ReportFormatType = (typeof ReportFormat)[keyof typeof ReportFormat];
 
 export enum ReportStatus {
-    PENDING = "pending",
-    PROCESSING = "processing",
-    COMPLETED = "completed",
-    FAILED = "failed"
+  PENDING = "pending",
+  PROCESSING = "processing",
+  COMPLETED = "completed",
+  FAILED = "failed",
 }
 
 export type ReportSchemaType = {
-    projectId: mongoose.Types.ObjectId;
-    crawlId: mongoose.Types.ObjectId;
-    requestedBy: mongoose.Types.ObjectId;
+  projectId: mongoose.Types.ObjectId;
+  crawlId: mongoose.Types.ObjectId;
+  requestedBy: mongoose.Types.ObjectId;
 
-    type: ReportType;
+  type: ReportType;
 
-    format: ReportFormatType;
+  format: ReportFormatType;
 
-    status: ReportStatus;
+  status: ReportStatus;
 
-    objectKey: string | null;
+  objectKey: string | null;
 
-    fileName: string | null;
+  fileName: string | null;
 
-    fileSize: number | null;
+  fileSize: number | null;
 
-    errorMessage: string | null;
+  errorMessage: string | null;
 
-    createdAt: Date;
-    completedAt: Date | null;
-}
+  createdAt: Date;
+  completedAt: Date | null;
+};

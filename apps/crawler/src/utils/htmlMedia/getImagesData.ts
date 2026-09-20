@@ -101,5 +101,3 @@ export function getImageData($: cheerio.CheerioAPI, baseUrl: URL): HTMLImageType
 
   return images;
 }
-
-

@@ -44,5 +44,3 @@ export function getTwitterCardData($: cheerio.CheerioAPI): TwitterCardType {
     },
   };
 }
-
-

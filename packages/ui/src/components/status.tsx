@@ -29,4 +29,3 @@ export function Status({ variant, className }: StatusProps) {
     </>
   );
 }
-

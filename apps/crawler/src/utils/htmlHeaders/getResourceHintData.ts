@@ -64,5 +64,3 @@ export function getResourceHintData($: cheerio.CheerioAPI, baseUrl: URL): Resour
 
   return resourceHints;
 }
-
-

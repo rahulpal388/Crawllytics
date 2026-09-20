@@ -73,5 +73,3 @@ export function content(gatherInfo: GatherInfoType): PageContentAnalysis {
     readabilityScore,
   };
 }
-
-

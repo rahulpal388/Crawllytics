@@ -1,9 +1,4 @@
-export type LogLevelType =
-  | "INFO"
-  | "WARN"
-  | "ERROR"
-  | "DEBUG"
-  | "FATAL";
+export type LogLevelType = "INFO" | "WARN" | "ERROR" | "DEBUG" | "FATAL";
 
 export type LogMessageType = {
   message: string;
@@ -42,10 +37,7 @@ function loggerFn() {
     logRequestCompleted,
   };
 
-  function formatMessage(
-    level: LogLevelType,
-    msg: LogMessageType,
-  ) {
+  function formatMessage(level: LogLevelType, msg: LogMessageType) {
     return JSON.stringify({
       requestId: msg.requestId,
       level,
@@ -57,38 +49,23 @@ function loggerFn() {
   }
 
   function info(msg: LogMessageType) {
-    console.log(
-      "[INFO]",
-      formatMessage("INFO", msg),
-    );
+    console.log("[INFO]", formatMessage("INFO", msg));
   }
 
   function warn(msg: LogMessageType) {
-    console.warn(
-      "[WARN]",
-      formatMessage("WARN", msg),
-    );
+    console.warn("[WARN]", formatMessage("WARN", msg));
   }
 
   function error(msg: LogMessageType) {
-    console.error(
-      "[ERROR]",
-      formatMessage("ERROR", msg),
-    );
+    console.error("[ERROR]", formatMessage("ERROR", msg));
   }
 
   function debug(msg: LogMessageType) {
-    console.debug(
-      "[DEBUG]",
-      formatMessage("DEBUG", msg),
-    );
+    console.debug("[DEBUG]", formatMessage("DEBUG", msg));
   }
 
   function fatal(msg: LogMessageType) {
-    console.error(
-      "[FATAL]",
-      formatMessage("FATAL", msg),
-    );
+    console.error("[FATAL]", formatMessage("FATAL", msg));
   }
 
   function logRequest(msg: RequestStartedLogType) {

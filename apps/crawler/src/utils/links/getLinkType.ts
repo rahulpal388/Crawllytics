@@ -29,5 +29,3 @@ export function getLinkType(href: string, absoluteUrl: URL, baseUrl: URL): LinkT
 
   return absoluteUrl.hostname === baseUrl.hostname ? "internal" : "external";
 }
-
-

@@ -9,4 +9,3 @@ export function findRichResultEligibility(schema: string[]): string[] {
   }
   return eligibleRichResults;
 }
-

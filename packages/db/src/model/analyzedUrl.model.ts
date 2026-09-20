@@ -4,5 +4,4 @@ import AnalyzedUrlSchema from "../schema/analysisSchema/analyzedUrl.schema.js";
 
 const AnalyzedUrlDataModel = model("AnalyzedUrlData", AnalyzedUrlSchema);
 
-
 export default AnalyzedUrlDataModel;

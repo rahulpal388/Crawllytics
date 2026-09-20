@@ -24,5 +24,3 @@ export function getFaviconData($: cheerio.CheerioAPI, baseUrl: URL): FaviconType
 
   return favicons;
 }
-
-

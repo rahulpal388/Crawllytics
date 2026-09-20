@@ -58,4 +58,3 @@ export const htmlStructureDataSchema = new Schema<HTMLStructureDataType>(
   htmlStructureDataSchemaDefination,
   { _id: false, versionKey: false, strict: true },
 );
-

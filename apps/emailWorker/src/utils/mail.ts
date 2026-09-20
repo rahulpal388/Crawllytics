@@ -18,4 +18,3 @@ export function mail() {
 
 const Mail = mail();
 export default Mail;
-

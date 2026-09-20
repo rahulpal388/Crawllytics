@@ -10,4 +10,3 @@ export function IssuesTableMeta({ row }: { row: IssuesResponseType }) {
     </>
   );
 }
-

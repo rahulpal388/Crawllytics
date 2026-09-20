@@ -20,4 +20,3 @@ export type HTMLVideoType = {
   embedProvider: "youtube" | "vimeo" | "wistia" | "loom" | "other" | null;
   embedUrl: string | null;
 };
-

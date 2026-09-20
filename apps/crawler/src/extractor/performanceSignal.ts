@@ -66,5 +66,3 @@ export function performanceSignal($: Cheerio.CheerioAPI, url: URL): PerformanceS
     hasPwaManifest,
   };
 }
-
-

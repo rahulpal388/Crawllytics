@@ -61,4 +61,3 @@ export function CodeSnippet({ language, code }: CodeSnippetType) {
     </div>
   );
 }
-

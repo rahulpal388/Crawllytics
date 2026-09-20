@@ -29,11 +29,9 @@ export type PageCrawlabilityAnalysis = {
     tlsHandshakeTime: number;
     timeToFirstByte: number;
     totalResponseTime: number;
-  }
+  };
   metaRobots: string[];
   xRobotTag: string[];
   canonicalUrl: string[];
-  isInSiteMap: boolean
-
+  isInSiteMap: boolean;
 };
-

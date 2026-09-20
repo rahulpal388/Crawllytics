@@ -1,6 +1,10 @@
 import { Schema } from "mongoose";
 import { ResponseHeaderSchema } from "./responseHeaderSchema.js";
-import { EachUrlNetworkResultTypes, FetchErrorCodes, RedirectChainType } from "@repo/contracts/types/crawl/urlCrawl/network/eachUrlNetworkTypes";
+import {
+  EachUrlNetworkResultTypes,
+  FetchErrorCodes,
+  RedirectChainType,
+} from "@repo/contracts/types/crawl/urlCrawl/network/eachUrlNetworkTypes";
 import { SchemaOf } from "../../types/schemaOfTypes.js";
 
 const redirectChainSchemaDefinition: SchemaOf<RedirectChainType> = {
@@ -102,4 +106,3 @@ export const urlNetworkSchema = new Schema<EachUrlNetworkResultTypes>(urlNetwork
   versionKey: false,
   strict: true,
 });
-

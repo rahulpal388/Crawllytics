@@ -5,5 +5,3 @@ import { getDocumentData } from "@/utils/htmlDocument/getDocumentData.js";
 export function htmlDocument($: Cheerio.CheerioAPI): HTMLDocumentType {
   return getDocumentData($);
 }
-
-

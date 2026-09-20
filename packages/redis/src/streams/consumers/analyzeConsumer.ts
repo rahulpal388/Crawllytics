@@ -16,4 +16,3 @@ export function analyzerConsumerConfig(redisClient: RedisClientType, consumerNam
     });
   }
 }
-

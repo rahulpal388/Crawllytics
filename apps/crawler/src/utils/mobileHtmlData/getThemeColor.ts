@@ -8,5 +8,3 @@ export function getThemeColor($: cheerio.CheerioAPI) {
     themeColor,
   };
 }
-
-

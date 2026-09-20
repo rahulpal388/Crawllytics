@@ -1,11 +1,14 @@
 import mongoose from "mongoose";
 
-export async function connectDB(dbUrl: string): Promise<{
-  success: true;
-  connection: typeof mongoose;
-} | {
-  success: false
-}> {
+export async function connectDB(dbUrl: string): Promise<
+  | {
+      success: true;
+      connection: typeof mongoose;
+    }
+  | {
+      success: false;
+    }
+> {
   try {
     const connection = await mongoose.connect(dbUrl);
     console.log("Connected to MongoDB");
@@ -14,4 +17,3 @@ export async function connectDB(dbUrl: string): Promise<{
     return { success: false };
   }
 }
-

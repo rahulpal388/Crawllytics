@@ -24,5 +24,3 @@ export function getAlternateData($: cheerio.CheerioAPI, baseUrl: URL): HTMLAlter
 
   return alternates;
 }
-
-

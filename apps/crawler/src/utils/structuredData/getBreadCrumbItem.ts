@@ -60,5 +60,3 @@ function extractBreadcrumbs(obj: Record<string, unknown>, breadcrumbs: Breadcrum
     });
   }
 }
-
-

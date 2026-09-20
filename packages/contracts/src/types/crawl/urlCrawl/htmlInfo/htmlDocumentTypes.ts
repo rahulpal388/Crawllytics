@@ -13,4 +13,3 @@ export type HTMLDocumentType = {
   hasFlash: boolean;
   jsFrameworks: string[];
 };
-

@@ -21,5 +21,3 @@ export function getFaqCount(jsonLdBlocks: JsonLdBlockType[]): number {
 
   return count;
 }
-
-

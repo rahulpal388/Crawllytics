@@ -21,4 +21,3 @@ export function emailConsumerConfig(redisClient: RedisClientType, consumerName: 
     await redisClient.xAck(STREAMS.EMAIL_STREAM, STREAM_GROUPS.EMAIL_STREAM_GROUP, messageId);
   }
 }
-

@@ -81,4 +81,3 @@ export const performanceSignalSchema = new Schema<PerformanceSignalType>(
   performanceSignalSchemaDefination,
   { _id: false, versionKey: false, strict: true },
 );
-

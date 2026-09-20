@@ -8,4 +8,3 @@ export function PageContents() {
 
   return <SideBarContent />;
 }
-

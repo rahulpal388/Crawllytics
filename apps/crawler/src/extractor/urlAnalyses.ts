@@ -43,5 +43,3 @@ export function urlAnalyses(url: URL, crawlDepth: number): UrlAnalysesType {
     isBlockedByRobotsTxt: true,
   };
 }
-
-

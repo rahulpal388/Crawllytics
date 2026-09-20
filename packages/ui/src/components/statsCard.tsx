@@ -18,4 +18,3 @@ export function StatsCard({ value, title, className }: StatsCardProps) {
     </>
   );
 }
-

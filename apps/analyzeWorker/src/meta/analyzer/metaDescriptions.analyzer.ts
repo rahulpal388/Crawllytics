@@ -3,52 +3,43 @@ import { MetaDescriptionAnalysis } from "@repo/contract/types/analysesTypes/perP
 import { HTMLMetaDescriptionType } from "@repo/contract/types/urlInformationType/htmlHeaderResponseTypes";
 
 export function analyzeMetaDescription(
-    metaDescriptions: HTMLMetaDescriptionType[]
+  metaDescriptions: HTMLMetaDescriptionType[],
 ): MetaDescriptionAnalysis {
-    const primaryMetaDescription = metaDescriptions[0];
+  const primaryMetaDescription = metaDescriptions[0];
 
-    const hasMetaDescription = metaDescriptions.length > 0;
+  const hasMetaDescription = metaDescriptions.length > 0;
 
-    const metaDescriptionLengthChar =
-        primaryMetaDescription?.lengthChar ?? null;
+  const metaDescriptionLengthChar = primaryMetaDescription?.lengthChar ?? null;
 
-    const metaDescriptionLengthPixel =
-        primaryMetaDescription?.lengthPixel ?? null;
+  const metaDescriptionLengthPixel = primaryMetaDescription?.lengthPixel ?? null;
 
-    return {
-        hasMetaDescription,
+  return {
+    hasMetaDescription,
 
-        metaDescriptionCount: metaDescriptions.length,
+    metaDescriptionCount: metaDescriptions.length,
 
-        hasMultipleMetaDescriptions:
-            metaDescriptions.length > 1,
+    hasMultipleMetaDescriptions: metaDescriptions.length > 1,
 
-        emptyMetaDescription: hasMetaDescription
-            ? metaDescriptions.some(
-                (description) => description.text.trim().length === 0
-            )
-            : false,
+    emptyMetaDescription: hasMetaDescription
+      ? metaDescriptions.some((description) => description.text.trim().length === 0)
+      : false,
 
-        duplicateMetaDescription: false, // Filled during site-wide analysis
+    duplicateMetaDescription: false, // Filled during site-wide analysis
 
-        metaDescriptionLengthChar,
+    metaDescriptionLengthChar,
 
-        metaDescriptionLengthPixel,
+    metaDescriptionLengthPixel,
 
-        metaDescriptionTooShort:
-            metaDescriptionLengthChar !== null &&
-            metaDescriptionLengthChar <
-            SEO_LIMITS.metaDescription.minLength,
+    metaDescriptionTooShort:
+      metaDescriptionLengthChar !== null &&
+      metaDescriptionLengthChar < SEO_LIMITS.metaDescription.minLength,
 
-        metaDescriptionTooLong:
-            metaDescriptionLengthChar !== null &&
-            metaDescriptionLengthChar >
-            SEO_LIMITS.metaDescription.maxLength,
+    metaDescriptionTooLong:
+      metaDescriptionLengthChar !== null &&
+      metaDescriptionLengthChar > SEO_LIMITS.metaDescription.maxLength,
 
-        metaDescriptionTooWide:
-            metaDescriptionLengthPixel !== null &&
-            metaDescriptionLengthPixel >
-            SEO_LIMITS.metaDescription.maxPixelWidth,
-    };
+    metaDescriptionTooWide:
+      metaDescriptionLengthPixel !== null &&
+      metaDescriptionLengthPixel > SEO_LIMITS.metaDescription.maxPixelWidth,
+  };
 }
-

@@ -51,5 +51,3 @@ export function getArticleData(jsonLdBlocks: JsonLdBlockType[]) {
     articleModifiedTime,
   };
 }
-
-

@@ -1,6 +1,8 @@
 import { apiClient } from "./apiClient";
 import { DashboardKPIsResponse } from "@repo/contract/types/apiResponseType/dashboard.responseType";
 
-export async function getProjectKPIMatrix(projectId: string): Promise<DashboardKPIsResponse> {
-    return apiClient.get(`/projects/:${projectId}/kpi-matrix`);
+export async function getProjectKPIMatrix(
+  projectId: string,
+): Promise<DashboardKPIsResponse> {
+  return apiClient.get(`/projects/:${projectId}/kpi-matrix`);
 }

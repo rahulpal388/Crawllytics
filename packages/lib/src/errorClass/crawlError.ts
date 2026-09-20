@@ -7,4 +7,3 @@ export class CrawlError extends Error {
     super(message);
   }
 }
-

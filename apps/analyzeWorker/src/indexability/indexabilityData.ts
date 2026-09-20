@@ -13,8 +13,6 @@ export function indexabilityData(gatherInfo: GatherInfoType): PageIndexabilityTy
     metaRobots: ["index", "follow"],
     xRobotsTag,
     canonicalUrl,
-    contentType: "html/text"
+    contentType: "html/text",
   };
 }
-
-

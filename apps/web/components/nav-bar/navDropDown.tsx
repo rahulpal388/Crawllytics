@@ -25,4 +25,3 @@ export function NavDropDown({ isOpen }: { isOpen: boolean }) {
     </>
   );
 }
-

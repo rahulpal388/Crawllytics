@@ -14,19 +14,19 @@ import { htmlMediaSchema } from "../../schema/crawlSchema/mediaInformation.schem
 import { mobileUIUXSchema } from "../../schema/crawlSchema/mobileUIUXSchema.js";
 
 const urlCrawledSchemaDefinitation: SchemaOf<UrlCrawledType> = {
-    projectId: { type: Schema.Types.ObjectId, required: true, ref: "Project" },
-    url: { type: String, required: true },
-    networkInfo: { type: urlNetworkSchema, required: true },
-    htmlHeader: { type: headerInformationSchema, default: null },
-    htmlHeadingContent: { type: htmlHeadingContentsSchema, default: null },
-    links: { type: [htmlLinksSchema], default: [] },
-    media: { type: htmlMediaSchema, default: null },
-    structureData: { type: htmlStructureDataSchema, default: null },
-    mobileUIUX: { type: mobileUIUXSchema, default: null },
-    urlAnalyses: { type: urlAnalysesSchema, default: null },
-    performanceSignals: { type: performanceSignalSchema, default: null },
-    htmlDocument: { type: htmlDocumentSchema, default: null },
-    accessibility: { type: accessibilitySchema, default: null },
+  projectId: { type: Schema.Types.ObjectId, required: true, ref: "Project" },
+  url: { type: String, required: true },
+  networkInfo: { type: urlNetworkSchema, required: true },
+  htmlHeader: { type: headerInformationSchema, default: null },
+  htmlHeadingContent: { type: htmlHeadingContentsSchema, default: null },
+  links: { type: [htmlLinksSchema], default: [] },
+  media: { type: htmlMediaSchema, default: null },
+  structureData: { type: htmlStructureDataSchema, default: null },
+  mobileUIUX: { type: mobileUIUXSchema, default: null },
+  urlAnalyses: { type: urlAnalysesSchema, default: null },
+  performanceSignals: { type: performanceSignalSchema, default: null },
+  htmlDocument: { type: htmlDocumentSchema, default: null },
+  accessibility: { type: accessibilitySchema, default: null },
 };
 
 const UrlCrawledSchema = new Schema<UrlCrawledType>(urlCrawledSchemaDefinitation);

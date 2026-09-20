@@ -16,4 +16,3 @@ export async function produce<T extends StreamKeys>({
     event: JSON.stringify(message),
   });
 }
-

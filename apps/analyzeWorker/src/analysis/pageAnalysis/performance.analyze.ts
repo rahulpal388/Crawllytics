@@ -42,5 +42,3 @@ export function performanceAnalysis(gatherInfo: GatherInfoType): PerformanceAnal
     prefetchCount,
   };
 }
-
-

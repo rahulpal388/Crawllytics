@@ -50,5 +50,3 @@ export function getOpenGraphData($: cheerio.CheerioAPI): HTMLOpenGraphType {
     locale: ogMap.get("og:locale")?.[0] ?? null,
   };
 }
-
-

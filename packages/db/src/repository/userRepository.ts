@@ -7,24 +7,18 @@ export const userRepository = {
   findByEmail,
 };
 
-
-
 /*
-* Add a new user to the database
-*/
+ * Add a new user to the database
+ */
 
 async function addUser(userInfo: UserSchemaType) {
   return await UserModel.create(userInfo);
 }
 
 /*
-* Find a user by email
-*/
+ * Find a user by email
+ */
 
 async function findByEmail(email: string) {
   return await UserModel.findOne({ email: email });
 }
-
-
-
-

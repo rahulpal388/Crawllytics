@@ -55,5 +55,3 @@ export function accessibilityInfo($: Cheerio.CheerioAPI): AccessibilityType {
     tablesMissingHeaders,
   };
 }
-
-

@@ -5,30 +5,20 @@ import { authRateLimitKey } from "@/shared/security/rate-limiter/keys/auth.key.j
 import { authRateLimitPolicies } from "@/shared/security/rate-limiter/policy/auth.policy.js";
 
 /*
-*   LoginRateLimit : using both IP and Email as key to limit the login attempts
-*/
+ *   LoginRateLimit : using both IP and Email as key to limit the login attempts
+ */
 
+export function loginRateLimit(req: Request, res: Response, next: NextFunction) {
+  const midd = RateLimitMiddleware(slidingWindowRateLimit, [
+    {
+      key: authRateLimitKey.loginByIp,
+      policy: authRateLimitPolicies.loginIp,
+    },
+    {
+      key: authRateLimitKey.loginByEmail,
+      policy: authRateLimitPolicies.loginEmail,
+    },
+  ]);
 
-
-export function loginRateLimit(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-) {
-
-    const midd = RateLimitMiddleware(
-        slidingWindowRateLimit,
-        [
-            {
-                key: authRateLimitKey.loginByIp,
-                policy: authRateLimitPolicies.loginIp
-            },
-            {
-                key: authRateLimitKey.loginByEmail,
-                policy: authRateLimitPolicies.loginEmail
-            }
-        ]
-    )
-
-    return midd(req, res, next);
+  return midd(req, res, next);
 }

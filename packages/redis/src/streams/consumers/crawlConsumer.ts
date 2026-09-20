@@ -5,7 +5,7 @@ import { STREAM_GROUPS, STREAMS } from "../../types/streamTypes.js";
 export function crawlConsumerConfig(redisClient: RedisClientType, consumerName: string) {
   return {
     consume,
-    ack
+    ack,
   };
 
   async function consume() {
@@ -19,9 +19,5 @@ export function crawlConsumerConfig(redisClient: RedisClientType, consumerName: 
 
   async function ack(messageId: string) {
     return redisClient.xAck(STREAMS.CRAWL_STREAM, STREAM_GROUPS.CRAWL_STREAM_GROUP, messageId);
-
   }
-
-
 }
-

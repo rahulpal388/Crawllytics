@@ -29,4 +29,3 @@ export type PageImagesAnalysis = {
 
   imagesMissingDimensions: number;
 };
-

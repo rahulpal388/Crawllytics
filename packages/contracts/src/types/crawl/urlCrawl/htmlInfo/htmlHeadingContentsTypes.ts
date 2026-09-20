@@ -18,4 +18,3 @@ export type HTMLContentType = {
   language: string | null;
   contentHash: string;
 };
-

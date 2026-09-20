@@ -1,28 +1,24 @@
-import http from "node:http"
-import https from "node:https"
-
-
+import http from "node:http";
+import https from "node:https";
 
 let httpAgent = new http.Agent({
-    keepAlive: true,
+  keepAlive: true,
 });
 
 let httpsAgent = new https.Agent({
-    keepAlive: true,
+  keepAlive: true,
 });
 
-
 export function getHttpClient(protocol: string) {
+  if (protocol === "https:") {
+    return https;
+  }
 
-    if (protocol === "https:") {
-        return https;
-    }
-
-    return http;
+  return http;
 }
 export function getHttpAgent(protocol: string) {
-    if (protocol === "https:") {
-        return httpsAgent;
-    }
-    return httpAgent;
+  if (protocol === "https:") {
+    return httpsAgent;
+  }
+  return httpAgent;
 }

@@ -46,4 +46,3 @@ export async function getSiteMapXml(sitemapUrl: string): Promise<GetSiteMapXmlRe
     }
   }
 }
-

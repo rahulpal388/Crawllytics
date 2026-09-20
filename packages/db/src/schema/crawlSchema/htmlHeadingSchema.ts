@@ -37,4 +37,3 @@ export const htmlHeadingContentsSchema = new Schema<HTMLHeadingContentType>(
   htmlHeadingContentsSchemaDefination,
   { _id: false, versionKey: false, strict: true },
 );
-

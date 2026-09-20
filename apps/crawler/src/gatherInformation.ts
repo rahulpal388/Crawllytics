@@ -11,15 +11,7 @@ import * as cheerio from "cheerio";
 import { htmlHeadingContentsExtractor } from "@/extractor/htmlHeadingContents.js";
 import { getMobileHtmlData } from "@/extractor/mobileHtmlData.js";
 
-
-
-
-export async function getGatherInformation(
-  html: string,
-  url: URL,
-  crawlDepth: number,
-) {
-
+export async function getGatherInformation(html: string, url: URL, crawlDepth: number) {
   const $ = cheerio.load(html);
   const htmlHeader = htmlHeaderExtractor($, url);
   const htmlDocumentInfo = htmlDocument($);
@@ -32,11 +24,13 @@ export async function getGatherInformation(
   const mobileUIUX = getMobileHtmlData($, url);
   const htmlHeadingContent = htmlHeadingContentsExtractor($);
 
-  const internalLinks = new Set(htmlLinks.internalLinks.map(link => {
-    const normalizedUrl = new URL(link, url.origin);
-    normalizedUrl.hash = '';
-    return normalizedUrl.toString();
-  }))
+  const internalLinks = new Set(
+    htmlLinks.internalLinks.map((link) => {
+      const normalizedUrl = new URL(link, url.origin);
+      normalizedUrl.hash = "";
+      return normalizedUrl.toString();
+    }),
+  );
 
   return {
     htmlHeader,
@@ -50,9 +44,5 @@ export async function getGatherInformation(
     accessibility: accessibility,
     mobileUIUX: mobileUIUX,
     htmlHeadingContent: htmlHeadingContent,
-
-  }
+  };
 }
-
-
-

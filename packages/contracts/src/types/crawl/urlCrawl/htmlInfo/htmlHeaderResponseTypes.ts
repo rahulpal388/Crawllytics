@@ -142,4 +142,3 @@ export type HTMLAlternateType = {
   as: string | null;
   crossOrigin: string | null;
 };
-

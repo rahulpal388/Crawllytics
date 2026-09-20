@@ -3,72 +3,63 @@ import { CRAWLABILITY_THRESHOLDS } from "@/crawlability/threshold.js";
 import { CrawlabilityIssueCode } from "@/crawlability/issuesCode.js";
 import { RulesType } from "@repo/contract/types/analysesTypes/rulesType";
 
-export const crawlabilityIssuesRules: RulesType<PageCrawlabilityAnalysis, CrawlabilityIssueCode>[] = [
+export const crawlabilityIssuesRules: RulesType<PageCrawlabilityAnalysis, CrawlabilityIssueCode>[] =
+  [
     // ===========================
     // HTTP Response
     // ===========================
 
     {
-        code: "HTTP_STATUS_3XX",
-        title: "Page redirects",
-        category: "crawlability",
-        severity: "low",
-        scoreImpact: 2,
-        check: (data) =>
-            data.httpResponse.statusCode >= 300 &&
-            data.httpResponse.statusCode < 400,
+      code: "HTTP_STATUS_3XX",
+      title: "Page redirects",
+      category: "crawlability",
+      severity: "low",
+      scoreImpact: 2,
+      check: (data) => data.httpResponse.statusCode >= 300 && data.httpResponse.statusCode < 400,
     },
 
     {
-        code: "HTTP_STATUS_4XX",
-        title: "Page returned a client error",
-        category: "crawlability",
-        severity: "critical",
-        scoreImpact: 20,
-        check: (data) =>
-            data.httpResponse.statusCode >= 400 &&
-            data.httpResponse.statusCode < 500,
+      code: "HTTP_STATUS_4XX",
+      title: "Page returned a client error",
+      category: "crawlability",
+      severity: "critical",
+      scoreImpact: 20,
+      check: (data) => data.httpResponse.statusCode >= 400 && data.httpResponse.statusCode < 500,
     },
 
     {
-        code: "HTTP_STATUS_5XX",
-        title: "Page returned a server error",
-        category: "crawlability",
-        severity: "critical",
-        scoreImpact: 25,
-        check: (data) =>
-            data.httpResponse.statusCode >= 500 &&
-            data.httpResponse.statusCode < 600,
+      code: "HTTP_STATUS_5XX",
+      title: "Page returned a server error",
+      category: "crawlability",
+      severity: "critical",
+      scoreImpact: 25,
+      check: (data) => data.httpResponse.statusCode >= 500 && data.httpResponse.statusCode < 600,
     },
 
     {
-        code: "REDIRECT_LOOP",
-        title: "Redirect loop detected",
-        category: "crawlability",
-        severity: "critical",
-        scoreImpact: 25,
-        check: (data) =>
-            data.httpResponse.isRedirectLoop,
+      code: "REDIRECT_LOOP",
+      title: "Redirect loop detected",
+      category: "crawlability",
+      severity: "critical",
+      scoreImpact: 25,
+      check: (data) => data.httpResponse.isRedirectLoop,
     },
 
     {
-        code: "REDIRECT_CHAIN",
-        title: "Redirect chain detected",
-        category: "crawlability",
-        severity: "warning",
-        scoreImpact: 5,
-        check: (data) =>
-            data.httpResponse.redirectCount >= 2 &&
-            data.httpResponse.redirectCount <= 3,
+      code: "REDIRECT_CHAIN",
+      title: "Redirect chain detected",
+      category: "crawlability",
+      severity: "warning",
+      scoreImpact: 5,
+      check: (data) => data.httpResponse.redirectCount >= 2 && data.httpResponse.redirectCount <= 3,
     },
     {
-        code: "LONG_REDIRECT_CHAIN",
-        title: "Long redirect chain detected",
-        category: "crawlability",
-        severity: "high",
-        scoreImpact: 10,
-        check: (data) =>
-            data.httpResponse.redirectCount > CRAWLABILITY_THRESHOLDS.MAX_REDIRECT_CHAIN,
+      code: "LONG_REDIRECT_CHAIN",
+      title: "Long redirect chain detected",
+      category: "crawlability",
+      severity: "high",
+      scoreImpact: 10,
+      check: (data) => data.httpResponse.redirectCount > CRAWLABILITY_THRESHOLDS.MAX_REDIRECT_CHAIN,
     },
 
     // ===========================
@@ -76,23 +67,21 @@ export const crawlabilityIssuesRules: RulesType<PageCrawlabilityAnalysis, Crawla
     // ===========================
 
     {
-        code: "ROBOTS_TXT_BLOCKED",
-        title: "Blocked by robots.txt",
-        category: "crawlability",
-        severity: "critical",
-        scoreImpact: 20,
-        check: (data) =>
-            !data.robotTxt.allowed,
+      code: "ROBOTS_TXT_BLOCKED",
+      title: "Blocked by robots.txt",
+      category: "crawlability",
+      severity: "critical",
+      scoreImpact: 20,
+      check: (data) => !data.robotTxt.allowed,
     },
 
     {
-        code: "ROBOTS_USER_AGENT_NOT_MATCHED",
-        title: "No matching user-agent rule found",
-        category: "crawlability",
-        severity: "info",
-        scoreImpact: 0,
-        check: (data) =>
-            !data.robotTxt.matchedUserAgent,
+      code: "ROBOTS_USER_AGENT_NOT_MATCHED",
+      title: "No matching user-agent rule found",
+      category: "crawlability",
+      severity: "info",
+      scoreImpact: 0,
+      check: (data) => !data.robotTxt.matchedUserAgent,
     },
 
     // ===========================
@@ -100,23 +89,21 @@ export const crawlabilityIssuesRules: RulesType<PageCrawlabilityAnalysis, Crawla
     // ===========================
 
     {
-        code: "NO_INTERNAL_INCOMING_LINKS",
-        title: "Page has no internal incoming links",
-        category: "crawlability",
-        severity: "high",
-        scoreImpact: 10,
-        check: (data) =>
-            data.internalLink.totalIncomingLinks === 0,
+      code: "NO_INTERNAL_INCOMING_LINKS",
+      title: "Page has no internal incoming links",
+      category: "crawlability",
+      severity: "high",
+      scoreImpact: 10,
+      check: (data) => data.internalLink.totalIncomingLinks === 0,
     },
 
     {
-        code: "NO_INTERNAL_OUTGOING_LINKS",
-        title: "Page has no internal outgoing links",
-        category: "crawlability",
-        severity: "low",
-        scoreImpact: 2,
-        check: (data) =>
-            data.internalLink.totalOutgoingLinks === 0,
+      code: "NO_INTERNAL_OUTGOING_LINKS",
+      title: "Page has no internal outgoing links",
+      category: "crawlability",
+      severity: "low",
+      scoreImpact: 2,
+      check: (data) => data.internalLink.totalOutgoingLinks === 0,
     },
 
     // ===========================
@@ -124,53 +111,48 @@ export const crawlabilityIssuesRules: RulesType<PageCrawlabilityAnalysis, Crawla
     // ===========================
 
     {
-        code: "SLOW_DNS_LOOKUP",
-        title: "DNS lookup is slow",
-        category: "crawlability",
-        severity: "low",
-        scoreImpact: 2,
-        check: (data) =>
-            data.network.dnsLookupTime > CRAWLABILITY_THRESHOLDS.DNS_LOOKUP_MS,
+      code: "SLOW_DNS_LOOKUP",
+      title: "DNS lookup is slow",
+      category: "crawlability",
+      severity: "low",
+      scoreImpact: 2,
+      check: (data) => data.network.dnsLookupTime > CRAWLABILITY_THRESHOLDS.DNS_LOOKUP_MS,
     },
 
     {
-        code: "SLOW_TCP_CONNECTION",
-        title: "TCP connection is slow",
-        category: "crawlability",
-        severity: "low",
-        scoreImpact: 2,
-        check: (data) =>
-            data.network.tcpConnectTime > CRAWLABILITY_THRESHOLDS.TCP_CONNECT_MS,
+      code: "SLOW_TCP_CONNECTION",
+      title: "TCP connection is slow",
+      category: "crawlability",
+      severity: "low",
+      scoreImpact: 2,
+      check: (data) => data.network.tcpConnectTime > CRAWLABILITY_THRESHOLDS.TCP_CONNECT_MS,
     },
 
     {
-        code: "SLOW_TLS_HANDSHAKE",
-        title: "TLS handshake is slow",
-        category: "crawlability",
-        severity: "low",
-        scoreImpact: 2,
-        check: (data) =>
-            data.network.tlsHandshakeTime > CRAWLABILITY_THRESHOLDS.TLS_HANDSHAKE_MS,
+      code: "SLOW_TLS_HANDSHAKE",
+      title: "TLS handshake is slow",
+      category: "crawlability",
+      severity: "low",
+      scoreImpact: 2,
+      check: (data) => data.network.tlsHandshakeTime > CRAWLABILITY_THRESHOLDS.TLS_HANDSHAKE_MS,
     },
 
     {
-        code: "HIGH_TTFB",
-        title: "Time to first byte is high",
-        category: "crawlability",
-        severity: "warning",
-        scoreImpact: 5,
-        check: (data) =>
-            data.network.timeToFirstByte > CRAWLABILITY_THRESHOLDS.TTFB_MS,
+      code: "HIGH_TTFB",
+      title: "Time to first byte is high",
+      category: "crawlability",
+      severity: "warning",
+      scoreImpact: 5,
+      check: (data) => data.network.timeToFirstByte > CRAWLABILITY_THRESHOLDS.TTFB_MS,
     },
 
     {
-        code: "HIGH_RESPONSE_TIME",
-        title: "Server response time is high",
-        category: "crawlability",
-        severity: "warning",
-        scoreImpact: 5,
-        check: (data) =>
-            data.network.totalResponseTime > CRAWLABILITY_THRESHOLDS.RESPONSE_TIME_MS,
+      code: "HIGH_RESPONSE_TIME",
+      title: "Server response time is high",
+      category: "crawlability",
+      severity: "warning",
+      scoreImpact: 5,
+      check: (data) => data.network.totalResponseTime > CRAWLABILITY_THRESHOLDS.RESPONSE_TIME_MS,
     },
 
     // ===========================
@@ -178,23 +160,21 @@ export const crawlabilityIssuesRules: RulesType<PageCrawlabilityAnalysis, Crawla
     // ===========================
 
     {
-        code: "META_ROBOTS_NOINDEX",
-        title: "Meta robots contains noindex",
-        category: "crawlability",
-        severity: "critical",
-        scoreImpact: 20,
-        check: (data) =>
-            data.metaRobots.includes("noindex"),
+      code: "META_ROBOTS_NOINDEX",
+      title: "Meta robots contains noindex",
+      category: "crawlability",
+      severity: "critical",
+      scoreImpact: 20,
+      check: (data) => data.metaRobots.includes("noindex"),
     },
 
     {
-        code: "META_ROBOTS_NOFOLLOW",
-        title: "Meta robots contains nofollow",
-        category: "crawlability",
-        severity: "warning",
-        scoreImpact: 5,
-        check: (data) =>
-            data.metaRobots.includes("nofollow"),
+      code: "META_ROBOTS_NOFOLLOW",
+      title: "Meta robots contains nofollow",
+      category: "crawlability",
+      severity: "warning",
+      scoreImpact: 5,
+      check: (data) => data.metaRobots.includes("nofollow"),
     },
 
     // ===========================
@@ -202,23 +182,21 @@ export const crawlabilityIssuesRules: RulesType<PageCrawlabilityAnalysis, Crawla
     // ===========================
 
     {
-        code: "X_ROBOTS_NOINDEX",
-        title: "X-Robots-Tag contains noindex",
-        category: "crawlability",
-        severity: "critical",
-        scoreImpact: 20,
-        check: (data) =>
-            data.xRobotTag.includes("noindex"),
+      code: "X_ROBOTS_NOINDEX",
+      title: "X-Robots-Tag contains noindex",
+      category: "crawlability",
+      severity: "critical",
+      scoreImpact: 20,
+      check: (data) => data.xRobotTag.includes("noindex"),
     },
 
     {
-        code: "X_ROBOTS_NOFOLLOW",
-        title: "X-Robots-Tag contains nofollow",
-        category: "crawlability",
-        severity: "warning",
-        scoreImpact: 5,
-        check: (data) =>
-            data.xRobotTag.includes("nofollow"),
+      code: "X_ROBOTS_NOFOLLOW",
+      title: "X-Robots-Tag contains nofollow",
+      category: "crawlability",
+      severity: "warning",
+      scoreImpact: 5,
+      check: (data) => data.xRobotTag.includes("nofollow"),
     },
 
     // ===========================
@@ -226,23 +204,21 @@ export const crawlabilityIssuesRules: RulesType<PageCrawlabilityAnalysis, Crawla
     // ===========================
 
     {
-        code: "MISSING_CANONICAL",
-        title: "Canonical tag is missing",
-        category: "crawlability",
-        severity: "warning",
-        scoreImpact: 5,
-        check: (data) =>
-            data.canonicalUrl.length === 0,
+      code: "MISSING_CANONICAL",
+      title: "Canonical tag is missing",
+      category: "crawlability",
+      severity: "warning",
+      scoreImpact: 5,
+      check: (data) => data.canonicalUrl.length === 0,
     },
 
     {
-        code: "MULTIPLE_CANONICAL",
-        title: "Multiple canonical tags detected",
-        category: "crawlability",
-        severity: "high",
-        scoreImpact: 10,
-        check: (data) =>
-            data.canonicalUrl.length > 1,
+      code: "MULTIPLE_CANONICAL",
+      title: "Multiple canonical tags detected",
+      category: "crawlability",
+      severity: "high",
+      scoreImpact: 10,
+      check: (data) => data.canonicalUrl.length > 1,
     },
 
     // ===========================
@@ -250,13 +226,11 @@ export const crawlabilityIssuesRules: RulesType<PageCrawlabilityAnalysis, Crawla
     // ===========================
 
     {
-        code: "NOT_IN_SITEMAP",
-        title: "Page is not present in sitemap",
-        category: "crawlability",
-        severity: "warning",
-        scoreImpact: 5,
-        check: (data) =>
-            !data.isInSiteMap,
+      code: "NOT_IN_SITEMAP",
+      title: "Page is not present in sitemap",
+      category: "crawlability",
+      severity: "warning",
+      scoreImpact: 5,
+      check: (data) => !data.isInSiteMap,
     },
-];
-
+  ];

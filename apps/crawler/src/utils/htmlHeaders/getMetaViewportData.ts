@@ -42,5 +42,3 @@ export function getMetaViewportData($: cheerio.CheerioAPI): HTMLMetaViewportType
 
   return viewports;
 }
-
-

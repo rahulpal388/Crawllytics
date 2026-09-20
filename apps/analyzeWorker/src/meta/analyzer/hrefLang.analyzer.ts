@@ -1,42 +1,26 @@
 import { HreflangAnalysis } from "@repo/contract/types/analysesTypes/perPages/pageMeta";
 import { HreflangType } from "@repo/contract/types/urlInformationType/htmlHeaderResponseTypes";
 
+export function analyzeHreflang(hreflangs: HreflangType[]): HreflangAnalysis {
+  return {
+    hasHreflang: hreflangs.length > 0,
 
+    hreflangCount: hreflangs.length,
 
-export function analyzeHreflang(
-    hreflangs: HreflangType[]
-): HreflangAnalysis {
-    return {
-        hasHreflang: hreflangs.length > 0,
+    hasDefaultHreflang: hreflangs.some((h) => h.isDefault),
 
-        hreflangCount: hreflangs.length,
+    hasReturnHreflang: hreflangs.some((h) => h.isReturn),
 
-        hasDefaultHreflang: hreflangs.some(
-            h => h.isDefault
-        ),
+    hasValidLanguageCodes: hreflangs.every((h) => h.isValidLanguage),
 
-        hasReturnHreflang: hreflangs.some(
-            h => h.isReturn
-        ),
+    hasInvalidLanguageCodes: hreflangs.some((h) => !h.isValidLanguage),
 
-        hasValidLanguageCodes:
-            hreflangs.every(h => h.isValidLanguage),
+    hasAbsoluteHreflangUrls: hreflangs.every((h) => h.isAbsoluteUrl),
 
-        hasInvalidLanguageCodes:
-            hreflangs.some(h => !h.isValidLanguage),
+    hasRelativeHreflangUrls: hreflangs.some((h) => !h.isAbsoluteUrl),
 
-        hasAbsoluteHreflangUrls:
-            hreflangs.every(h => h.isAbsoluteUrl),
-
-        hasRelativeHreflangUrls:
-            hreflangs.some(h => !h.isAbsoluteUrl),
-
-        hasBrokenHreflangUrls:
-            hreflangs.some(
-                h =>
-                    h.hrefStatusCode !== null &&
-                    h.hrefStatusCode >= 400
-            ),
-    };
+    hasBrokenHreflangUrls: hreflangs.some(
+      (h) => h.hrefStatusCode !== null && h.hrefStatusCode >= 400,
+    ),
+  };
 }
-

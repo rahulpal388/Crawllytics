@@ -1,4 +1,3 @@
-
 import { HTMLHeaderType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlHeaderResponseTypes";
 import { HTMLLinkType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlLinksTypes";
 import { HTMLStructureDataType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlStructureDataTypes";
@@ -10,7 +9,7 @@ import { MobileHtmlDataType } from "@repo/contracts/types/crawl/urlCrawl/htmlInf
 import { HTMLMediaTypes } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/HTMLMediaTypes/htmlMediaTypes";
 import { HTMLHeadingContentType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlHeadingContentsTypes";
 import mongoose from "mongoose";
-import { EachUrlNetworkResultTypes } from "@repo/contracts/types/crawl/urlCrawl/network/eachUrlNetworkTypes"
+import { EachUrlNetworkResultTypes } from "@repo/contracts/types/crawl/urlCrawl/network/eachUrlNetworkTypes";
 
 export type UrlCrawledType = {
   projectId: mongoose.Types.ObjectId;
@@ -27,4 +26,3 @@ export type UrlCrawledType = {
   htmlDocument: HTMLDocumentType | null;
   accessibility: AccessibilityType | null;
 };
-

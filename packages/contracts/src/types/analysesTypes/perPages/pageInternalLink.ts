@@ -7,4 +7,3 @@ export type PageInternalLinkAnalysis = {
   clickDepth: number;
   urlDepth: number;
 };
-

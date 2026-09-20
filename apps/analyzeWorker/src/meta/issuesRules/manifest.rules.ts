@@ -2,17 +2,13 @@ import { PageMetaAnalysis } from "@repo/contract/types/analysesTypes/perPages/pa
 import { RulesType } from "@/types/rulesType.js";
 import { MetaIssueCode } from "@/meta/issuesCode.js";
 
-export const manifestRules: RulesType<
-    PageMetaAnalysis,
-    MetaIssueCode
->[] = [
-        {
-            code: "MISSING_WEB_MANIFEST",
-            title: "Missing Web App Manifest",
-            category: "metadata",
-            severity: "info",
-            scoreImpact: 0,
-            check: (data) => !data.manifest.hasManifest,
-        },
-    ];
-
+export const manifestRules: RulesType<PageMetaAnalysis, MetaIssueCode>[] = [
+  {
+    code: "MISSING_WEB_MANIFEST",
+    title: "Missing Web App Manifest",
+    category: "metadata",
+    severity: "info",
+    scoreImpact: 0,
+    check: (data) => !data.manifest.hasManifest,
+  },
+];

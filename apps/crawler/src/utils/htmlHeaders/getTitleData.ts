@@ -17,5 +17,3 @@ export function getTitleData($: cheerio.CheerioAPI): HTMLTitleType[] {
 
   return titleValue;
 }
-
-

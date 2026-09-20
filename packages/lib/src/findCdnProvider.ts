@@ -9,4 +9,3 @@ export function findCdnProvider(headers: Record<string, string>): string | null 
 
   return null;
 }
-

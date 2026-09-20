@@ -3,4 +3,3 @@ export type RedisConfigType = {
   password: string;
   username: string;
 };
-

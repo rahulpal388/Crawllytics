@@ -8,5 +8,3 @@ export function getAlternateMobileUrl($: cheerio.CheerioAPI, baseUrl: URL): stri
 
   return href ? new URL(href, baseUrl).toString() : null;
 }
-
-

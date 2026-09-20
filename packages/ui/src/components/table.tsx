@@ -77,4 +77,3 @@ transition-colors duration-150    "
     </>
   );
 }
-

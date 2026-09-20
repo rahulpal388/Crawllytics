@@ -9,4 +9,3 @@ export const envSchema = z.object({
   REDIS_PASSWORD: z.string(),
   RESEND_API_KEY: z.string(),
 });
-

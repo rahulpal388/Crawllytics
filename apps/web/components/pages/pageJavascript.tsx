@@ -6,4 +6,3 @@ export function PageJavascript() {
     </div>
   );
 }
-

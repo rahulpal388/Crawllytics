@@ -1,5 +1,5 @@
 import z from "zod";
-import { globalEnv } from "@repo/contracts/globalEnv"
+import { globalEnv } from "@repo/contracts/globalEnv";
 
 export const envSchema = globalEnv.extend({
   NODE_ENV: z.enum(["production", "development"]).default("development"),
@@ -12,5 +12,3 @@ export const envSchema = globalEnv.extend({
   APP_URL: z.string(),
   COOKIE_DOMAIN: z.string(),
 });
-
-

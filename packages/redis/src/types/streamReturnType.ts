@@ -4,4 +4,3 @@ export type StreamReturnType<T extends StreamKeys> = {
   id: string;
   message: StreamMessageMap[T];
 };
-

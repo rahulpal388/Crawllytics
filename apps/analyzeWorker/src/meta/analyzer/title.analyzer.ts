@@ -2,43 +2,33 @@ import { SEO_LIMITS } from "@/constants/seoLimits.js";
 import { TitleAnalysis } from "@repo/contract/types/analysesTypes/perPages/pageMeta";
 import { HTMLTitleType } from "@repo/contract/types/urlInformationType/htmlHeaderResponseTypes";
 
-
 export function analyzeTitle(title: HTMLTitleType[]): TitleAnalysis {
-    const primaryTitle = title[0];
+  const primaryTitle = title[0];
 
-    const hasTitle = title.length > 0;
+  const hasTitle = title.length > 0;
 
-    const titleLengthChar = primaryTitle?.lengthChar ?? null;
-    const titleLengthPixel = primaryTitle?.lengthPixel ?? null;
+  const titleLengthChar = primaryTitle?.lengthChar ?? null;
+  const titleLengthPixel = primaryTitle?.lengthPixel ?? null;
 
-    return {
-        hasTitle,
+  return {
+    hasTitle,
 
-        titleCount: title.length,
+    titleCount: title.length,
 
-        hasMultipleTitles: title.length > 1,
+    hasMultipleTitles: title.length > 1,
 
-        emptyTitle: hasTitle
-            ? title.some((t) => t.text.trim().length === 0)
-            : false,
+    emptyTitle: hasTitle ? title.some((t) => t.text.trim().length === 0) : false,
 
-        duplicateTitle: false, // Filled during site analysis
+    duplicateTitle: false, // Filled during site analysis
 
-        titleLengthChar,
+    titleLengthChar,
 
-        titleLengthPixel,
+    titleLengthPixel,
 
-        titleTooShort:
-            titleLengthChar !== null &&
-            titleLengthChar < SEO_LIMITS.title.minLength,
+    titleTooShort: titleLengthChar !== null && titleLengthChar < SEO_LIMITS.title.minLength,
 
-        titleTooLong:
-            titleLengthChar !== null &&
-            titleLengthChar > SEO_LIMITS.title.maxLength,
+    titleTooLong: titleLengthChar !== null && titleLengthChar > SEO_LIMITS.title.maxLength,
 
-        titleTooWide:
-            titleLengthPixel !== null &&
-            titleLengthPixel > SEO_LIMITS.title.maxPixelWidth,
-    };
+    titleTooWide: titleLengthPixel !== null && titleLengthPixel > SEO_LIMITS.title.maxPixelWidth,
+  };
 }
-

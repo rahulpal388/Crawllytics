@@ -6,4 +6,3 @@ export type OIDCStateType = {
   codeVerifier: string;
   redirectTo: string;
 };
-

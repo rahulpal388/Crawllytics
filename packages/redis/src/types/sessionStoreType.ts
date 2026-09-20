@@ -3,4 +3,3 @@ export type SessionStoreType = {
   ipAddress: string | null;
   userAgent: string;
 };
-

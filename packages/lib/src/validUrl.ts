@@ -5,4 +5,3 @@ export function validUrl(url: string): URL | null {
     return null;
   }
 }
-

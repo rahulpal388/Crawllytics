@@ -22,5 +22,3 @@ export function getHeadingData($: cheerio.CheerioAPI): HTMLHeadingType[] {
 
   return headings;
 }
-
-

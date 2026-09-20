@@ -21,5 +21,3 @@ export function getWebsiteData(jsonLdBlocks: JsonLdBlockType[]) {
 
   return { websiteName };
 }
-
-

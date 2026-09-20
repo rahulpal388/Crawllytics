@@ -28,4 +28,3 @@ export async function createRedisConnection(
 
   return client as RedisClientType;
 }
-

@@ -44,4 +44,3 @@ export async function consumeFromGroup<T extends StreamKeys>({
     };
   });
 }
-

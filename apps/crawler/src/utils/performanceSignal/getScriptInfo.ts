@@ -27,5 +27,3 @@ export function getScriptInfo($: Cheerio.CheerioAPI, url: URL): ScriptType[] {
   });
   return scripts;
 }
-
-

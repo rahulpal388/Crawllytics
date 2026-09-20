@@ -13,59 +13,30 @@ import { analyzeViewport } from "@/meta/analyzer/viewPort.analyzer.js";
 import { GatherInfoType } from "@/types/gatherInfoType.js";
 import { PageMetaAnalysis } from "@repo/contract/types/analysesTypes/perPages/pageMeta";
 
-
-export function metaData(
-  metaInfo: GatherInfoType["htmlHeader"]
-): PageMetaAnalysis {
-
-
+export function metaData(metaInfo: GatherInfoType["htmlHeader"]): PageMetaAnalysis {
   return {
     title: analyzeTitle(metaInfo.title),
 
-    metaDescription: analyzeMetaDescription(
-      metaInfo.meta.metaDescription
-    ),
+    metaDescription: analyzeMetaDescription(metaInfo.meta.metaDescription),
 
-    metaRobots: analyzeMetaRobots(
-      metaInfo.meta.metaRobot
-    ),
+    metaRobots: analyzeMetaRobots(metaInfo.meta.metaRobot),
 
-    canonical: analyzeCanonical(
-      metaInfo.meta.Canonical
-    ),
+    canonical: analyzeCanonical(metaInfo.meta.Canonical),
 
-    openGraph: analyzeOpenGraph(
-      metaInfo.meta.openGraph
-    ),
+    openGraph: analyzeOpenGraph(metaInfo.meta.openGraph),
 
-    twitterCard: analyzeTwitterCard(
-      metaInfo.twitterCard
-    ),
+    twitterCard: analyzeTwitterCard(metaInfo.twitterCard),
 
-    viewport: analyzeViewport(
-      metaInfo.meta.metaViewport
-    ),
+    viewport: analyzeViewport(metaInfo.meta.metaViewport),
 
-    hreflang: analyzeHreflang(
-      metaInfo.hreflang
-    ),
+    hreflang: analyzeHreflang(metaInfo.hreflang),
 
-    alternate: analyzeAlternate(
-      metaInfo.alternate
-    ),
+    alternate: analyzeAlternate(metaInfo.alternate),
 
-    branding: analyzeBranding(
-      metaInfo.sitename,
-      metaInfo.favicon
-    ),
+    branding: analyzeBranding(metaInfo.sitename, metaInfo.favicon),
 
-    resourceHints: analyzeResourceHints(
-      metaInfo.resourceHints
-    ),
+    resourceHints: analyzeResourceHints(metaInfo.resourceHints),
 
-    manifest: analyzeManifest(
-      metaInfo.manifest
-    )
+    manifest: analyzeManifest(metaInfo.manifest),
   };
 }
-

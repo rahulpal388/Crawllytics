@@ -12,5 +12,3 @@ export function htmlHeadingContentsExtractor($: cheerio.CheerioAPI): HTMLHeading
     content,
   };
 }
-
-

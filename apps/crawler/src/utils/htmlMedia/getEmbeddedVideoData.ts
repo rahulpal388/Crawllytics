@@ -60,5 +60,3 @@ export function getEmbeddedVideoData($: cheerio.CheerioAPI, baseUrl: URL): HTMLV
 
   return videos;
 }
-
-

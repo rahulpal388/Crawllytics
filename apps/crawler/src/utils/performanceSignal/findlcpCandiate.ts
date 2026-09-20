@@ -61,5 +61,3 @@ export function findLcpCandidate($: cheerio.CheerioAPI): LcpCandidateType {
     hasEagerLoading: false,
   };
 }
-
-

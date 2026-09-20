@@ -16,10 +16,9 @@ export const FetchErrorCodes = {
   UNKNOWN: "UNKNOWN",
 } as const;
 export type FetchErrorType = {
-  code: typeof FetchErrorCodes[keyof typeof FetchErrorCodes];
+  code: (typeof FetchErrorCodes)[keyof typeof FetchErrorCodes];
   message: string;
 };
-
 
 export type EachUrlNetworkResultTypes = {
   requestedUrl: string;
@@ -41,7 +40,6 @@ export type EachUrlNetworkResultTypes = {
   totalResponseTime: number | null;
   connectionReused: boolean;
 
-
   contentType: string | null;
   transferSize: number;
   compressionEncoding: CompressionEncodingType;
@@ -49,7 +47,6 @@ export type EachUrlNetworkResultTypes = {
 
   redirectChain: RedirectChainType[];
   isRedirectLoop: boolean;
-
 
   responseHeaders: ResponseHeadersType | null;
 };

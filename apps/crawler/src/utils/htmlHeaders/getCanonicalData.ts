@@ -55,5 +55,3 @@ export function getCanonicalData($: cheerio.CheerioAPI, baseUrl: URL): HTMLCanon
 
   return canonical;
 }
-
-

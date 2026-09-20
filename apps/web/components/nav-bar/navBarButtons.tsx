@@ -19,4 +19,3 @@ export function NavBarButtons({ className }: { className?: string }) {
     </>
   );
 }
-

@@ -19,5 +19,3 @@ export function detectFrameworks($: cheerio.CheerioAPI): string[] {
 
   return [...frameworks];
 }
-
-

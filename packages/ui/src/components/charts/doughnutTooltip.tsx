@@ -30,4 +30,3 @@ export function DoughnutTooltip({ tooltip }: { tooltip: DoughnutTootleTipType })
     </>
   );
 }
-

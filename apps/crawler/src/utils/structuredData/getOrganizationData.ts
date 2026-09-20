@@ -40,5 +40,3 @@ export function getOrganization(jsonLdBlocks: JsonLdBlockType[]) {
     organizationLogo,
   };
 }
-
-

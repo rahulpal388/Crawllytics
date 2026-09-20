@@ -8,5 +8,3 @@ export async function getGoogleConfiguration() {
     env.GOOGLE_CLIENT_SECRET,
   );
 }
-
-

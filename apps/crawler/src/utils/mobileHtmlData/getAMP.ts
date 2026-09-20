@@ -8,5 +8,3 @@ export function getAmp($: cheerio.CheerioAPI, baseUrl: URL) {
     ampUrl: href ? new URL(href, baseUrl).toString() : null,
   };
 }
-
-

@@ -3,22 +3,17 @@ import { DomainInformationType } from "@repo/contracts/types/crawl/domain-leve-i
 
 import mongoose from "mongoose";
 
-
-
 const domainSchemaDefinition: SchemaOf<DomainInformationType> = {
-    registrar: { type: String, default: null },
-    RegistryDomainID: { type: String, default: null },
-    domainStatus: { type: String, default: null },
-    registerOn: { type: Date, default: null },
-    expiresOn: { type: Date, default: null },
-    nameServers: { type: [String], default: [] },
-}
-
-
-
+  registrar: { type: String, default: null },
+  RegistryDomainID: { type: String, default: null },
+  domainStatus: { type: String, default: null },
+  registerOn: { type: Date, default: null },
+  expiresOn: { type: Date, default: null },
+  nameServers: { type: [String], default: [] },
+};
 
 export const domainInfoSchema = new mongoose.Schema<DomainInformationType>(domainSchemaDefinition, {
-    _id: false,
-    timestamps: false,
-    versionKey: false,
+  _id: false,
+  timestamps: false,
+  versionKey: false,
 });

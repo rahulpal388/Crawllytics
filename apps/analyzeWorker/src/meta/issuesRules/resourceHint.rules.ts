@@ -2,73 +2,69 @@ import { PageMetaAnalysis } from "@repo/contract/types/analysesTypes/perPages/pa
 import { RulesType } from "@/types/rulesType.js";
 import { MetaIssueCode } from "@/meta/issuesCode.js";
 
-export const resourceHintsRules: RulesType<
-    PageMetaAnalysis,
-    MetaIssueCode
->[] = [
-        // ===========================
-        // DNS Prefetch
-        // ===========================
+export const resourceHintsRules: RulesType<PageMetaAnalysis, MetaIssueCode>[] = [
+  // ===========================
+  // DNS Prefetch
+  // ===========================
 
-        {
-            code: "MISSING_DNS_PREFETCH",
-            title: "Missing DNS Prefetch",
-            category: "metadata",
-            severity: "info",
-            scoreImpact: 0,
-            check: (data) => !data.resourceHints.hasDnsPrefetch,
-        },
+  {
+    code: "MISSING_DNS_PREFETCH",
+    title: "Missing DNS Prefetch",
+    category: "metadata",
+    severity: "info",
+    scoreImpact: 0,
+    check: (data) => !data.resourceHints.hasDnsPrefetch,
+  },
 
-        // ===========================
-        // Preconnect
-        // ===========================
+  // ===========================
+  // Preconnect
+  // ===========================
 
-        {
-            code: "MISSING_PRECONNECT",
-            title: "Missing Preconnect resource hint",
-            category: "metadata",
-            severity: "info",
-            scoreImpact: 0,
-            check: (data) => !data.resourceHints.hasPreconnect,
-        },
+  {
+    code: "MISSING_PRECONNECT",
+    title: "Missing Preconnect resource hint",
+    category: "metadata",
+    severity: "info",
+    scoreImpact: 0,
+    check: (data) => !data.resourceHints.hasPreconnect,
+  },
 
-        // ===========================
-        // Preload
-        // ===========================
+  // ===========================
+  // Preload
+  // ===========================
 
-        {
-            code: "MISSING_PRELOAD",
-            title: "Missing Preload resource hint",
-            category: "metadata",
-            severity: "info",
-            scoreImpact: 0,
-            check: (data) => !data.resourceHints.hasPreload,
-        },
+  {
+    code: "MISSING_PRELOAD",
+    title: "Missing Preload resource hint",
+    category: "metadata",
+    severity: "info",
+    scoreImpact: 0,
+    check: (data) => !data.resourceHints.hasPreload,
+  },
 
-        // ===========================
-        // Prefetch
-        // ===========================
+  // ===========================
+  // Prefetch
+  // ===========================
 
-        {
-            code: "MISSING_PREFETCH",
-            title: "Missing Prefetch resource hint",
-            category: "metadata",
-            severity: "info",
-            scoreImpact: 0,
-            check: (data) => !data.resourceHints.hasPrefetch,
-        },
+  {
+    code: "MISSING_PREFETCH",
+    title: "Missing Prefetch resource hint",
+    category: "metadata",
+    severity: "info",
+    scoreImpact: 0,
+    check: (data) => !data.resourceHints.hasPrefetch,
+  },
 
-        // ===========================
-        // Module Preload
-        // ===========================
+  // ===========================
+  // Module Preload
+  // ===========================
 
-        {
-            code: "MISSING_MODULE_PRELOAD",
-            title: "Missing modulepreload resource hint",
-            category: "metadata",
-            severity: "info",
-            scoreImpact: 0,
-            check: (data) => !data.resourceHints.hasModulePreload,
-        },
-    ];
-
+  {
+    code: "MISSING_MODULE_PRELOAD",
+    title: "Missing modulepreload resource hint",
+    category: "metadata",
+    severity: "info",
+    scoreImpact: 0,
+    check: (data) => !data.resourceHints.hasModulePreload,
+  },
+];

@@ -3,12 +3,7 @@ import { CreateProject } from "@/module/project/project/create-project.controlle
 import { DeleteProject } from "@/module/project/project/delete-project.controller.js";
 import { Router } from "express";
 
-
-
-
-
 const projectRouter = Router();
-
 
 /*
 * TODO : 
@@ -19,7 +14,5 @@ projectRouter.post("/create", CreateProject);
 projectRouter.delete("/delete", DeleteProject);
 
 projectRouter.get("/crawl", CrawlProjectController);
-
-
 
 export default projectRouter;

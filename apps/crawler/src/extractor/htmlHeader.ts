@@ -50,5 +50,3 @@ export function htmlHeaderExtractor($: cheerio.CheerioAPI, url: URL): HTMLHeader
     manifest,
   };
 }
-
-

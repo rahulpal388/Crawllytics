@@ -52,4 +52,3 @@ export const Button = ({ children, className, variant, size, ...props }: ButtonP
     </button>
   );
 };
-

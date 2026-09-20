@@ -22,4 +22,3 @@ export interface StreamMessageMap extends Record<StreamKeys, unknown> {
   [STREAMS.ANALYZE_STREAM]: AnalyzeStreamMessageType;
   [STREAMS.EMAIL_STREAM]: EmailStreamMessage;
 }
-

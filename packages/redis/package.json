@@ -11,7 +11,6 @@
   },
   "scripts": {},
   "devDependencies": {
-    "@repo/redis": "*",
     "@repo/lib": "*",
     "@repo/typescript-config": "*",
     "@types/redis": "^4.0.10",

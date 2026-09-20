@@ -15,4 +15,3 @@ export function SpiderSvg({ className }: { className?: string }) {
     </svg>
   );
 }
-

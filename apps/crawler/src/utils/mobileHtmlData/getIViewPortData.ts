@@ -8,5 +8,3 @@ export function getViewport($: cheerio.CheerioAPI) {
     viewportContent: viewport.attr("content") ?? null,
   };
 }
-
-

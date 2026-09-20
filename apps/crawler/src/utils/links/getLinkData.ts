@@ -79,5 +79,3 @@ export function getLinkData($: cheerio.CheerioAPI, baseUrl: URL): HTMLLinkType[]
 
   return links;
 }
-
-

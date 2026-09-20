@@ -6,4 +6,3 @@ export const globalEnv = z.object({
   REDIS_PASSWORD: z.string("REDIS_PASSWORD is required"),
   REDIS_USERNAME: z.string("REDIS_USERNAME is required"),
 });
-

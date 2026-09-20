@@ -14,21 +14,17 @@ import { viewportRules } from "@/meta/issuesRules/viewPorts.rules.js";
 import { PageMetaAnalysis } from "@repo/contract/types/analysesTypes/perPages/pageMeta";
 import { RulesType } from "@repo/contract/types/analysesTypes/rulesType";
 
-export const metaIssuesRules: RulesType<
-    PageMetaAnalysis,
-    MetaIssueCode
->[] = [
-        ...titleRules,
-        ...metaDescriptionRules,
-        ...metaRobotsRules,
-        ...canonicalRules,
-        ...openGraphRules,
-        ...twitterCardRules,
-        ...viewportRules,
-        ...hreflangRules,
-        ...alternateRules,
-        ...brandingRules,
-        ...resourceHintsRules,
-        ...manifestRules
-    ];
-
+export const metaIssuesRules: RulesType<PageMetaAnalysis, MetaIssueCode>[] = [
+  ...titleRules,
+  ...metaDescriptionRules,
+  ...metaRobotsRules,
+  ...canonicalRules,
+  ...openGraphRules,
+  ...twitterCardRules,
+  ...viewportRules,
+  ...hreflangRules,
+  ...alternateRules,
+  ...brandingRules,
+  ...resourceHintsRules,
+  ...manifestRules,
+];

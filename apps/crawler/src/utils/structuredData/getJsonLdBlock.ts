@@ -46,5 +46,3 @@ export function getJsonLdBlocks($: cheerio.CheerioAPI): JsonLdBlockType[] {
 
   return blocks;
 }
-
-

@@ -41,7 +41,7 @@ export function ChooseStackComponent({
     <>
       <div className="flex flex-wrap items-center gap-4">
         {chooseStack.map((st, idx) => (
-          <div key={idx} >
+          <div key={idx}>
             <Button
               variant={selectedStack === st.stack ? "primary" : "outline"}
               onClick={() => onSelect(st.stack)}
@@ -54,4 +54,3 @@ export function ChooseStackComponent({
     </>
   );
 }
-

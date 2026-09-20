@@ -67,15 +67,15 @@ export function parseResponseHeader(res: IncomingMessage): ResponseHeadersType {
     cacheControl = {
       maxAge: cacheControlParts.find((part) => part.startsWith("max-age="))
         ? parseInt(
-          cacheControlParts.find((part) => part.startsWith("max-age="))?.split("=")[1] || "0",
-        )
+            cacheControlParts.find((part) => part.startsWith("max-age="))?.split("=")[1] || "0",
+          )
         : null,
       noCache: cacheControlParts.includes("no-cache"),
       noStore: cacheControlParts.includes("no-store"),
       sMaxAge: cacheControlParts.find((part) => part.startsWith("s-maxage="))
         ? parseInt(
-          cacheControlParts.find((part) => part.startsWith("s-maxage="))?.split("=")[1] || "0",
-        )
+            cacheControlParts.find((part) => part.startsWith("s-maxage="))?.split("=")[1] || "0",
+          )
         : null,
       mustRevalidate: cacheControlParts.includes("must-revalidate"),
       isImmutable: cacheControlParts.includes("immutable"),
@@ -102,5 +102,3 @@ export function parseResponseHeader(res: IncomingMessage): ResponseHeadersType {
     vary,
   };
 }
-
-

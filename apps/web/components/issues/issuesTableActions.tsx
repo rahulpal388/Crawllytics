@@ -23,4 +23,3 @@ export function IssuesTableActions({ row }: { row: IssuesResponseType }) {
     </>
   );
 }
-

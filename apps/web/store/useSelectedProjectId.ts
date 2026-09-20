@@ -19,4 +19,3 @@ export const useSelectedProjectId = create<SelectedProjectIdType>()(
     },
   ),
 );
-

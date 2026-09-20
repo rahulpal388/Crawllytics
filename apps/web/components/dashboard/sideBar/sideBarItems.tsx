@@ -101,4 +101,3 @@ export function SideBarItems({ isOpen }: { isOpen: boolean }) {
     </>
   );
 }
-

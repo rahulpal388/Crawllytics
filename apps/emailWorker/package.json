@@ -8,7 +8,8 @@
     "start": "node dist/index.js",
     "build": "tsc",
     "email": "email dev --dir ./emails",
-    "lint": "eslint src/**/*.ts && eslint emails/**/*.ts"
+    "lint": "eslint src/**/*.ts && eslint emails/**/*.ts",
+    "check-types": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",

@@ -55,5 +55,3 @@ export function getSchemaCounts(jsonLdBlocks: JsonLdBlockType[]) {
     personCount,
   };
 }
-
-

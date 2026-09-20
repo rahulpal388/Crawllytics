@@ -1,6 +1,5 @@
-
 export type ResponseHeadersType = {
-  // this browser tell to use https 
+  // this browser tell to use https
   hsts: string | null;
   // CSP primarily protects against attacks such as XSS
   csp: string[] | null;
@@ -17,4 +16,4 @@ export type ResponseHeadersType = {
   lastModified: string | null;
   vary: string | null;
   server: string[] | null;
-} 
+};

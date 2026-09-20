@@ -33,5 +33,3 @@ export function getCrawlability(
     crawlabilityScore: 0, // 0-100
   };
 }
-
-

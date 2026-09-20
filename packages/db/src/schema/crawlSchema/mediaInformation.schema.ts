@@ -30,4 +30,3 @@ export const htmlMediaSchema = new mongoose.Schema<HTMLMediaTypes>(htmlMediaSche
   versionKey: false,
   strict: true,
 });
-

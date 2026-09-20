@@ -15,19 +15,22 @@ import { PageJavascript } from "./pageJavascript";
 import { PageMonitoring } from "./pageMonitoring";
 import { StructuredData } from "./structuredData";
 
-export const PageContentsRepository: Record<PageSidebarItemsType, React.ComponentType> = {
-    overview: Overview,
-    issues: Issues,
-    content: Contents,
-    "structured-data": StructuredData,
-    "page-monitoring": PageMonitoring,
-    "internal-backlinks": InternalBacklinks,
-    "internal-links": InternalLinks,
-    "external-links": ExternalLinks,
-    "mobile-page-test": MobilePageTest,
-    "desktop-page-test": DesktopPageTest,
-    "images": Images,
-    "css": PageCSS,
-    "js": PageJavascript,
-    "html-source": HTMLSource
-}
+export const PageContentsRepository: Record<
+  PageSidebarItemsType,
+  React.ComponentType
+> = {
+  overview: Overview,
+  issues: Issues,
+  content: Contents,
+  "structured-data": StructuredData,
+  "page-monitoring": PageMonitoring,
+  "internal-backlinks": InternalBacklinks,
+  "internal-links": InternalLinks,
+  "external-links": ExternalLinks,
+  "mobile-page-test": MobilePageTest,
+  "desktop-page-test": DesktopPageTest,
+  images: Images,
+  css: PageCSS,
+  js: PageJavascript,
+  "html-source": HTMLSource,
+};

@@ -13,4 +13,3 @@ export type PageSecurityAnalysis = {
 
   permissionsPolicyPresent: boolean;
 };
-

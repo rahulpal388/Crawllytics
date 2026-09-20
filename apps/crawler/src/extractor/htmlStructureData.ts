@@ -45,5 +45,3 @@ export function htmlStructureData($: cheerio.CheerioAPI): HTMLStructureDataType 
     personCount: counts.personCount,
   };
 }
-
-

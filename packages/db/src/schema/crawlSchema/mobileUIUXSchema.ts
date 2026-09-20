@@ -25,4 +25,3 @@ export const mobileUIUXSchema = new Schema<MobileHtmlDataType>(mobileUIUXSchemaD
   versionKey: false,
   strict: true,
 });
-

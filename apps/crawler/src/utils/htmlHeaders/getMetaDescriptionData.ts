@@ -17,5 +17,3 @@ export function getMetaDescriptionData($: cheerio.CheerioAPI): HTMLMetaDescripti
 
   return metaDescription;
 }
-
-

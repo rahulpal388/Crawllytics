@@ -64,5 +64,3 @@ export function getDocumentData($: cheerio.CheerioAPI): HTMLDocumentType {
     jsFrameworks,
   };
 }
-
-
