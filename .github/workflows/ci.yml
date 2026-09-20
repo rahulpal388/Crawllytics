@@ -14,28 +14,28 @@ jobs:
     name: Code Validation
     runs-on: ubuntu-latest
 
-  steps:
-    - name: checkout code
-      uses: actions/checkout@v4
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup nodejs
-      uses: actions/setup-node@v4
-      with:
-        node-version: 22
-        cache: npm
+      - name: Setup nodejs
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
 
-    - name: check dependencies
-      # npm ci => will only install what's in package-lock.json
-      run: npm ci
+      - name: check dependencies
+        # npm ci => will only install what's in package-lock.json
+        run: npm ci
 
-    - name: check formatting
-      run: npm run format:check
+      - name: check formatting
+        run: npm run format:check
 
-    - name: check lint
-      run: npm run lint
+      - name: check lint
+        run: npm run lint
 
-    - name: check types
-      run: npm run check-types
+      - name: check types
+        run: npm run check-types
 
-    - name: check build
-      run: npm run build
+      - name: check build
+        run: npm run build
