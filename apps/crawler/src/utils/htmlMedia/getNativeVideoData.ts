@@ -1,5 +1,5 @@
 import * as cheerio from "cheerio";
-import { HTMLVideoType } from "@repo/contract/types/urlInformationType/HTMLMediaTypes/htmlVideoType";
+import { HTMLVideoType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/HTMLMediaTypes/htmlVideoType";
 
 export function getNativeVideoData($: cheerio.CheerioAPI, baseUrl: URL): HTMLVideoType[] {
   const videos: HTMLVideoType[] = [];
@@ -28,18 +28,6 @@ export function getNativeVideoData($: cheerio.CheerioAPI, baseUrl: URL): HTMLVid
       .get()
       .filter(Boolean);
 
-    const isPreloaded = $('link[rel="preload"][as="video"]')
-      .toArray()
-      .some((link) => {
-        const href = $(link).attr("href");
-        if (!href) return false;
-
-        try {
-          return new URL(href, baseUrl).href === absoluteUrl;
-        } catch {
-          return false;
-        }
-      });
 
     videos.push({
       src,

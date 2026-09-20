@@ -1,9 +1,47 @@
 import axios from "axios";
 import { parse } from "tldts";
+
 import { DomainInformationType } from "@repo/contracts/types/crawl/domain-leve-information/domainInformation.Types";
 
 type RDAPBootstrap = {
   services: [string[], string[]][];
+};
+
+type RDAPNameServer = {
+  ldhName?: string;
+};
+
+type RDAPEvent = {
+  eventAction?: string;
+  eventDate?: string;
+};
+
+type RDAPVCardItem = [
+  string,
+  string,
+  string,
+  string | null | undefined,
+  ...unknown[],
+];
+
+type RDAPEntity = {
+  roles?: string[];
+  vcardArray?: [string, RDAPVCardItem[]];
+};
+
+type RDAPResponse = {
+  handle?: string;
+  status?: string[];
+  nameservers?: RDAPNameServer[];
+  entities?: RDAPEntity[];
+  events?: RDAPEvent[];
+};
+
+type AxiosErrorResponse = {
+  response?: {
+    data?: unknown;
+  };
+  message: string;
 };
 
 /**
@@ -31,11 +69,23 @@ function getRegistrableDomain(hostname: string): string | null {
   return result.domain ?? null;
 }
 
-export async function getDomainInfo(domain: string): Promise<DomainInformationType> {
+function isAxiosError(error: unknown): error is AxiosErrorResponse {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    "message" in error &&
+    typeof error.message === "string"
+  );
+}
+
+export async function getDomainInfo(
+  domain: string,
+): Promise<DomainInformationType> {
   try {
     // ----------------------------------------
     // Normalize domain
     // ----------------------------------------
+
     domain = getRegistrableDomain(domain) ?? "";
 
     if (!domain && domain.trim() === "") {
@@ -50,6 +100,8 @@ export async function getDomainInfo(domain: string): Promise<DomainInformationTy
       return defaultDomainInfo;
     }
 
+    // ----------------------------------------
+    // Get IANA RDAP bootstrap
     // ----------------------------------------
 
     const bootstrapResponse = await axios.get<RDAPBootstrap>(
@@ -92,9 +144,9 @@ export async function getDomainInfo(domain: string): Promise<DomainInformationTy
 
     for (const server of rdapServers) {
       try {
-        const rdapUrl = `${server.replace(/\/$/, "")}/domain/${domain}`;
+        const rdapUrl = `${server.replace(/\/$/, "")} /domain/${domain} `;
 
-        const response = await axios.get(rdapUrl, {
+        const response = await axios.get<RDAPResponse>(rdapUrl, {
           headers: {
             Accept: "application/rdap+json",
           },
@@ -106,18 +158,26 @@ export async function getDomainInfo(domain: string): Promise<DomainInformationTy
         // ----------------------------------------
 
         return parseRDAPResponse(response.data);
-      } catch (error: any) {
-        console.warn(`RDAP server failed: ${server}`);
+      } catch (error: unknown) {
+        console.warn(`RDAP server failed: ${server} `);
 
-        console.warn(error.response?.data ?? error.message);
+        if (isAxiosError(error)) {
+          console.warn(error.response?.data ?? error.message);
+        } else {
+          console.warn(error);
+        }
       }
     }
 
     return defaultDomainInfo;
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error(`Failed to get domain information for ${domain}`);
 
-    console.error(error.response?.data ?? error.message);
+    if (isAxiosError(error)) {
+      console.error(error.response?.data ?? error.message);
+    } else {
+      console.error(error);
+    }
 
     return defaultDomainInfo;
   }
@@ -127,20 +187,17 @@ export async function getDomainInfo(domain: string): Promise<DomainInformationTy
 // RDAP Parser
 // ====================================================
 
-function parseRDAPResponse(data: any): DomainInformationType {
+function parseRDAPResponse(data: RDAPResponse): DomainInformationType {
   return {
     registrar: extractRegistrar(data),
-
     RegistryDomainID: data.handle ?? null,
-
     domainStatus: Array.isArray(data.status) ? data.status.join(", ") : "",
-
     registerOn: extractEventDate(data, "registration"),
-
     expiresOn: extractEventDate(data, "expiration"),
-
     nameServers: Array.isArray(data.nameservers)
-      ? data.nameservers.map((ns: any) => ns.ldhName).filter(Boolean)
+      ? data.nameservers
+        .map((ns) => ns.ldhName)
+        .filter((name): name is string => Boolean(name))
       : [],
   };
 }
@@ -149,9 +206,10 @@ function parseRDAPResponse(data: any): DomainInformationType {
 // Extract Registrar
 // ====================================================
 
-function extractRegistrar(data: any): string | null {
+function extractRegistrar(data: RDAPResponse): string | null {
   const registrar = data.entities?.find(
-    (entity: any) => Array.isArray(entity.roles) && entity.roles.includes("registrar"),
+    (entity) =>
+      Array.isArray(entity.roles) && entity.roles.includes("registrar"),
   );
 
   if (!registrar) {
@@ -164,17 +222,22 @@ function extractRegistrar(data: any): string | null {
     return null;
   }
 
-  const fn = vcard.find((item: any[]) => item[0] === "fn");
+  const fn = vcard.find((item) => item[0] === "fn");
 
-  return fn?.[3] ?? null;
+  return typeof fn?.[3] === "string" ? fn[3] : null;
 }
 
 // ====================================================
 // Extract Event Date
 // ====================================================
 
-function extractEventDate(data: any, eventAction: string): Date | null {
-  const event = data.events?.find((event: any) => event.eventAction === eventAction);
+function extractEventDate(
+  data: RDAPResponse,
+  eventAction: string,
+): Date | null {
+  const event = data.events?.find(
+    (event) => event.eventAction === eventAction,
+  );
 
   if (!event?.eventDate) {
     return null;

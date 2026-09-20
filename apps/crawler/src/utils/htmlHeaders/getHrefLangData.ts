@@ -1,5 +1,5 @@
 import * as cheerio from "cheerio";
-import { HreflangType } from "@repo/contract/types/urlInformationType/htmlHeaderResponseTypes";
+import { HreflangType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlHeaderResponseTypes";
 import { isAbsoluteUrl } from "@/utils/isAbsoluteUrl.js";
 
 /*
@@ -8,7 +8,7 @@ import { isAbsoluteUrl } from "@/utils/isAbsoluteUrl.js";
 
 const LANGUAGE_REGEX = /^[a-z]{2,3}(-[A-Z]{2})?$/;
 
-export function getHrefLangData($: cheerio.CheerioAPI, baseUrl: URL): HreflangType[] {
+export function getHrefLangData($: cheerio.CheerioAPI): HreflangType[] {
   const hreflangs: HreflangType[] = [];
 
   $('link[rel="alternate"][hreflang]').each((_, el) => {

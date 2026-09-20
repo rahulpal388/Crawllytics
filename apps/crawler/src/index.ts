@@ -11,7 +11,6 @@ import { crawlInfoStoreConfig } from "@repo/redis/stores/crawl-store/crawlInfoSt
 import { fetchPageAndNetworkInfo } from "@/fetchWebPageAndNetworkInfo.js";
 import { normalizeURL } from "@/lib/normalizeUrl.js";
 import { getGatherInformation } from "@/gatherInformation.js";
-import fs from "node:fs/promises";
 import { getDomainInfo } from "@/lib/getDomainInfo.js";
 import { WebsiteInformationType } from "@repo/contracts/types/crawl/domain-leve-information/websiteInformation.Types";
 import { getLocationByIP } from "@repo/lib/location/getLocationByIP";

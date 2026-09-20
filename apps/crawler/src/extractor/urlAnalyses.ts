@@ -7,11 +7,16 @@ export function urlAnalyses(url: URL, crawlDepth: number): UrlAnalysesType {
   const hasQueryParams = url.search.length > 0;
   const queryParams = [...url.searchParams.keys()];
   const hasFragment = url.hash.length > 0;
-  const hasUppercase = /[A-Z]/.test(url.pathname);
-  const hasUnderscores = url.pathname.includes("_");
-  const hasSpaces = url.pathname.includes(" ");
-  const hasNonAscii = /[^\x00-\x7F]/.test(url.pathname);
   const match = url.pathname.match(/\.[a-z0-9]+$/i);
+  const hasUppercase = /[A-Z]/.test(url.pathname);
+
+  const hasUnderscores = url.pathname.includes("_");
+
+  const hasSpaces = url.pathname.includes(" ");
+
+  const hasNonAscii = [...url.pathname].some(
+    (char) => char.codePointAt(0)! > 127,
+  );
 
   const hasFileExtension = !!match;
   const fileExtension = match ? match.map((m) => m.toLowerCase()) : [];

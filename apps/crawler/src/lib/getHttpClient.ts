@@ -1,11 +1,11 @@
 import http from "node:http";
 import https from "node:https";
 
-let httpAgent = new http.Agent({
+const httpAgent = new http.Agent({
   keepAlive: true,
 });
 
-let httpsAgent = new https.Agent({
+const httpsAgent = new https.Agent({
   keepAlive: true,
 });
 

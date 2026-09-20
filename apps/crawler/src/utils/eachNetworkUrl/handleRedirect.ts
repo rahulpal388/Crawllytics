@@ -1,6 +1,5 @@
 import { IncomingMessage } from "node:http";
-import { urlDeDuplicateStore } from "@/index.js";
-import { RedirectChainType } from "@repo/contract/types/urlInformationType/eachUrlNetworkTypes";
+import { RedirectChainType } from "@repo/contracts/types/crawl/urlCrawl/network/eachUrlNetworkTypes";
 
 const MAX_REDIRECTS = 3;
 

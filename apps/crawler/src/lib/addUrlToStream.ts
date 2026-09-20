@@ -8,10 +8,9 @@ export async function addUrlToStream(internalUrl: Set<string>, msg: CrawlStreamM
    *   1. Check if the URL is already crawled or not
    *   2. check for limit either depth or pages
    */
-  let cnt = 0;
 
   for (const url of internalUrl) {
-    let crawlStore = await crawlInfoStore.get(msg.projectId);
+    const crawlStore = await crawlInfoStore.get(msg.projectId);
     if (!crawlStore) {
       throw new Error(`Crawl info store not found for projectId: ${msg.projectId}`);
     }

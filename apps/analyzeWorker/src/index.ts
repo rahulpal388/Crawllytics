@@ -1,16 +1,11 @@
 import { validateEnv } from "@/utils/validateEnv.js";
 import "dotenv/config";
-import { createRedisConnection } from "@repo/redis/client/client";
-import { analyzerConsumerConfig } from "@repo/redis/streams/consumers/analyzeConsumer";
-import { connectDB } from "@repo/db/index";
-import { logger } from "@repo/lib/logger";
-import { urlCrawledRepository } from "@repo/db/repository/urlCrawledRepository";
 import os from "os";
 import { GatherInfoType } from "@/types/gatherInfoType.js";
-import { evaluateCrawlabilityRules } from "@/crawlability/evaluate.js";
-import { evaluateIndexability } from "@/indexability/evaludate.js";
 import { evaluateMetaData } from "@/meta/evaluate.js";
+
 import { tempData } from "@/tempData.js";
+// @ts-ignore
 const ENV = validateEnv();
 const CONSUMER_NAME = os.hostname();
 console.log("os hostname ", CONSUMER_NAME);

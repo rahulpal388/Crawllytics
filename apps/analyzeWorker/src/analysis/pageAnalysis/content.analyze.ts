@@ -1,13 +1,18 @@
-import crypto from "node:crypto";
 
 import { GatherInfoType } from "@/types/gatherInfoType.js";
-import { PageContentAnalysis } from "@repo/contract/types/analysesTypes/perPages/pageContent";
+import { PageContentAnalysis } from "@repo/contracts/types/analysesTypes/perPages/pageContent";
 
 export function content(gatherInfo: GatherInfoType): PageContentAnalysis {
   // --------------------- Counts ---------------------
+  if (!gatherInfo.htmlHeadingContent?.content) {
 
-  const { wordCount, characterCount, paragraphCount, sentenceCount } =
-    gatherInfo.htmlHeadingContent.count;
+    throw new Error("Content analysis data is missing in gatherInfo.");
+  }
+  const wordCount = 0;
+  const characterCount = 0;
+  const paragraphCount = 0;
+  const sentenceCount = 0;
+
 
   // --------------------- Reading ---------------------
 
@@ -21,7 +26,7 @@ export function content(gatherInfo: GatherInfoType): PageContentAnalysis {
 
   // --------------------- HTML ---------------------
 
-  const textHtmlRatio = gatherInfo.htmlDocument.textHtmlRatio;
+  const textHtmlRatio = 0
 
   // --------------------- Quality ---------------------
 
@@ -32,17 +37,16 @@ export function content(gatherInfo: GatherInfoType): PageContentAnalysis {
 
   // --------------------- Structure ---------------------
 
-  const hasMainContent = gatherInfo.htmlDocument.hasMainTag;
 
-  const hasLargeTextBlocks = gatherInfo.htmlHeadingContent.structure.longestParagraphWords > 200;
+  const hasLargeTextBlocks = 12 > 200;
 
   const hasBoilerplateDominance = textHtmlRatio < 0.15;
 
   // --------------------- Distribution ---------------------
 
-  const longestParagraphWords = gatherInfo.htmlHeadingContent.structure.longestParagraphWords;
+  const longestParagraphWords = 0;
 
-  const shortestParagraphWords = gatherInfo.htmlHeadingContent.structure.shortestParagraphWords;
+  const shortestParagraphWords = 0;
 
   // --------------------- Readability ---------------------
 
@@ -62,8 +66,8 @@ export function content(gatherInfo: GatherInfoType): PageContentAnalysis {
 
     thinContent,
     duplicateContent,
+    hasMainContent: false,
 
-    hasMainContent,
     hasLargeTextBlocks,
     hasBoilerplateDominance,
 

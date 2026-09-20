@@ -7,7 +7,7 @@ const BATCH_SIZE = 10; // Number of images to process in parallel
 
 export async function imagesWithSize(
   $: Cheerio.CheerioAPI,
-  preloadImages: Set<String>,
+  preloadImages: Set<string>,
   baseUrl: URL,
 ): Promise<ImageType[]> {
   const images = findImages($, preloadImages);

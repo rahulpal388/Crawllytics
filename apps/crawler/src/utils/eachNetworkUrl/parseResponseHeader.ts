@@ -1,34 +1,25 @@
 import {
   ResponseHeadersType,
-  HSTSType,
-  CacheControlType,
-} from "@repo/contract/types/urlInformationType/responseHeadersTypes";
+} from "@repo/contracts/types/crawl/urlCrawl/network/responseHeadersTypes";
 import { IncomingMessage } from "node:http";
 
 export function parseResponseHeader(res: IncomingMessage): ResponseHeadersType {
-  let hsts: HSTSType | null = null;
+  const hsts: string | null = null;
   let csp: string[] = [];
-  let xFrameOptions: "DENY" | "SAMEORIGIN" | null = null;
-  let xContentTypeOptions = false;
-  let referrerPolicy: string | null = null;
-  let permissionsPolicy: string | null = null;
+  let xFrameOptions: string[] | null = null;
+  let referrerPolicy: string[] | null = null;
+  let permissionsPolicy: string[] | null = null;
   let xRobotsTag: string[] = [];
-  let cacheControl: CacheControlType | null = null;
+  const cacheControl: string | null = null;
   let etag: string | null = null;
   let lastModified: string | null = null;
   let vary: string | null = null;
+  let crossOriginOpenerPolicy: string[] | null = null;
+  let crossOriginEmbedderPolicy: string[] | null = null;
+  let crossOriginResourcePolicy: string[] | null = null;
+  let server: string[] | null = null;
 
-  const getHsts = res.headers["strict-transport-security"] ?? null;
-  if (getHsts) {
-    const hstsParts = getHsts.split(";").map((part) => part.trim());
-    const maxAge = hstsParts.find((part) => part.startsWith("max-age="))?.split("=")[1] || "0";
-    hsts = {
-      value: getHsts,
-      maxAge: parseInt(maxAge),
-      includeSubdomains: hstsParts.includes("includeSubDomains"),
-      preload: hstsParts.includes("preload"),
-    };
-  }
+
 
   csp = Array.isArray(res.headers["content-security-policy"])
     ? res.headers["content-security-policy"]
@@ -38,19 +29,17 @@ export function parseResponseHeader(res: IncomingMessage): ResponseHeadersType {
 
   const frame = res.headers["x-frame-options"];
   if (typeof frame === "string") {
-    xFrameOptions =
-      frame.toUpperCase() === "DENY"
-        ? "DENY"
-        : frame.toUpperCase() === "SAMEORIGIN"
-          ? "SAMEORIGIN"
-          : null;
+    xFrameOptions = [frame.toUpperCase()];
+  } else {
+    xFrameOptions = null;
   }
-  const xContentType = res.headers["content-type"] || null;
+
+  const xContentType = res.headers["content-type"];
   const referrerPolicyHeader = res.headers["referrer-policy"] ?? null;
-  referrerPolicy = typeof referrerPolicyHeader === "string" ? referrerPolicyHeader : null;
+  referrerPolicy = typeof referrerPolicyHeader === "string" ? [referrerPolicyHeader] : null;
 
   const permissionsPolicyHeader = res.headers["permissions-policy"] ?? null;
-  permissionsPolicy = typeof permissionsPolicyHeader === "string" ? permissionsPolicyHeader : null;
+  permissionsPolicy = typeof permissionsPolicyHeader === "string" ? [permissionsPolicyHeader] : null;
 
   const xRobotsTagHeader = res.headers["x-robots-tag"];
 
@@ -60,27 +49,7 @@ export function parseResponseHeader(res: IncomingMessage): ResponseHeadersType {
       ? [xRobotsTagHeader]
       : [];
 
-  const cacheControlHeader = res.headers["cache-control"] ?? null;
 
-  if (cacheControlHeader) {
-    const cacheControlParts = cacheControlHeader.split(",").map((part) => part.trim());
-    cacheControl = {
-      maxAge: cacheControlParts.find((part) => part.startsWith("max-age="))
-        ? parseInt(
-            cacheControlParts.find((part) => part.startsWith("max-age="))?.split("=")[1] || "0",
-          )
-        : null,
-      noCache: cacheControlParts.includes("no-cache"),
-      noStore: cacheControlParts.includes("no-store"),
-      sMaxAge: cacheControlParts.find((part) => part.startsWith("s-maxage="))
-        ? parseInt(
-            cacheControlParts.find((part) => part.startsWith("s-maxage="))?.split("=")[1] || "0",
-          )
-        : null,
-      mustRevalidate: cacheControlParts.includes("must-revalidate"),
-      isImmutable: cacheControlParts.includes("immutable"),
-    };
-  }
 
   etag = res.headers["etag"] ?? null;
 
@@ -88,11 +57,33 @@ export function parseResponseHeader(res: IncomingMessage): ResponseHeadersType {
 
   vary = res.headers["vary"] ?? null;
 
+  const crossOriginOpenerPolicyHeader = res.headers["cross-origin-opener-policy"];
+  crossOriginOpenerPolicy = Array.isArray(crossOriginOpenerPolicyHeader)
+    ? crossOriginOpenerPolicyHeader
+    : typeof crossOriginOpenerPolicyHeader === "string"
+      ? [crossOriginOpenerPolicyHeader]
+      : null;
+
+  const crossOriginEmbedderPolicyHeader = res.headers["cross-origin-embedder-policy"];
+  crossOriginEmbedderPolicy = typeof crossOriginEmbedderPolicyHeader === "string"
+    ? [crossOriginEmbedderPolicyHeader]
+    : null;
+
+  const crossOriginResourcePolicyHeader = res.headers["cross-origin-resource-policy"];
+  crossOriginResourcePolicy = Array.isArray(crossOriginResourcePolicyHeader)
+    ? crossOriginResourcePolicyHeader
+    : typeof crossOriginResourcePolicyHeader === "string"
+      ? [crossOriginResourcePolicyHeader]
+      : null;
+
+  const serverHeader = res.headers["server"];
+  server = typeof serverHeader === "string" ? [serverHeader] : null;
+
   return {
     hsts,
     csp,
     xFrameOptions,
-    xContentType,
+    xContentType: xContentType ? [xContentType] : null,
     referrerPolicy,
     permissionsPolicy,
     xRobotsTag,
@@ -100,5 +91,9 @@ export function parseResponseHeader(res: IncomingMessage): ResponseHeadersType {
     etag,
     lastModified,
     vary,
+    crossOriginOpenerPolicy,
+    crossOriginEmbedderPolicy,
+    crossOriginResourcePolicy,
+    server,
   };
 }

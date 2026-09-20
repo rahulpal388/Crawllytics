@@ -1,5 +1,4 @@
 import { htmlHeaderExtractor } from "@/extractor/htmlHeader.js";
-import { UrlCrawledType } from "@repo/db/types/urlCrawledTypes";
 import { htmlLinksExtractor } from "@/extractor/htmlLinks.js";
 import { htmlMediaExtractor } from "@/extractor/htmlMediaExtractor.js";
 import { htmlStructureData } from "@/extractor/htmlStructureData.js";

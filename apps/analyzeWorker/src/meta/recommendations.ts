@@ -1,5 +1,4 @@
-import { META_DOCUMENTATION } from "@/meta/documentation.js";
-import { MetaIssueCode, META_ISSUE_CODES } from "@/meta/issuesCode.js";
+import { MetaIssueCode } from "@/meta/issuesCode.js";
 import { ALTERNATE_RECOMMENDATIONS } from "@/meta/recommendations/alternate.recommendation.js";
 import { BRANDING_RECOMMENDATIONS } from "@/meta/recommendations/branding.recommendation.js";
 import { CANONICAL_RECOMMENDATIONS } from "@/meta/recommendations/canonical.recommendation.js";

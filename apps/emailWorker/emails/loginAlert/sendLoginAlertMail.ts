@@ -1,7 +1,7 @@
 import { EmailStreamMessageType } from "@repo/redis/types/emailStreamMessageType";
 import { render } from "@react-email/render";
 import { createElement } from "react";
-import { LoginAlertEmailProps, LoginAlertTemplate } from "./loginAlert.js";
+import { LoginAlertTemplate } from "./loginAlert.js";
 import LoginAlertEmail from "./loginAlertEmail.js";
 import Mail from "@/utils/mail.js";
 import { EMAIL_URL } from "@/config/config.js";

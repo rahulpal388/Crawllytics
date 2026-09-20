@@ -1,7 +1,7 @@
 import * as cheerio from "cheerio";
 import { Element } from "domhandler";
 
-export function getImageSrcSet(img: cheerio.Cheerio<Element>, baseUrl: URL): string[] {
+export function getImageSrcSet(img: cheerio.Cheerio<Element>): string[] {
   return (
     img
       .attr("srcset")

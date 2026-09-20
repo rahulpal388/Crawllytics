@@ -1,11 +1,12 @@
 {
-  "name": "webcrawler",
+  "name": "Crawllytics",
   "private": true,
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint:fix": "turbo run lint -- --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml,css,mjs,prettierrc}\"",
     "format:check": "prettier . --check",
     "check-types": "turbo run check-types",
     "services:start": " docker compose -f docker-compose.dev.yml up -d ",

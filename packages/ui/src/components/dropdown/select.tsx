@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Card } from "../card/card";
 import { ChevronDown } from "lucide-react";
 import { cn } from "../../utils";
@@ -31,7 +31,7 @@ export function Select<T extends string | number>({
 
   const ref = useRef<HTMLDivElement>(null);
 
-  const calculatePlacement = () => {
+  const calculatePlacement = useCallback(() => {
     if (!ref.current) return;
 
     const rect = ref.current.getBoundingClientRect();
@@ -46,7 +46,7 @@ export function Select<T extends string | number>({
     } else {
       setPlacement("bottom");
     }
-  };
+  }, [options.length]);
 
   const handleOpen = () => {
     if (!isOpen) {
@@ -82,7 +82,7 @@ export function Select<T extends string | number>({
 
       window.removeEventListener("scroll", handlePositionChange, true);
     };
-  }, [isOpen, options.length]);
+  }, [isOpen, calculatePlacement]);
 
   return (
     <Card
@@ -94,7 +94,7 @@ export function Select<T extends string | number>({
       )}
       onClick={handleOpen}
     >
-      <div className="flex  items-center justify-between space-x-2">
+      <div className="flex items-center justify-between space-x-2">
         {title && <span>{title}</span>}
 
         <p className="truncate body-sm font-medium">{value}</p>

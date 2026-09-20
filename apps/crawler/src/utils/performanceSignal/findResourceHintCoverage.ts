@@ -1,4 +1,4 @@
-import { ResourceHintCoverage } from "@repo/contract/types/urlInformationType/performanceSignalTypes";
+import { ResourceHintCoverage } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/performanceSignalTypes";
 import * as Cheerio from "cheerio";
 
 export function findResourceHintCoverage(
@@ -31,7 +31,7 @@ export function findResourceHintCoverage(
       const origin = new URL(normalizedHref, pageUrl).origin;
 
       hintedOrigins.add(origin);
-    } catch {}
+    } catch { }
   });
 
   // Collect third-party origins
@@ -48,7 +48,7 @@ export function findResourceHintCoverage(
       if (origin !== pageOrigin) {
         thirdPartyOrigins.add(origin);
       }
-    } catch {}
+    } catch { }
   });
 
   const thirdPartyOriginsWithoutHint = [...thirdPartyOrigins]

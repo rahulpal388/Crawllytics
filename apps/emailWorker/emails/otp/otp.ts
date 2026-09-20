@@ -1,4 +1,3 @@
-import OTPEmail from "./otpEmail.js";
 import { EmailTemplate } from "@/types/emailTemplateTypes.js";
 import { APP_NAME, EMAIL_URL } from "@/config/config.js";
 

@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState, type ReactNode } from "react";
+import { useMemo, useState } from "react";
+import type { TooltipModel } from "chart.js";
 import {
   ArcElement,
   Chart as ChartJS,
@@ -26,8 +27,6 @@ type DoughnutChartProps = {
   data: DoughnutChartItem[];
 
   className?: string;
-
-  center?: ReactNode;
 
   cutout?: string | number;
 
@@ -67,7 +66,6 @@ const defaultOptions: ChartOptions<"doughnut"> = {
     legend: {
       display: false,
       position: "bottom",
-      align: "center",
 
       labels: {
         usePointStyle: true,
@@ -123,7 +121,6 @@ export type DoughnutTootleTipType = {
 export function DoughnutChart({
   data,
   className,
-  center,
   cutout = "68%",
   showLegend = false,
   showTooltip = false,
@@ -148,7 +145,10 @@ export function DoughnutChart({
 
   const [tooltip, setTooltip] = useState<DoughnutTootleTipType | null>(null);
 
-  const externalTooltipHandler = (context: any) => {
+  const externalTooltipHandler = (context: {
+    chart: ChartJS;
+    tooltip: TooltipModel<"doughnut">;
+  }) => {
     const { tooltip } = context;
     if (tooltip.opacity === 0) {
       setTooltip(null);
@@ -159,7 +159,7 @@ export function DoughnutChart({
       const next = {
         x: tooltip.caretX,
         y: tooltip.caretY,
-        title: tooltip.title[0],
+        title: tooltip.title[0] || "",
         dataPoints: tooltip.dataPoints,
       };
 
