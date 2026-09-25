@@ -1,4 +1,4 @@
-import { IssuesResponseType } from "../../../types/apiResponseType/issuesTypes.js";
+import { IssuesResponseType } from "../../../apiContracts/apiResponse/issuesTypes.js";
 
 // #####################################
 //  API endpoint => /issues?page=1&limit=12

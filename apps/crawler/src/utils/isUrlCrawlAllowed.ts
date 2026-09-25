@@ -1,5 +1,5 @@
-import { USER_AGENT } from "@repo/contract/constant/fetchHeaderConfig";
-import { UserAgentType } from "@repo/contract/types/robotsTxtType";
+import { USER_AGENT } from "@repo/contracts/constant/fetchHeaderConfig";
+import { UserAgentType } from "@repo/contracts/types/userAgent.types";
 
 export function isUrlCrawlAllowed(url: string, robotsTxt: UserAgentType[]): boolean {
   if (robotsTxt.length === 0) {

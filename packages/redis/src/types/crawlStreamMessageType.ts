@@ -1,3 +1,5 @@
+import { UserAgentType } from "@repo/contracts/types/userAgent.types";
+
 /*
  * CrawlStreamMessageType : type of message that will be sent to the crawl stream
  */
@@ -21,11 +23,6 @@ export type LinkInfoType = {
   crawledUrl: number;
 };
 
-export type UserAgentType = {
-  userAgent: string[];
-  allow: string[];
-  disallow: string[];
-};
 
 /*
  * CrawlInfoStoreType : type of data that will be stored in the redis hash store for each crawl project

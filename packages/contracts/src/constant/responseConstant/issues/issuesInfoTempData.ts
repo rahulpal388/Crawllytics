@@ -1,4 +1,4 @@
-import { IssuesInfoResponseType } from "../../../types/apiResponseType/issuesTypes.js";
+import { IssuesInfoResponseType } from "../../../apiContracts/apiResponse/issuesTypes.js";
 
 // #####################################
 // API endpoint => /issues/:issueId

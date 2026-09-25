@@ -2,7 +2,6 @@ import { validateEnv } from "@/utils/validateEnv.js";
 import "dotenv/config";
 import os from "os";
 import { GatherInfoType } from "@/types/gatherInfoType.js";
-import { evaluateMetaData } from "@/meta/evaluate.js";
 
 import { tempData } from "@/tempData.js";
 // @ts-ignore
@@ -96,6 +95,3 @@ console.log("analyzeWorker started");
 // console.log("indexabilityAnalysis ");
 // console.dir(indexabilityAnalysis, { depth: null, color: true });
 
-const metaAnalysis = evaluateMetaData(seoData.htmlHeader);
-console.log("metaAnalysis ");
-console.dir(metaAnalysis, { depth: null, color: true });

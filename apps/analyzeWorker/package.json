@@ -10,6 +10,8 @@
     "#/*": "./src/*"
   },
   "scripts": {
+    "seed": "tsx  src/seedSEORules.ts",
+    "seed:prod": "node dist/seedSEORules.js",
     "dev": "tsx watch src/index.ts",
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
