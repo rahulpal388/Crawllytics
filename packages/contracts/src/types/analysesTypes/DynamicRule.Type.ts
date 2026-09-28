@@ -1,7 +1,7 @@
 
 
 
-export type SeverityType = "all" | "critical" | "warning" | "medium" | "notice";
+export type SeverityType = "all" | "high" | "medium" | "low" | "warning";
 
 export type CategoryType =
     | "all"
@@ -12,13 +12,15 @@ export type CategoryType =
     | "content"
     | "links"
     | "crawlability"
+    | "indexability"
 
 
 
-export type DynamicRuleType<K extends string> = {
+export type DynamicRuleType<K extends string, T> = {
     ruleId: K;
     name: string;
     description: string;
     severity: Exclude<SeverityType, "all">;
     category: Exclude<CategoryType, "all">;
+    analyze: (data: T) => boolean;
 }
