@@ -1,14 +1,16 @@
 export type HTMLHeaderType = {
-  title: HTMLTitleType[];
   meta: {
+    title: HTMLTitleType[];
     metaDescription: HTMLMetaDescriptionType[];
     metaRobot: string[]; // store the directives as strings, e.g., "index", "noindex", "follow", "nofollow", etc.
     Canonical: HTMLCanonicalType[];
-    openGraph: HTMLOpenGraphType;
     metaViewport: HTMLMetaViewportType[];
   };
+  socialSharing: {
+    openGraph: HTMLOpenGraphType;
+    twitterCard: TwitterCardType;
+  }
   hreflang: HreflangType[];
-  twitterCard: TwitterCardType;
   favicon: FaviconType[];
   resourceHints: ResourceHintType[];
   sitename: string | null;

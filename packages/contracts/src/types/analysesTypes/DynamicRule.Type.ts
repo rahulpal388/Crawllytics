@@ -13,6 +13,7 @@ export type CategoryType =
     | "links"
     | "crawlability"
     | "indexability"
+    | "social-sharing"
 
 
 
@@ -24,3 +25,7 @@ export type DynamicRuleType<K extends string, T> = {
     category: Exclude<CategoryType, "all">;
     analyze: (data: T) => boolean;
 }
+
+export type DynamicRuleRegistry<A extends string, T> = {
+    [K in A]: DynamicRuleType<K, T>;
+};

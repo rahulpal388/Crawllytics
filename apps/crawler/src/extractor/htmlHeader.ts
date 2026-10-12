@@ -19,7 +19,7 @@ export function htmlHeaderExtractor($: cheerio.CheerioAPI, url: URL): HTMLHeader
   const canonical = getCanonicalData($, url);
   const metaViewport = getMetaViewportData($);
   const openGraph = getOpenGraphData($);
-  const hreflang = getHrefLangData($, url);
+  const hreflang = getHrefLangData($);
   const twitterCard = getTwitterCardData($);
   const favicon = getFaviconData($, url);
   const resourceHints = getResourceHintData($, url);
