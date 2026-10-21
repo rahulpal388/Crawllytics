@@ -7,5 +7,4 @@ const apiRouter = Router();
 
 apiRouter.use("/auth", authRouter);
 apiRouter.use("/project", authenticateMiddleware, projectRouter);
-
 export default apiRouter;

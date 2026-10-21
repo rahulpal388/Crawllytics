@@ -2,7 +2,7 @@ import {
   CrawlingAndIndexingType,
   HTTPHeaderType,
   URLInfoType,
-} from "@repo/contract/types/apiResponseType/pages.responseType";
+} from "@repo/contracts/apiContracts/apiResponse/pages.responseType";
 
 export const pageOverviewURLInfoLabels: Record<keyof URLInfoType, string> = {
   url: "URL",
