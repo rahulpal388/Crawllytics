@@ -10,8 +10,8 @@ export default function DashboardLayout({
     <>
       <div className="h-screen w-screen">
         <NavBar />
-        <div className="flex h-[calc(100vh-3rem)] w-full">
-          <div className="flex h-full w-auto">
+        <div className="flex h-[calc(100vh-3.5rem)] w-full">
+          <div className="hidden h-full w-auto md:flex">
             <SideBar />
           </div>
           <div className="flex-1 overflow-hidden">{children}</div>
