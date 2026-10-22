@@ -1,32 +1,25 @@
 "use client";
 import { Button } from "@repo/ui/components/button";
 import { SideBarItems } from "./sideBarItems";
-import {
-  LogOut,
-  PanelLeftClose,
-  PanelLeftOpen,
-  Plus,
-} from "lucide-react";
+import { LogOut, PanelLeftClose, PanelLeftOpen, Plus } from "lucide-react";
 import { useState } from "react";
 import { motion } from "motion/react";
 import { useRouter } from "next/navigation";
 import { logoutUser } from "../../../api/auth.api";
-import { useAuthStore } from "../../../store/authStore";
 import { useModalStore } from "../../../store/modalStore";
+import { useUser } from "../../../hooks/user.hook";
+import { useLogout } from "../../../hooks/useLogout";
 
 export function SideBar() {
   const [isOpen, setIsOpen] = useState(true);
   const [logoutError, setLogoutError] = useState<string | null>(null);
-  const router = useRouter();
-  const setUser = useAuthStore((state) => state.setUser);
+  const { mutateAsync: LogoutMutateAsync } = useLogout();
   const openModal = useModalStore((state) => state.openModal);
 
   async function handleLogout() {
     setLogoutError(null);
     try {
-      await logoutUser();
-      setUser(null);
-      router.push("/");
+      await LogoutMutateAsync();
     } catch {
       setLogoutError("Unable to log out. Please try again.");
     }
@@ -38,13 +31,13 @@ export function SideBar() {
         initial={{ width: isOpen ? 200 : 60 }}
         animate={{ width: isOpen ? 200 : 60 }}
         transition={{ duration: 0.3 }}
-        className="border-border-default relative flex w-50 flex-col justify-between gap-4 border-r bg-surface-base px-4 py-6 shadow-sm"
+        className="border-border-default bg-surface-base relative flex w-50 flex-col justify-between gap-4 border-r px-4 py-6 shadow-sm"
       >
         {isOpen ? (
           <button
             type="button"
             aria-label="Collapse sidebar"
-            className="border-border-default bg-surface-base text-text-secondary hover:text-text-primary absolute top-4 -right-4 rounded-xs border p-1 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            className="border-border-default bg-surface-base text-text-secondary hover:text-text-primary focus-visible:outline-primary absolute top-4 -right-4 rounded-xs border p-1 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
             onClick={() => setIsOpen(false)}
           >
             <PanelLeftClose size={18} strokeWidth={1.8} />
@@ -53,7 +46,7 @@ export function SideBar() {
           <button
             type="button"
             aria-label="Expand sidebar"
-            className="border-border-default bg-surface-base text-text-secondary hover:text-text-primary absolute top-4 -right-4 rounded-xs border p-1 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            className="border-border-default bg-surface-base text-text-secondary hover:text-text-primary focus-visible:outline-primary absolute top-4 -right-4 rounded-xs border p-1 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
             onClick={() => setIsOpen(true)}
           >
             <PanelLeftOpen size={18} strokeWidth={1.8} />
@@ -71,11 +64,17 @@ export function SideBar() {
             <Plus size={20} className="" />
             {isOpen && "Add Project"}
           </Button>
-          <Button variant="primary" className="w-full px-px" onClick={handleLogout}>
+          <Button
+            variant="primary"
+            className="w-full px-px"
+            onClick={handleLogout}
+          >
             <LogOut size={20} />
             {isOpen && "Logout"}
           </Button>
-          {logoutError && isOpen && <p className="text-error text-xs">{logoutError}</p>}
+          {logoutError && isOpen && (
+            <p className="text-error text-xs">{logoutError}</p>
+          )}
         </div>
       </motion.div>
     </>

@@ -4,10 +4,11 @@ import { Menu, X } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { logoutUser } from "../../api/auth.api";
-import { useAuthStore } from "../../store/authStore";
 import { useSelectedProjectId } from "../../store/useSelectedProjectId";
 import { Logo } from "../logo";
 import { sideBarItems } from "./sideBar/sideBarItems";
+import { useUser } from "../../hooks/user.hook";
+import { useLogout } from "../../hooks/useLogout";
 
 export function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,15 +17,13 @@ export function NavBar() {
   const pathname = usePathname();
   const router = useRouter();
   const projectId = useSelectedProjectId((state) => state.projectId);
-  const user = useAuthStore((state) => state.user);
-  const setUser = useAuthStore((state) => state.setUser);
+  const { data: user } = useUser();
+  const { mutateAsync: logoutMutateAsync } = useLogout();
 
   async function handleLogout() {
     setLogoutError(null);
     try {
-      await logoutUser();
-      setUser(null);
-      router.push("/");
+      await logoutMutateAsync();
     } catch {
       setLogoutError("Unable to log out. Please try again.");
     }
@@ -39,13 +38,15 @@ export function NavBar() {
       .toUpperCase() || "CU";
 
   return (
-    <header className="border-border-default relative z-20 flex h-14 items-center justify-between border-b bg-surface-base px-4 shadow-sm md:px-8">
+    <header className="border-border-default bg-surface-base relative z-20 flex h-14 items-center justify-between border-b px-4 shadow-sm md:px-8">
       <div className="flex items-center gap-3">
         <button
           type="button"
-          aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-label={
+            isMenuOpen ? "Close navigation menu" : "Open navigation menu"
+          }
           aria-expanded={isMenuOpen}
-          className="rounded-xs p-2 text-text-secondary transition-colors hover:bg-surface-subtle hover:text-text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary md:hidden"
+          className="text-text-secondary hover:bg-surface-subtle hover:text-text-primary focus-visible:outline-primary rounded-xs p-2 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 md:hidden"
           onClick={() => setIsMenuOpen((open) => !open)}
         >
           {isMenuOpen ? <X size={21} /> : <Menu size={21} />}
@@ -57,7 +58,7 @@ export function NavBar() {
           type="button"
           aria-label="Open profile menu"
           aria-expanded={isProfileOpen}
-          className="bg-primary flex size-9 items-center justify-center rounded-full text-xs font-semibold text-white transition-transform duration-150 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          className="bg-primary focus-visible:outline-primary flex size-9 items-center justify-center rounded-full text-xs font-semibold text-white transition-transform duration-150 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2"
           onClick={() => setIsProfileOpen((open) => !open)}
         >
           {user?.avatar ? (
@@ -75,18 +76,32 @@ export function NavBar() {
           <div className="border-border-muted bg-surface-base absolute top-12 right-0 w-64 rounded-md border p-2 shadow-lg">
             <div className="border-border-muted border-b px-3 py-2">
               <p className="text-sm font-semibold">{user?.name}</p>
-              <p className="text-text-secondary truncate text-xs">{user?.email}</p>
+              <p className="text-text-secondary truncate text-xs">
+                {user?.email}
+              </p>
             </div>
-            <button type="button" disabled className="text-text-secondary w-full cursor-not-allowed rounded-xs px-3 py-2 text-left text-sm opacity-60">
+            <button
+              type="button"
+              disabled
+              className="text-text-secondary w-full cursor-not-allowed rounded-xs px-3 py-2 text-left text-sm opacity-60"
+            >
               Profile (TODO)
             </button>
-            <button type="button" disabled className="text-text-secondary w-full cursor-not-allowed rounded-xs px-3 py-2 text-left text-sm opacity-60">
+            <button
+              type="button"
+              disabled
+              className="text-text-secondary w-full cursor-not-allowed rounded-xs px-3 py-2 text-left text-sm opacity-60"
+            >
               Change Password (TODO)
             </button>
             <button
               type="button"
               className="text-text-primary hover:bg-surface-subtle w-full rounded-xs px-3 py-2 text-left text-sm"
-              onClick={() => router.push(projectId ? `/projects/${projectId}/settings` : "/settings")}
+              onClick={() =>
+                router.push(
+                  projectId ? `/projects/${projectId}/settings` : "/settings",
+                )
+              }
             >
               Settings
             </button>
@@ -97,7 +112,9 @@ export function NavBar() {
             >
               Logout
             </button>
-            {logoutError && <p className="text-error px-3 py-2 text-xs">{logoutError}</p>}
+            {logoutError && (
+              <p className="text-error px-3 py-2 text-xs">{logoutError}</p>
+            )}
           </div>
         )}
       </div>
@@ -112,7 +129,7 @@ export function NavBar() {
                   key={item.name}
                   href={href}
                   aria-current={isActive ? "page" : undefined}
-                  className={`flex min-h-11 items-center gap-3 rounded-xs px-3 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${isActive ? "bg-primary-active/15 font-medium" : "hover:bg-surface-subtle"}`}
+                  className={`focus-visible:outline-primary flex min-h-11 items-center gap-3 rounded-xs px-3 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${isActive ? "bg-primary-active/15 font-medium" : "hover:bg-surface-subtle"}`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.icon}
@@ -122,13 +139,25 @@ export function NavBar() {
             })}
           </div>
           <div className="border-border-muted mt-3 border-t pt-3">
-            <button type="button" disabled className="text-text-secondary w-full rounded-xs px-3 py-2 text-left text-sm opacity-60">
+            <button
+              type="button"
+              disabled
+              className="text-text-secondary w-full rounded-xs px-3 py-2 text-left text-sm opacity-60"
+            >
               Profile (TODO)
             </button>
-            <button type="button" disabled className="text-text-secondary w-full rounded-xs px-3 py-2 text-left text-sm opacity-60">
+            <button
+              type="button"
+              disabled
+              className="text-text-secondary w-full rounded-xs px-3 py-2 text-left text-sm opacity-60"
+            >
               Change Password (TODO)
             </button>
-            <button type="button" className="text-text-primary hover:bg-surface-subtle w-full rounded-xs px-3 py-2 text-left text-sm" onClick={handleLogout}>
+            <button
+              type="button"
+              className="text-text-primary hover:bg-surface-subtle w-full rounded-xs px-3 py-2 text-left text-sm"
+              onClick={handleLogout}
+            >
               Logout
             </button>
           </div>
