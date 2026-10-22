@@ -1,28 +1,20 @@
+import { CircleHelp } from "lucide-react";
+
 export function SiteAuditCard() {
   return (
-    <div className="project-card-features flex flex-col gap-4 px-4 py-4">
-      <div>
-        <p className="text-md font-semibold">Site Audit</p>
-        <p className="subHeading text-xs">{new Date().toLocaleDateString()}</p>
+    <section className="border-border-muted border-b p-5 md:border-r xl:border-b-0" aria-labelledby="site-audit-title">
+      <div className="flex items-center justify-between gap-3">
+        <h2 id="site-audit-title" className="heading-6">
+          Site audit
+        </h2>
+        <CircleHelp size={16} className="text-text-secondary" aria-hidden="true" />
       </div>
-      <div>
-        <div className="project-item-info flex justify-between gap-4">
-          <span>SEO Score</span>
-          <span>85%</span>
-        </div>
-        <div className="project-item-info flex justify-between gap-4">
-          <span>Crawled Pages</span>
-          <span>85</span>
-        </div>
-        <div className="project-item-info flex justify-between gap-4">
-          <span>Critical Issues</span>
-          <span>12</span>
-        </div>
-        <div className="project-item-info flex justify-between gap-4">
-          <span>Warning Issues</span>
-          <span>8</span>
-        </div>
+      <p className="caption mt-4">
+        Audit metrics will appear after this project completes its first crawl.
+      </p>
+      <div className="bg-surface-subtle text-text-secondary mt-5 rounded-md p-3 text-sm">
+        No audit data available
       </div>
-    </div>
+    </section>
   );
 }

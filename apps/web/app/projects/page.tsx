@@ -1,29 +1,34 @@
+"use client";
+
 import { Button } from "@repo/ui/components/button";
 import { Plus } from "lucide-react";
 import { DashboardContainer } from "@repo/ui/components/dashboardContainer";
 import { ProjectItems } from "../../components/projects/projectItems";
+import { useModalStore } from "../../store/modalStore";
 
 export default function ProjectsPage() {
+  const openModal = useModalStore((state) => state.openModal);
   return (
     <DashboardContainer>
-      <div>
-        <div className="flex justify-between gap-4 max-md:flex-col">
+      <div className="mx-auto max-w-7xl">
+        <div className="flex items-end justify-between gap-6 max-md:items-start max-md:flex-col">
           <div>
-            <h1 className="heading text-xl">Projects</h1>
-            <p className="subHeading text-sm">
-              Select a project to view crawl results, SEO insights, reports, and
-              website health metrics.
+            <p className="caption-xs mb-2 font-medium uppercase tracking-wide text-primary">
+              Workspace
+            </p>
+            <h1 className="heading-2">Projects</h1>
+            <p className="subHeading mt-2 max-w-2xl text-sm">
+              Monitor site health and organic performance across your websites.
             </p>
           </div>
-          <div>
-            <Button
-              variant="outline"
-              className="overflow-hidden whitespace-nowrap"
-            >
-              <Plus size={20} className="mr-2 shrink-0" />
-              Create Project
-            </Button>
-          </div>
+          <Button
+            variant="primary"
+            className="shrink-0 overflow-hidden whitespace-nowrap"
+            onClick={() => openModal("create-project")}
+          >
+            <Plus size={18} />
+            New project
+          </Button>
         </div>
         <ProjectItems />
       </div>

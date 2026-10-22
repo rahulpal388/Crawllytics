@@ -1,41 +1,19 @@
-import { LineChartComponent } from "../dashboard/lineChart";
+import { Button } from "@repo/ui/components/button";
+import { Search } from "lucide-react";
 
-export const searchConsoleData = {
-  labels: [
-    "2026-06-01",
-    "2026-06-02",
-    "2026-06-03",
-    "2026-06-04",
-    "2026-06-05",
-    "2026-06-06",
-    "2026-06-07",
-  ],
-  datasets: [
-    {
-      label: "Clicks",
-      data: [312, 278, 341, 295, 387, 334, 421],
-      borderColor: "#3b82f6",
-      pointRadius: 0,
-      tension: 0.4,
-    },
-    {
-      label: "Impressions",
-      data: [8421, 7912, 9184, 8642, 10321, 9541, 11248],
-      borderColor: "#8b5cf6",
-      pointRadius: 0,
-      tension: 0.4,
-    },
-  ],
-};
 export function GoogleSearchConsoleCard() {
   return (
-    <div className="project-card-features flex flex-col gap-4 px-4 py-4">
-      <div>
-        <p className="text-md font-semibold">Google Search Console</p>
-      </div>
-      <div>
-        <LineChartComponent data={searchConsoleData} />
-      </div>
-    </div>
+    <section className="border-border-muted border-b p-5 xl:border-r xl:border-b-0" aria-labelledby="search-console-title">
+      <h2 id="search-console-title" className="heading-6">
+        Search Console
+      </h2>
+      <p className="caption mt-4">
+        Connect Search Console to track organic clicks and impressions.
+      </p>
+      <Button variant="outline" className="mt-5 w-full justify-start" disabled>
+        <Search size={16} />
+        Connect Search Console (TODO)
+      </Button>
+    </section>
   );
 }

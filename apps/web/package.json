@@ -4,13 +4,14 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3000",
-    "build": "next build",
+    "dev": "next dev --webpack --port 3000",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint --max-warnings 0",
     "check-types": "next typegen && tsc --noEmit"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "@repo/ui": "*",
     "@tailwindcss/postcss": "^4.2.2",
     "@tanstack/react-query": "^5.101.4",
@@ -30,9 +31,9 @@
     "zustand": "^5.0.14"
   },
   "devDependencies": {
-    "@repo/redis": "*",
     "@repo/contracts": "*",
     "@repo/eslint-config": "*",
+    "@repo/redis": "*",
     "@repo/typescript-config": "*",
     "@types/node": "^22.15.3",
     "@types/react": "19.2.2",

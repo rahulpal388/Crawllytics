@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type ModalType = "login" | "signup";
+export type ModalType = "login" | "signup" | "create-project";
 
 interface ModalStore {
   open: boolean;
