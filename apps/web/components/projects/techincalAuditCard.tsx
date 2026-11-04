@@ -1,28 +1,20 @@
+import { CircleHelp } from "lucide-react";
+
 export function TechnicalAuditCard() {
   return (
-    <div className="project-card-features flex flex-col gap-4 px-4 py-4">
-      <div>
-        <p className="text-md font-semibold">Technical Audit</p>
-        <p className="subHeading text-xs">{new Date().toLocaleDateString()}</p>
+    <section className="border-border-muted border-b p-5 xl:border-r xl:border-b-0" aria-labelledby="technical-audit-title">
+      <div className="flex items-center justify-between gap-3">
+        <h2 id="technical-audit-title" className="heading-6">
+          Technical audit
+        </h2>
+        <CircleHelp size={16} className="text-text-secondary" aria-hidden="true" />
       </div>
-      <div>
-        <div className="project-item-info flex justify-between gap-4">
-          <span>Indexable Pages</span>
-          <span>1,984</span>
-        </div>
-        <div className="project-item-info flex justify-between gap-4">
-          <span>Blocked Pages</span>
-          <span>47</span>
-        </div>
-        <div className="project-item-info flex justify-between gap-4">
-          <span>Broken Links</span>
-          <span>23</span>
-        </div>
-        <div className="project-item-info flex justify-between gap-4">
-          <span>Redirect Chains</span>
-          <span>8</span>
-        </div>
+      <p className="caption mt-4">
+        Technical metrics will appear after crawl results are available.
+      </p>
+      <div className="bg-surface-subtle text-text-secondary mt-5 rounded-md p-3 text-sm">
+        No technical data available
       </div>
-    </div>
+    </section>
   );
 }

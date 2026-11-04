@@ -1,8 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  allowedDevOrigins: [
-    "613c-2401-4900-81ea-d51b-4dc8-4f23-43b6-9484.ngrok-free.app",
-  ],
+  transpilePackages: ["@repo/contracts"],
+
+  webpack(config) {
+    config.resolve.extensionAlias = {
+      ...config.resolve.extensionAlias,
+      ".js": [".ts", ".tsx", ".js"],
+    };
+
+    return config;
+  },
 };
 
 export default nextConfig;
