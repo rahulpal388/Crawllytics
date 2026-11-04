@@ -1,5 +1,5 @@
-import logActivityModel from "../model/logActivity.model.js";
-import { LoginActivitySchemaType } from "../types/logActivitySchema.Types.js";
+import logActivityModel from "../model/UserDomainModels/logActivity.model.js";
+import { LoginActivitySchemaType } from "../types/userTypes/logActivitySchema.Types.js";
 
 export const loginActivityRepository = {
   createLoginActivity,

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import ProjectModel from "../model/project/project.model.js";
+import ProjectModel from "../model/projectDomainModels/project.model.js";
 import { ProjectSchemaType } from "../types/projectType/project.Types.js";
 import { DomainInformationType } from "@repo/contracts/types/crawl/domain-leve-information/domainInformation.Types";
 import { WebsiteInformationType } from "@repo/contracts/types/crawl/domain-leve-information/websiteInformation.Types";

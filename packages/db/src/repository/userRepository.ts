@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
-import UserModel from "../model/user.model.js";
-import { UserSchemaType } from "../types/userSchema.Types.js";
+import UserModel from "../model/UserDomainModels/user.model.js";
+import { UserSchemaType } from "../types/userTypes/userSchema.Types.js";
 
 export const userRepository = {
   addUser,

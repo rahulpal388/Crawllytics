@@ -1,5 +1,5 @@
-import authIdentityModel from "../model/authIdentity.model.js";
-import { AuthIdentitySchemaType, AuthProvidersType } from "../types/authIdentitySchema.Types.js";
+import authIdentityModel from "../model/UserDomainModels/authIdentity.model.js";
+import { AuthIdentitySchemaType, AuthProvidersType } from "../types/userTypes/authIdentitySchema.Types.js";
 
 export const authIdentityRepository = {
   addAuthIdentity,

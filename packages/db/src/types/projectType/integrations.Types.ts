@@ -11,6 +11,11 @@ export enum IntegrationStatus {
   ERROR = "error",
 }
 
+
+export type IntegrationProviderType = typeof IntegrationProvider[keyof typeof IntegrationProvider];
+
+export type IntegrationStatusType = typeof IntegrationStatus[keyof typeof IntegrationStatus];
+
 export type IntegrationCredentialsSchemaType = {
   accessToken: string;
   refreshToken: string;
@@ -19,8 +24,8 @@ export type IntegrationCredentialsSchemaType = {
 
 export type IntegrationSchemaType = {
   projectId: mongoose.Types.ObjectId;
-  provider: IntegrationProvider;
-  status: IntegrationStatus;
+  provider: IntegrationProviderType;
+  status: IntegrationStatusType;
   credentials: IntegrationCredentialsSchemaType;
   createdAt: Date;
   updatedAt: Date;

@@ -1,7 +1,8 @@
 import { Types } from "mongoose";
-import { UrlCrawledType } from "../types/urlCrawledTypes.js";
 import { RepositoryResponseType } from "../types/repositoryResponseType.js";
-import UrlCrawledModel from "../model/urlCrawledModel.js";
+import UrlCrawledModel from "../model/crawlDomainModel/urlCrawledModel.js";
+import { UrlCrawledSchemaType } from "../types/crawlTypes/urlCrawledTypes.js";
+
 
 export const urlCrawledRepository = {
   addUrlCrawled,
@@ -12,7 +13,7 @@ export const urlCrawledRepository = {
 
 // ###################### add  #######################
 
-async function addUrlCrawled(urlInfo: UrlCrawledType) {
+async function addUrlCrawled(urlInfo: UrlCrawledSchemaType) {
   try {
     const { projectId, url: newUrl, ...rest } = urlInfo;
     const url = await UrlCrawledModel.findOneAndUpdate(
@@ -43,7 +44,7 @@ async function addUrlCrawled(urlInfo: UrlCrawledType) {
 
 async function getUrlCrawledWithoutAnalyzedUrlData(
   _id: Types.ObjectId | string,
-): Promise<RepositoryResponseType<Omit<UrlCrawledType, "analyzedUrlData">>> {
+): Promise<RepositoryResponseType<Omit<UrlCrawledSchemaType, "analyzedUrlData">>> {
   try {
     const urlCrawledData = await UrlCrawledModel.findById(_id)
       .select("-_id -__v -analyzedUrlData")
@@ -71,7 +72,7 @@ async function getUrlCrawledWithoutAnalyzedUrlData(
 
 async function getUrlCrawled(
   _id: Types.ObjectId | string,
-): Promise<RepositoryResponseType<UrlCrawledType>> {
+): Promise<RepositoryResponseType<UrlCrawledSchemaType>> {
   try {
     const urlCrawledData = await UrlCrawledModel.findById(_id).select("-_id -__v").lean();
 
@@ -95,4 +96,4 @@ async function getUrlCrawled(
 
 // ###################### update  #######################
 
-async function updateUrlCrawled() {}
+async function updateUrlCrawled() { }

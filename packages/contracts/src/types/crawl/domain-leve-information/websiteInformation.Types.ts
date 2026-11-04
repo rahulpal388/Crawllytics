@@ -1,9 +1,9 @@
 export type WebsiteInformationType = {
   websiteName: string | null;
-  domain: string;
+  domain: string | null;
   ipAddress: string | null;
-  webServer: string[] | null;
+  webServer: string[];
   serverLocation: string | null;
   favicons: string[];
-  languages: string[] | null;
+  languages: string[];
 };

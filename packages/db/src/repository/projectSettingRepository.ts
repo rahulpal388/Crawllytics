@@ -1,5 +1,5 @@
 import { ProjectSettingSchemaType } from "../types/projectType/projectSetting.Types.js";
-import ProjectSettingsModel from "../model/project/projectSettings.model.js";
+import ProjectSettingsModel from "../model/projectDomainModels/projectSettings.model.js";
 import mongoose from "mongoose";
 
 export const projectSettingRepository = {
