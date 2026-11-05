@@ -1,5 +1,5 @@
 import * as cheerio from "cheerio";
-import { HTMLAlternateType } from "@repo/contract/types/urlInformationType/htmlHeaderResponseTypes";
+import { HTMLAlternateType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlHeaderResponseTypes";
 
 export function getAlternateData($: cheerio.CheerioAPI, baseUrl: URL): HTMLAlternateType[] {
   const alternates: HTMLAlternateType[] = [];

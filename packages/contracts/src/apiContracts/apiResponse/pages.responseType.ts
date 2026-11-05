@@ -1,8 +1,7 @@
 // ######################################
 // page -> overview response type
 
-import { CategoryType } from "../../apiContracts/apiResponse/categoryType.js";
-import { SeverityType } from "./severityType.js";
+import { CategoryType, SeverityType } from "../../types/analysesTypes/DynamicRule.Type.js";
 
 // ######################################
 export type URLInfoType = {

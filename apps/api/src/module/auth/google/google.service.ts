@@ -14,6 +14,7 @@ import {
 import { AppError } from "@/shared/error/appError.js";
 import { userRepository } from "@repo/db/repository/userRepository";
 import mongoose from "mongoose";
+import { UserStatus } from "@repo/db/types/userTypes/userSchema.Types";
 import { authIdentityRepository } from "@repo/db/repository/authIdentityRepository";
 import { sessionService, emailPublisher } from "@/app/server.js";
 import { RequestMetadata } from "@/lib/getRequestMetaData.js";
@@ -144,6 +145,9 @@ export class GoogleService {
               name: googleClaim.name,
               avatar: googleClaim.picture,
               emailVerified: googleClaim.email_verified,
+              status: UserStatus.ACTIVE,
+              createdAt: new Date(),
+              updatedAt: new Date(),
             });
 
             await authIdentityRepository.addAuthIdentity({

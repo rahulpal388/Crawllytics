@@ -9,7 +9,7 @@ type SelectedProjectIdType = {
 
 export const useSelectedProjectId = create<SelectedProjectIdType>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       projectId: null,
       setProjectId: (projectId) => set({ projectId }),
       deleteProjectId: () => set({ projectId: null }),

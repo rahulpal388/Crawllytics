@@ -28,7 +28,6 @@ export function getNativeVideoData($: cheerio.CheerioAPI, baseUrl: URL): HTMLVid
       .get()
       .filter(Boolean);
 
-
     videos.push({
       src,
       absoluteUrl,

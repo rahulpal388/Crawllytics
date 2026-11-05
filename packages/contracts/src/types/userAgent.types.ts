@@ -1,7 +1,5 @@
-
-
 export type UserAgentType = {
-    userAgent: string[];
-    allow: string[];
-    disallow: string[];
+  userAgent: string[];
+  allow: string[];
+  disallow: string[];
 };

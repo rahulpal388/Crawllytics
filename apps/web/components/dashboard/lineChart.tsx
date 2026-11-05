@@ -7,9 +7,13 @@ import {
   PointElement,
   LineElement,
   Tooltip,
-  TooltipItem,
-  ChartData,
+  type TooltipItem,
+  type ChartData,
+  type Chart,
+  type TooltipModel,
+  type ChartOptions,
 } from "chart.js";
+
 import { useState } from "react";
 import { Line } from "react-chartjs-2";
 import { CustomTooltip } from "./CustomTooltip";
@@ -33,20 +37,25 @@ export type LineToolTipDataType = {
   dataPoints: TooltipItem<"line">[];
 };
 
+type ExternalTooltipContext = {
+  chart: Chart<"line">;
+  tooltip: TooltipModel<"line">;
+};
+
 export function LineChartComponent({ data }: LineChartDataType) {
   const [tooltip, setTooltip] = useState<LineToolTipDataType | null>(null);
-  const externalTooltipHandler = (context: any) => {
-    const { chart, tooltip } = context;
+
+  const externalTooltipHandler = ({ tooltip }: ExternalTooltipContext) => {
     if (tooltip.opacity === 0) {
       setTooltip(null);
       return;
     }
 
     setTooltip((prev) => {
-      const next = {
+      const next: LineToolTipDataType = {
         x: tooltip.caretX,
         y: tooltip.caretY,
-        title: tooltip.title[0],
+        title: tooltip.title[0] ?? "",
         dataPoints: tooltip.dataPoints,
       };
 
@@ -58,14 +67,13 @@ export function LineChartComponent({ data }: LineChartDataType) {
     });
   };
 
-  const options = {
+  const options: ChartOptions<"line"> = {
     responsive: true,
     maintainAspectRatio: false,
     interaction: {
-      mode: "index" as const,
+      mode: "index",
       intersect: false,
     },
-    radius: 4,
     scales: {
       x: {
         display: false,

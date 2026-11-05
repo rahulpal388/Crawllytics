@@ -1,6 +1,4 @@
-import {
-  ResponseHeadersType,
-} from "@repo/contracts/types/crawl/urlCrawl/network/responseHeadersTypes";
+import { ResponseHeadersType } from "@repo/contracts/types/crawl/urlCrawl/network/responseHeadersTypes";
 import { IncomingMessage } from "node:http";
 
 export function parseResponseHeader(res: IncomingMessage): ResponseHeadersType {
@@ -18,8 +16,6 @@ export function parseResponseHeader(res: IncomingMessage): ResponseHeadersType {
   let crossOriginEmbedderPolicy: string[] | null = null;
   let crossOriginResourcePolicy: string[] | null = null;
   let server: string[] | null = null;
-
-
 
   csp = Array.isArray(res.headers["content-security-policy"])
     ? res.headers["content-security-policy"]
@@ -39,7 +35,8 @@ export function parseResponseHeader(res: IncomingMessage): ResponseHeadersType {
   referrerPolicy = typeof referrerPolicyHeader === "string" ? [referrerPolicyHeader] : null;
 
   const permissionsPolicyHeader = res.headers["permissions-policy"] ?? null;
-  permissionsPolicy = typeof permissionsPolicyHeader === "string" ? [permissionsPolicyHeader] : null;
+  permissionsPolicy =
+    typeof permissionsPolicyHeader === "string" ? [permissionsPolicyHeader] : null;
 
   const xRobotsTagHeader = res.headers["x-robots-tag"];
 
@@ -48,8 +45,6 @@ export function parseResponseHeader(res: IncomingMessage): ResponseHeadersType {
     : xRobotsTagHeader
       ? [xRobotsTagHeader]
       : [];
-
-
 
   etag = res.headers["etag"] ?? null;
 
@@ -65,9 +60,8 @@ export function parseResponseHeader(res: IncomingMessage): ResponseHeadersType {
       : null;
 
   const crossOriginEmbedderPolicyHeader = res.headers["cross-origin-embedder-policy"];
-  crossOriginEmbedderPolicy = typeof crossOriginEmbedderPolicyHeader === "string"
-    ? [crossOriginEmbedderPolicyHeader]
-    : null;
+  crossOriginEmbedderPolicy =
+    typeof crossOriginEmbedderPolicyHeader === "string" ? [crossOriginEmbedderPolicyHeader] : null;
 
   const crossOriginResourcePolicyHeader = res.headers["cross-origin-resource-policy"];
   crossOriginResourcePolicy = Array.isArray(crossOriginResourcePolicyHeader)

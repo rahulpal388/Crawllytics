@@ -1,4 +1,4 @@
-import { UserAgentType } from "@repo/redis/types/crawlStreamMessageType";
+import { UserAgentType } from "@repo/contracts/types/userAgent.types";
 
 async function getRobotsTxt(url: string, origin: string): Promise<string | null> {
   try {

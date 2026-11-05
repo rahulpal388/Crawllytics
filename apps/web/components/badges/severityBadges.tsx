@@ -1,4 +1,4 @@
-import { SeverityType } from "@repo/contract/types/apiResponseType/issuesTypes";
+import { SeverityType } from "@repo/contracts/types/analysesTypes/DynamicRule.Type";
 
 const severityItems: Record<
   Exclude<SeverityType, "all">,
@@ -30,6 +30,11 @@ const severityItems: Record<
     label: "Low",
     bgColor: "var(--color-severity-low-bg)",
     labelColor: "var(--color-severity-low)",
+  },
+  warning: {
+    label: "Warning",
+    bgColor: "var(--color-severity-warning-bg)",
+    labelColor: "var(--color-severity-warning)",
   },
 };
 

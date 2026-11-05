@@ -1,4 +1,4 @@
-import { FetchErrorType } from "@repo/contracts/types/urlInformationType/eachUrlNetworkTypes";
+import { FetchErrorType } from "@repo/contracts/types/crawl/urlCrawl/network/eachUrlNetworkTypes";
 
 export function getFetchError(error: NodeJS.ErrnoException, timedOut: boolean): FetchErrorType {
   if (timedOut) {

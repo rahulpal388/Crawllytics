@@ -1,8 +1,4 @@
-import { Button } from "@repo/ui/components/button";
 import { Logo } from "../logo";
-import { GithubSvg } from "@repo/ui/svg/githubSvg";
-import { Menu } from "lucide-react";
-import { NavDropDown } from "./navDropDown";
 import { MobileNavMenu } from "./mobileNavMenu";
 import { NavBarItems } from "./navBarItems";
 import { NavBarButtons } from "./navBarButtons";

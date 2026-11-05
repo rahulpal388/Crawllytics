@@ -9,7 +9,10 @@ type CreateProjectResponse = {
 export async function createProject(
   payload: CreateProjectRequestType,
 ): Promise<CreateProjectResponse> {
-  const response = await apiClient.post<CreateProjectResponse>("/project/create", payload);
+  const response = await apiClient.post<CreateProjectResponse>(
+    "/project/create",
+    payload,
+  );
   return response.data;
 }
 

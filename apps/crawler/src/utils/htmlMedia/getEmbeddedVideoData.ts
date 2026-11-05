@@ -1,4 +1,4 @@
-import { HTMLVideoType } from "@repo/contract/types/urlInformationType/HTMLMediaTypes/htmlVideoType";
+import { HTMLVideoType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/HTMLMediaTypes/htmlVideoType";
 
 import * as cheerio from "cheerio";
 

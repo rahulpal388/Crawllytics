@@ -1,5 +1,5 @@
 import { getLinkType } from "@/utils/links/getLinkType.js";
-import { HTMLLinkType } from "@repo/contract/types/urlInformationType/htmlLinksTypes";
+import { HTMLLinkType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlLinksTypes";
 import * as cheerio from "cheerio";
 
 export function getLinkData($: cheerio.CheerioAPI, baseUrl: URL): HTMLLinkType[] {

@@ -4,7 +4,6 @@ import { PageSidebar } from "../../pages/pageSidebar";
 import { PageContents } from "../../pages/pageContents";
 import { SquareArrowOutUpRight } from "lucide-react";
 import Link from "next/link";
-import { Loader } from "@repo/ui/components/loader";
 
 export function ViewPagesDrawer() {
   const { closeDrawer, drawers } = useDrawerStore();

@@ -1,4 +1,4 @@
-import { LocationType } from "@repo/db/types/logActivitySchema.Types";
+import { LocationType } from "@repo/db/types/userTypes/logActivitySchema.Types";
 
 export function formatLocation(location: LocationType): string | null {
   if (!location) {

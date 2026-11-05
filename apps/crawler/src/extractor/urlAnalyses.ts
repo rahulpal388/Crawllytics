@@ -14,9 +14,7 @@ export function urlAnalyses(url: URL, crawlDepth: number): UrlAnalysesType {
 
   const hasSpaces = url.pathname.includes(" ");
 
-  const hasNonAscii = [...url.pathname].some(
-    (char) => char.codePointAt(0)! > 127,
-  );
+  const hasNonAscii = [...url.pathname].some((char) => char.codePointAt(0)! > 127);
 
   const hasFileExtension = !!match;
   const fileExtension = match ? match.map((m) => m.toLowerCase()) : [];

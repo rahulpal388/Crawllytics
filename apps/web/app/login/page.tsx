@@ -1,8 +1,6 @@
 "use client";
 import { Divider } from "@repo/ui/components/divider";
 import { LoginForm } from "../../components/forms/loginForm";
-import { Button } from "@repo/ui/components/button";
-import { GoogleSvg } from "@repo/ui/svg/googleSvg";
 import { AuthLayout } from "../../components/auth/authLayout";
 import { X } from "lucide-react";
 import { useState } from "react";

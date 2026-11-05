@@ -12,6 +12,7 @@ import { SlidingWindow } from "@repo/rate-limiter/algo/silidingWindow";
 import { GoogleService } from "@/module/auth/google/google.service.js";
 import { crawlInfoStoreConfig } from "@repo/redis/stores/crawl-store/crawlInfoStore";
 import { urlDuplicationStoreConfig } from "@repo/redis/stores/urlDuplication";
+import { seedPlans } from "@/module/billings/plans/seed.plan.js";
 
 /*
  *   connect to the redis server
@@ -39,6 +40,11 @@ export const otpService = new OtpService(hashStore);
 export const slidingWindowRateLimit = new SlidingWindow(sortedSetStore);
 
 export const googleAuthService = await GoogleService.create();
+
+/*
+ *   Seeding the database
+ */
+await seedPlans();
 
 /*
  * HTTP server

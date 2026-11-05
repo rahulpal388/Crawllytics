@@ -6,7 +6,6 @@ import compression from "compression";
 import { errorHandlerMiddleware } from "@/infrastructure/middleware/errorHandler.middleware.js";
 
 import { routeNotFoundMiddleware } from "@/infrastructure/middleware/routeNotFount.middleware.js";
-import { healthCheckMiddleware } from "@/infrastructure/middleware/healthCheck.Middleware.js";
 import apiRouter from "@/app/route.js";
 import requestLogMiddleware from "@/infrastructure/middleware/requestLog.middleware.js";
 import { ValidateEnv } from "@/lib/validateEnv.js";
@@ -86,10 +85,6 @@ app.use(
     credentials: true,
   }),
 );
-
-/*    Health check  */
-
-app.get("/health", healthCheckMiddleware);
 
 /*  API routes  */
 

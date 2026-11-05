@@ -1,5 +1,5 @@
 import { Schema } from "mongoose";
-import { SchemaOf } from "../types/schemaOfTypes.js";
+import { SchemaOf } from "../../types/schemaOfTypes.js";
 import {
   JsonLdBlockType,
   BreadcrumbItemType,

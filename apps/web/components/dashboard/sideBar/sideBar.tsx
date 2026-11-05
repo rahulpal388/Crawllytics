@@ -4,10 +4,7 @@ import { SideBarItems } from "./sideBarItems";
 import { LogOut, PanelLeftClose, PanelLeftOpen, Plus } from "lucide-react";
 import { useState } from "react";
 import { motion } from "motion/react";
-import { useRouter } from "next/navigation";
-import { logoutUser } from "../../../api/auth.api";
 import { useModalStore } from "../../../store/modalStore";
-import { useUser } from "../../../hooks/user.hook";
 import { useLogout } from "../../../hooks/useLogout";
 
 export function SideBar() {

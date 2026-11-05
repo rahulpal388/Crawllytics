@@ -1,9 +1,9 @@
 "use client";
-import { AffectedPagesType } from "@repo/contract/types/apiResponseType/issuesTypes";
 import { Button } from "@repo/ui/components/button";
 import { SquareArrowOutUpRight } from "lucide-react";
 import { useState } from "react";
 import { useDrawerStore } from "../../../store/drawerStore";
+import { AffectedPagesType } from "@repo/contracts/apiContracts/apiResponse/issuesTypes";
 
 export function AffectedPages({
   affectedPages,
@@ -24,7 +24,7 @@ export function AffectedPages({
             <div
               key={af.pageId}
               className="caption text-text-primary flex cursor-pointer items-center gap-2 underline"
-              onClick={(e) => {
+              onClick={() => {
                 openDrawer({
                   type: "view-pages",
                   param: {

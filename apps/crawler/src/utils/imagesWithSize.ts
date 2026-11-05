@@ -1,6 +1,6 @@
-import { findImages } from "@/utils/findImages.js";
+import { getImageData } from "@/utils/htmlMedia/getImagesData.js";
 import { getImageSize } from "@/utils/getImageSize.js";
-import { ImageType } from "@repo/contract/types/urlInformationType/htmlMediaTypes";
+import { HTMLImageType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/HTMLMediaTypes/htmlImagesType";
 import * as Cheerio from "cheerio";
 
 const BATCH_SIZE = 10; // Number of images to process in parallel
@@ -9,8 +9,14 @@ export async function imagesWithSize(
   $: Cheerio.CheerioAPI,
   preloadImages: Set<string>,
   baseUrl: URL,
-): Promise<ImageType[]> {
-  const images = findImages($, preloadImages);
+): Promise<(HTMLImageType & { fileSizeBytes: number | null })[]> {
+  const images: (HTMLImageType & { fileSizeBytes: number | null })[] = getImageData(
+    $,
+    baseUrl,
+  ).map((image) => ({
+    ...image,
+    fileSizeBytes: null,
+  }));
 
   for (let i = 0; i < images.length; i += BATCH_SIZE) {
     const batch = images.slice(i, i + BATCH_SIZE);

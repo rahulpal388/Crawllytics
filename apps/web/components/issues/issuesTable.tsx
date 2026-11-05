@@ -1,9 +1,9 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+
+import { useMemo, useState } from "react";
 import { IssuesFilter, IssuesFilterActions } from "./issuesFilterActions";
 import { DataTable, Column } from "@repo/ui/components/table";
 import { IssuesTableMeta } from "./issuesTableMeta";
-import { IssuesResponseType } from "@repo/contract/types/apiResponseType/issuesTypes";
 import { SeverityBadges } from "../badges/severityBadges";
 import { CategoryBadges } from "../badges/categoryBages";
 import { ImpactBadges } from "../badges/impactBadges";
@@ -12,9 +12,24 @@ import { IssuesTableActions } from "./issuesTableActions";
 import { Card } from "@repo/ui/components/card/card";
 import { IssuesPagination } from "./issuesPagination";
 import { Select } from "@repo/ui/components/dropdown/select";
-import { issuesData } from "@repo/contract/constant/responseConstant/issues/issuesTempData";
+import { issuesInfoTempData as issuesData } from "@repo/contracts/constant/responseConstant/issues/issuesInfoTempData";
+import { IssuesResponseType } from "@repo/contracts/apiContracts/apiResponse/issuesTypes";
 
-const ColumnsType: Column<IssuesResponseType>[] = [
+const tableData: IssuesResponseType[] = issuesData.map((issue) => ({
+  id: issue.id,
+  issues: {
+    title: issue.title,
+    description: issue.description,
+  },
+  severity: issue.severity,
+  category: issue.category,
+  affectedPages: issue.affectedPages.count,
+  impact: issue.severity === "critical" || issue.severity === "high" ? "high" : "low",
+  status: "open",
+  actions: null,
+}));
+
+const columns: Column<IssuesResponseType>[] = [
   {
     key: "issues",
     heading: "Issue",
@@ -67,10 +82,12 @@ export function IssuesTable() {
     status: "all",
     impact: "all",
   });
+
   const [rowsPerPage, setRowsPerPage] = useState<RowPerPageType>(10);
-  const [currentDataView, setCurrentDataView] = useState<number>(1);
+  const [currentDataView, setCurrentDataView] = useState(1);
+
   const filteredData = useMemo(() => {
-    return issuesData.filter((issue) => {
+    return tableData.filter((issue) => {
       const severityMatch =
         selected.severity === "all" || issue.severity === selected.severity;
 
@@ -85,66 +102,71 @@ export function IssuesTable() {
 
       return severityMatch && categoryMatch && statusMatch && impactMatch;
     });
-  }, [issuesData, selected]);
+  }, [selected]);
 
-  const startIndex = (currentDataView - 1) * rowsPerPage;
-  const endIndex = startIndex + rowsPerPage;
+  const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+
+  const safeCurrentPage = Math.min(currentDataView, Math.max(totalPages, 1));
+
+  const startIndex = (safeCurrentPage - 1) * rowsPerPage;
+  const endIndex = Math.min(startIndex + rowsPerPage, filteredData.length);
+
   const currentPageData = useMemo(() => {
     return filteredData.slice(startIndex, endIndex);
-  }, [filteredData, currentDataView, rowsPerPage]);
+  }, [filteredData, startIndex, endIndex]);
+
+  const handleRowsPerPageChange = (value: string) => {
+    setRowsPerPage(Number(value) as RowPerPageType);
+    setCurrentDataView(1);
+  };
 
   return (
-    <>
-      <div className="space-y-4">
-        <IssuesFilterActions selected={selected} setSelected={setSelected} />
-        <Card className="space-y-4">
-          <DataTable
-            columns={ColumnsType}
-            data={currentPageData}
-            className="-mx-4 -mt-4 rounded shadow-none"
+    <div className="space-y-4">
+      <IssuesFilterActions
+        selected={selected}
+        setSelected={(value) => {
+          setSelected(value);
+          setCurrentDataView(1);
+        }}
+      />
+
+      <Card className="space-y-4">
+        <DataTable
+          columns={columns}
+          data={currentPageData}
+          className="-mx-4 -mt-4 rounded shadow-none"
+        />
+
+        <div className="flex h-16 items-center justify-between gap-8">
+          <p className="caption-xs">
+            Showing {filteredData.length === 0 ? 0 : startIndex + 1} to{" "}
+            {endIndex} of {filteredData.length} issues
+          </p>
+
+          <IssuesPagination
+            rowPerPage={rowsPerPage}
+            filterDataLength={filteredData.length}
+            setCurrentDataView={setCurrentDataView}
+            currentDataView={safeCurrentPage}
           />
-          <div className="flex h-16 items-center justify-between gap-8">
-            <p className="caption-xs">
-              showing {startIndex + 1} to {endIndex} of {issuesData.length}{" "}
-              issues
-            </p>
-            <IssuesPagination
-              rowPerPage={rowsPerPage}
-              filterDataLength={filteredData.length}
-              setCurrentDataView={setCurrentDataView}
-              currentDataView={currentDataView}
+
+          <div className="flex items-center gap-4">
+            <p className="body-sm">Rows:</p>
+
+            <Select
+              value={rowsPerPage.toString()}
+              onValueChange={handleRowsPerPageChange}
+              options={[
+                { id: "5", label: "5" },
+                { id: "10", label: "10" },
+                { id: "15", label: "15" },
+                { id: "20", label: "20" },
+              ]}
+              title={null}
             />
-            <div className="flex items-center gap-4">
-              <p className="body-sm">Rows:</p>
-              <Select
-                value={rowsPerPage.toString()}
-                onValueChange={(value) =>
-                  setRowsPerPage(Number(value) as RowPerPageType)
-                }
-                options={[
-                  {
-                    id: "5",
-                    label: "5",
-                  },
-                  {
-                    id: "10",
-                    label: "10",
-                  },
-                  {
-                    id: "15",
-                    label: "15",
-                  },
-                  {
-                    id: "20",
-                    label: "20",
-                  },
-                ]}
-                title={null}
-              />
-            </div>
           </div>
-        </Card>
-      </div>
-    </>
+        </div>
+      </Card>
+    </div>
   );
 }

@@ -46,7 +46,9 @@ export function getAuthErrorMessage(error: unknown): string {
     return "Our server is having trouble. Please try again later.";
   }
 
-  return apiError?.message ?? payload?.message ?? "Unable to complete your request.";
+  return (
+    apiError?.message ?? payload?.message ?? "Unable to complete your request."
+  );
 }
 
 export function getFieldErrors(error: unknown): Record<string, string> {

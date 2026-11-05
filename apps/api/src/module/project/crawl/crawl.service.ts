@@ -44,7 +44,11 @@ class CrawlService {
     }
 
     // fetch the robots.txt urls and format and store in crawlInfoStore
-    const robotTxt = await extractRobotsTxt(projectSetting.robotsTxtUrls, project.domain);
+    const robotTxt = await extractRobotsTxt(
+      projectSetting.discovery.robotsTxtUrl ?? "/robots.txt",
+      project.domain,
+    );
+    const crawlLimit = { type: "pages" as const, value: 10 };
 
     await crawlStore.set(data.projectId.toString(), {
       projectId: project._id.toString(),
@@ -52,8 +56,8 @@ class CrawlService {
       status: "in-progress",
       linkInfo: {
         limit: {
-          type: projectSetting.crawlLimit.type,
-          value: projectSetting.crawlLimit.value,
+          type: crawlLimit.type,
+          value: crawlLimit.value,
         },
         totalUrl: 1,
         crawledUrl: 0,
@@ -67,8 +71,8 @@ class CrawlService {
       type: "domain",
       url: project.domain,
       limit: {
-        type: projectSetting.crawlLimit.type,
-        currValue: projectSetting.crawlLimit.type === "depth" ? 0 : 1,
+        type: crawlLimit.type,
+        currValue: 1,
       },
     });
 

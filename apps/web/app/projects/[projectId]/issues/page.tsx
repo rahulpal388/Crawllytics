@@ -1,5 +1,4 @@
 import { DashboardContainer } from "@repo/ui/components/dashboardContainer";
-import { IssuesKPI } from "../../../../components/issues/issuesKPI";
 import { IssuesTable } from "../../../../components/issues/issuesTable";
 
 export default function IssuesPage() {

@@ -1,40 +1,41 @@
-
-
 export enum BillingInterval {
-    MONTHLY = "monthly"
+  MONTHLY = "monthly",
 }
 
 export enum PlanStatus {
-    DRAFT = "draft",
-    ACTIVE = "active",
-    ARCHIVED = "archived"
+  DRAFT = "draft",
+  ACTIVE = "active",
+  ARCHIVED = "archived",
 }
 
-export type BillingIntervalType = typeof BillingInterval[keyof typeof BillingInterval];
+export type CurrencyCode = "INR" | "USD";
 
-export type PlanStatusType = typeof PlanStatus[keyof typeof PlanStatus];
+// export type BillingIntervalType = typeof BillingInterval[keyof typeof BillingInterval];
+
+export type PlanStatusType = `${PlanStatus}`;
+
+export type BillingIntervalType = `${BillingInterval}`;
 
 export type PlanPricing = {
-    interval: BillingIntervalType;
-    amount: number;
-    currency: string;
-}
+  interval: BillingIntervalType;
+  amount: number;
+  currencyCode: CurrencyCode;
+};
 
 export interface PlanLimits {
-    maxProjects: number;
-    maxPagesPerCrawl: number;
-    maxCrawlsPerMonth: number;
+  maxProjects: number | null;
+  maxPagesPerCrawl: number;
+  maxCrawlsPerMonth: number | null;
 }
 
-
 export interface PlanSchemaType {
-    name: string;
-    slug: string;
-    description: string;
-    status: PlanStatusType;
-    pricing: PlanPricing[];
-    limits: PlanLimits;
-    isPopular: boolean;
-    createdAt: Date;
-    updatedAt: Date;
+  name: string;
+  slug: string;
+  description: string;
+  features: string[];
+  status: PlanStatusType;
+  pricing: PlanPricing[];
+  limits: PlanLimits;
+  isPopular: boolean;
+  isEditable: boolean;
 }

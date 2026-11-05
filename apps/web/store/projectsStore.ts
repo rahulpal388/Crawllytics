@@ -47,6 +47,8 @@ export const useProjectsStore = create<ProjectsStore>((set) => ({
     set((state) => ({ projects: [project, ...state.projects] })),
   removeProject: (projectId) =>
     set((state) => ({
-      projects: state.projects.filter((project) => project.projectId !== projectId),
+      projects: state.projects.filter(
+        (project) => project.projectId !== projectId,
+      ),
     })),
 }));

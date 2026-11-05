@@ -11,8 +11,8 @@ import {
   FaviconType,
   ResourceHintType,
   HTMLAlternateType,
-} from "../../../../contracts/src/types/urlInformationType/htmlHeaderResponseTypes.js";
-import { SchemaOf } from "../types/schemaOfTypes.js";
+} from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlHeaderResponseTypes";
+import { SchemaOf } from "../../types/schemaOfTypes.js";
 
 const htmlTitleSchemaDefinition: SchemaOf<HTMLTitleType> = {
   text: { type: String },
@@ -180,16 +180,18 @@ const resourceHintSchema = new mongoose.Schema<ResourceHintType>(resourceHintSch
 // ---------------- HTMLHeader SCHEMA DEFINITION ----------------
 
 const headerInformationSchemaDefinition: SchemaOf<HTMLHeaderType> = {
-  title: { type: [htmlTitleSchema], required: true },
   meta: {
+    title: { type: [htmlTitleSchema], required: true },
     metaDescription: { type: [htmlMetaDescriptionSchema], required: true },
     metaRobot: { type: [String], required: true },
     Canonical: { type: [htmlCanonicalSchema], required: true },
-    openGraph: { type: htmlOpenGraphSchema, required: true },
     metaViewport: { type: [htmlMetaViewportSchema], required: true },
   },
+  socialSharing: {
+    openGraph: { type: htmlOpenGraphSchema, required: true },
+    twitterCard: { type: twitterCardSchema, required: true },
+  },
   hreflang: { type: [hreflangSchema], required: true },
-  twitterCard: { type: twitterCardSchema, required: true },
   favicon: { type: [faviconSchema], required: true },
   resourceHints: { type: [resourceHintSchema], required: true },
   sitename: { type: String, default: null },

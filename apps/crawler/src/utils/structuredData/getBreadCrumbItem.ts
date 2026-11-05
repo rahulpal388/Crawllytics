@@ -1,7 +1,7 @@
 import {
   BreadcrumbItemType,
   JsonLdBlockType,
-} from "@repo/contract/types/urlInformationType/htmlStructureDataTypes";
+} from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlStructureDataTypes";
 
 export function getBreadcrumbs(jsonLdBlocks: JsonLdBlockType[]): BreadcrumbItemType[] {
   const breadcrumbs: BreadcrumbItemType[] = [];

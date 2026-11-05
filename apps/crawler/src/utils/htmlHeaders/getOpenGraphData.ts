@@ -1,4 +1,4 @@
-import { HTMLOpenGraphType } from "@repo/contract/types/urlInformationType/htmlHeaderResponseTypes";
+import { HTMLOpenGraphType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlHeaderResponseTypes";
 import * as cheerio from "cheerio";
 
 /*

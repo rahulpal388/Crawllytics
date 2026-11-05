@@ -1,4 +1,4 @@
-import { StatusType } from "@repo/contract/types/apiResponseType/issuesTypes";
+import { StatusType } from "@repo/contracts/apiContracts/apiResponse/issuesTypes";
 
 const statusItems: Record<
   Exclude<StatusType, "all">,

@@ -3,7 +3,10 @@ import { Search } from "lucide-react";
 
 export function GoogleSearchConsoleCard() {
   return (
-    <section className="border-border-muted border-b p-5 xl:border-r xl:border-b-0" aria-labelledby="search-console-title">
+    <section
+      className="border-border-muted border-b p-5 xl:border-r xl:border-b-0"
+      aria-labelledby="search-console-title"
+    >
       <h2 id="search-console-title" className="heading-6">
         Search Console
       </h2>

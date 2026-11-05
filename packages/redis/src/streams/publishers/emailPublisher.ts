@@ -1,4 +1,4 @@
-import { EmailStreamMessage } from "@/types/emailStreamMessageType.js";
+import { EmailStreamMessage } from "../../types/emailStreamMessageType.js";
 import { RedisClientType } from "redis";
 import { produce } from "../producer.js";
 import { STREAMS } from "../../types/streamTypes.js";

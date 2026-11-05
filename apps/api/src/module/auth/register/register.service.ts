@@ -7,6 +7,7 @@ import { userRepository } from "@repo/db/repository/userRepository";
 import { AuthLoginResponse } from "@repo/contracts/apiContracts/apiResponse/auth-login.response";
 import { OTP_EXPIRY } from "@/shared/auth/otp/otp.constants.js";
 import { randomUUID } from "crypto";
+import { UserStatus } from "@repo/db/types/userTypes/userSchema.Types";
 import mongoose from "mongoose";
 import { authIdentityRepository } from "@repo/db/repository/authIdentityRepository";
 
@@ -103,6 +104,9 @@ async function verifyUserOtp(
         email: data.email,
         emailVerified: true,
         avatar: null,
+        status: UserStatus.ACTIVE,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       });
 
       await authIdentityRepository.addAuthIdentity({

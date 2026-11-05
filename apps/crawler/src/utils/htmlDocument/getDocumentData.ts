@@ -1,6 +1,6 @@
 import { detectFrameworks } from "@/utils/htmlDocument/detectFramework.js";
 import * as cheerio from "cheerio";
-import { HTMLDocumentType } from "@repo/contract/types/urlInformationType/htmlDocumentTypes";
+import { HTMLDocumentType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlDocumentTypes";
 
 export function getDocumentData($: cheerio.CheerioAPI): HTMLDocumentType {
   const html = $.html() || "";

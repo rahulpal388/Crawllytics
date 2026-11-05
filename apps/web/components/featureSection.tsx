@@ -1,5 +1,4 @@
 import { Container } from "@repo/ui/components/container";
-import { FeatureCardProps } from "@repo/ui/types/featureCardProps";
 import { FeatureCards } from "./feature-section/featureCards";
 import { featuresItems } from "../constant/featureItems";
 

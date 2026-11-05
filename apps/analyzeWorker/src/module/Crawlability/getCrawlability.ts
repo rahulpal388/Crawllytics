@@ -1,46 +1,40 @@
-import { UrlCrawledType } from "@repo/db/types/urlCrawledTypes";
+import { UrlCrawledSchemaType } from "@repo/db/types/crawlTypes/urlCrawledTypes";
 import { CrawlabilityAnalysisTypes } from "@repo/contracts/types/analysesTypes/perPage/crawlabilty.types";
 
+export function getCrawlability(info: UrlCrawledSchemaType): CrawlabilityAnalysisTypes {
+  return {
+    statusCode: info.networkInfo.statusCode,
+    isSuccess: info.networkInfo.statusCode === 200,
+    fetchError: null,
 
-export function getCrawlability(info: UrlCrawledType): CrawlabilityAnalysisTypes {
+    isBlockedByRobotsTxt: info.urlAnalyses?.isBlockedByRobotsTxt || false,
 
+    isInSiteMap: info.urlAnalyses?.isInSitemap || false,
+    isDiscoveredViaSiteMap: info.urlAnalyses?.isDiscoveredViaSiteMap || false,
+    isDiscoveredViaInternalLink: info.urlAnalyses?.isDiscoveredViaInternalLink || false,
 
-    return {
-        statusCode: info.networkInfo.statusCode,
-        isSuccess: info.networkInfo.statusCode === 200,
-        fetchError: null,
+    internalIncommingLink: 0,
+    internalOutgoingLink: 0,
+    isOrphan: false,
 
-        isBlockedByRobotsTxt: info.urlAnalyses?.isBlockedByRobotsTxt || false,
+    crawlDepth: info.urlAnalyses?.crawlDepth || 0,
+    urlDepth: info.urlAnalyses?.urlDepth || 0,
 
+    urlLength: info.networkInfo.finalUrl.length,
+    hasQueryParams: info.networkInfo.finalUrl.includes("?"),
+    queryParameterCount: info.networkInfo.finalUrl.split("?")[1]?.split("&").length || 0,
+    hasFragment: info.networkInfo.finalUrl.includes("#"),
+    hasSessionId: info.networkInfo.finalUrl.includes("sessionid"),
+    hasTrackingParameter: info.networkInfo.finalUrl.includes("utm_"),
 
-        isInSiteMap: info.urlAnalyses?.isInSitemap || false,
-        isDiscoveredViaSiteMap: info.urlAnalyses?.isDiscoveredViaSiteMap || false,
-        isDiscoveredViaInternalLink: info.urlAnalyses?.isDiscoveredViaInternalLink || false,
+    isHttps: info.networkInfo.finalUrl.startsWith("https://"),
 
-
-        internalIncommingLink: 0,
-        internalOutgoingLink: 0,
-        isOrphan: false,
-
-        crawlDepth: info.urlAnalyses?.crawlDepth || 0,
-        urlDepth: info.urlAnalyses?.urlDepth || 0,
-
-
-
-        urlLength: info.networkInfo.finalUrl.length,
-        hasQueryParams: info.networkInfo.finalUrl.includes("?"),
-        queryParameterCount: info.networkInfo.finalUrl.split("?")[1]?.split("&").length || 0,
-        hasFragment: info.networkInfo.finalUrl.includes("#"),
-        hasSessionId: info.networkInfo.finalUrl.includes("sessionid"),
-        hasTrackingParameter: info.networkInfo.finalUrl.includes("utm_"),
-
-        isHttps: info.networkInfo.finalUrl.startsWith("https://"),
-
-        ttfb: info.networkInfo.timeToFirstByte ?? 0,
-        totalResponseTime: info.networkInfo.totalResponseTime ?? 0,
-        is5xx: info.networkInfo.statusCode !== null && info.networkInfo.statusCode >= 500 && info.networkInfo.statusCode < 600,
-        is429: info.networkInfo.statusCode === 429,
-
-    }
-
+    ttfb: info.networkInfo.timeToFirstByte ?? 0,
+    totalResponseTime: info.networkInfo.totalResponseTime ?? 0,
+    is5xx:
+      info.networkInfo.statusCode !== null &&
+      info.networkInfo.statusCode >= 500 &&
+      info.networkInfo.statusCode < 600,
+    is429: info.networkInfo.statusCode === 429,
+  };
 }

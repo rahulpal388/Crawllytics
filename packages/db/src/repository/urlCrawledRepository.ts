@@ -3,7 +3,6 @@ import { RepositoryResponseType } from "../types/repositoryResponseType.js";
 import UrlCrawledModel from "../model/crawlDomainModel/urlCrawledModel.js";
 import { UrlCrawledSchemaType } from "../types/crawlTypes/urlCrawledTypes.js";
 
-
 export const urlCrawledRepository = {
   addUrlCrawled,
   getUrlCrawledWithoutAnalyzedUrlData,
@@ -96,4 +95,4 @@ async function getUrlCrawled(
 
 // ###################### update  #######################
 
-async function updateUrlCrawled() { }
+async function updateUrlCrawled() {}

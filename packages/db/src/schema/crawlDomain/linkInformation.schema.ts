@@ -3,7 +3,7 @@ import {
   HTMLLinksType,
   HTMLLinkType,
 } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlLinksTypes";
-import { SchemaOf } from "../types/schemaOfTypes.js";
+import { SchemaOf } from "../../types/schemaOfTypes.js";
 
 const linkSchemaDefination: SchemaOf<HTMLLinkType> = {
   url: { type: String },

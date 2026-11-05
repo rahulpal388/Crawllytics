@@ -16,13 +16,7 @@ type RDAPEvent = {
   eventDate?: string;
 };
 
-type RDAPVCardItem = [
-  string,
-  string,
-  string,
-  string | null | undefined,
-  ...unknown[],
-];
+type RDAPVCardItem = [string, string, string, string | null | undefined, ...unknown[]];
 
 type RDAPEntity = {
   roles?: string[];
@@ -56,7 +50,7 @@ const RDAP_FALLBACK_SERVERS: Record<string, string> = {
 
 const defaultDomainInfo: DomainInformationType = {
   registrar: null,
-  RegistryDomainID: null,
+  registryDomainID: null,
   domainStatus: null,
   registerOn: null,
   expiresOn: null,
@@ -78,9 +72,7 @@ function isAxiosError(error: unknown): error is AxiosErrorResponse {
   );
 }
 
-export async function getDomainInfo(
-  domain: string,
-): Promise<DomainInformationType> {
+export async function getDomainInfo(domain: string): Promise<DomainInformationType> {
   try {
     // ----------------------------------------
     // Normalize domain
@@ -190,14 +182,12 @@ export async function getDomainInfo(
 function parseRDAPResponse(data: RDAPResponse): DomainInformationType {
   return {
     registrar: extractRegistrar(data),
-    RegistryDomainID: data.handle ?? null,
+    registryDomainID: data.handle ?? null,
     domainStatus: Array.isArray(data.status) ? data.status.join(", ") : "",
     registerOn: extractEventDate(data, "registration"),
     expiresOn: extractEventDate(data, "expiration"),
     nameServers: Array.isArray(data.nameservers)
-      ? data.nameservers
-        .map((ns) => ns.ldhName)
-        .filter((name): name is string => Boolean(name))
+      ? data.nameservers.map((ns) => ns.ldhName).filter((name): name is string => Boolean(name))
       : [],
   };
 }
@@ -208,8 +198,7 @@ function parseRDAPResponse(data: RDAPResponse): DomainInformationType {
 
 function extractRegistrar(data: RDAPResponse): string | null {
   const registrar = data.entities?.find(
-    (entity) =>
-      Array.isArray(entity.roles) && entity.roles.includes("registrar"),
+    (entity) => Array.isArray(entity.roles) && entity.roles.includes("registrar"),
   );
 
   if (!registrar) {
@@ -231,13 +220,8 @@ function extractRegistrar(data: RDAPResponse): string | null {
 // Extract Event Date
 // ====================================================
 
-function extractEventDate(
-  data: RDAPResponse,
-  eventAction: string,
-): Date | null {
-  const event = data.events?.find(
-    (event) => event.eventAction === eventAction,
-  );
+function extractEventDate(data: RDAPResponse, eventAction: string): Date | null {
+  const event = data.events?.find((event) => event.eventAction === eventAction);
 
   if (!event?.eventDate) {
     return null;

@@ -9,11 +9,10 @@ import {
 import { ReportFormat } from "../../types/projectType/report.Types.js";
 import { DEFAULT_USER_AGENT } from "@repo/contracts/constant/fetchHeaderConfig";
 
-
 const reportSettingsSchemaDefinition: SchemaOf<ProjectReportSettings> = {
   sendReport: { type: Boolean, default: false },
   format: { type: String, enum: Object.values(ReportFormat), default: ReportFormat.PDF },
-}
+};
 
 const discoverySettingsSchemaDefinition: SchemaOf<ProjectDiscoverySettings> = {
   respectRobotsTxt: { type: Boolean, default: true },
@@ -21,13 +20,10 @@ const discoverySettingsSchemaDefinition: SchemaOf<ProjectDiscoverySettings> = {
 
   crawlSitemap: { type: Boolean, default: true },
   sitemapUrls: { type: [String], default: [] },
-}
+};
 const crawlerSettingsSchemaDefinition: SchemaOf<ProjectCrawlerSettings> = {
   userAgent: { type: String, default: DEFAULT_USER_AGENT },
-}
-
-
-
+};
 
 const reportSettingsSchema = new mongoose.Schema<ProjectReportSettings>(
   reportSettingsSchemaDefinition,
@@ -44,11 +40,9 @@ const crawlerSettingsSchema = new mongoose.Schema<ProjectCrawlerSettings>(
   { _id: false, versionKey: false, strict: false },
 );
 
-
 // #########################################
 // Project Settings Schema
 // #########################################
-
 
 const projectSettingsSchemaDefinition: SchemaOf<ProjectSettingSchemaType> = {
   projectId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Project" },

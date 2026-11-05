@@ -1,4 +1,4 @@
-import { USER_AGENT } from "@repo/contracts/constant/fetchHeaderConfig";
+import { DEFAULT_USER_AGENT } from "@repo/contracts/constant/fetchHeaderConfig";
 import { UserAgentType } from "@repo/contracts/types/userAgent.types";
 
 export function isUrlCrawlAllowed(url: string, robotsTxt: UserAgentType[]): boolean {
@@ -11,7 +11,7 @@ export function isUrlCrawlAllowed(url: string, robotsTxt: UserAgentType[]): bool
   const matchingGroups = robotsTxt.filter(
     (group) =>
       group.userAgent.includes("*") ||
-      group.userAgent.some((ua) => ua.toLowerCase() === USER_AGENT.toLowerCase()),
+      group.userAgent.some((ua) => ua.toLowerCase() === DEFAULT_USER_AGENT.toLowerCase()),
   );
 
   if (matchingGroups.length === 0) {

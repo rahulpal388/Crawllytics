@@ -32,8 +32,6 @@ async function createProject(projectData: CreateProjectRequestType, user: Authen
         userId: new mongoose.Types.ObjectId(user.userId),
         projectName: projectData.projectName,
         domain: projectData.domain,
-        domainInfo: null,
-        websiteInfo: null,
         lastCrawledAt: null,
         nextCrawlAt: null,
         createdAt: new Date(),
@@ -41,7 +39,21 @@ async function createProject(projectData: CreateProjectRequestType, user: Authen
 
       await projectSettingRepository.create({
         projectId: createProject._id,
-        ...projectData.projectSetting,
+        report: {
+          sendReport: projectData.projectSetting.sendReport,
+          format: projectData.projectSetting.reportType,
+        },
+        discovery: {
+          respectRobotsTxt: true,
+          robotsTxtUrl: projectData.projectSetting.robotsTxtUrls,
+          crawlSitemap: true,
+          sitemapUrls: projectData.projectSetting.siteMapUrls,
+        },
+        crawler: {
+          userAgent: projectData.projectSetting.userAgent,
+        },
+        createdAt: new Date(),
+        updatedAt: new Date(),
       });
       return createProject;
     });

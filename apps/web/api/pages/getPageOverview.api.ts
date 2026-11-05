@@ -1,6 +1,6 @@
 import { overviewTempData } from "@repo/contracts/constant/responseConstant/pages/overviewTempdata";
 
-import { OverviewResponseType } from "@repo/contracts/types/apiResponseType/pages.responseType";
+import { OverviewResponseType } from "@repo/contracts/apiContracts/apiResponse/pages.responseType";
 
 export async function getPageOverview(
   projectId: string,

@@ -11,10 +11,10 @@ export enum IntegrationStatus {
   ERROR = "error",
 }
 
+export type IntegrationProviderType =
+  (typeof IntegrationProvider)[keyof typeof IntegrationProvider];
 
-export type IntegrationProviderType = typeof IntegrationProvider[keyof typeof IntegrationProvider];
-
-export type IntegrationStatusType = typeof IntegrationStatus[keyof typeof IntegrationStatus];
+export type IntegrationStatusType = (typeof IntegrationStatus)[keyof typeof IntegrationStatus];
 
 export type IntegrationCredentialsSchemaType = {
   accessToken: string;

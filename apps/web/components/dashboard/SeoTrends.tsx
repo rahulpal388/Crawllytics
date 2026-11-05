@@ -1,6 +1,5 @@
 import { Card } from "@repo/ui/components/card/card";
 import { TrendChart } from "@repo/ui/components/charts/trendChart";
-import { IssueDistributionItem } from "@repo/ui/components/issueDistributionItems";
 
 export const seoTrendData = [
   {

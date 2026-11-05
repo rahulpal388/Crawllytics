@@ -1,4 +1,4 @@
-import { OverviewResponseType } from "../../../types/apiResponseType/pages.responseType.js";
+import { OverviewResponseType } from "../../../apiContracts/apiResponse/pages.responseType.js";
 
 export const overviewTempData: OverviewResponseType = {
   urlInfo: {

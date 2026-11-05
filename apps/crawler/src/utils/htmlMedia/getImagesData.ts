@@ -1,7 +1,7 @@
 import * as cheerio from "cheerio";
 import path from "node:path";
 
-import { HTMLImageType } from "@repo/contract/types/urlInformationType/HTMLMediaTypes/htmlImagesType";
+import { HTMLImageType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/HTMLMediaTypes/htmlImagesType";
 import { getImageFormate } from "@/utils/htmlMedia/getImageFormate.js";
 import { isImagePreloaded } from "@/utils/htmlMedia/isImagePreloaded.js";
 import { getImageSrcSet } from "@/utils/htmlMedia/getImageSrcSet.js";
@@ -33,7 +33,7 @@ export function getImageData($: cheerio.CheerioAPI, baseUrl: URL): HTMLImageType
 
     const decoding = (img.attr("decoding") as "async" | "sync" | "auto" | undefined) ?? null;
 
-    const srcSet = getImageSrcSet(img, baseUrl);
+    const srcSet = getImageSrcSet(img);
 
     const sizes = img.attr("sizes") ?? null;
 

@@ -13,7 +13,10 @@ export type RegisterResponse = {
 export async function registerUser(
   payload: RegisterEmailRequestType,
 ): Promise<RegisterResponse> {
-  const { data } = await apiClient.post<RegisterResponse>("/auth/register", payload);
+  const { data } = await apiClient.post<RegisterResponse>(
+    "/auth/register",
+    payload,
+  );
   return data;
 }
 

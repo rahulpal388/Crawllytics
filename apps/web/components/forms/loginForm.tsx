@@ -4,7 +4,7 @@ import { PasswordInput } from "@repo/ui/components/passwordInput";
 import { Mail } from "lucide-react";
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { zodResolver } from "../../lib/zodResolver";
 import {
   loginEmailRequestSchema,
   LoginEmailRequestType,
@@ -80,8 +80,9 @@ export function LoginForm({ onRootErrorChange }: LoginFormProps) {
           placeholder="Enter your password"
           autoComplete="current-password"
           aria-invalid={Boolean(errors.password)}
-          aria-describedby={errors.password ? "login-password-error" : undefined}
-          containerClassName={`h-11${errors.password ? " border-red-500" : ""}`}
+          aria-describedby={
+            errors.password ? "login-password-error" : undefined
+          }
           {...register("password")}
         />
 

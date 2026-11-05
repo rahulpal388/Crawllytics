@@ -1,4 +1,3 @@
-
 export type InternalLinkingType = {
   totalInternalLinks: number;
   totalUniqueInternalLinks: number;
@@ -35,4 +34,3 @@ export type InternalLinkingType = {
 
   crawlDepth: number | null;
 };
-

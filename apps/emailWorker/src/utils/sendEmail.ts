@@ -33,6 +33,6 @@ export async function sendEmail(msg: EmailStreamMessage) {
   }
 }
 
-function assertNever(_: never): never {
-  throw new Error("Unsupported email type");
+function assertNever(value: never): never {
+  throw new Error(`Unsupported email type ${JSON.stringify(value)}`);
 }

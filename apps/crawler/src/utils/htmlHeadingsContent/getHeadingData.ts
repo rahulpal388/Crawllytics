@@ -1,5 +1,5 @@
 import * as cheerio from "cheerio";
-import { HTMLHeadingType } from "@repo/contract/types/urlInformationType/htmlHeadingContentsTypes";
+import { HTMLHeadingType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlHeadingContentsTypes";
 
 export function getHeadingData($: cheerio.CheerioAPI): HTMLHeadingType[] {
   const headings: HTMLHeadingType[] = [];

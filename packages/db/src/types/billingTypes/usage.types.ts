@@ -1,35 +1,27 @@
 import { Types } from "mongoose";
 
-
-
-
 export type UsageMatrix = "crawlPerMonth" | "projects" | "pagesPerCrawl";
 
 export type UsageCounter = {
-    consumed: number;
-    limit: number;
-}
+  consumed: number;
+  limit: number;
+};
 
-
-export type PeriodicUsage = Record<
-    UsageMatrix,
-    UsageCounter
->;
+export type PeriodicUsage = Record<UsageMatrix, UsageCounter>;
 
 export interface UsagePeriod {
-    start: Date;
-    end: Date;
+  start: Date;
+  end: Date;
 }
 
 export interface UsageSchemaType {
+  subscriptionId: Types.ObjectId;
+  userId: Types.ObjectId;
 
-    subscriptionId: Types.ObjectId;
-    userId: Types.ObjectId;
+  period: UsagePeriod;
 
-    period: UsagePeriod;
+  periodic: PeriodicUsage;
 
-    periodic: PeriodicUsage;
-
-    createdAt: Date;
-    updatedAt: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }

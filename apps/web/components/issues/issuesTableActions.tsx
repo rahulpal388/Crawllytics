@@ -1,4 +1,4 @@
-import { IssuesResponseType } from "@repo/contract/types/apiResponseType/issuesTypes";
+import { IssuesResponseType } from "@repo/contracts/apiContracts/apiResponse/issuesTypes";
 import { Button } from "@repo/ui/components/button";
 import { useDrawerStore } from "../../store/drawerStore";
 

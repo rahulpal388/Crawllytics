@@ -2,7 +2,7 @@ import * as cheerio from "cheerio";
 import {
   ResourceHintType,
   ResourceHintRelType,
-} from "@repo/contract/types/urlInformationType/htmlHeaderResponseTypes";
+} from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlHeaderResponseTypes";
 
 export function getResourceHintData($: cheerio.CheerioAPI, baseUrl: URL): ResourceHintType[] {
   const resourceHints: ResourceHintType[] = [];

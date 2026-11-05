@@ -3,7 +3,6 @@
 import { Menu, X } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
-import { logoutUser } from "../../api/auth.api";
 import { useSelectedProjectId } from "../../store/useSelectedProjectId";
 import { Logo } from "../logo";
 import { sideBarItems } from "./sideBar/sideBarItems";

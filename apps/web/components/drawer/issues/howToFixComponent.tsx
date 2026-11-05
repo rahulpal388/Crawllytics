@@ -1,7 +1,7 @@
 import {
   HowToFixType,
   StackType,
-} from "@repo/contract/types/apiResponseType/issuesTypes";
+} from "@repo/contracts/types/analysesTypes/SEORules.Type";
 import { CodeSnippet } from "../../codeSnippet";
 import { ChooseStackComponent } from "./chooseStackComponent";
 import { useState } from "react";

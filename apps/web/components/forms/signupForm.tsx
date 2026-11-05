@@ -1,11 +1,10 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
+import { zodResolver } from "../../lib/zodResolver";
 import { Button } from "@repo/ui/components/button";
 import { Divider } from "@repo/ui/components/divider";
 import { Input } from "@repo/ui/components/input";
 import { PasswordInput } from "@repo/ui/components/passwordInput";
-import { GoogleSvg } from "@repo/ui/svg/googleSvg";
 import {
   registerEmailRequestSchema,
   type RegisterEmailRequestType,
@@ -259,9 +258,6 @@ export function SignUpForm({ onRootErrorChange }: SignupFormProps) {
                   placeholder="Enter your password"
                   autoComplete="new-password"
                   aria-invalid={Boolean(errors.password)}
-                  containerClassName={
-                    errors.password ? "border-red-500" : undefined
-                  }
                   {...register("password")}
                 />
                 {errors.password && (

@@ -136,7 +136,7 @@ async function main() {
           websiteName: gatheredInfo.htmlHeader.sitename,
           domain: url.hostname,
           ipAddress,
-          webServer: fetchResult.data.eachUrlNetwork.responseHeaders?.server ?? null,
+          webServer: fetchResult.data.eachUrlNetwork.responseHeaders?.server ?? [],
           serverLocation,
           favicons: gatheredInfo.htmlHeader.favicon.map((f) => f.href),
           languages: gatheredInfo.htmlHeader.alternate

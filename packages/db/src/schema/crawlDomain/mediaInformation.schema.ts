@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { HTMLMediaTypes } from "../../../../contracts/src/types/urlInformationType/HTMLMediaTypes/htmlMediaTypes.js";
-import { HTMLAudioType } from "../../../../contracts/src/types/urlInformationType/HTMLMediaTypes/htmlAudioType.js";
+import { HTMLMediaTypes } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/HTMLMediaTypes/htmlMediaTypes";
+import { HTMLAudioType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/HTMLMediaTypes/htmlAudioType";
 import { SchemaOf } from "../../types/schemaOfTypes.js";
 import { imageSchema } from "./imageSchame.js";
 import { videoSchema } from "./videoSchema.js";

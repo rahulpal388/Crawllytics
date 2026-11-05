@@ -1,4 +1,3 @@
-
 import mongoose from "mongoose";
 
 export enum ReportType {
@@ -10,8 +9,7 @@ export const ReportFormat = {
   CSV: "csv",
 } as const;
 
-export type ReportFormatType =
-  (typeof ReportFormat)[keyof typeof ReportFormat];
+export type ReportFormatType = (typeof ReportFormat)[keyof typeof ReportFormat];
 
 export enum ReportStatus {
   PENDING = "pending",

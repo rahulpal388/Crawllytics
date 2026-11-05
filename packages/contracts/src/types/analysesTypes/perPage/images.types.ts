@@ -1,4 +1,3 @@
-
 export type ImageAnalysisType = {
   totalImages: number;
 
@@ -35,4 +34,3 @@ export type ImageAnalysisType = {
   imagesAboveTheFold: number;
   heroImages: number;
 };
-

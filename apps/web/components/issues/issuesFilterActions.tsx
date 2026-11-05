@@ -1,12 +1,8 @@
 import { Select } from "@repo/ui/components/dropdown/select";
 import { Dispatch, SetStateAction } from "react";
 import { SelectOptionsType } from "@repo/ui/components/dropdown/select";
-import {
-  SeverityType,
-  CategoryType,
-  StatusType,
-  ImpactType,
-} from "@repo/contract/types/apiResponseType/issuesTypes";
+import { StatusType, ImpactType } from "@repo/contracts/apiContracts/apiResponse/issuesTypes";
+import { SeverityType, CategoryType } from "@repo/contracts/types/analysesTypes/DynamicRule.Type";
 import { Button } from "@repo/ui/components/button";
 import { Download } from "lucide-react";
 
@@ -22,15 +18,13 @@ const categoryOptions: SelectOptionsType<CategoryType>[] = [
   { label: "All", id: "all" },
   { label: "Performance", id: "performance" },
   { label: "Accessibility", id: "accessibility" },
-  { label: "Best Practices", id: "best-practices" },
-  { label: "SEO", id: "seo" },
   { label: "Metadata", id: "metadata" },
   { label: "Security", id: "security" },
   { label: "Content", id: "content" },
   { label: "Links", id: "links" },
   { label: "Crawlability", id: "crawlability" },
-  { label: "Structured Data", id: "structured-data" },
-  { label: "Other", id: "other" },
+  { label: "Indexability", id: "indexability" },
+  { label: "Social Sharing", id: "social-sharing" },
 ];
 
 const statusOptions: SelectOptionsType<StatusType>[] = [

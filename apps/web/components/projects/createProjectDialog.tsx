@@ -24,7 +24,12 @@ const createProjectFormSchema = z.object({
     .url("Enter a valid website URL")
     .refine((value) => {
       const url = new URL(value);
-      return /^https?:$/.test(url.protocol) && url.pathname === "/" && !url.search && !url.hash;
+      return (
+        /^https?:$/.test(url.protocol) &&
+        url.pathname === "/" &&
+        !url.search &&
+        !url.hash
+      );
     }, "Use an http(s) domain without a path or query parameters"),
 });
 
@@ -32,8 +37,13 @@ export function CreateProjectDialog() {
   const closeModal = useModalStore((state) => state.closeModal);
   const addProject = useProjectsStore((state) => state.addProject);
   const nameRef = useRef<HTMLInputElement>(null);
-  const [values, setValues] = useState<FormValues>({ projectName: "", domain: "" });
-  const [errors, setErrors] = useState<Partial<Record<keyof FormValues, string>>>({});
+  const [values, setValues] = useState<FormValues>({
+    projectName: "",
+    domain: "",
+  });
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof FormValues, string>>
+  >({});
   const [formError, setFormError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -68,7 +78,10 @@ export function CreateProjectDialog() {
       const nextErrors: Partial<Record<keyof FormValues, string>> = {};
       for (const issue of result.error.issues) {
         const field = issue.path[0];
-        if ((field === "projectName" || field === "domain") && !nextErrors[field]) {
+        if (
+          (field === "projectName" || field === "domain") &&
+          !nextErrors[field]
+        ) {
           nextErrors[field] = issue.message;
         }
       }
@@ -98,7 +111,9 @@ export function CreateProjectDialog() {
       setValues({ projectName: "", domain: "" });
       closeModal();
     } catch {
-      setFormError("Project creation failed. Check your connection and try again.");
+      setFormError(
+        "Project creation failed. Check your connection and try again.",
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -124,7 +139,7 @@ export function CreateProjectDialog() {
             aria-label="Close create project dialog"
             disabled={isSubmitting}
             onClick={closeModal}
-            className="rounded-xs p-1 text-text-secondary transition-colors hover:bg-surface-subtle hover:text-text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50"
+            className="text-text-secondary hover:bg-surface-subtle hover:text-text-primary focus-visible:outline-primary rounded-xs p-1 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50"
           >
             <X size={20} />
           </button>
@@ -139,10 +154,14 @@ export function CreateProjectDialog() {
               ref={nameRef}
               id="project-name"
               value={values.projectName}
-              onChange={(event) => updateValue("projectName", event.target.value)}
+              onChange={(event) =>
+                updateValue("projectName", event.target.value)
+              }
               placeholder="e.g. Crawllytics"
               aria-invalid={Boolean(errors.projectName)}
-              aria-describedby={errors.projectName ? "project-name-error" : undefined}
+              aria-describedby={
+                errors.projectName ? "project-name-error" : undefined
+              }
               disabled={isSubmitting}
             />
             {errors.projectName && (
@@ -163,7 +182,9 @@ export function CreateProjectDialog() {
               onChange={(event) => updateValue("domain", event.target.value)}
               placeholder="https://example.com"
               aria-invalid={Boolean(errors.domain)}
-              aria-describedby={errors.domain ? "project-domain-error" : undefined}
+              aria-describedby={
+                errors.domain ? "project-domain-error" : undefined
+              }
               disabled={isSubmitting}
             />
             {errors.domain && (
@@ -174,8 +195,8 @@ export function CreateProjectDialog() {
           </div>
 
           <p className="caption-xs">
-            Default crawl settings will be applied. Advanced configuration can be
-            added when the project settings experience is available.
+            Default crawl settings will be applied. Advanced configuration can
+            be added when the project settings experience is available.
           </p>
 
           {formError && <p className="text-error text-sm">{formError}</p>}

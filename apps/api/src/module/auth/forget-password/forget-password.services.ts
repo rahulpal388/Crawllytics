@@ -65,6 +65,7 @@ class ForgetPasswordService {
         url,
         expireIn: PASSWORD_RESET_TOKEN_EXPIRATION,
       },
+      createdAt: new Date(),
     });
 
     return {
@@ -102,6 +103,7 @@ class ForgetPasswordService {
         email: userData.email,
         name: userData.name,
       },
+      createdAt: new Date(),
     });
 
     return {

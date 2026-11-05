@@ -11,9 +11,9 @@ export default function ProjectsPage() {
   return (
     <DashboardContainer>
       <div className="mx-auto max-w-7xl">
-        <div className="flex items-end justify-between gap-6 max-md:items-start max-md:flex-col">
+        <div className="flex items-end justify-between gap-6 max-md:flex-col max-md:items-start">
           <div>
-            <p className="caption-xs mb-2 font-medium uppercase tracking-wide text-primary">
+            <p className="caption-xs text-primary mb-2 font-medium tracking-wide uppercase">
               Workspace
             </p>
             <h1 className="heading-2">Projects</h1>

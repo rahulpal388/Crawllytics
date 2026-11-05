@@ -1,4 +1,4 @@
-import { HTMLMetaViewportType } from "@repo/contract/types/urlInformationType/htmlHeaderResponseTypes";
+import { HTMLMetaViewportType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlHeaderResponseTypes";
 import * as cheerio from "cheerio";
 
 /*

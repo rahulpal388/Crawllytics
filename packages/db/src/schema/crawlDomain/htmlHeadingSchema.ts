@@ -1,10 +1,10 @@
 import { Schema } from "mongoose";
-import { SchemaOf } from "../types/schemaOfTypes.js";
+import { SchemaOf } from "../../types/schemaOfTypes.js";
 import {
   HTMLHeadingType,
   HTMLContentType,
   HTMLHeadingContentType,
-} from "../../../../contracts/src/types/urlInformationType/htmlHeadingContentsTypes.js";
+} from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlHeadingContentsTypes";
 
 const htmlHeadingSchemaDefination: SchemaOf<HTMLHeadingType> = {
   level: { type: Number },

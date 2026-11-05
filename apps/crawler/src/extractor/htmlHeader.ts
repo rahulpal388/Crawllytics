@@ -33,16 +33,18 @@ export function htmlHeaderExtractor($: cheerio.CheerioAPI, url: URL): HTMLHeader
   const manifest = manifestHref ? new URL(manifestHref, url).href : null;
 
   return {
-    title,
     meta: {
+      title,
       metaDescription: metaDescription,
       metaRobot: [...metaRobots],
       Canonical: canonical,
-      openGraph: openGraph,
       metaViewport: metaViewport,
     },
+    socialSharing: {
+      openGraph,
+      twitterCard,
+    },
     hreflang,
-    twitterCard,
     favicon,
     resourceHints,
     alternate,

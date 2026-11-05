@@ -92,7 +92,7 @@ export function SideBarItems({ isOpen }: { isOpen: boolean }) {
               key={item.name}
               aria-current={isActive ? "page" : undefined}
               title={!isOpen ? item.name : undefined}
-              className={`text-text-primary flex min-h-10 items-center gap-3 rounded-xs px-3 py-2 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${isActive ? "border-primary bg-primary-active/15 border-l-3 font-medium hover:bg-primary-active/20" : "hover:bg-surface-subtle"} ${!isOpen && "justify-center px-2"} `}
+              className={`text-text-primary focus-visible:outline-primary flex min-h-10 items-center gap-3 rounded-xs px-3 py-2 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${isActive ? "border-primary bg-primary-active/15 hover:bg-primary-active/20 border-l-3 font-medium" : "hover:bg-surface-subtle"} ${!isOpen && "justify-center px-2"} `}
             >
               {item.icon}
               {isOpen && <span className="body">{item.name}</span>}

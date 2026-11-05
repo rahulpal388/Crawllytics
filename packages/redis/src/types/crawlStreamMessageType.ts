@@ -23,7 +23,6 @@ export type LinkInfoType = {
   crawledUrl: number;
 };
 
-
 /*
  * CrawlInfoStoreType : type of data that will be stored in the redis hash store for each crawl project
  */

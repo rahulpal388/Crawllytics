@@ -9,7 +9,6 @@ import { InternalLinks } from "./internalLink";
 import { Issues } from "./issues/issues";
 import { MobilePageTest } from "./mobilePageTest";
 import { Overview } from "./overview/overview";
-import { PageContents } from "./pageContents";
 import { PageCSS } from "./pageCss";
 import { PageJavascript } from "./pageJavascript";
 import { PageMonitoring } from "./pageMonitoring";

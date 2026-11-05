@@ -1,4 +1,4 @@
-import { CategoryType } from "@repo/contract/types/apiResponseType/issuesTypes";
+import { CategoryType } from "@repo/contracts/types/analysesTypes/DynamicRule.Type";
 
 const categoryBadges: Record<
   Exclude<CategoryType, "all">,
@@ -11,12 +11,6 @@ const categoryBadges: Record<
   },
   accessibility: {
     label: "Accessibility",
-  },
-  "best-practices": {
-    label: "Best Practices",
-  },
-  seo: {
-    label: "SEO",
   },
   metadata: {
     label: "Metadata",
@@ -33,11 +27,11 @@ const categoryBadges: Record<
   crawlability: {
     label: "Crawlability",
   },
-  "structured-data": {
-    label: "Structured Data",
+  indexability: {
+    label: "Indexability",
   },
-  other: {
-    label: "Other",
+  "social-sharing": {
+    label: "Social Sharing",
   },
 };
 

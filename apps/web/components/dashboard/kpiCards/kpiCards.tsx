@@ -1,10 +1,7 @@
 "use client";
 import { KPICardItem } from "./kpiCardItem";
-import { useKPIMatrix } from "../../../queries/dashboard.hooks";
 
 export function ScoresCards() {
-  const { data, isLoading } = useKPIMatrix();
-
   return (
     <>
       <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">

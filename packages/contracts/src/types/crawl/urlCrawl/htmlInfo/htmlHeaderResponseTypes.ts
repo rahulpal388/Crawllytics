@@ -9,7 +9,7 @@ export type HTMLHeaderType = {
   socialSharing: {
     openGraph: HTMLOpenGraphType;
     twitterCard: TwitterCardType;
-  }
+  };
   hreflang: HreflangType[];
   favicon: FaviconType[];
   resourceHints: ResourceHintType[];

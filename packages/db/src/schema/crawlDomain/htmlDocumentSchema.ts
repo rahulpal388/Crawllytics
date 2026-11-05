@@ -1,5 +1,5 @@
-import { HTMLDocumentType } from "../../../../contracts/src/types/urlInformationType/htmlDocumentTypes.js";
-import { SchemaOf } from "../types/schemaOfTypes.js";
+import { HTMLDocumentType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlDocumentTypes";
+import { SchemaOf } from "../../types/schemaOfTypes.js";
 import { Schema } from "mongoose";
 
 const htmlDocumentSchemaDefinition: SchemaOf<HTMLDocumentType> = {

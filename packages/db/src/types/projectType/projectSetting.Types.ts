@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import { ReportFormatType } from "./report.Types.js";
 
-
 export interface ProjectReportSettings {
   sendReport: boolean;
   format: ReportFormatType;

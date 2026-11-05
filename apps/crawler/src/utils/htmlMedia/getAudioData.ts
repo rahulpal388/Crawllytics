@@ -1,5 +1,5 @@
 import * as cheerio from "cheerio";
-import { HTMLAudioType } from "@repo/contract/types/urlInformationType/HTMLMediaTypes/htmlAudioType";
+import { HTMLAudioType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/HTMLMediaTypes/htmlAudioType";
 
 export function getAudioData($: cheerio.CheerioAPI, baseUrl: URL): HTMLAudioType[] {
   const audios: HTMLAudioType[] = [];

@@ -74,7 +74,6 @@ export function IssuesDistribution() {
           <DoughnutChart
             className="h-40 w-40"
             data={pieChartData}
-            center="123 Totals"
             borderRadius={2}
           />
         </div>

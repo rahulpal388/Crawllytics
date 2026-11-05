@@ -1,35 +1,39 @@
-import { EachUrlNetworkResultTypes } from "@repo/contract/types/urlInformationType/eachUrlNetworkTypes";
-import { HTMLHeaderType } from "@repo/contract/types/urlInformationType/htmlHeaderResponseTypes";
-import { UrlAnalysesType } from "@repo/contract/types/urlInformationType/urlAnalysesTypes";
-import { ResponseHeadersType } from "@repo/contract/types/urlInformationType/responseHeadersTypes";
+import { EachUrlNetworkResultTypes } from "@repo/contracts/types/crawl/urlCrawl/network/eachUrlNetworkTypes";
+import { HTMLHeaderType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlHeaderResponseTypes";
+import { UrlAnalysesType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/urlAnalysesTypes";
+import { ResponseHeadersType } from "@repo/contracts/types/crawl/urlCrawl/network/responseHeadersTypes";
 
-import { CrawlabilityPerPage } from "@repo/contract/types/analysesTypes/crawlabilityTypesPerPage";
+import { CrawlabilityAnalysisTypes } from "@repo/contracts/types/analysesTypes/perPage/crawlabilty.types";
 
 export function getCrawlability(
   urlInfo: EachUrlNetworkResultTypes,
   htmlHeader: HTMLHeaderType,
   responseHeader: ResponseHeadersType,
   url: UrlAnalysesType,
-): CrawlabilityPerPage {
+): CrawlabilityAnalysisTypes {
   return {
     statusCode: urlInfo.statusCode,
-    redirectChainLength: urlInfo.redirectChain.length,
-    isRedirectLoop: urlInfo.isRedirectLoop,
-
-    robotsTxtBlocked:
-      htmlHeader.meta.metaRobot.content.includes("noindex") || url.isBlockedByRobotsTxt,
-
-    metaRobots: htmlHeader.meta.metaRobot.content,
-    xRobotsTag: urlInfo.responseHeaders.xRobotsTag,
-
-    canonicalUrl: htmlHeader.meta.Canonical.map((x) => x.url),
-    internalIncomingLinks: 1,
-    isOrphanPage: false,
-
+    isSuccess: urlInfo.statusCode === 200,
+    is5xx: urlInfo.statusCode !== null && urlInfo.statusCode >= 500 && urlInfo.statusCode < 600,
+    is429: urlInfo.statusCode === 429,
+    fetchError: urlInfo.fetchError,
+    isBlockedByRobotsTxt: url.isBlockedByRobotsTxt,
+    isInSiteMap: url.isInSitemap,
+    isDiscoveredViaSiteMap: url.isDiscoveredViaSiteMap,
+    isDiscoveredViaInternalLink: url.isDiscoveredViaInternalLink,
+    internalIncommingLink: 0,
+    internalOutgoingLink: 0,
+    isOrphan: false,
+    crawlDepth: url.crawlDepth,
     urlDepth: url.urlDepth,
-
-    isInSitemap: false,
-
-    crawlabilityScore: 0, // 0-100
+    urlLength: urlInfo.finalUrl.length,
+    hasQueryParams: url.hasQueryParams,
+    queryParameterCount: url.queryParams.length,
+    hasFragment: url.hasFragment,
+    hasSessionId: urlInfo.finalUrl.includes("sessionid"),
+    hasTrackingParameter: urlInfo.finalUrl.includes("utm_"),
+    isHttps: urlInfo.finalUrl.startsWith("https://"),
+    ttfb: urlInfo.timeToFirstByte ?? 0,
+    totalResponseTime: urlInfo.totalResponseTime ?? 0,
   };
 }

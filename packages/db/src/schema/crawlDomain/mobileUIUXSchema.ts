@@ -1,4 +1,4 @@
-import { MobileHtmlDataType } from "../../../../contracts/src/types/urlInformationType/HTMLMobileType.js";
+import { MobileHtmlDataType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/HTMLMobileType";
 import { SchemaOf } from "../../types/schemaOfTypes.js";
 import { Schema } from "mongoose";
 

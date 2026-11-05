@@ -1,25 +1,23 @@
 import z from "zod";
 import { ObjectIdSchema } from "../common/objectId.schema.js";
-import { ReportFormat } from "@repo/db/types/report.Types";
-import { urlSchema } from "../common/url-schema.js";
-import { MAX_CRAWL_DEPTH, MAX_CRAWL_PAGES } from "@repo/db/types/projectType/projectSetting.Types";
-import { USER_AGENT } from "@repo/contracts/constant/fetchHeaderConfig";
+import { ReportFormat } from "@repo/db/types/projectType/report.Types";
+import { DEFAULT_USER_AGENT } from "../../constant/fetchHeaderConfig.js";
 
 const projectSettingSchema = z.object({
   sendReport: z.boolean().default(true),
   reportType: z.enum(Object.values(ReportFormat)).default("pdf"),
   robotsTxtUrls: z.string().default("/robots.txt"),
   siteMapUrls: z.array(z.string()).default(["/sitemap.xml"]),
-  userAgent: z.string().default(USER_AGENT),
+  userAgent: z.string().default(DEFAULT_USER_AGENT),
   crawlLimit: z
     .object({
       type: z.literal("depth"),
-      value: z.number().int().min(1).max(MAX_CRAWL_DEPTH),
+      value: z.number().int().min(1).max(12),
     })
     .or(
       z.object({
         type: z.literal("pages"),
-        value: z.number().int().min(10).max(MAX_CRAWL_PAGES),
+        value: z.number().int().min(10).max(100),
       }),
     )
     .default({

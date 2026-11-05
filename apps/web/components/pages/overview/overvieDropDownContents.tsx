@@ -11,7 +11,7 @@ export function OverviewDropDownContents<
 >({ title, sideText, data, fields }: DropDownProps<T>) {
   return (
     <>
-      <DropDown title={title} sideText={sideText}>
+      <DropDown title={title} sideText={sideText} titleSideText={null}>
         {Object.entries(data).map(([key, value]) => (
           <div key={key} className="grid grid-cols-[260px_1fr] gap-2">
             <p className="body-sm">{fields[key]}</p>

@@ -6,7 +6,7 @@ import { Card } from "@repo/ui/components/card/card";
 import { useSelectedProjectId } from "../../store/useSelectedProjectId";
 import { SeverityBadges } from "../badges/severityBadges";
 import { useRouter } from "next/navigation";
-import { SeverityType } from "@repo/contract/types/apiResponseType/issuesTypes";
+import { SeverityType } from "@repo/contracts/types/analysesTypes/DynamicRule.Type";
 
 type IssueRow = {
   id: string;

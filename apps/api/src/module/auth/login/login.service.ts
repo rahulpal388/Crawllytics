@@ -5,7 +5,7 @@ import { AppError } from "../../../shared/error/appError.js";
 import hashService from "@/shared/security/hash/hash.service.js";
 import { authIdentityRepository } from "@repo/db/repository/authIdentityRepository";
 import { emailPublisher, sessionService } from "@/app/server.js";
-import { LoginActivitySchemaType } from "@repo/db/types/logActivitySchema.Types";
+import { LoginActivitySchemaType } from "@repo/db/types/userTypes/logActivitySchema.Types";
 import { randomUUID } from "crypto";
 import { formatLocation } from "@/lib/formatLocation.js";
 import { SessionInfoType } from "@/shared/auth/session/session.types.js";

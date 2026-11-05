@@ -1,12 +1,10 @@
-
-
 export enum UserStatus {
   ACTIVE = "active",
   SUSPENDED = "suspended",
   DELETED = "deleted",
 }
 
-export type UserStatusType = typeof UserStatus[keyof typeof UserStatus];
+export type UserStatusType = (typeof UserStatus)[keyof typeof UserStatus];
 
 export interface UserSchemaType {
   name: string;

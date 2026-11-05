@@ -68,7 +68,6 @@ export function TotalTrafficChannel() {
             <DoughnutChart
               className="h-60 w-60"
               data={pieChartData}
-              center="123 Totals"
               borderRadius={2}
             />
           </div>

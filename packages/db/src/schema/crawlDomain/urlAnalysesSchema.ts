@@ -1,5 +1,5 @@
 import { UrlAnalysesType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/urlAnalysesTypes";
-import { SchemaOf } from "../types/schemaOfTypes.js";
+import { SchemaOf } from "../../types/schemaOfTypes.js";
 import { Schema } from "mongoose";
 
 const urlAnalysesSchemaDefination: SchemaOf<UrlAnalysesType> = {

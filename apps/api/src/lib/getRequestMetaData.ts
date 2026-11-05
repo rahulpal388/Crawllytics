@@ -1,4 +1,4 @@
-import { LocationType } from "@repo/db/types/logActivitySchema.Types";
+import { LocationType } from "@repo/db/types/userTypes/logActivitySchema.Types";
 import { getIPLocation } from "@repo/lib/location/getLocationByIP";
 
 import { Request } from "express";

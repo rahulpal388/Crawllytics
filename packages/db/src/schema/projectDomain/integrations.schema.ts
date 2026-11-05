@@ -23,11 +23,9 @@ const CredentialsSchema = new mongoose.Schema<IntegrationCredentialsSchemaType>(
   },
 );
 
-
 // #########################################
 // Integration Schema
 // #########################################
-
 
 const integrationSchemaDefination: SchemaOf<IntegrationSchemaType> = {
   projectId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },

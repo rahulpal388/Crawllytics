@@ -1,4 +1,4 @@
-import { HTMLImageType } from "../../../../contracts/src/types/urlInformationType/HTMLMediaTypes/htmlImagesType.js";
+import { HTMLImageType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/HTMLMediaTypes/htmlImagesType";
 import mongoose from "mongoose";
 
 const imageSchemaDefination: mongoose.SchemaDefinition<HTMLImageType> = {

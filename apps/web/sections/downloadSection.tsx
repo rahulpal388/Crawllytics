@@ -2,7 +2,6 @@ import { Button } from "@repo/ui/components/button";
 import { Container } from "@repo/ui/components/container";
 import { Download } from "lucide-react";
 import { PdfSvg } from "@repo/ui/svg/pdfSvg";
-import { FileText, FileDown, TriangleAlert, Code2, Users } from "lucide-react";
 import { ChartBarSvg } from "@repo/ui/svg/chartBarSvg";
 import { WarningSvg } from "@repo/ui/svg/warningSvg";
 import { CodeSvg } from "@repo/ui/svg/codeSvg";

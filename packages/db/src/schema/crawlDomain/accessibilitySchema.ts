@@ -1,5 +1,5 @@
-import { SchemaOf } from "../types/schemaOfTypes.js";
-import { AccessibilityType } from "../../../../contracts/src/types/urlInformationType/accessibilityTypes.js";
+import { SchemaOf } from "../../types/schemaOfTypes.js";
+import { AccessibilityType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/accessibilityTypes";
 import { Schema } from "mongoose";
 
 const accessibilitySchemaDefinition: SchemaOf<AccessibilityType> = {

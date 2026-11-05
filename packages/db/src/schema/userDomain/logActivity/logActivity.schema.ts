@@ -4,7 +4,7 @@ import { SchemaOf } from "../../../types/schemaOfTypes.js";
 import { LoginActivitySchemaType } from "../../../types/userTypes/logActivitySchema.Types.js";
 
 const LoginActivitySchemaDefinition: SchemaOf<LoginActivitySchemaType> = {
-  userId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
+  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
   sessionId: { type: String, required: true },
   userAgent: { type: String, default: null },
   ipAddress: { type: String, default: null },

@@ -1,5 +1,5 @@
 import * as cheerio from "cheerio";
-import { HTMLMetaDescriptionType } from "@repo/contract/types/urlInformationType/htmlHeaderResponseTypes";
+import { HTMLMetaDescriptionType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlHeaderResponseTypes";
 
 export function getMetaDescriptionData($: cheerio.CheerioAPI): HTMLMetaDescriptionType[] {
   const metaDescription: HTMLMetaDescriptionType[] = [];

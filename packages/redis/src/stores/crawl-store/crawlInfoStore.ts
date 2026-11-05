@@ -1,4 +1,4 @@
-import { STREAM_GROUPS, STREAMS } from "@/types/streamTypes.js";
+import { STREAM_GROUPS, STREAMS } from "../../types/streamTypes.js";
 import {
   CrawlInfoStoreStatusType,
   CrawlInfoStoreType,

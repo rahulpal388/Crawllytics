@@ -5,7 +5,7 @@ import {
   LcpCandidateType,
   ResourceHintCoverage,
 } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/performanceSignalTypes";
-import { SchemaOf } from "../types/schemaOfTypes.js";
+import { SchemaOf } from "../../types/schemaOfTypes.js";
 import { Schema } from "mongoose";
 
 const scriptSchemaDefination: SchemaOf<ScriptType> = {

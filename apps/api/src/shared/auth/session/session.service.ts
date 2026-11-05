@@ -2,7 +2,7 @@ import { hashStore } from "@/app/server.js";
 import { SessionDataType, SessionInfoType } from "@/shared/auth/session/session.types.js";
 import { AppError } from "@/shared/error/appError.js";
 import { loginActivityRepository } from "@repo/db/repository/loginActivityRespository";
-import { LoginActivitySchemaType } from "@repo/db/types/logActivitySchema.Types";
+import { LoginActivitySchemaType } from "@repo/db/types/userTypes/logActivitySchema.Types";
 import { HashStoreType } from "@repo/redis/stores/hashStore";
 import mongoose from "mongoose";
 import { ApiError } from "@/shared/error/apiError.js";

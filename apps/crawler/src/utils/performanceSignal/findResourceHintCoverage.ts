@@ -31,7 +31,7 @@ export function findResourceHintCoverage(
       const origin = new URL(normalizedHref, pageUrl).origin;
 
       hintedOrigins.add(origin);
-    } catch { }
+    } catch {}
   });
 
   // Collect third-party origins
@@ -48,7 +48,7 @@ export function findResourceHintCoverage(
       if (origin !== pageOrigin) {
         thirdPartyOrigins.add(origin);
       }
-    } catch { }
+    } catch {}
   });
 
   const thirdPartyOriginsWithoutHint = [...thirdPartyOrigins]

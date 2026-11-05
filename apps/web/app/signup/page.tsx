@@ -8,8 +8,8 @@ export default function SignupPage() {
       alternatePrompt="Already have an account?"
       alternateLabel="Sign in"
       alternateHref="/login"
-      >
-        <SignUpForm />
-      </AuthLayout>
+    >
+      <SignUpForm />
+    </AuthLayout>
   );
 }

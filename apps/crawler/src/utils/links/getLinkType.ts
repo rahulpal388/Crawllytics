@@ -1,4 +1,4 @@
-import { LinkType } from "@repo/contract/types/urlInformationType/htmlLinksTypes";
+import { LinkType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/htmlLinksTypes";
 
 export function getLinkType(href: string, absoluteUrl: URL, baseUrl: URL): LinkType {
   const value = href.trim().toLowerCase();

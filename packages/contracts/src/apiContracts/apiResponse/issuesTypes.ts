@@ -5,8 +5,6 @@ export type StatusType = "all" | "open" | "closed" | "in-progress";
 
 export type ImpactType = "all" | "high" | "medium" | "low";
 
-
-
 // #####################################
 //  issues table data type
 // #####################################
@@ -28,10 +26,6 @@ export type IssuesResponseType = {
 // #####################################
 //  issues info type
 // #####################################
-
-
-
-
 
 export type AffectedPagesType = {
   count: number;

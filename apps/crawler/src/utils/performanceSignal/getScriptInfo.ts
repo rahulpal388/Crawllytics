@@ -1,4 +1,4 @@
-import { ScriptType } from "@repo/contract/types/urlInformationType/performanceSignalTypes";
+import { ScriptType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/performanceSignalTypes";
 import * as Cheerio from "cheerio";
 
 export function getScriptInfo($: Cheerio.CheerioAPI, url: URL): ScriptType[] {

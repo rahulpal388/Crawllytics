@@ -1,6 +1,5 @@
 import { Button } from "@repo/ui/components/button";
 import { Card } from "@repo/ui/components/card/card";
-import { CardContainer } from "@repo/ui/components/cardContaniner";
 import { Column, DataTable } from "@repo/ui/components/table";
 
 type TopQueryTableData = {

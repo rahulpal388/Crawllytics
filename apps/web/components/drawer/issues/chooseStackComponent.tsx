@@ -1,4 +1,4 @@
-import { StackType } from "@repo/contract/types/apiResponseType/issuesTypes";
+import { StackType } from "@repo/contracts/types/analysesTypes/SEORules.Type";
 import { Button } from "@repo/ui/components/button";
 import { Clipboard } from "lucide-react";
 

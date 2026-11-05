@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { HTMLVideoType } from "../../../../contracts/src/types/urlInformationType/HTMLMediaTypes/htmlVideoType.js";
+import { HTMLVideoType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/HTMLMediaTypes/htmlVideoType";
 
 const videoSchemaDefination: mongoose.SchemaDefinition<HTMLVideoType> = {
   src: { type: String, required: true },

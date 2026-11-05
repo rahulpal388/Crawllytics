@@ -1,4 +1,4 @@
-import { LoginActivitySchemaType } from "@repo/db/types/logActivitySchema.Types";
+import { LoginActivitySchemaType } from "@repo/db/types/userTypes/logActivitySchema.Types";
 
 export type SessionDataType = {
   userId: string;

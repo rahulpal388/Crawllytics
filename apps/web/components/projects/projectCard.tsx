@@ -26,7 +26,11 @@ export type ProjectCardProps = {
   projectUrl: string;
 };
 
-export function ProjectCard({ projectId, projectName, projectUrl }: ProjectCardProps) {
+export function ProjectCard({
+  projectId,
+  projectName,
+  projectUrl,
+}: ProjectCardProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -91,7 +95,7 @@ export function ProjectCard({ projectId, projectName, projectUrl }: ProjectCardP
       <div className="border-border-muted flex items-start justify-between gap-4 border-b px-5 py-4">
         <button
           type="button"
-          className="flex min-w-0 items-center gap-3 text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          className="focus-visible:outline-primary flex min-w-0 items-center gap-3 text-left focus-visible:outline-2 focus-visible:outline-offset-2"
           onClick={openProject}
         >
           <span className="bg-primary/10 text-primary flex size-10 shrink-0 items-center justify-center rounded-md">
@@ -104,12 +108,14 @@ export function ProjectCard({ projectId, projectName, projectUrl }: ProjectCardP
               target="_blank"
               rel="noopener noreferrer"
               onClick={(event) => event.stopPropagation()}
-              className="text-text-secondary mt-1 flex max-w-full items-center gap-1 text-sm hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              className="text-text-secondary focus-visible:outline-primary mt-1 flex max-w-full items-center gap-1 text-sm hover:underline focus-visible:outline-2 focus-visible:outline-offset-2"
             >
               <span className="truncate">{projectUrl}</span>
               <ExternalLink size={14} className="shrink-0" aria-hidden="true" />
             </a>
-            <span className="caption-xs mt-1 block">No crawl data available yet</span>
+            <span className="caption-xs mt-1 block">
+              No crawl data available yet
+            </span>
           </span>
         </button>
 
@@ -120,7 +126,7 @@ export function ProjectCard({ projectId, projectName, projectUrl }: ProjectCardP
             aria-expanded={isMenuOpen}
             aria-controls={`project-actions-${projectId}`}
             disabled={isDeleting}
-            className="rounded-xs p-2 text-text-secondary transition-colors hover:bg-surface-subtle hover:text-text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50"
+            className="text-text-secondary hover:bg-surface-subtle hover:text-text-primary focus-visible:outline-primary rounded-xs p-2 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50"
             onClick={() => setIsMenuOpen((open) => !open)}
           >
             <EllipsisVertical size={20} />
@@ -134,7 +140,7 @@ export function ProjectCard({ projectId, projectName, projectUrl }: ProjectCardP
               <button
                 type="button"
                 role="menuitem"
-                className="flex w-full items-center gap-2 rounded-xs px-3 py-2 text-left text-sm hover:bg-surface-subtle"
+                className="hover:bg-surface-subtle flex w-full items-center gap-2 rounded-xs px-3 py-2 text-left text-sm"
                 onClick={openProject}
               >
                 <FolderOpen size={16} />
@@ -172,7 +178,11 @@ export function ProjectCard({ projectId, projectName, projectUrl }: ProjectCardP
         </div>
       </div>
 
-      {error && <p className="text-error border-b border-red-100 px-5 py-3 text-sm">{error}</p>}
+      {error && (
+        <p className="text-error border-b border-red-100 px-5 py-3 text-sm">
+          {error}
+        </p>
+      )}
 
       <div className="grid gap-0 md:grid-cols-2 xl:grid-cols-4">
         <SiteAuditCard />

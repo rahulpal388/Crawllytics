@@ -1,4 +1,4 @@
-import { LcpCandidateType } from "@repo/contract/types/urlInformationType/performanceSignalTypes";
+import { LcpCandidateType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/performanceSignalTypes";
 import * as cheerio from "cheerio";
 
 type ImageCandidate = {

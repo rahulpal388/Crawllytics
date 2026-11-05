@@ -1,9 +1,6 @@
 import { validateEnv } from "@/utils/validateEnv.js";
 import "dotenv/config";
 import os from "os";
-import { GatherInfoType } from "@/types/gatherInfoType.js";
-
-import { tempData } from "@/tempData.js";
 // @ts-ignore
 const ENV = validateEnv();
 const CONSUMER_NAME = os.hostname();
@@ -40,8 +37,6 @@ console.log("os hostname ", CONSUMER_NAME);
 // ###################################################
 // Listen to the analyze stream and process the data
 // ###################################################
-
-const seoData = JSON.parse(JSON.stringify(tempData)) as GatherInfoType;
 
 // async function main() {
 //   while (true) {
@@ -94,4 +89,3 @@ console.log("analyzeWorker started");
 // const indexabilityAnalysis = evaluateIndexability(seoData);
 // console.log("indexabilityAnalysis ");
 // console.dir(indexabilityAnalysis, { depth: null, color: true });
-

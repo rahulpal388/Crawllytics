@@ -19,10 +19,8 @@ export function getCanonicalData($: cheerio.CheerioAPI, baseUrl: URL): HTMLCanon
     let isHttps = false;
     let isValidUrl = false;
 
-
     try {
       const canonical = new URL(canonicalUrl, baseUrl);
-
 
       isRelativeUrl = !isAbsoluteUrl(canonicalUrl);
 

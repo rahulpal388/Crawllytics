@@ -29,7 +29,7 @@ type DrawerStoreType = {
   closeDrawer: () => void;
 };
 
-export const useDrawerStore = create<DrawerStoreType>((set, get) => ({
+export const useDrawerStore = create<DrawerStoreType>((set) => ({
   drawers: [],
   openDrawer: (drawer: DrawerEntryType) => {
     set((state) => ({
@@ -37,8 +37,6 @@ export const useDrawerStore = create<DrawerStoreType>((set, get) => ({
     }));
   },
   closeDrawer: () => {
-    const prevOpenDrawer = get().drawers;
-    const newOpenDrawer = prevOpenDrawer.slice(0, -1);
     set((state) => ({
       drawers: state.drawers.slice(0, -1),
     }));

@@ -1,5 +1,5 @@
 import * as cheerio from "cheerio";
-import { HTMLVideoType } from "@repo/contract/types/urlInformationType/HTMLMediaTypes/htmlVideoType";
+import { HTMLVideoType } from "@repo/contracts/types/crawl/urlCrawl/htmlInfo/HTMLMediaTypes/htmlVideoType";
 import { getEmbeddedVideoData } from "@/utils/htmlMedia/getEmbeddedVideoData.js";
 import { getNativeVideoData } from "@/utils/htmlMedia/getNativeVideoData.js";
 

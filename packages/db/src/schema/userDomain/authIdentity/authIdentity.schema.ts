@@ -1,9 +1,12 @@
-import { AuthIdentitySchemaType, AuthProvidersEnum } from "../../../types/userTypes/authIdentitySchema.Types.js";
+import {
+  AuthIdentitySchemaType,
+  AuthProvidersEnum,
+} from "../../../types/userTypes/authIdentitySchema.Types.js";
 import { SchemaOf } from "../../../types/schemaOfTypes.js";
 import mongoose from "mongoose";
 
 const AuthIdentitySchemaDefinition: SchemaOf<AuthIdentitySchemaType> = {
-  userId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
+  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
   provider: { type: String, enum: Object.values(AuthProvidersEnum), required: true },
   /*
    * For email authentication, this stores the user's email address.
