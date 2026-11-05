@@ -24,5 +24,10 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "overrides": {
+    "@react-email/components": {
+      "@react-email/render": "2.2.0"
+    }
+  }
 }

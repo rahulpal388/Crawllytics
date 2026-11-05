@@ -34,7 +34,7 @@
     "@repo/redis": "*",
     "@repo/typescript-config": "*",
     "@types/express": "^5.0.6",
-    "nodemon": "^3.1.14",
+    "nodemon": "^3.1.11",
     "tsx": "^4.21.0",
     "typescript": "^5.9.2"
   }
