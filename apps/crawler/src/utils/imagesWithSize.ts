@@ -10,13 +10,12 @@ export async function imagesWithSize(
   preloadImages: Set<string>,
   baseUrl: URL,
 ): Promise<(HTMLImageType & { fileSizeBytes: number | null })[]> {
-  const images: (HTMLImageType & { fileSizeBytes: number | null })[] = getImageData(
-    $,
-    baseUrl,
-  ).map((image) => ({
-    ...image,
-    fileSizeBytes: null,
-  }));
+  const images: (HTMLImageType & { fileSizeBytes: number | null })[] = getImageData($, baseUrl).map(
+    (image) => ({
+      ...image,
+      fileSizeBytes: null,
+    }),
+  );
 
   for (let i = 0; i < images.length; i += BATCH_SIZE) {
     const batch = images.slice(i, i + BATCH_SIZE);

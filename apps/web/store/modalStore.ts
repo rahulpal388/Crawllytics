@@ -1,12 +1,7 @@
 import { create } from "zustand";
 
 export type ModalType =
-  | "login"
-  | "signup"
-  | "create-project"
-  | "page"
-  | "view-issues"
-  | "view-pages";
+  "login" | "signup" | "create-project" | "page" | "view-issues" | "view-pages";
 
 interface ModalStore {
   open: boolean;

@@ -6,26 +6,28 @@ export enum SubscriptionStatus {
   CANCELED = "canceled",
   UNACTIVE = "unactive",
   INCOMPLETE = "incomplete",
+  REPLACED = "replaced",
 }
 
 export enum PaymentProvider {
+  NONE = "none",
   STRIPE = "stripe",
 }
-export type SubscriptionStatusType = (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus];
+export type SubscriptionStatusType = `${SubscriptionStatus}`;
 
-export type PaymentProviderType = (typeof PaymentProvider)[keyof typeof PaymentProvider];
+export type PaymentProviderType = `${PaymentProvider}`;
 
 // snapshot of the plan at the time of subscription creation
 export interface SubscriptionPlanSnapshot {
   name: string;
   slug: string;
-  pricing: PlanPricing;
+  pricing: PlanPricing[];
   limits: PlanLimits;
 }
 
 export interface SubscriptionPeriod {
   startDate: Date;
-  endDate: Date;
+  endDate: Date | null;
 }
 
 export interface SubscriptionSchemaType {

@@ -8,7 +8,9 @@ export function useUser() {
   return useQuery({
     queryKey: ["auth", "user"],
     queryFn: async () => {
-      const { data } = await apiClient.get<{ user: AuthUser }>("/auth/userInfo");
+      const { data } = await apiClient.get<{ user: AuthUser }>(
+        "/auth/userInfo",
+      );
       return data.user;
     },
     staleTime: 60_000,

@@ -5,30 +5,20 @@
       "name": "@react-email/components",
       "severity": "low",
       "isDirect": true,
-      "via": [
-        "@react-email/render"
-      ],
+      "via": ["@react-email/render"],
       "effects": [],
       "range": "*",
-      "nodes": [
-        "node_modules/@react-email/components"
-      ],
+      "nodes": ["node_modules/@react-email/components"],
       "fixAvailable": false
     },
     "@react-email/render": {
       "name": "@react-email/render",
       "severity": "low",
       "isDirect": false,
-      "via": [
-        "html-to-text"
-      ],
-      "effects": [
-        "@react-email/components"
-      ],
+      "via": ["html-to-text"],
+      "effects": ["@react-email/components"],
       "range": "0.0.4 - 2.1.1",
-      "nodes": [
-        "node_modules/@react-email/components/node_modules/@react-email/render"
-      ],
+      "nodes": ["node_modules/@react-email/components/node_modules/@react-email/render"],
       "fixAvailable": false
     },
     "@typescript-eslint/eslint-plugin": {
@@ -40,56 +30,36 @@
         "@typescript-eslint/type-utils",
         "@typescript-eslint/utils"
       ],
-      "effects": [
-        "typescript-eslint"
-      ],
+      "effects": ["typescript-eslint"],
       "range": ">=6.16.0",
-      "nodes": [
-        "node_modules/@typescript-eslint/eslint-plugin"
-      ],
+      "nodes": ["node_modules/@typescript-eslint/eslint-plugin"],
       "fixAvailable": true
     },
     "@typescript-eslint/parser": {
       "name": "@typescript-eslint/parser",
       "severity": "moderate",
       "isDirect": false,
-      "via": [
-        "@typescript-eslint/typescript-estree"
-      ],
-      "effects": [
-        "@typescript-eslint/eslint-plugin",
-        "typescript-eslint"
-      ],
+      "via": ["@typescript-eslint/typescript-estree"],
+      "effects": ["@typescript-eslint/eslint-plugin", "typescript-eslint"],
       "range": ">=6.16.0",
-      "nodes": [
-        "node_modules/@typescript-eslint/parser"
-      ],
+      "nodes": ["node_modules/@typescript-eslint/parser"],
       "fixAvailable": true
     },
     "@typescript-eslint/type-utils": {
       "name": "@typescript-eslint/type-utils",
       "severity": "moderate",
       "isDirect": false,
-      "via": [
-        "@typescript-eslint/typescript-estree",
-        "@typescript-eslint/utils"
-      ],
-      "effects": [
-        "@typescript-eslint/eslint-plugin"
-      ],
+      "via": ["@typescript-eslint/typescript-estree", "@typescript-eslint/utils"],
+      "effects": ["@typescript-eslint/eslint-plugin"],
       "range": ">=6.16.0",
-      "nodes": [
-        "node_modules/@typescript-eslint/type-utils"
-      ],
+      "nodes": ["node_modules/@typescript-eslint/type-utils"],
       "fixAvailable": true
     },
     "@typescript-eslint/typescript-estree": {
       "name": "@typescript-eslint/typescript-estree",
       "severity": "moderate",
       "isDirect": false,
-      "via": [
-        "minimatch"
-      ],
+      "via": ["minimatch"],
       "effects": [
         "@typescript-eslint/parser",
         "@typescript-eslint/type-utils",
@@ -97,25 +67,17 @@
         "typescript-eslint"
       ],
       "range": ">=6.16.0",
-      "nodes": [
-        "node_modules/@typescript-eslint/typescript-estree"
-      ],
+      "nodes": ["node_modules/@typescript-eslint/typescript-estree"],
       "fixAvailable": true
     },
     "@typescript-eslint/utils": {
       "name": "@typescript-eslint/utils",
       "severity": "moderate",
       "isDirect": false,
-      "via": [
-        "@typescript-eslint/typescript-estree"
-      ],
-      "effects": [
-        "typescript-eslint"
-      ],
+      "via": ["@typescript-eslint/typescript-estree"],
+      "effects": ["typescript-eslint"],
       "range": ">=6.16.0",
-      "nodes": [
-        "node_modules/@typescript-eslint/utils"
-      ],
+      "nodes": ["node_modules/@typescript-eslint/utils"],
       "fixAvailable": true
     },
     "deepmerge": {
@@ -130,9 +92,7 @@
           "title": "deepmerge mergeObject() allows prototype poisoning of returned objects",
           "url": "https://github.com/advisories/GHSA-gcqx-w48m-w2h4",
           "severity": "low",
-          "cwe": [
-            "CWE-1321"
-          ],
+          "cwe": ["CWE-1321"],
           "cvss": {
             "score": 5.3,
             "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
@@ -140,13 +100,9 @@
           "range": ">=4.2.0 <=4.3.1"
         }
       ],
-      "effects": [
-        "html-to-text"
-      ],
+      "effects": ["html-to-text"],
       "range": ">=4.2.0",
-      "nodes": [
-        "node_modules/deepmerge"
-      ],
+      "nodes": ["node_modules/deepmerge"],
       "fixAvailable": false
     },
     "glob": {
@@ -161,9 +117,7 @@
           "title": "Glob: AbortSignal cancellation bypass allows post-timeout filesystem traversal",
           "url": "https://github.com/advisories/GHSA-3g3m-2fjr-6pw4",
           "severity": "moderate",
-          "cwe": [
-            "CWE-400"
-          ],
+          "cwe": ["CWE-400"],
           "cvss": {
             "score": 0,
             "vectorString": null
@@ -172,13 +126,9 @@
         },
         "minimatch"
       ],
-      "effects": [
-        "react-email"
-      ],
+      "effects": ["react-email"],
       "range": "9.0.0 - 14.0.1",
-      "nodes": [
-        "node_modules/glob"
-      ],
+      "nodes": ["node_modules/glob"],
       "fixAvailable": {
         "name": "react-email",
         "version": "1.9.5",
@@ -189,16 +139,10 @@
       "name": "html-to-text",
       "severity": "low",
       "isDirect": false,
-      "via": [
-        "deepmerge"
-      ],
-      "effects": [
-        "@react-email/render"
-      ],
+      "via": ["deepmerge"],
+      "effects": ["@react-email/render"],
       "range": "6.0.0 - 9.0.5",
-      "nodes": [
-        "node_modules/html-to-text"
-      ],
+      "nodes": ["node_modules/html-to-text"],
       "fixAvailable": false
     },
     "minimatch": {
@@ -213,9 +157,7 @@
           "title": "minimatch has potential denial of service via globparts amplification",
           "url": "https://github.com/advisories/GHSA-g3hv-75wg-m249",
           "severity": "moderate",
-          "cwe": [
-            "CWE-405"
-          ],
+          "cwe": ["CWE-405"],
           "cvss": {
             "score": 0,
             "vectorString": null
@@ -223,10 +165,7 @@
           "range": ">=7.0.0 <11.0.1"
         }
       ],
-      "effects": [
-        "@typescript-eslint/typescript-estree",
-        "glob"
-      ],
+      "effects": ["@typescript-eslint/typescript-estree", "glob"],
       "range": "7.0.0 - 11.0.0",
       "nodes": [
         "node_modules/@typescript-eslint/typescript-estree/node_modules/minimatch",
@@ -242,14 +181,10 @@
       "name": "react-email",
       "severity": "moderate",
       "isDirect": true,
-      "via": [
-        "glob"
-      ],
+      "via": ["glob"],
       "effects": [],
       "range": ">=1.10.0",
-      "nodes": [
-        "node_modules/react-email"
-      ],
+      "nodes": ["node_modules/react-email"],
       "fixAvailable": {
         "name": "react-email",
         "version": "1.9.5",
@@ -268,9 +203,7 @@
       ],
       "effects": [],
       "range": "*",
-      "nodes": [
-        "node_modules/typescript-eslint"
-      ],
+      "nodes": ["node_modules/typescript-eslint"],
       "fixAvailable": true
     }
   },

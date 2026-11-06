@@ -11,11 +11,11 @@ const PlanSnapshotSchemaDefinition: SchemaOf<SubscriptionPlanSnapshot> = {
   name: { type: String, required: true },
   slug: { type: String, required: true },
   pricing: {
-    type: {
+    type: [{
       interval: { type: String, enum: Object.values(PaymentProvider), required: true },
       amount: { type: Number, required: true },
       currency: { type: String, required: true },
-    },
+    }],
     required: true,
   },
   limits: {
@@ -45,7 +45,7 @@ const subscriptionSchemaDefinition: SchemaOf<SubscriptionSchemaType> = {
   currentPeriod: {
     type: {
       start: { type: Date, required: true },
-      end: { type: Date, required: true },
+      end: { type: Date, default: null },
     },
     required: true,
   },

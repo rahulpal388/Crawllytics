@@ -1,8 +1,14 @@
 import { Select } from "@repo/ui/components/dropdown/select";
 import { Dispatch, SetStateAction } from "react";
 import { SelectOptionsType } from "@repo/ui/components/dropdown/select";
-import { StatusType, ImpactType } from "@repo/contracts/apiContracts/apiResponse/issuesTypes";
-import { SeverityType, CategoryType } from "@repo/contracts/types/analysesTypes/DynamicRule.Type";
+import {
+  StatusType,
+  ImpactType,
+} from "@repo/contracts/apiContracts/apiResponse/issuesTypes";
+import {
+  SeverityType,
+  CategoryType,
+} from "@repo/contracts/types/analysesTypes/DynamicRule.Type";
 import { Button } from "@repo/ui/components/button";
 import { Download } from "lucide-react";
 

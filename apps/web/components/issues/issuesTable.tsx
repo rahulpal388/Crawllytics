@@ -24,7 +24,8 @@ const tableData: IssuesResponseType[] = issuesData.map((issue) => ({
   severity: issue.severity,
   category: issue.category,
   affectedPages: issue.affectedPages.count,
-  impact: issue.severity === "critical" || issue.severity === "high" ? "high" : "low",
+  impact:
+    issue.severity === "critical" || issue.severity === "high" ? "high" : "low",
   status: "open",
   actions: null,
 }));
